@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Livewire\Organizations;
+
+use App\Enums\OrganizationUserRole;
+use App\Models\Organization;
+use Livewire\Component;
+
+class Create extends Component
+{
+    public string $name = '';
+
+    protected function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+        ];
+    }
+
+    public function save(): mixed
+    {
+        $this->validate();
+
+        $organization = Organization::create([
+            'name' => $this->name,
+            'slug' => \Illuminate\Support\Str::slug($this->name),
+        ]);
+
+        auth()->user()->organizations()->attach($organization->id, [
+            'role' => OrganizationUserRole::Owner,
+        ]);
+
+        auth()->user()->update(['current_organization_id' => $organization->id]);
+        app(\App\Services\OrganizationContext::class)->set($organization);
+
+        return $this->redirect(route('dashboard'), navigate: true)
+            ->with('status', __('Organization created.'));
+    }
+
+    public function render()
+    {
+        return view('livewire.organizations.create');
+    }
+}

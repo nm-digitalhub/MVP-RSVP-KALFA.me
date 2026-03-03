@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
+  <!-- NM-DigitalHub Logo - White Version for Blue Background -->
+
+  <!-- Hexagon Container -->
+  <path d="M24 3 L39 11 L39 31 L24 39 L9 31 L9 11 Z"
+        stroke="#FFFFFF"
+        stroke-width="2"
+        fill="none"
+        stroke-linejoin="round"/>
+
+  <!-- NM Letters - Bold and Visible -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- N -->
+    <path d="M14 15 L14 27"/>
+    <path d="M14 15 L19 27"/>
+    <path d="M19 15 L19 27"/>
+
+    <!-- M -->
+    <path d="M22 27 L22 15"/>
+    <path d="M22 15 L25 23"/>
+    <path d="M25 23 L28 15"/>
+    <path d="M28 15 L28 27"/>
+  </g>
+
+  <!-- Pulse/Wave Line -->
+  <path d="M11 34 L13 34 L15 30 L17 34 L19 34 L21 29 L23 36 L25 32 L27 34 L29 34 L31 30 L33 34 L35 34"
+        stroke="#FFFFFF"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        opacity="0.95"/>
+
+  <!-- Small dot after pulse -->
+  <circle cx="37" cy="36" r="1.5" fill="#FFFFFF" opacity="0.95"/>
+</svg>
