@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\System\Organizations;
 
+use App\Enums\EventStatus;
 use App\Enums\OrganizationUserRole;
+use App\Models\Event;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\SystemAuditLogger;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -22,6 +27,8 @@ class Show extends Component
 
     public ?int $pendingUserId = null;
 
+    public ?int $pendingEventId = null;
+
     public string $confirmPassword = '';
 
     #[Layout('layouts.app')]
@@ -31,10 +38,11 @@ class Show extends Component
         $this->organization = $organization;
     }
 
-    public function requestAction(string $action, ?int $userId = null): void
+    public function requestAction(string $action, ?int $userId = null, ?int $eventId = null): void
     {
         $this->pendingAction = $action;
         $this->pendingUserId = $userId;
+        $this->pendingEventId = $eventId;
         $this->confirmPassword = '';
         $this->resetValidation();
     }
@@ -43,6 +51,7 @@ class Show extends Component
     {
         $this->pendingAction = null;
         $this->pendingUserId = null;
+        $this->pendingEventId = null;
         $this->confirmPassword = '';
     }
 
@@ -51,15 +60,24 @@ class Show extends Component
         $this->validate(['confirmPassword' => 'required|string']);
         if (! Hash::check($this->confirmPassword, auth()->user()->getAuthPassword())) {
             $this->addError('confirmPassword', __('The provided password is incorrect.'));
+
             return;
         }
         $action = $this->pendingAction;
         $userId = $this->pendingUserId;
+        $eventId = $this->pendingEventId;
         $this->pendingAction = null;
         $this->pendingUserId = null;
+        $this->pendingEventId = null;
         $this->confirmPassword = '';
         if ($action === 'transferOwnership' && $userId) {
             $this->executeTransferOwnership($userId);
+
+            return;
+        }
+        if ($action === 'setEventActive' && $eventId) {
+            $this->setEventActive($eventId);
+
             return;
         }
         match ($action) {
@@ -114,6 +132,7 @@ class Show extends Component
                 SystemAuditLogger::log(auth()->user(), 'organization.force_delete_blocked', $this->organization, ['reason' => 'referential_integrity']);
                 session()->flash('error', __('Cannot delete organization: it has related payments or other linked data.'));
                 $this->redirect(route('system.organizations.show', $this->organization), navigate: true);
+
                 return;
             }
             throw $e;
@@ -129,16 +148,35 @@ class Show extends Component
         $this->organization->refresh();
     }
 
-    public function render()
+    protected function setEventActive(int $eventId): void
+    {
+        $event = Event::where('organization_id', $this->organization->id)->find($eventId);
+        if (! $event) {
+            return;
+        }
+        $previousStatus = $event->status?->value;
+        $event->update(['status' => EventStatus::Active]);
+        SystemAuditLogger::log(
+            actor: auth()->user(),
+            action: 'event.set_active',
+            target: $event,
+            metadata: ['previous_status' => $previousStatus],
+        );
+        $this->organization->refresh();
+    }
+
+    public function render(): View
     {
         $organization = $this->organization;
         $owner = $organization->owner();
         $membersCount = $organization->users()->count();
+        $members = $organization->users()->orderBy('name')->get();
         $events = $organization->events()->latest('event_date')->paginate(10);
 
         return view('livewire.system.organizations.show', [
             'owner' => $owner,
             'membersCount' => $membersCount,
+            'members' => $members,
             'events' => $events,
         ]);
     }

@@ -14,6 +14,7 @@ class EventBilling extends Model
     protected $table = 'events_billing';
 
     protected $fillable = [
+        'account_id',
         'organization_id',
         'event_id',
         'plan_id',
@@ -30,6 +31,11 @@ class EventBilling extends Model
             'status' => EventBillingStatus::class,
             'paid_at' => 'datetime',
         ];
+    }
+
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
     }
 
     public function organization(): BelongsTo

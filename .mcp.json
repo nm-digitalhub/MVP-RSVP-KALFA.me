@@ -1,0 +1,19 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "php",
+            "args": [
+                "artisan",
+                "boost:mcp"
+            ]
+        },
+        "mediaProcessor": {
+            "command": "npx",
+            "args": ["-y", "create-mcp-server@latest"]
+        },
+        "mcp-copy-web-ui": {
+            "command": "npx",
+            "args": ["-y", "mcp-copy-web-ui"]
+        }
+    }
+}

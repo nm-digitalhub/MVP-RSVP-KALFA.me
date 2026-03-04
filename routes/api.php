@@ -2,12 +2,12 @@
 
 use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\EventController;
-use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\EventTableController;
 use App\Http\Controllers\Api\GuestController;
 use App\Http\Controllers\Api\GuestImportController;
 use App\Http\Controllers\Api\InvitationController;
 use App\Http\Controllers\Api\OrganizationController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PublicRsvpController;
 use App\Http\Controllers\Api\SeatAssignmentController;
 use App\Http\Controllers\Api\WebhookController;
@@ -60,8 +60,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('payments/{payment}', [PaymentController::class, 'show'])->name('payments.show');
 });
 
-Route::middleware('throttle:rsvp_show')->get('rsvp/{slug}', [PublicRsvpController::class, 'showBySlug'])->name('rsvp.show');
-Route::middleware('throttle:rsvp_submit')->post('rsvp/{slug}/responses', [PublicRsvpController::class, 'storeResponse'])->name('rsvp.responses.store');
+Route::middleware('throttle:rsvp_show')->get('rsvp/{slug}', [PublicRsvpController::class, 'showBySlug'])->name('api.rsvp.show');
+Route::middleware('throttle:rsvp_submit')->post('rsvp/{slug}/responses', [PublicRsvpController::class, 'storeResponse'])->name('api.rsvp.responses.store');
 
 Route::get('webhooks/{gateway}', fn (string $gateway) => response()->json([
     'error' => 'Method Not Allowed',

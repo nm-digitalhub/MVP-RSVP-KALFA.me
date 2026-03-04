@@ -22,8 +22,7 @@ $maxWidthClasses = [
     x-on:keydown.escape.window="show = false"
     x-show="show"
     x-cloak
-    class="fixed inset-0 z-50 overflow-y-auto"
-    style="display: none;"
+    class="fixed inset-0 z-50 overflow-y-auto hidden"
 >
     <div x-show="show" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" x-on:click="show = false"></div>
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">

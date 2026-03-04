@@ -7,7 +7,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Api\StoreRsvpResponseRequest;
 use App\Models\Invitation;
 use App\Models\RsvpResponse;
+use App\Services\EventLinks;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -16,25 +18,26 @@ use Illuminate\View\View;
  */
 class PublicRsvpViewController extends Controller
 {
-    public function show(string $slug): View
+    public function show(string $slug): View|Response
     {
         $invitation = Invitation::where('slug', $slug)->with(['event', 'guest'])->firstOrFail();
 
         if ($invitation->event->status !== \App\Enums\EventStatus::Active) {
-            abort(404, 'Event not available.');
+            return response()->view('rsvp.event-not-available', [], 404);
         }
 
         return view('rsvp.show', [
             'invitation' => $invitation,
+            'eventLinks' => app(EventLinks::class),
         ]);
     }
 
-    public function store(StoreRsvpResponseRequest $request, string $slug): RedirectResponse
+    public function store(StoreRsvpResponseRequest $request, string $slug): RedirectResponse|Response
     {
         $invitation = Invitation::where('slug', $slug)->with('event')->firstOrFail();
 
         if ($invitation->event->status !== \App\Enums\EventStatus::Active) {
-            abort(404, 'Event not available.');
+            return response()->view('rsvp.event-not-available', [], 404);
         }
 
         $validated = $request->validated();

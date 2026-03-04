@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -17,7 +20,7 @@ class Dashboard extends Component
         return null;
     }
 
-    public function render()
+    public function render(): View
     {
         $organization = auth()->user()->currentOrganization();
         $events = $organization

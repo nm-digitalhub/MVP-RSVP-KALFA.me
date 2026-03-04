@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Profile;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -38,7 +41,7 @@ class UpdatePasswordForm extends Component
         $this->dispatch('password-updated');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.profile.update-password-form');
     }

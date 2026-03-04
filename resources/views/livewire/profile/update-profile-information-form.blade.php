@@ -26,7 +26,7 @@
                     <p class="text-sm mt-2 text-gray-800">
                         {{ __('Your email address is unverified.') }}
 
-                        <button wire:click.prevent="sendVerification" type="button" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button wire:click.prevent="sendVerification" type="button" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 min-h-[44px] inline-flex items-center cursor-pointer transition-colors duration-200">
                             {{ __('Click here to re-send the verification email.') }}
                         </button>
                     </p>

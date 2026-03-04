@@ -6,12 +6,14 @@ namespace App\Models;
 
 use App\Enums\OrganizationUserRole;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
 {
     protected $fillable = [
+        'account_id',
         'name',
         'slug',
         'billing_email',
@@ -25,6 +27,11 @@ class Organization extends Model
             'settings' => 'array',
             'is_suspended' => 'boolean',
         ];
+    }
+
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
     }
 
     public function users(): BelongsToMany

@@ -10,58 +10,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>תשלום — {{ config('app.name') }}</title>
+    @vite(['resources/css/app.css'])
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
     <script src="https://app.sumit.co.il/scripts/payments.js"></script>
-    <style>
-        body { font-family: system-ui, sans-serif; max-width: 420px; margin: 2rem auto; padding: 0 1rem; }
-        .form-group { margin-bottom: 1rem; }
-        label { display: block; font-weight: 500; margin-bottom: 0.25rem; }
-        input, select { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 6px; }
-        button { width: 100%; padding: 0.75rem; background: #4f46e5; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; }
-        button:disabled { opacity: 0.6; cursor: not-allowed; }
-        .error { color: #b91c1c; font-size: 0.875rem; margin-top: 0.25rem; }
-        .success { color: #059669; margin-top: 1rem; }
-    </style>
 </head>
-<body>
-    <h1>תשלום אירוע</h1>
-    <p>{{ $event->name }} — {{ number_format($plan->price_cents / 100, 2) }} ₪</p>
+<body class="font-sans text-gray-900 max-w-[420px] mx-auto my-8 px-4">
+    <h1 class="text-xl font-semibold">תשלום אירוע</h1>
+    <p class="mt-1 text-sm text-gray-600">{{ $event->name }} — {{ number_format($plan->price_cents / 100, 2) }} ₪</p>
 
-    <form id="checkout-form" data-og="form" method="post" action="#">
+    <form id="checkout-form" data-og="form" method="post" action="#" class="mt-6 space-y-4">
         @csrf
         <input type="hidden" name="plan_id" value="{{ $plan->id }}">
 
-        <div class="form-group">
-            <label for="og-ccnum">מספר כרטיס *</label>
-            <input type="text" id="og-ccnum" name="og-ccnum" placeholder="•••• •••• •••• ••••" maxlength="19" inputmode="numeric" autocomplete="cc-number" required>
+        <div>
+            <label for="og-ccnum" class="block text-sm font-medium text-gray-700 mb-1">מספר כרטיס *</label>
+            <input type="text" id="og-ccnum" name="og-ccnum" placeholder="•••• •••• •••• ••••" maxlength="19" inputmode="numeric" autocomplete="cc-number" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
         </div>
-        <div class="form-group">
-            <label for="og-expmonth">חודש תפוגה *</label>
-            <select id="og-expmonth" name="og-expmonth" required>
+        <div>
+            <label for="og-expmonth" class="block text-sm font-medium text-gray-700 mb-1">חודש תפוגה *</label>
+            <select id="og-expmonth" name="og-expmonth" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
                 <option value="">חודש</option>
                 @for($i = 1; $i <= 12; $i++)
                     <option value="{{ str_pad((string)$i, 2, '0', STR_PAD_LEFT) }}">{{ str_pad((string)$i, 2, '0', STR_PAD_LEFT) }}</option>
                 @endfor
             </select>
         </div>
-        <div class="form-group">
-            <label for="og-expyear">שנת תפוגה *</label>
-            <select id="og-expyear" name="og-expyear" required>
+        <div>
+            <label for="og-expyear" class="block text-sm font-medium text-gray-700 mb-1">שנת תפוגה *</label>
+            <select id="og-expyear" name="og-expyear" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
                 <option value="">שנה</option>
                 @for($i = 0; $i <= 15; $i++)
                     <option value="{{ (string)(date('Y') + $i) }}">{{ date('Y') + $i }}</option>
                 @endfor
             </select>
         </div>
-        <div class="form-group">
-            <label for="og-ccv">CVV *</label>
-            <input type="text" id="og-ccv" name="og-ccv" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc" required>
+        <div>
+            <label for="og-ccv" class="block text-sm font-medium text-gray-700 mb-1">CVV *</label>
+            <input type="text" id="og-ccv" name="og-ccv" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
         </div>
 
-        <div id="checkout-error" class="error" role="alert" style="display: none;"></div>
-        <div id="checkout-success" class="success" style="display: none;"></div>
+        <div id="checkout-error" class="hidden text-sm text-red-600 mt-1" role="alert"></div>
+        <div id="checkout-success" class="hidden text-sm text-green-600 mt-4"></div>
 
-        <button type="submit" id="pay-btn">שלם {{ number_format($plan->price_cents / 100, 2) }} ₪</button>
+        <button type="submit" id="pay-btn" class="w-full min-h-[44px] px-4 py-3 bg-indigo-600 text-white text-base font-medium rounded-lg cursor-pointer hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed">
+            שלם {{ number_format($plan->price_cents / 100, 2) }} ₪
+        </button>
     </form>
 
     <script>
@@ -98,9 +91,12 @@
         check();
     }
 
+    function showEl(el) { el.classList.remove('hidden'); }
+    function hideEl(el) { el.classList.add('hidden'); }
+
     if (typeof OfficeGuy === 'undefined' || !OfficeGuy.Payments || !OfficeGuy.Payments.BindFormSubmit) {
         errEl.textContent = 'שגיאה בטעינת מערכת התשלום. נא לרענן את הדף.';
-        errEl.style.display = 'block';
+        showEl(errEl);
         return;
     }
 
@@ -112,14 +108,14 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         payBtn.disabled = true;
-        errEl.style.display = 'none';
+        hideEl(errEl);
         errEl.textContent = '';
-        okEl.style.display = 'none';
+        hideEl(okEl);
 
         waitForToken(function(err, tokenValue) {
             if (err) {
                 errEl.textContent = 'לא התקבל אסימון תשלום. נסה שוב.';
-                errEl.style.display = 'block';
+                showEl(errEl);
                 payBtn.disabled = false;
                 return;
             }
@@ -137,17 +133,17 @@
             .then(function(res) {
                 if (res.ok && res.data.status === 'processing') {
                     okEl.textContent = 'התשלום התקבל, מאושר כעת…';
-                    okEl.style.display = 'block';
-                    form.style.display = 'none';
+                    showEl(okEl);
+                    form.classList.add('hidden');
                 } else {
                     errEl.textContent = res.data.message || res.data.error || 'התשלום נכשל. נסה שוב.';
-                    errEl.style.display = 'block';
+                    showEl(errEl);
                     payBtn.disabled = false;
                 }
             })
             .catch(function() {
                 errEl.textContent = 'שגיאת תקשורת. נסה שוב.';
-                errEl.style.display = 'block';
+                showEl(errEl);
                 payBtn.disabled = false;
             });
         });

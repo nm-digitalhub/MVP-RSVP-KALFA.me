@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\System\Users;
 
 use App\Models\Event;
 use App\Models\User;
 use App\Services\SystemAuditLogger;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -45,6 +48,7 @@ class Show extends Component
         $this->validate(['confirmPassword' => 'required|string']);
         if (! Hash::check($this->confirmPassword, auth()->user()->getAuthPassword())) {
             $this->addError('confirmPassword', __('The provided password is incorrect.'));
+
             return;
         }
         $action = $this->pendingAction;
@@ -61,7 +65,7 @@ class Show extends Component
         $this->user->refresh();
     }
 
-    public function render()
+    public function render(): View
     {
         $this->user->load('organizations');
         $eventsCount = Event::whereIn('organization_id', $this->user->organizations()->pluck('organizations.id'))->count();

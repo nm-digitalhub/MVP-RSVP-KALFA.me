@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Profile;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -55,7 +58,7 @@ class UpdateProfileInformationForm extends Component
         Session::flash('status', 'verification-link-sent');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.profile.update-profile-information-form');
     }

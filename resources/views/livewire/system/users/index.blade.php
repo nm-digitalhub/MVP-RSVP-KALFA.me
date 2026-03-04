@@ -53,7 +53,7 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($users as $u)
-                        <tr>
+                        <tr wire:key="user-{{ $u->id }}">
                             <td class="px-4 py-3 text-sm font-medium text-gray-900">
                                 <a href="{{ route('system.users.show', $u) }}" class="text-indigo-600 hover:text-indigo-900">{{ $u->name }}</a>
                             </td>

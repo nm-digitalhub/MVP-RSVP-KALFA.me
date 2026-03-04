@@ -1,0 +1,24 @@
+{
+    "agents": [
+        "cursor",
+        "claude_code",
+        "codex",
+        "gemini"
+    ],
+    "guidelines": true,
+    "herd_mcp": false,
+    "mcp": true,
+    "nightwatch_mcp": false,
+    "sail": false,
+    "skills": [
+        "livewire-development",
+        "tailwindcss-development",
+        "ai-sdk-development",
+        "api-resource-patterns",
+        "brainstorming-laravel",
+        "eloquent-best-practices",
+        "laravel-tdd",
+        "systematic-debugging-laravel",
+        "ui-ux-pro-max"
+    ]
+}
