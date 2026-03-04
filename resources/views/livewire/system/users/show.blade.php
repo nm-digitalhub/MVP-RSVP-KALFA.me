@@ -39,7 +39,7 @@
             <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">{{ __('Organizations list') }}</h2>
             <ul class="space-y-1 text-sm text-gray-700">
                 @forelse($user->organizations as $org)
-                    <li>
+                    <li wire:key="org-{{ $org->id }}">
                         <a href="{{ route('system.organizations.show', $org) }}" class="text-indigo-600 hover:text-indigo-900">{{ $org->name }}</a>
                         <span class="text-gray-500">({{ is_object($org->pivot->role) ? $org->pivot->role->value : $org->pivot->role }})</span>
                     </li>

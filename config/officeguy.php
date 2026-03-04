@@ -103,7 +103,8 @@ return [
     */
     'customer_merging_enabled' => env('OFFICEGUY_CUSTOMER_MERGING_ENABLED', false),
     'customer_local_sync_enabled' => env('OFFICEGUY_CUSTOMER_LOCAL_SYNC_ENABLED', false),
-    'customer_model_class' => env('OFFICEGUY_CUSTOMER_MODEL_CLASS', 'App\\Models\\Organization'),
+    // Single source of truth: domain models (do not set via .env)
+    'customer_model_class' => 'App\\Models\\Organization',
 
     /*
     |--------------------------------------------------------------------------
@@ -111,12 +112,12 @@ return [
     |--------------------------------------------------------------------------
     |
     | Configure the model classes used by the package.
-    | These should be class-strings pointing to your Eloquent models.
+    | Single source of truth: defined here, not in .env.
     |
     */
     'models' => [
-        'customer' => env('OFFICEGUY_CUSTOMER_MODEL', 'App\\Models\\Organization'),
-        'order' => env('OFFICEGUY_ORDER_MODEL', 'App\\Models\\EventBilling'),
+        'customer' => 'App\\Models\\Organization',
+        'order' => 'App\\Models\\EventBilling',
     ],
 
     /*
@@ -289,7 +290,7 @@ return [
     */
     'order' => [
         'resolver' => null, // fn(string|int $orderId): ?Payable
-        'model' => env('OFFICEGUY_ORDER_MODEL', 'App\\Models\\EventBilling'),
+        'model' => 'App\\Models\\EventBilling',
     ],
 
     /*
@@ -369,7 +370,7 @@ return [
         'ILS', 'USD', 'EUR', 'CAD', 'GBP', 'CHF', 'AUD', 'JPY', 'SEK', 'NOK',
         'DKK', 'ZAR', 'JOD', 'LBP', 'EGP', 'BGN', 'CZK', 'HUF', 'PLN', 'RON',
         'ISK', 'HRK', 'RUB', 'TRY', 'BRL', 'CNY', 'HKD', 'IDR', 'INR', 'KRW',
-        'MXN', 'MYR', 'NZD', 'PHP', 'SGD', 'THB'
+        'MXN', 'MYR', 'NZD', 'PHP', 'SGD', 'THB',
     ],
 
     /*

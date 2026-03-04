@@ -28,6 +28,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => view('pages.dashboard'))->name('dashboard');
     Route::get('/organizations', fn () => view('pages.organizations.index'))->name('organizations.index');
     Route::get('/organizations/create', fn () => view('pages.organizations.create'))->name('organizations.create');
+    Route::middleware('ensure.organization')->group(function () {
+        Route::get('/organization/settings', [\App\Http\Controllers\Dashboard\OrganizationSettingsController::class, 'edit'])->name('dashboard.organization-settings.edit');
+        Route::put('/organization/settings', [\App\Http\Controllers\Dashboard\OrganizationSettingsController::class, 'update'])->name('dashboard.organization-settings.update');
+    });
     Route::get('/profile', fn () => view('profile'))->name('profile');
     Route::post('/organizations/switch/{organization}', [\App\Http\Controllers\OrganizationSwitchController::class, '__invoke'])
         ->name('organizations.switch')
@@ -36,9 +40,38 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Organization-scoped routes (require active organization)
     Route::middleware('ensure.organization')->group(function () {
         Route::get('dashboard/events', [\App\Http\Controllers\Dashboard\DashboardController::class, 'index'])->name('dashboard.events.index');
+        Route::get('dashboard/events/create', [\App\Http\Controllers\Dashboard\EventController::class, 'create'])->name('dashboard.events.create');
+        Route::post('dashboard/events', [\App\Http\Controllers\Dashboard\EventController::class, 'store'])->name('dashboard.events.store');
         Route::get('dashboard/events/{event}', [\App\Http\Controllers\Dashboard\EventController::class, 'show'])
             ->name('dashboard.events.show')
             ->scopeBindings();
+        Route::get('dashboard/events/{event}/edit', [\App\Http\Controllers\Dashboard\EventController::class, 'edit'])
+            ->name('dashboard.events.edit')
+            ->scopeBindings();
+        Route::put('dashboard/events/{event}', [\App\Http\Controllers\Dashboard\EventController::class, 'update'])
+            ->name('dashboard.events.update')
+            ->scopeBindings();
+        Route::delete('dashboard/events/{event}', [\App\Http\Controllers\Dashboard\EventController::class, 'destroy'])
+            ->name('dashboard.events.destroy')
+            ->scopeBindings();
+        Route::get('dashboard/events/{event}/guests', [\App\Http\Controllers\Dashboard\EventGuestsController::class, 'index'])
+            ->name('dashboard.events.guests.index')
+            ->scopeBindings();
+        Route::get('dashboard/events/{event}/tables', [\App\Http\Controllers\Dashboard\EventTablesController::class, 'index'])
+            ->name('dashboard.events.tables.index')
+            ->scopeBindings();
+        Route::get('dashboard/events/{event}/invitations', [\App\Http\Controllers\Dashboard\EventInvitationsController::class, 'index'])
+            ->name('dashboard.events.invitations.index')
+            ->scopeBindings();
+        Route::get('dashboard/events/{event}/seat-assignments', [\App\Http\Controllers\Dashboard\EventSeatAssignmentsController::class, 'index'])
+            ->name('dashboard.events.seat-assignments.index')
+            ->scopeBindings();
+
+        // Billing & Entitlements (tenant, org-scoped)
+        Route::get('billing', fn () => view('pages.billing.account'))->name('billing.account');
+        Route::get('billing/entitlements', fn () => view('pages.billing.entitlements'))->name('billing.entitlements');
+        Route::get('billing/usage', fn () => view('pages.billing.usage'))->name('billing.usage');
+        Route::get('billing/intents', fn () => view('pages.billing.intents'))->name('billing.intents');
     });
 });
 
@@ -46,11 +79,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::prefix('system')
     ->middleware(['auth', 'verified', 'system.admin'])
     ->group(function () {
-        Route::get('/dashboard', \App\Livewire\System\Dashboard::class)->name('system.dashboard');
-        Route::get('/organizations', \App\Livewire\System\Organizations\Index::class)->name('system.organizations.index');
-        Route::get('/organizations/{organization}', \App\Livewire\System\Organizations\Show::class)->name('system.organizations.show')->scopeBindings();
-        Route::get('/users', \App\Livewire\System\Users\Index::class)->name('system.users.index');
-        Route::get('/users/{user}', \App\Livewire\System\Users\Show::class)->name('system.users.show')->scopeBindings();
+        Route::livewire('/dashboard', \App\Livewire\System\Dashboard::class)->name('system.dashboard');
+        Route::livewire('/organizations', \App\Livewire\System\Organizations\Index::class)->name('system.organizations.index');
+        Route::livewire('/organizations/{organization}', \App\Livewire\System\Organizations\Show::class)->name('system.organizations.show')->scopeBindings();
+        Route::livewire('/users', \App\Livewire\System\Users\Index::class)->name('system.users.index');
+        Route::livewire('/users/{user}', \App\Livewire\System\Users\Show::class)->name('system.users.show')->scopeBindings();
+        Route::livewire('/accounts', \App\Livewire\System\Accounts\Index::class)->name('system.accounts.index');
+        Route::livewire('/accounts/{account}', \App\Livewire\System\Accounts\Show::class)->name('system.accounts.show')->scopeBindings();
         Route::post('/impersonate/{organization}', [\App\Http\Controllers\System\SystemImpersonationController::class, '__invoke'])
             ->name('system.impersonate')
             ->scopeBindings();

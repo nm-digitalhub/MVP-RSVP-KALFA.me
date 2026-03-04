@@ -2,33 +2,25 @@
  * Event SaaS App Entry — Alpine.js + Tailwind
  */
 
+import './bootstrap'
+import 'flowbite'
+
 import $ from 'jquery'
 window.$ = window.jQuery = $
 
-import './bootstrap';
+import Cropper from 'cropperjs'
 
-import 'flowbite';
+import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm'
+import Clipboard from '@ryangjchandler/alpine-clipboard'
 
-import Alpine from 'alpinejs'
-window.Alpine = Alpine
+Alpine.plugin(Clipboard)
 
-// Livewire 3.x: Alpine is loaded; Livewire will start it.
-window.__alpineAlreadyLoaded = true
+document.addEventListener('DOMContentLoaded', () => {
+    const image = document.getElementById('image')
 
-if (!window.__alpineInitialized) {
-    window.__alpineInitialized = true
-    const originalWarn = console.warn
-    console.warn = function (...args) {
-        if (args[0]?.includes?.('multiple instances of Alpine')) return
-        originalWarn.apply(console, args)
+    if (image) {
+        new Cropper(image)
     }
-    document.addEventListener('alpine:init', () => {
-        if (import.meta.env.DEV) console.log('✅ Alpine.js initialized')
-    })
-    window.addEventListener('error', (e) => {
-        if (e.message?.includes('Alpine')) console.error('❌ Alpine Error:', e.message)
-    })
-    if (import.meta.env.DEV) console.log('🟢 Alpine.js loaded (waiting for Livewire to start it)')
-} else {
-    if (import.meta.env.DEV) console.warn('⚠️ Alpine already initialized (HMR reload detected)')
-}
+})
+
+Livewire.start()

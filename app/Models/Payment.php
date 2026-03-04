@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 class Payment extends Model
 {
     protected $fillable = [
+        'account_id',
         'organization_id',
         'payable_type',
         'payable_id',
@@ -30,6 +31,11 @@ class Payment extends Model
             'status' => PaymentStatus::class,
             'gateway_response' => 'array',
         ];
+    }
+
+    public function account(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
     }
 
     public function organization(): BelongsTo

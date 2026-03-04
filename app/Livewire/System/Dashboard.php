@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\System;
 
 use App\Models\Event;
@@ -7,6 +9,7 @@ use App\Models\Guest;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\OfficeGuy\SystemBillingService;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -15,7 +18,7 @@ class Dashboard extends Component
 {
     #[Layout('layouts.app')]
     #[Title('System Dashboard')]
-    public function render()
+    public function render(): View
     {
         $totalOrganizations = Organization::count();
         $totalUsers = User::count();

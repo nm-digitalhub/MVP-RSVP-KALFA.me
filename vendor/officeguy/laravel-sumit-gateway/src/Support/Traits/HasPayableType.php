@@ -1,0 +1,175 @@
+<?php
+
+declare(strict_types=1);
+
+namespace OfficeGuy\LaravelSumitGateway\Support\Traits;
+
+use OfficeGuy\LaravelSumitGateway\Enums\PayableType;
+
+/**
+ * HasPayableType Trait
+ *
+ * Provides default implementation for Payable::getPayableType()
+ * and helper methods for type-based logic.
+ *
+ * @since 1.10.0
+ */
+trait HasPayableType
+{
+    /**
+     * Default implementation - returns GENERIC
+     *
+     * Override this method in your model for specific types:
+     *
+     * public function getPayableType(): PayableType
+     * {
+     *     return match($this->service_type ?? '') {
+     *         'type_a' => PayableType::GENERIC,
+     *         default => PayableType::GENERIC,
+     *     };
+     * }
+     */
+    public function getPayableType(): PayableType
+    {
+        return PayableType::GENERIC;
+    }
+
+    /**
+     * Get checkout template for this payable
+     *
+     * Returns the template name from PayableType. View selection is host-owned via config (officeguy.checkout.view_resolver).
+     */
+    public function getCheckoutTemplate(): string
+    {
+        return $this->getPayableType()->checkoutTemplate();
+    }
+
+    /**
+     * Get required fields based on payable type
+     *
+     * Returns array of field names that must be collected during checkout.
+     *
+     * @return array<string>
+     */
+    public function getRequiredFields(): array
+    {
+        $base = ['customer_name', 'email'];
+
+        $type = $this->getPayableType();
+
+        if ($type->requiresPhone()) {
+            $base[] = 'phone';
+        }
+
+        if ($type->requiresAddress()) {
+            return array_merge($base, [
+                'address',
+                'city',
+                'postal_code',
+                'country',
+            ]);
+        }
+
+        return $base;
+    }
+
+    /**
+     * Get validation rules based on payable type
+     *
+     * @return array<string, string|array>
+     */
+    public function getValidationRules(): array
+    {
+        $rules = [
+            'customer_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ];
+
+        $type = $this->getPayableType();
+
+        if ($type->requiresPhone()) {
+            $rules['phone'] = 'required|string|max:20';
+        }
+
+        if ($type->requiresAddress()) {
+            $rules += [
+                'address' => 'required|string|max:500',
+                'city' => 'required|string|max:255',
+                'country' => 'required|string|size:2',
+                'postal_code' => 'nullable|string|max:20',
+            ];
+        }
+
+        return $rules;
+    }
+
+    /**
+     * Get success message based on payable type
+     */
+    public function getSuccessMessage(): string
+    {
+        return match ($this->getPayableType()) {
+            PayableType::INFRASTRUCTURE => __('Your service has been provisioned successfully! Setup may take up to 60 minutes.'),
+            PayableType::DIGITAL_PRODUCT => __('Your purchase has been completed! Check your email for delivery.'),
+            PayableType::SUBSCRIPTION => __('Your subscription is now active! You will be charged automatically.'),
+            PayableType::SERVICE => __('Your service order has been received! We will contact you shortly.'),
+            PayableType::GENERIC => __('Payment completed successfully!'),
+        };
+    }
+
+    /**
+     * Check if this payable requires address information
+     */
+    public function requiresAddress(): bool
+    {
+        return $this->getPayableType()->requiresAddress();
+    }
+
+    /**
+     * Check if this payable requires phone number
+     */
+    public function requiresPhone(): bool
+    {
+        return $this->getPayableType()->requiresPhone();
+    }
+
+    /**
+     * Check if this payable supports instant delivery
+     */
+    public function isInstantDelivery(): bool
+    {
+        return $this->getPayableType()->isInstantDelivery();
+    }
+
+    /**
+     * Get estimated fulfillment time in minutes
+     */
+    public function getEstimatedFulfillmentMinutes(): int
+    {
+        return $this->getPayableType()->estimatedFulfillmentMinutes();
+    }
+
+    /**
+     * Get human-readable type label
+     */
+    public function getTypeLabel(): string
+    {
+        return $this->getPayableType()->label();
+    }
+
+    /**
+     * Get icon name for this payable type
+     */
+    public function getTypeIcon(): string
+    {
+        return $this->getPayableType()->icon();
+    }
+
+    /**
+     * Get color for this payable type (Filament color name)
+     */
+    public function getTypeColor(): string
+    {
+        return $this->getPayableType()->color();
+    }
+}

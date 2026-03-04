@@ -7,14 +7,21 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "blade-ui-kit/blade-heroicons": "^2.6",
+        "daikazu/robotstxt": "^1.0",
+        "erag/laravel-pwa": "^1.9",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.3",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^4.0",
-        "officeguy/laravel-sumit-gateway": "5.0.0-rc1"
+        "officeguy/laravel-sumit-gateway": "v5.0.0-rc1",
+        "pusher/pusher-php-server": "^7.2",
+        "spatie/calendar-links": "^1.11",
+        "spatie/laravel-medialibrary": "^11.21"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/boost": "^2.2",
         "laravel/breeze": "^2.3",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",

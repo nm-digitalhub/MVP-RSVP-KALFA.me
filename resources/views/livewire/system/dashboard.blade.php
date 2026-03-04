@@ -67,8 +67,8 @@
                 <h2 class="text-lg font-medium text-gray-900">{{ __('Recent Organizations') }}</h2>
             </div>
             <ul class="divide-y divide-gray-200">
-                @forelse($recentOrganizations ?? [] as $org)
-                    <li class="px-4 py-3 text-sm text-gray-700">{{ $org->name }} <span class="text-gray-500">— {{ $org->created_at?->format('Y-m-d') }}</span></li>
+                @forelse(($recentOrganizations ?? []) as $org)
+                    <li wire:key="org-{{ $org->id }}" class="px-4 py-3 text-sm text-gray-700">{{ $org->name }} <span class="text-gray-500">— {{ $org->created_at?->format('Y-m-d') }}</span></li>
                 @empty
                     <li class="px-4 py-6 text-sm text-gray-500 text-center">{{ __('No organizations yet.') }}</li>
                 @endforelse
@@ -81,8 +81,8 @@
                 <h2 class="text-lg font-medium text-gray-900">{{ __('Recent Users') }}</h2>
             </div>
             <ul class="divide-y divide-gray-200">
-                @forelse($recentUsers ?? [] as $u)
-                    <li class="px-4 py-3 text-sm text-gray-700">{{ $u->name }} ({{ $u->email }}) <span class="text-gray-500">— {{ $u->created_at?->format('Y-m-d') }}</span></li>
+                @forelse(($recentUsers ?? []) as $u)
+                    <li wire:key="user-{{ $u->id }}" class="px-4 py-3 text-sm text-gray-700">{{ $u->name }} ({{ $u->email }}) <span class="text-gray-500">— {{ $u->created_at?->format('Y-m-d') }}</span></li>
                 @empty
                     <li class="px-4 py-6 text-sm text-gray-500 text-center">{{ __('No users yet.') }}</li>
                 @endforelse

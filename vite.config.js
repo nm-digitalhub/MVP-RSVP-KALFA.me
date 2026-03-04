@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 export default defineConfig({
-  logLevel: 'warn',
+  logLevel: 'info',
   resolve: {
     alias: { '@': path.resolve(__dirname, 'resources/js') },
   },

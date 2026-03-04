@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Organizations;
 
 use App\Enums\OrganizationUserRole;
 use App\Models\Organization;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class Create extends Component
@@ -37,7 +40,7 @@ class Create extends Component
             ->with('status', __('Organization created.'));
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.organizations.create');
     }

@@ -3,9 +3,12 @@
 @section('title', __('Dashboard'))
 
 @section('content')
-<div class="min-h-screen bg-[#F9FAFB] py-12 px-4">
+<div class="min-h-screen bg-gray-50 py-12 px-4">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
+            @if(session('success'))
+                <div class="mb-4 rounded-md bg-green-50 p-4 text-sm text-green-800">{{ session('success') }}</div>
+            @endif
             <h1 class="text-2xl font-semibold text-gray-900">{{ $organization->name }}</h1>
             <p class="mt-1 text-sm text-gray-500">{{ __('Dashboard') }}</p>
         </div>
@@ -22,6 +25,7 @@
                             <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Date') }}</th>
                             <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Event status') }}</th>
                             <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Guests count') }}</th>
+                            <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -40,14 +44,17 @@
                                             @case('cancelled') bg-red-100 text-red-800 @break
                                             @default bg-gray-100 text-gray-800
                                         @endswitch">
-                                        {{ $event->status->value ?? __('—') }}
+                                        {{ $event->status?->value ? __($event->status->value) : __('—') }}
                                     </span>
                                 </td>
                                 <td class="px-4 py-3 text-sm text-gray-600">{{ $event->guests_count ?? 0 }}</td>
+                                <td class="px-4 py-3 text-sm">
+                                    <a href="{{ route('dashboard.events.show', $event) }}" class="text-indigo-600 hover:text-indigo-900">{{ __('View') }}</a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="px-4 py-8 text-center text-sm text-gray-500">{{ __('No events yet.') }}</td>
+                                <td colspan="5" class="px-4 py-8 text-center text-sm text-gray-500">{{ __('No events yet.') }}</td>
                             </tr>
                         @endforelse
                     </tbody>

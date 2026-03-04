@@ -1,0 +1,64 @@
+{
+    "name": "officeguy/laravel-sumit-gateway",
+    "description": "Laravel package for SUMIT payment gateway (core) - 1:1 port from WooCommerce (Laravel 12 Compatible)",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "laravel-12",
+        "payment",
+        "gateway",
+        "sumit",
+        "officeguy",
+        "credit-card",
+        "bit",
+        "israel"
+    ],
+    "license": "MIT",
+    "version": "5.0.0-rc1",
+    "authors": [
+        {
+            "name": "SUMIT",
+            "email": "support@sumit.co.il"
+        },
+        {
+            "name": "NM-DigitalHub",
+            "email": "info@nm-digitalhub.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "laravel/framework": "^12.0",
+        "saloonphp/saloon": "^3.14"
+    },
+    "require-dev": {
+        "knuckleswtf/scribe": "^5.6",
+        "laravel/pint": "^1.27",
+        "orchestra/testbench": "^10.0",
+        "phpunit/phpunit": "^11.0|^12.0",
+        "rector/rector": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "OfficeGuy\\LaravelSumitGateway\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "OfficeGuy\\LaravelSumitGateway\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OfficeGuy\\LaravelSumitGateway\\OfficeGuyServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true
+    }
+}

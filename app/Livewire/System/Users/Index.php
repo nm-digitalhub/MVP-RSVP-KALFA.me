@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\System\Users;
 
 use App\Models\User;
 use App\Services\SystemAuditLogger;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -45,7 +48,7 @@ class Index extends Component
         );
     }
 
-    public function render()
+    public function render(): View
     {
         $users = User::withCount('organizations')
             ->when($this->filter_system_admin === '1', fn ($q) => $q->where('is_system_admin', true))
@@ -56,8 +59,8 @@ class Index extends Component
             ->when($this->filter_suspended === '1', fn ($q) => $q->where('is_disabled', true))
             ->when($this->filter_suspended === '0', fn ($q) => $q->where('is_disabled', false))
             ->when($this->search !== '', fn ($q) => $q->where(function ($q) {
-                $q->where('name', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%');
+                $q->where('name', 'like', '%'.$this->search.'%')
+                    ->orWhere('email', 'like', '%'.$this->search.'%');
             }))
             ->latest()
             ->paginate(20);

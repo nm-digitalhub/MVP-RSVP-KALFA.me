@@ -10,5 +10,5 @@
     @if ($name) name="{{ $name }}" @endif
     rows="{{ $rows }}"
     placeholder="{{ $placeholder }}"
-    {{ $attributes->merge(['class' => 'w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:outline-none rtl:text-end border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white']) }}
+    {{ $attributes->merge(['class' => 'w-full rounded-lg border border-gray-300 px-4 py-2 shadow-sm transition-colors focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 rtl:text-end dark:border-gray-600 dark:bg-gray-800 dark:text-white']) }}
 >{{ $name ? old($name) : ($slot ?? '') }}</textarea>
