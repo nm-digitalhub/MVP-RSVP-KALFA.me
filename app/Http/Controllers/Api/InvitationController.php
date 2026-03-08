@@ -8,6 +8,7 @@ use App\Enums\InvitationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\Invitation;
+use App\Services\WhatsAppRsvpService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -34,7 +35,7 @@ class InvitationController extends Controller
         $invitation = $event->invitations()->create([
             'guest_id' => $validated['guest_id'] ?? null,
             'token' => Str::random(64),
-            'slug' => Str::slug(Str::random(12) . '-' . now()->timestamp),
+            'slug' => Str::slug(Str::random(12).'-'.now()->timestamp),
             'status' => InvitationStatus::Pending,
         ]);
 
@@ -42,9 +43,9 @@ class InvitationController extends Controller
     }
 
     /**
-     * Placeholder: send invitation (e.g. email link). No mail driver in MVP.
+     * Send invitation: optionally send WhatsApp with RSVP link, then mark as sent.
      */
-    public function send(Event $event, Invitation $invitation): JsonResponse
+    public function send(Request $request, Event $event, Invitation $invitation, WhatsAppRsvpService $whatsAppRsvp): JsonResponse
     {
         $this->authorize('update', $event);
 
@@ -52,11 +53,30 @@ class InvitationController extends Controller
             abort(404);
         }
 
+        $sendWhatsApp = $request->boolean('send_whatsapp');
+        $whatsappResult = null;
+
+        if ($sendWhatsApp) {
+            $whatsappResult = $whatsAppRsvp->sendRsvpLink($invitation);
+        }
+
         $invitation->update(['status' => InvitationStatus::Sent]);
 
-        return response()->json([
-            'message' => 'Invitation marked as sent. Configure mail driver to send link.',
+        $payload = [
+            'message' => 'Invitation marked as sent.',
             'invitation' => $invitation->fresh(),
-        ]);
+        ];
+
+        if ($sendWhatsApp && $whatsappResult !== null) {
+            $payload['whatsapp'] = [
+                'sent' => $whatsappResult['success'],
+                'sid' => $whatsappResult['sid'] ?? null,
+            ];
+            if (! empty($whatsappResult['error'])) {
+                $payload['whatsapp']['error'] = $whatsappResult['error'];
+            }
+        }
+
+        return response()->json($payload);
     }
 }

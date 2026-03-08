@@ -13,6 +13,7 @@ use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Pail\Handler as PailHandler;
+use Twilio\Rest\Client as TwilioClient;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,16 @@ class AppServiceProvider extends ServiceProvider
         $gateway = config('billing.default_gateway', 'stub');
         $implementation = $gateway === 'sumit' ? SumitPaymentGateway::class : StubPaymentGateway::class;
         $this->app->bind(PaymentGatewayInterface::class, $implementation);
+
+        $this->app->singleton(TwilioClient::class, function (): TwilioClient {
+            $sid = config('services.twilio.sid');
+            $token = config('services.twilio.token');
+            if (blank($sid) || blank($token)) {
+                throw new \RuntimeException('Twilio credentials not set (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN).');
+            }
+
+            return new TwilioClient((string) $sid, (string) $token);
+        });
 
         $this->wrapPailHandlerInProduction();
     }
