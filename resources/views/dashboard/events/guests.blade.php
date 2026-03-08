@@ -1,16 +1,12 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ __('Guests') }} — {{ $event->name }}</x-slot:title>
+    <x-slot:containerWidth>max-w-4xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="__('Guests')"
+            :subtitle="$event->name"
+        />
+    </x-slot:header>
 
-@section('title', __('Guests') . ' — ' . $event->name)
-
-@section('containerWidth', 'max-w-4xl')
-
-@section('header')
-    <x-page-header
-        :title="__('Guests')"
-        :subtitle="$event->name"
-    />
-@endsection
-
-@section('content')
     <livewire:dashboard.event-guests :event="$event" />
-@endsection
+</x-layouts.app>

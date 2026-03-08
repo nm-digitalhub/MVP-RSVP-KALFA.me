@@ -1,8 +1,6 @@
-@extends('layouts.guest')
+<x-layouts.guest>
+    <x-slot:title>שגיאת שרת - 500</x-slot:title>
 
-@section('title', 'שגיאת שרת - 500')
-
-@section('content')
     <section class="bg-white dark:bg-gray-900 min-h-screen flex items-center">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="mx-auto max-w-screen-md text-center">
@@ -112,7 +110,7 @@
                     </button>
 
                     <!-- Homepage Button -->
-                    <a href="{{ url('/') }}" class="group inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transform hover:-translate-y-0.5 transition-all duration-200 shadow-lg hover:shadow-xl">
+                    <a href="{{ route('home') }}" wire:navigate class="group inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transform hover:-translate-y-0.5 transition-all duration-200 shadow-lg hover:shadow-xl">
                         <svg class="w-5 h-5 ms-2 -me-1 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
                         </svg>
@@ -120,11 +118,11 @@
                     </a>
 
                     <!-- Contact Button -->
-                    <a href="{{ url('/contact') }}" class="group inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transform hover:-translate-y-0.5 transition-all duration-200 shadow-lg hover:shadow-xl">
+                    <a href="{{ route('login') }}" wire:navigate class="group inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transform hover:-translate-y-0.5 transition-all duration-200 shadow-lg hover:shadow-xl">
                         <svg class="w-5 h-5 me-2 -ms-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                         </svg>
-                        צור קשר
+                        {{ __('Log in') }}
                     </a>
                 </div>
 
@@ -276,4 +274,4 @@
             console.log('500 Error Page - Enhanced UI/UX with progress indicators loaded');
         });
     </script>
-@endsection
+</x-layouts.guest>

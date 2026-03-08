@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>שינוי סיסמה</x-slot:title>
 
-@section('title', 'שינוי סיסמה')
-
-@section('content')
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8" dir="rtl">
     <div class="max-w-md w-full space-y-8">
         <div>
@@ -271,4 +269,4 @@ document.getElementById('password-change-form').addEventListener('submit', funct
     submitButton.textContent = 'משנה סיסמה...';
 });
 </script>
-@endsection
+</x-layouts.app>

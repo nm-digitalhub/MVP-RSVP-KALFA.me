@@ -114,9 +114,9 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Name') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('ID') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase"></th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Name') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('ID') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase"></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -152,9 +152,9 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Value') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Expires at') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Value') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Expires at') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -184,10 +184,10 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Period') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Usage count') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Updated') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Period') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Usage count') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Updated') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -218,11 +218,11 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('ID') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Status') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Intent type') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Payable') }}</th>
-                            <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Created') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('ID') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Status') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Intent type') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Payable') }}</th>
+                            <th class="px-4 py-2 text-start text-xs font-medium text-gray-500 uppercase">{{ __('Created') }}</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">

@@ -1,16 +1,12 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ __('System Users') }}</x-slot:title>
+    <x-slot:containerWidth>max-w-7xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="__('System Users')"
+            :subtitle="__('Manage all users')"
+        />
+    </x-slot:header>
 
-@section('title', __('System Users'))
-
-@section('containerWidth', 'max-w-7xl')
-
-@section('header')
-    <x-page-header
-        :title="__('System Users')"
-        :subtitle="__('Manage all users')"
-    />
-@endsection
-
-@section('content')
     @livewire('system.users.index')
-@endsection
+</x-layouts.app>

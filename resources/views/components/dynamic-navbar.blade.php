@@ -55,7 +55,7 @@
                     <div class="px-3 py-2 text-xs font-semibold text-gray-500/80 uppercase tracking-wider bg-gray-50/50">{{ __('Your Organizations') }}</div>
                     @foreach($userOrganizations as $org)
                         <div class="block">
-                            <form action="{{ route('organizations.switch', $org) }}" method="POST" class="w-full text-left">
+                            <form action="{{ route('organizations.switch', $org) }}" method="POST" class="w-full text-start">
                                 @csrf
                                 <button type="submit" class="w-full min-h-[44px] px-4 py-2.5 text-sm {{ $currentOrg && $currentOrg->id === $org->id ? 'text-indigo-600 bg-indigo-50/80 ring-1 ring-indigo-200/50' : 'text-gray-700 hover:bg-gray-100/80' }} flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">
                                     <span class="truncate">{{ $org->name }}</span>
@@ -108,7 +108,7 @@
                     <div class="border-t border-gray-100 my-1">
                         <form method="POST" action="{{ route('logout') }}" class="block">
                             @csrf
-                            <button type="submit" class="w-full text-left min-h-[44px] px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-inset transition-all duration-200 ease-out cursor-pointer">{{ __('Logout') }}</button>
+                            <button type="submit" class="w-full text-start min-h-[44px] px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-inset transition-all duration-200 ease-out cursor-pointer">{{ __('Logout') }}</button>
                         </form>
                     </div>
                 </div>
@@ -174,8 +174,8 @@
             @if(session('impersonation.original_organization_id'))
                 <form method="POST" action="{{ route('system.impersonation.exit') }}">
                     @csrf
-                    <button type="submit" class="text-left w-full {{ $mobileNavBase }} text-amber-600 hover:bg-amber-50/90 hover:text-amber-700 focus-visible:ring-amber-500/50">
-                        <svg class="w-4 h-4 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <button type="submit" class="text-start w-full {{ $mobileNavBase }} text-amber-600 hover:bg-amber-50/90 hover:text-amber-700 focus-visible:ring-amber-500/50">
+                        <svg class="w-4 h-4 me-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
                         </svg>
                         {{ __('Exit impersonation') }}
@@ -203,7 +203,7 @@
     <div class="border-t border-gray-200 p-4 bg-white shrink-0">
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="text-left w-full {{ $mobileNavBase }} text-red-600 hover:bg-red-50 hover:text-red-700 focus-visible:ring-red-500/50 font-medium" aria-label="{{ __('Log out') }}">
+            <button type="submit" class="text-start w-full {{ $mobileNavBase }} text-red-600 hover:bg-red-50 hover:text-red-700 focus-visible:ring-red-500/50 font-medium" aria-label="{{ __('Log out') }}">
                 {{ __('Logout') }}
             </button>
         </form>

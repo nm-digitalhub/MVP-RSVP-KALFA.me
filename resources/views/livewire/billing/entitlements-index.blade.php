@@ -45,11 +45,11 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Value') }}</th>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Source') }}</th>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Expires at') }}</th>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase"></th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Value') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Source') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Expires at') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase"></th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
@@ -61,7 +61,7 @@
                                 <td class="px-4 py-2 text-sm text-gray-600">{{ $e->expires_at?->format('Y-m-d') ?? __('—') }}</td>
                                 <td class="px-4 py-2 text-sm">
                                     <button type="button" wire:click="openEdit({{ $e->id }})" class="text-indigo-600 hover:text-indigo-900">{{ __('Edit') }}</button>
-                                    <button type="button" wire:click="deleteEntitlement({{ $e->id }})" wire:confirm="{{ __('Delete this entitlement?') }}" class="text-red-600 hover:text-red-900 mr-2">{{ __('Delete') }}</button>
+                                    <button type="button" wire:click="deleteEntitlement({{ $e->id }})" wire:confirm="{{ __('Delete this entitlement?') }}" class="text-red-600 hover:text-red-900 me-2">{{ __('Delete') }}</button>
                                 </td>
                             </tr>
                         @empty

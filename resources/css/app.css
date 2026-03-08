@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* RTL/LTR: placeholder and select inherit direction from document */
+@layer base {
+  ::placeholder {
+    text-align: start;
+  }
+  select {
+    direction: inherit;
+  }
+}
+
 @layer components {
   .cropper-view-box,
   .cropper-face {

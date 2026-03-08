@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "start": "node server.js"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.1.18",
@@ -15,12 +16,35 @@
     },
     "dependencies": {
         "@cropper/element-canvas": "^2.1.0",
+        "@google/generative-ai": "^0.24.1",
         "@ryangjchandler/alpine-clipboard": "^2.3.0",
         "alpinejs": "^3.15.4",
         "axios": "^1.11.0",
         "cropperjs": "^2.1.0",
+        "dotenv": "^17.3.1",
+        "express": "^5.2.1",
         "flowbite": "^4.0.1",
         "jquery": "^4.0.0",
-        "lodash": "^4.17.23"
-    }
+        "lodash": "^4.17.23",
+        "ws": "^8.19.0"
+    },
+    "name": "httpdocs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "directories": {
+        "doc": "docs",
+        "test": "tests"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nm-digitalhub/MVP-RSVP-KALFA.me.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/nm-digitalhub/MVP-RSVP-KALFA.me/issues"
+    },
+    "homepage": "https://github.com/nm-digitalhub/MVP-RSVP-KALFA.me#readme"
 }

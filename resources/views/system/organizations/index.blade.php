@@ -1,16 +1,12 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ __('System Organizations') }}</x-slot:title>
+    <x-slot:containerWidth>max-w-7xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="__('System Organizations')"
+            :subtitle="__('Manage all organizations')"
+        />
+    </x-slot:header>
 
-@section('title', __('System Organizations'))
-
-@section('containerWidth', 'max-w-7xl')
-
-@section('header')
-    <x-page-header
-        :title="__('System Organizations')"
-        :subtitle="__('Manage all organizations')"
-    />
-@endsection
-
-@section('content')
     @livewire('system.organizations.index')
-@endsection
+</x-layouts.app>

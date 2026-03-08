@@ -1,17 +1,13 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ $event->name }}</x-slot:title>
+    <x-slot:containerWidth>max-w-4xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="$event->name"
+            :subtitle="$event->event_date ? $event->event_date->format('Y-m-d') . ($event->venue_name ? ' · ' . $event->venue_name : '') : ($event->venue_name ?? '')"
+        />
+    </x-slot:header>
 
-@section('title', $event->name)
-
-@section('containerWidth', 'max-w-4xl')
-
-@section('header')
-    <x-page-header
-        :title="$event->name"
-        :subtitle="$event->event_date ? $event->event_date->format('Y-m-d') . ($event->venue_name ? ' · ' . $event->venue_name : '') : ($event->venue_name ?? '')"
-    />
-@endsection
-
-@section('content')
     @if(session('success'))
         <div class="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-800 ring-1 ring-green-200" role="status" aria-live="polite">{{ session('success') }}</div>
     @endif
@@ -147,4 +143,4 @@
             @endforeach
         </section>
     </div>
-@endsection
+</x-layouts.app>

@@ -54,7 +54,7 @@
                     <li wire:key="org-{{ $org->id }}">
                         <form action="{{ route('organizations.switch', $org) }}" method="POST" class="block" role="listitem">
                             @csrf
-                            <button type="submit" class="w-full text-left rounded-xl border-2 border-gray-200/60 bg-gradient-to-br from-white to-gray-50/30 hover:border-indigo-300 hover:from-indigo-50 hover:to-white focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-indigo-500/30 transition-all duration-200 ease-out min-h-[44px] p-4 flex items-center justify-between gap-4 cursor-pointer shadow-sm hover:shadow-md group relative" aria-label="{{ __('Switch to organization', ['name' => $org->name]) }}">
+                            <button type="submit" class="w-full text-start rounded-xl border-2 border-gray-200/60 bg-gradient-to-br from-white to-gray-50/30 hover:border-indigo-300 hover:from-indigo-50 hover:to-white focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-indigo-500/30 transition-all duration-200 ease-out min-h-[44px] p-4 flex items-center justify-between gap-4 cursor-pointer shadow-sm hover:shadow-md group relative" aria-label="{{ __('Switch to organization', ['name' => $org->name]) }}">
                                 <span class="font-medium text-gray-900 group-hover:text-indigo-700 transition-colors duration-200">{{ $org->name }}</span>
                                 <span class="text-sm text-gray-500 group-hover:text-indigo-600/70 transition-colors duration-200">{{ $org->events_count ?? 0 }} {{ __('events') }}</span>
                                 @if($currentOrg && $currentOrg->id === $org->id)

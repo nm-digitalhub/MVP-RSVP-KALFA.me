@@ -1,8 +1,6 @@
-@extends('layouts.guest')
+<x-layouts.guest>
+    <x-slot:title>גישה מוגבלת - אבטחת תשלומים</x-slot:title>
 
-@section('title', 'גישה מוגבלת - אבטחת תשלומים')
-
-@section('content')
 <section class="bg-white dark:bg-gray-900 min-h-screen flex items-center">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="mx-auto max-w-screen-md text-center">
@@ -113,7 +111,7 @@
                 </button>
 
                 <!-- Dashboard Button -->
-                <a href="/client/dashboard"
+                <a href="{{ route('dashboard') }}" wire:navigate
                    class="group inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800 transform hover:-translate-y-0.5 transition-all duration-200 shadow-lg hover:shadow-xl">
                     <svg class="w-5 h-5 me-2 -ms-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
@@ -122,7 +120,7 @@
                 </a>
 
                 <!-- Homepage Button -->
-                <a href="/"
+                <a href="{{ route('home') }}" wire:navigate
                    class="group inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 transform hover:-translate-y-0.5 transition-all duration-200 shadow-lg hover:shadow-xl">
                     <svg class="w-5 h-5 ms-2 -me-1 rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
@@ -357,4 +355,4 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('429 Rate Limit Page - Enhanced UI/UX with countdown timer loaded');
 });
 </script>
-@endsection
+</x-layouts.guest>

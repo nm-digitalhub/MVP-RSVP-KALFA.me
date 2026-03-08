@@ -62,10 +62,10 @@
             <table class="min-w-full divide-y divide-gray-200/80">
                 <thead class="bg-gradient-to-r from-gray-50 to-gray-100/50">
                     <tr>
-                        <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Name') }}</th>
-                        <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Date') }}</th>
-                        <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Status') }}</th>
-                        <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Actions') }}</th>
+                        <th class="px-4 py-2.5 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Name') }}</th>
+                        <th class="px-4 py-2.5 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Date') }}</th>
+                        <th class="px-4 py-2.5 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Status') }}</th>
+                        <th class="px-4 py-2.5 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Actions') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200/80">

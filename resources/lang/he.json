@@ -365,6 +365,7 @@
     "Choose attending, not attending, or maybe.": "בחר מגיע, לא מגיע או אולי.",
     "Please select your response and try again.": "אנא בחר את תשובתך ונסה שוב.",
     "Event image": "תמונת אירוע",
+    "Choose file": "בחירת קובץ",
     "Remove image": "הסר תמונה",
     "JPEG, PNG, GIF or WebP. Max 5 MB.": "JPEG, PNG, GIF או WebP. עד 5 MB.",
     "Optional event description.": "תיאור אירוע (אופציונלי).",
@@ -392,5 +393,28 @@
     "Street, city — used for navigation and calendar": "רחוב, עיר — לשימוש בניווט וביומן",
     "Used for \"Navigate to event\" and Add to calendar. Leave blank to use venue name.": "משמש ל\"נווט לאירוע\" ולהוספה ליומן. השאר ריק לשימוש בשם המקום.",
 
-    "RSVP Response Options": "אפשרויות תשובת אישור הגעה"
+    "RSVP Response Options": "אפשרויות תשובת אישור הגעה",
+
+    "Back to accounts": "חזור לחשבונות",
+    "Create account wizard": "אשף יצירת חשבון",
+    "Steps": "שלבים",
+    "Type & name": "סוג ושם",
+    "Account holder details": "פרטי בעל החשבון",
+    "Review & create": "סיכום ויצירה",
+    "Account type and name": "סוג חשבון ושם",
+    "Account type": "סוג חשבון",
+    "Customer Type": "סגמנט לקוח",
+    "Individual": "יחיד",
+    "Account display name": "שם תצוגה לחשבון",
+    "Owner (optional)": "בעלים (אופציונלי)",
+    "Owner user": "משתמש בעלים",
+    "— None —": "— ללא —",
+    "Attach to organization (optional)": "קישור לארגון (אופציונלי)",
+    "Organizations without an account. Attaching links this account to the organization.": "ארגונים ללא חשבון. קישור יקשר את החשבון לארגון.",
+    "Please review before creating.": "אנא בדוק לפני היצירה.",
+    "Attach organization": "קישור ארגון",
+    "Previous": "הקודם",
+    "Create account": "צור חשבון",
+    "Next": "הבא",
+    "Processing...": "מעבד..."
 }

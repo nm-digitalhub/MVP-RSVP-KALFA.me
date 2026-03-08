@@ -259,6 +259,7 @@
     "Choose attending, not attending, or maybe.": "Choose attending, not attending, or maybe.",
     "Please select your response and try again.": "Please select your response and try again.",
     "Event image": "Event image",
+    "Choose file": "Choose file",
     "Remove image": "Remove image",
     "JPEG, PNG, GIF or WebP. Max 5 MB.": "JPEG, PNG, GIF or WebP. Max 5 MB.",
     "Optional event description.": "Optional event description.",
@@ -286,5 +287,26 @@
     "Street, city — used for navigation and calendar": "Street, city — used for navigation and calendar",
     "Used for \"Navigate to event\" and Add to calendar. Leave blank to use venue name.": "Used for \"Navigate to event\" and Add to calendar. Leave blank to use venue name.",
 
-    "RSVP Response Options": "RSVP Response Options"
+    "RSVP Response Options": "RSVP Response Options",
+
+    "Back to accounts": "Back to accounts",
+    "Create account wizard": "Create account wizard",
+    "Steps": "Steps",
+    "Type & name": "Type & name",
+    "Account holder details": "Account holder details",
+    "Review & create": "Review & create",
+    "Account type and name": "Account type and name",
+    "Account type": "Account type",
+    "Customer Type": "Customer Type",
+    "Individual": "Individual",
+    "Account display name": "Account display name",
+    "Owner (optional)": "Owner (optional)",
+    "Owner user": "Owner user",
+    "— None —": "— None —",
+    "Attach to organization (optional)": "Attach to organization (optional)",
+    "Organizations without an account. Attaching links this account to the organization.": "Organizations without an account. Attaching links this account to the organization.",
+    "Please review before creating.": "Please review before creating.",
+    "Attach organization": "Attach organization",
+    "Create account": "Create account",
+    "Processing...": "Processing..."
 }
