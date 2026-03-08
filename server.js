@@ -10,6 +10,8 @@
  * Env:
  *   GEMINI_API_KEY=...
  *   PHP_WEBHOOK=https://kalfa.me/twilio/rsvp-process.php
+ *   CALL_LOG_URL=https://kalfa.me/calling-log.php  (optional; for online call log)
+ *   CALL_LOG_SECRET=...  (optional; same as config services.twilio.call_log_secret)
  */
 
 import dotenv from "dotenv";
@@ -41,6 +43,77 @@ const GEMINI_WS =
 
 
 const PHP_WEBHOOK = process.env.PHP_WEBHOOK || "https://kalfa.me/twilio/rsvp-process.php";
+const CALL_LOG_URL = process.env.CALL_LOG_URL || "";
+const CALL_LOG_SECRET = process.env.CALL_LOG_SECRET || "";
+
+function sendCallLog(callSid, role, text) {
+  if (!callSid || !CALL_LOG_URL || !text?.trim()) return;
+  const params = new URLSearchParams({ call_sid: callSid, role, text });
+  if (CALL_LOG_SECRET) params.set("key", CALL_LOG_SECRET);
+  fetch(CALL_LOG_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: params.toString(),
+  }).catch(() => {});
+}
+
+/**
+ * Twilio sends mulaw 8kHz; Gemini Live expects PCM 16-bit 16kHz.
+ * Converts base64 mulaw 8k to base64 PCM 16k for Gemini realtimeInput.
+ */
+function mulaw8kBase64ToPcm16kBase64(base64) {
+  const buf = Buffer.from(base64, "base64");
+  const mulaw = new Uint8Array(buf.buffer, buf.byteOffset, buf.length);
+  const BIAS = 0x84;
+  const mulawToPcm = (mu) => {
+    mu = ~mu;
+    const sign = mu & 0x80;
+    const exponent = (mu >> 4) & 0x07;
+    const mantissa = mu & 0x0f;
+    let sample = ((mantissa << 3) + BIAS) << exponent;
+    if (sign) sample = -sample;
+    return sample;
+  };
+  const pcm8k = new Int16Array(mulaw.length);
+  for (let i = 0; i < mulaw.length; i++) pcm8k[i] = mulawToPcm(mulaw[i]);
+  const pcm16k = new Int16Array(pcm8k.length * 2);
+  for (let i = 0; i < pcm8k.length; i++) {
+    pcm16k[i * 2] = pcm8k[i];
+    pcm16k[i * 2 + 1] = pcm8k[i];
+  }
+  return Buffer.from(pcm16k.buffer).toString("base64");
+}
+
+/**
+ * Gemini Live outputs PCM 16-bit 24kHz; Twilio expects mulaw 8kHz.
+ * Converts base64 PCM24k to base64 mulaw 8k for Twilio media events.
+ */
+function pcm24kBase64ToMulaw8kBase64(base64) {
+  const buf = Buffer.from(base64, "base64");
+  const pcm24k = new Int16Array(buf.buffer, buf.byteOffset, buf.length / 2);
+  const n8k = Math.floor(pcm24k.length / 3);
+  const mulaw = new Uint8Array(n8k);
+  const BIAS = 0x84;
+  const CLIP = 32635;
+  const pcmToMuLaw = (sample) => {
+    let s = sample;
+    const sign = (s >> 8) & 0x80;
+    if (sign) s = -s;
+    if (s > CLIP) s = CLIP;
+    s += BIAS;
+    let exponent = 7;
+    for (let expMask = 0x4000; (s & expMask) === 0 && exponent > 0; expMask >>= 1) exponent--;
+    const mantissa = (s >> (exponent + 3)) & 0x0f;
+    return (~(sign | (exponent << 4) | mantissa)) & 0xff;
+  };
+  for (let i = 0; i < n8k; i++) {
+    const a = pcm24k[i * 3];
+    const b = pcm24k[i * 3 + 1] ?? a;
+    const c = pcm24k[i * 3 + 2] ?? b;
+    mulaw[i] = pcmToMuLaw(Math.round((a + b + c) / 3));
+  }
+  return Buffer.from(mulaw).toString("base64");
+}
 
 function safeSend(ws, payload) {
   if (!ws) return false;
@@ -60,12 +133,17 @@ function safeClose(ws, code = 1000, reason = "") {
 wss.on("connection", (twilioWs, req) => {
   const clientId = `${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
 
-  const params = new URLSearchParams((req.url || "").split("?")[1] || "");
-  const guestId = params.get("guest_id");
-  const invitationId = params.get("invitation_id");
-  const guestName = decodeURIComponent(params.get("guest_name") || "אורח");
+  // Twilio passes custom params in the "start" message (not in URL); fallback to URL for older clients
+  const urlParams = new URLSearchParams((req.url || "").split("?")[1] || "");
+  let guestId = urlParams.get("guest_id");
+  let invitationId = urlParams.get("invitation_id");
+  let guestName = decodeURIComponent(urlParams.get("guest_name") || "אורח");
+  let eventName = decodeURIComponent(urlParams.get("event_name") || "");
+  let eventDate = decodeURIComponent(urlParams.get("event_date") || "");
+  let eventVenue = decodeURIComponent(urlParams.get("event_venue") || "");
+  let callSid = null;
 
-  console.log("[%s] Twilio connected guest_id=%s invitation_id=%s", clientId, guestId, invitationId);
+  console.log("[%s] Twilio connected (params from start message or URL)", clientId);
 
   let streamSid = null;
 
@@ -83,48 +161,63 @@ wss.on("connection", (twilioWs, req) => {
     } catch (_) {}
   }, 20000);
 
-  // Google AI Live API (v1beta) expects camelCase in setup; see docs/rsvp-voice-gemini-live-analysis.md
-  const setupMessage = {
-    setup: {
-      model: process.env.GEMINI_LIVE_MODEL || "models/gemini-2.5-flash-native-audio-preview-12-2025",
-      generationConfig: {
-        responseModalities: ["AUDIO"],
-        temperature: 0.2,
-      },
-      systemInstruction: {
-        parts: [
-          {
-            text: `אתה נציג טלפוני שמקבל אישורי הגעה לאירוע.
-שם האורח: ${guestName}
+  function buildSetupMessage(guestNameForSetup, eventNameForSetup, eventDateForSetup, eventVenueForSetup) {
+    const eventLine =
+      eventNameForSetup || eventDateForSetup || eventVenueForSetup
+        ? [
+            "בתחילת השיחה הצג לאורח לאיזה אירוע זה אישור: שם האירוע, תאריך ומקום (אם יש).",
+            eventNameForSetup ? `שם האירוע: ${eventNameForSetup}` : "",
+            eventDateForSetup ? `תאריך: ${eventDateForSetup}` : "",
+            eventVenueForSetup ? `מקום: ${eventVenueForSetup}` : "",
+          ]
+            .filter(Boolean)
+            .join("\n") + "\n\n"
+        : "";
+    return {
+      setup: {
+        model: process.env.GEMINI_LIVE_MODEL || "models/gemini-2.5-flash-native-audio-preview-12-2025",
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          temperature: 0.15,
+        },
+        outputAudioTranscription: {},
+        inputAudioTranscription: {},
+        systemInstruction: {
+          parts: [
+            {
+              text: `אתה נציג טלפוני שמקבל אישורי הגעה לאירוע.
+הגייה: דבר בעברית תקנית, בהגייה ברורה ומדויקת. הבהר כל מילה, בקצב בינוני (לא מהיר). הימנע מלדבר מהר או למלמל.
+${eventLine}שם האורח: ${guestNameForSetup}
 שאל אם הוא מגיע וכמה אנשים.
 אם הוא מגיע: intent=yes
 אם לא: intent=no
 לאחר קבלת תשובה ברורה (כן/לא + כמות), קרא לפונקציה save_rsvp ואז תגיד תודה ולהתראות.`
-          }
-        ]
-      },
-      tools: [
-        {
-          functionDeclarations: [
-            {
-              name: "save_rsvp",
-              description: "Save RSVP result",
-              parameters: {
-                type: "OBJECT",
-                properties: {
-                  intent: { type: "STRING", enum: ["yes", "no"] },
-                  number_of_guests: { type: "INTEGER" }
-                },
-                required: ["intent", "number_of_guests"]
-              }
             }
           ]
-        }
-      ]
-    }
-  };
+        },
+        tools: [
+          {
+            functionDeclarations: [
+              {
+                name: "save_rsvp",
+                description: "Save RSVP result",
+                parameters: {
+                  type: "OBJECT",
+                  properties: {
+                    intent: { type: "STRING", enum: ["yes", "no"] },
+                    number_of_guests: { type: "INTEGER" }
+                  },
+                  required: ["intent", "number_of_guests"]
+                }
+              }
+            ]
+          }
+        ]
+      }
+    };
+  }
 
-  function openGeminiIfNeeded() {
+  function openGeminiIfNeeded(setupMessageToSend) {
     if (geminiWs && (geminiWs.readyState === WebSocket.OPEN || geminiWs.readyState === WebSocket.CONNECTING)) {
       return;
     }
@@ -139,8 +232,8 @@ wss.on("connection", (twilioWs, req) => {
       console.log("[%s] Gemini connected", clientId);
       geminiOpening = false;
 
-      // Send setup first message
-      safeSend(geminiWs, JSON.stringify(setupMessage));
+      const msg = setupMessageToSend || buildSetupMessage(guestName);
+      safeSend(geminiWs, JSON.stringify(msg));
     });
 
     geminiWs.on("message", async (data) => {
@@ -150,6 +243,14 @@ wss.on("connection", (twilioWs, req) => {
       } catch (e) {
         console.error("[%s] Gemini JSON parse error", clientId);
         return;
+      }
+
+      // Transcript: send to call log for online display
+      if (msg.serverContent?.outputTranscription?.text) {
+        sendCallLog(callSid, "bot", msg.serverContent.outputTranscription.text);
+      }
+      if (msg.serverContent?.inputTranscription?.text) {
+        sendCallLog(callSid, "user", msg.serverContent.inputTranscription.text);
       }
 
       // IMPORTANT: wait for setupComplete before sending additional messages
@@ -203,6 +304,8 @@ wss.on("connection", (twilioWs, req) => {
               })
             });
             console.log("[%s] PHP webhook saved intent=%s guests=%s", clientId, intent, numberOfGuests);
+            const summary = intent === "yes" ? `נשמר: מגיעים, ${Number.isFinite(numberOfGuests) ? numberOfGuests : 0} אנשים` : "נשמר: לא מגיעים";
+            sendCallLog(callSid, "bot", summary);
           } catch (err) {
             console.error("[%s] PHP webhook failed", clientId, err?.message || err);
           }
@@ -225,18 +328,18 @@ wss.on("connection", (twilioWs, req) => {
         }
       }
 
-      // Audio output from Gemini -> Twilio
+      // Audio output from Gemini (PCM 24kHz) -> convert to mulaw 8kHz for Twilio
       if (msg.serverContent?.modelTurn?.parts && streamSid) {
         const parts = msg.serverContent.modelTurn.parts;
         for (const part of parts) {
-          // Gemini audio typically arrives as inlineData with base64 "data"
           if (part.inlineData?.data) {
+            const twilioPayload = pcm24kBase64ToMulaw8kBase64(part.inlineData.data);
             safeSend(
               twilioWs,
               JSON.stringify({
                 event: "media",
                 streamSid,
-                media: { payload: part.inlineData.data }
+                media: { payload: twilioPayload }
               })
             );
           }
@@ -269,10 +372,21 @@ wss.on("connection", (twilioWs, req) => {
 
     if (msg.event === "start") {
       streamSid = msg.start?.streamSid || msg.streamSid || null;
-      console.log("[%s] Stream started %s", clientId, streamSid || "(no streamSid)");
+      callSid = msg.start?.callSid || msg.start?.call_sid || null;
+      const custom = msg.start?.customParameters || {};
+      if (Object.keys(custom).length) {
+        guestId = custom.guest_id ?? guestId;
+        invitationId = custom.invitation_id ?? invitationId;
+        guestName = custom.guest_name ? String(custom.guest_name) : guestName;
+        eventName = custom.event_name ? String(custom.event_name) : eventName;
+        eventDate = custom.event_date ? String(custom.event_date) : eventDate;
+        eventVenue = custom.event_venue ? String(custom.event_venue) : eventVenue;
+        console.log("[%s] Stream started guest_id=%s invitation_id=%s guest_name=%s event=%s callSid=%s", clientId, guestId, invitationId, guestName, eventName || "(none)", callSid || "(none)");
+      } else {
+        console.log("[%s] Stream started %s (no customParameters)", clientId, streamSid || "(no streamSid)");
+      }
 
-      // Open Gemini only when a real Twilio stream starts
-      openGeminiIfNeeded();
+      openGeminiIfNeeded(buildSetupMessage(guestName, eventName, eventDate, eventVenue));
       return;
     }
 
@@ -289,14 +403,15 @@ wss.on("connection", (twilioWs, req) => {
       // Backpressure safety
       if (geminiWs.bufferedAmount > 1e6) return;
 
+      const pcm16kBase64 = mulaw8kBase64ToPcm16kBase64(payload);
       safeSend(
         geminiWs,
         JSON.stringify({
           realtimeInput: {
             mediaChunks: [
               {
-                mimeType: "audio/x-mulaw;rate=8000",
-                data: payload
+                mimeType: "audio/pcm;rate=16000",
+                data: pcm16kBase64
               }
             ]
           }

@@ -39,7 +39,11 @@ return [
         'sid' => env('TWILIO_ACCOUNT_SID'),
         'token' => env('TWILIO_AUTH_TOKEN'),
         'number' => env('TWILIO_NUMBER'),
+        'whatsapp_from' => env('TWILIO_WHATSAPP_FROM'), // e.g. +14155238886 for Sandbox, or same as TWILIO_NUMBER if WhatsApp-enabled
+        'verify_sid' => env('TWILIO_VERIFY_SID'),
         'log_level' => env('TWILIO_LOG_LEVEL'),
+        'rsvp_node_ws_url' => env('RSVP_NODE_WS_URL', 'wss://node.kalfa.me/media'),
+        'call_log_secret' => env('CALL_LOG_SECRET', ''),
     ],
 
 ];

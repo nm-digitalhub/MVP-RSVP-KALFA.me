@@ -16,9 +16,11 @@ declare(strict_types=1);
 
 require __DIR__.'/../../vendor/autoload.php';
 
+use App\Enums\InvitationStatus;
 use App\Enums\RsvpResponseType;
 use App\Models\Event;
 use App\Models\Guest;
+use App\Models\Invitation;
 use App\Models\RsvpResponse;
 use Illuminate\Support\Facades\Log;
 
@@ -29,43 +31,58 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 $raw = file_get_contents('php://input');
 $data = json_decode($raw, true) ?? [];
 
-$guestId      = (int) ($data['guest_id'] ?? 0);
+$guestId = (int) ($data['guest_id'] ?? 0);
 $invitationId = (int) ($data['invitation_id'] ?? 0);
-$intent       = (string) ($data['intent'] ?? 'unknown');
-$guests       = (int) ($data['number_of_guests'] ?? 0);
+$intent = (string) ($data['intent'] ?? 'unknown');
+$guests = (int) ($data['number_of_guests'] ?? 0);
 
 $guest = $guestId > 0 ? Guest::find($guestId) : null;
+$invitation = $invitationId > 0 ? Invitation::find($invitationId) : null;
 $event = $guest?->event_id ? Event::find($guest->event_id) : null;
 
-if (! $guest || $invitationId <= 0) {
+if (! $guest || ! $invitation) {
     http_response_code(400);
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode(['error' => 'missing']);
     exit;
 }
 
+if ($invitation->guest_id !== $guestId || $invitation->event_id !== (int) $guest->event_id) {
+    http_response_code(400);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode(['error' => 'invalid']);
+    exit;
+}
+
+$event = $event ?? Event::find($guest->event_id);
+
 $responseType = match ($intent) {
     'yes' => RsvpResponseType::Yes,
-    'no'  => RsvpResponseType::No,
+    'no' => RsvpResponseType::No,
     default => RsvpResponseType::Maybe,
 };
 
 RsvpResponse::updateOrCreate(
     [
-        'guest_id'      => $guestId,
-        'invitation_id' => $invitationId,
+        'guest_id' => $guest->id,
+        'invitation_id' => $invitation->id,
     ],
     [
-        'response'        => $responseType,
+        'response' => $responseType,
         'attendees_count' => $guests,
-        'message'         => 'Gemini Voice RSVP',
-        'ip'              => $_SERVER['REMOTE_ADDR'] ?? null,
-        'user_agent'      => 'Gemini-Live',
+        'message' => 'Gemini Voice RSVP',
+        'ip' => $_SERVER['REMOTE_ADDR'] ?? null,
+        'user_agent' => 'Gemini-Live',
     ]
 );
 
+$invitation->update([
+    'status' => InvitationStatus::Responded,
+    'responded_at' => now(),
+]);
+
 Log::info('RSVP saved', [
-    'guest'  => $guestId,
+    'guest' => $guestId,
     'intent' => $intent,
     'guests' => $guests,
 ]);
@@ -73,9 +90,9 @@ Log::info('RSVP saved', [
 // Optional SMS confirmation when RSVP is "yes"
 if ($responseType === RsvpResponseType::Yes && $guest->phone && $event) {
     try {
-        $sid   = config('services.twilio.sid');
+        $sid = config('services.twilio.sid');
         $token = config('services.twilio.token');
-        $from  = config('services.twilio.number');
+        $from = config('services.twilio.number');
 
         if ($sid && $token && $from) {
             $client = new \Twilio\Rest\Client($sid, $token);

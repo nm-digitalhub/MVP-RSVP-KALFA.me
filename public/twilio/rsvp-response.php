@@ -5,10 +5,15 @@
  * Creates an RsvpResponse record in the database.
  */
 
+declare(strict_types=1);
+
 require __DIR__.'/../../vendor/autoload.php';
 
+use App\Enums\InvitationStatus;
 use App\Enums\RsvpResponseType;
+use App\Models\Event;
 use App\Models\Guest;
+use App\Models\Invitation;
 use App\Models\RsvpResponse;
 
 $app = require_once __DIR__.'/../../bootstrap/app.php';
@@ -20,11 +25,18 @@ $invitationId = (int) ($_GET['invitation_id'] ?? 0);
 $digits = $_POST['Digits'] ?? null;
 
 $guest = Guest::find($guestId);
-$event = \App\Models\Event::find($eventId);
+$event = Event::find($eventId);
+$invitation = $invitationId > 0 ? Invitation::find($invitationId) : null;
 
 header('Content-Type: text/xml; charset=utf-8');
 
-if (! $guest || ! $event || ! $invitationId || ! $digits) {
+if (! $guest || ! $event || ! $invitation || $digits === null || $digits === '') {
+    echo '<?xml version="1.0" encoding="UTF-8"?>';
+    echo '<Response><Say language="he-IL">אירעה שגיאה. להתראות.</Say></Response>';
+    exit;
+}
+
+if ($invitation->guest_id !== $guestId || $invitation->event_id !== $eventId) {
     echo '<?xml version="1.0" encoding="UTF-8"?>';
     echo '<Response><Say language="he-IL">אירעה שגיאה. להתראות.</Say></Response>';
     exit;
@@ -42,11 +54,10 @@ if (! $responseType) {
     exit;
 }
 
-// Create or update the RSVP response for this guest using the invitation_id
 RsvpResponse::updateOrCreate(
     [
-        'guest_id' => $guestId,
-        'invitation_id' => $invitationId,
+        'guest_id' => $guest->id,
+        'invitation_id' => $invitation->id,
     ],
     [
         'response' => $responseType,
@@ -56,6 +67,11 @@ RsvpResponse::updateOrCreate(
         'user_agent' => 'Twilio-Voice',
     ]
 );
+
+$invitation->update([
+    'status' => InvitationStatus::Responded,
+    'responded_at' => now(),
+]);
 
 // If the guest said Yes, send an SMS with event details
 if ($responseType === RsvpResponseType::Yes && $guest->phone) {
@@ -97,9 +113,10 @@ $confirmMsg = match ($responseType) {
     RsvpResponseType::Yes => 'תודה רבה! אישור ההגעה שלך נקלט בהצלחה. נתראה באירוע!',
     RsvpResponseType::No => 'תודה על העדכון. מקווים לראותך באירוע הבא. להתראות.',
 };
+$confirmMsgEscaped = htmlspecialchars($confirmMsg, ENT_XML1 | ENT_QUOTES, 'UTF-8');
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 ?>
 <Response>
-    <Say language="he-IL" voice="Google.he-IL-Standard-A"><?= $confirmMsg ?></Say>
+    <Say language="he-IL" voice="Google.he-IL-Standard-A"><?= $confirmMsgEscaped ?></Say>
 </Response>

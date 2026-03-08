@@ -1,7 +1,24 @@
+/**
+ * PM2 ecosystem config for the Node voice/RSVP server (server.js).
+ * Do not put secrets here. Set TWILIO_*, GEMINI_API_KEY, PHP_WEBHOOK in the
+ * environment or in a .env file and run: node -r dotenv/config node_modules/.bin/pm2 start ecosystem.config.js
+ * (or export vars before pm2 start).
+ */
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+const sharedEnv = {
+  NODE_ENV: process.env.NODE_ENV || "development",
+  BROADCAST_CONNECTION: process.env.BROADCAST_CONNECTION || "pusher",
+  TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
+  TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
+  TWILIO_NUMBER: process.env.TWILIO_NUMBER,
+  RSVP_NODE_WS_URL: process.env.RSVP_NODE_WS_URL || "wss://node.kalfa.me/media",
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY,
+  PHP_WEBHOOK: process.env.PHP_WEBHOOK || "https://kalfa.me/twilio/rsvp-process.php",
+};
 
 export default {
   apps: [
@@ -16,26 +33,14 @@ export default {
       max_memory_restart: "300M",
 
       env: {
+        ...sharedEnv,
         NODE_ENV: "development",
-        BROADCAST_CONNECTION: "pusher",
-        TWILIO_ACCOUNT_SID: "ACd110e72980997ed07a617c987480e396",
-        TWILIO_AUTH_TOKEN: "5cb0cf09958860e8252160c7fd63b993",
-        TWILIO_NUMBER: "+972722577553",
-        RSVP_NODE_WS_URL: "wss://node.kalfa.me/media",
-        GEMINI_API_KEY: "AIzaSyDogGQZXK0v_zBtmMJZ3s4qoPBs9HfZdH4",
-        PHP_WEBHOOK: "https://kalfa.me/twilio/rsvp-process.php"
       },
 
       env_production: {
+        ...sharedEnv,
         NODE_ENV: "production",
-        BROADCAST_CONNECTION: "pusher",
-        TWILIO_ACCOUNT_SID: "ACd110e72980997ed07a617c987480e396",
-        TWILIO_AUTH_TOKEN: "5cb0cf09958860e8252160c7fd63b993",
-        TWILIO_NUMBER: "+972722577553",
-        RSVP_NODE_WS_URL: "wss://node.kalfa.me/media",
-        GEMINI_API_KEY: "AIzaSyDogGQZXK0v_zBtmMJZ3s4qoPBs9HfZdH4",
-        PHP_WEBHOOK: "https://kalfa.me/twilio/rsvp-process.php"
-      }
-    }
-  ]
+      },
+    },
+  ],
 };

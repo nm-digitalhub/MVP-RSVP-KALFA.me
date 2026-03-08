@@ -18,6 +18,7 @@
         "@cropper/element-canvas": "^2.1.0",
         "@google/generative-ai": "^0.24.1",
         "@ryangjchandler/alpine-clipboard": "^2.3.0",
+        "@tw2gem/audio-converter": "^1.0.1",
         "alpinejs": "^3.15.4",
         "axios": "^1.11.0",
         "cropperjs": "^2.1.0",
