@@ -1,17 +1,13 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ __('Organization settings') }}</x-slot:title>
+    <x-slot:containerWidth>max-w-2xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="__('Organization settings')"
+            :subtitle="$organization->name"
+        />
+    </x-slot:header>
 
-@section('title', __('Organization settings'))
-
-@section('containerWidth', 'max-w-2xl')
-
-@section('header')
-    <x-page-header
-        :title="__('Organization settings')"
-        :subtitle="$organization->name"
-    />
-@endsection
-
-@section('content')
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <form action="{{ route('dashboard.organization-settings.update') }}" method="POST" class="p-6 space-y-4">
             @csrf
@@ -32,4 +28,4 @@
             </div>
         </form>
     </div>
-@endsection
+</x-layouts.app>

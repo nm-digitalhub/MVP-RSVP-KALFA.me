@@ -1,0 +1,46 @@
+[90m= [39m[34;4mApp\Models\User[39;24m {#6864
+    [34mid[39m: [35m1[39m,
+    [34mname[39m: "[32mNetanel Kalfa[39m",
+    [34memail[39m: "[32mnetanel.kalfa@kalfa.me[39m",
+    [34memail_verified_at[39m: [36mnull[39m,
+    #[33mpassword[39m: "[32m$2y$12$cOeUU8bpDMl7ZuBOZxZYl.XKGTM88SMm1pk/Go3VWzBT0ZAIzolUO[39m",
+    #[33mremember_token[39m: "[32m2gndcGQwCSoe7ptSl6CH5XgTXm74zlDM1exmuG95s9KF9UB2A3KOnlR5Ej52[39m",
+    [34mcreated_at[39m: "[32m2026-03-02 19:50:15[39m",
+    [34mupdated_at[39m: "[32m2026-03-04 14:23:40[39m",
+    [34mcurrent_organization_id[39m: [35m1[39m,
+    [34mis_system_admin[39m: [36mtrue[39m,
+    [34mlast_login_at[39m: "[32m2026-03-04 14:23:40[39m",
+    [34mis_disabled[39m: [36mfalse[39m,
+    [34morganizations[39m: [34;4mIlluminate\Database\Eloquent\Collection[39;24m {#6856
+      [34mall[39m: [
+        [34;4mApp\Models\Organization[39;24m {#6855
+          [34mid[39m: [35m1[39m,
+          [34mname[39m: "[32mEventra[39m",
+          [34mslug[39m: "[32meventra[39m",
+          [34mbilling_email[39m: [36mnull[39m,
+          [34msettings[39m: [36mnull[39m,
+          [34mcreated_at[39m: "[32m2026-03-02 19:55:55[39m",
+          [34mupdated_at[39m: "[32m2026-03-04 11:01:01[39m",
+          [34mis_suspended[39m: [36mfalse[39m,
+          [34maccount_id[39m: [35m1[39m,
+          [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#6854
+            [34muser_id[39m: [35m1[39m,
+            [34morganization_id[39m: [35m1[39m,
+            [34mrole[39m: "[32mowner[39m",
+            [34mcreated_at[39m: "[32m2026-03-02 19:55:55[39m",
+            [34mupdated_at[39m: "[32m2026-03-02 19:55:55[39m",
+          },
+          [34maccount[39m: [34;4mApp\Models\Account[39;24m {#7075
+            [34mid[39m: [35m1[39m,
+            [34mtype[39m: "[32morganization[39m",
+            [34mowner_user_id[39m: [35m1[39m,
+            [34msumit_customer_id[39m: [36mnull[39m,
+            [34mcreated_at[39m: "[32m2026-03-03 22:51:48[39m",
+            [34mupdated_at[39m: "[32m2026-03-03 22:51:48[39m",
+            [34mname[39m: "[32mEventra[39m",
+          },
+        },
+      ],
+    },
+  }
+

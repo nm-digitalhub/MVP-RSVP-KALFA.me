@@ -1,17 +1,13 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ __('Create event') }}</x-slot:title>
+    <x-slot:containerWidth>max-w-2xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="__('Create event')"
+            :subtitle="__('Add a new event to your organization')"
+        />
+    </x-slot:header>
 
-@section('title', __('Create event'))
-
-@section('containerWidth', 'max-w-2xl')
-
-@section('header')
-    <x-page-header
-        :title="__('Create event')"
-        :subtitle="__('Add a new event to your organization')"
-    />
-@endsection
-
-@section('content')
     <div
         class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
         role="region"
@@ -132,7 +128,7 @@
                 <legend class="text-sm font-medium text-gray-700">{{ __('Event image') }}</legend>
                 <input type="hidden" name="cropped_image" id="cropped_image" value="" />
                 <div>
-                    <input type="file" id="image-input" name="image" accept="image/jpeg,image/png,image/gif,image/webp" class="mt-1 block w-full min-h-[44px] text-sm text-gray-600 file:mr-4 file:min-h-[44px] file:rounded-lg file:border-0 file:bg-indigo-50 file:px-4 file:text-sm file:font-medium file:text-indigo-700 hover:file:bg-indigo-100 file:cursor-pointer" aria-describedby="image-hint" />
+                    <input type="file" id="image-input" name="image" accept="image/jpeg,image/png,image/gif,image/webp" class="mt-1 block w-full min-h-[44px] text-sm text-gray-600 file:me-4 file:min-h-[44px] file:rounded-lg file:border-0 file:bg-indigo-50 file:px-4 file:text-sm file:font-medium file:text-indigo-700 hover:file:bg-indigo-100 file:cursor-pointer" aria-describedby="image-hint" />
                     <p id="image-hint" class="mt-1 text-sm text-gray-500">{{ __('JPEG, PNG, GIF or WebP. Max 5 MB. Cropped to 16:9.') }}</p>
                     <x-input-error :messages="$errors->get('image')" class="mt-1" />
                 </div>
@@ -316,4 +312,4 @@
         });
     </script>
     @endpush
-@endsection
+</x-layouts.app>

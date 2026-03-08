@@ -1,8 +1,6 @@
-@extends('layouts.guest')
+<x-layouts.guest>
+    <x-slot:title>התחברות</x-slot:title>
 
-@section('title', 'התחברות')
-
-@section('content')
 @php
     $companyName = config('app.name');
     $logoUrl = asset('images/nm-logo-current.png');
@@ -190,4 +188,4 @@
         loadingSpinner.classList.remove('hidden');
     });
 </script>
-@endsection
+</x-layouts.guest>

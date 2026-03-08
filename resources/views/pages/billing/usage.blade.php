@@ -1,16 +1,12 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ __('Usage') }}</x-slot:title>
+    <x-slot:containerWidth>max-w-4xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="__('Usage')"
+            :subtitle="__('Feature usage (read-only)')"
+        />
+    </x-slot:header>
 
-@section('title', __('Usage'))
-
-@section('containerWidth', 'max-w-4xl')
-
-@section('header')
-    <x-page-header
-        :title="__('Usage')"
-        :subtitle="__('Feature usage (read-only)')"
-    />
-@endsection
-
-@section('content')
     <livewire:billing.usage-index />
-@endsection
+</x-layouts.app>

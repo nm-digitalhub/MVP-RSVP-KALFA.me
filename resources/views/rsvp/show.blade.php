@@ -1,8 +1,6 @@
-@extends('layouts.guest')
+<x-layouts.guest>
+    <x-slot:title>{{ __('RSVP') }} — {{ $invitation->event->name }}</x-slot:title>
 
-@section('title', __('RSVP') . ' — ' . $invitation->event->name)
-
-@section('content')
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:py-12 sm:px-6 flex items-start sm:items-center justify-center">
     <article class="w-full max-w-2xl" aria-labelledby="rsvp-heading">
         @if(session('success'))
@@ -237,4 +235,4 @@
         </div>
     </article>
 </div>
-@endsection
+</x-layouts.guest>

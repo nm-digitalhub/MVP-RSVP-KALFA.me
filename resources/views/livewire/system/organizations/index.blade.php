@@ -38,13 +38,13 @@
             <table class="min-w-full divide-y divide-gray-200/80">
                 <thead class="bg-gradient-to-r from-gray-50 to-gray-100/50">
                     <tr>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Name') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Owner') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Users') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Events') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Created') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Status') }}</th>
-                        <th class="px-4 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
+                        <th class="px-4 py-3 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Name') }}</th>
+                        <th class="px-4 py-3 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Owner') }}</th>
+                        <th class="px-4 py-3 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Users') }}</th>
+                        <th class="px-4 py-3 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Events') }}</th>
+                        <th class="px-4 py-3 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Created') }}</th>
+                        <th class="px-4 py-3 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider">{{ __('Status') }}</th>
+                        <th class="px-4 py-3 text-start text-xs font-semibold text-gray-700 uppercase tracking-wider"></th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200/80">

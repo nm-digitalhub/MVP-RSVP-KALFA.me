@@ -3391,6 +3391,80 @@
             "install-path": "../maennchen/zipstream-php"
         },
         {
+            "name": "marvinlabs/laravel-luhn",
+            "version": "v1.0.13",
+            "version_normalized": "1.0.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marvinlabs/laravel-luhn.git",
+                "reference": "81fd3a4f9007d76ff3ee9633e4cc59ecf1370383"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marvinlabs/laravel-luhn/zipball/81fd3a4f9007d76ff3ee9633e4cc59ecf1370383",
+                "reference": "81fd3a4f9007d76ff3ee9633e4cc59ecf1370383",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.5|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "mockery/mockery": ">=0.9",
+                "orchestra/testbench": "^3.6|^4.0|^5.0|^6.0|^7.0|^8.0|^9.0|^10.0",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0|^10.5|^11.5.3"
+            },
+            "time": "2025-04-08T13:23:12+00:00",
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Luhn": "MarvinLabs\\Luhn\\Facades\\Luhn"
+                    },
+                    "providers": [
+                        "MarvinLabs\\Luhn\\LuhnServiceProvider"
+                    ]
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "MarvinLabs\\Luhn\\": "src/Luhn"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vincent Mimoun-Prat",
+                    "email": "contact@vincentprat.info",
+                    "homepage": "https://vincentprat.info",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Luhn algorithm for Laravel",
+            "keywords": [
+                "Siren",
+                "Siret",
+                "credit card",
+                "laravel",
+                "luhn"
+            ],
+            "support": {
+                "issues": "https://github.com/marvinlabs/laravel-luhn/issues",
+                "source": "https://github.com/marvinlabs/laravel-luhn/tree/v1.0.13"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/vpratfr",
+                    "type": "github"
+                }
+            ],
+            "install-path": "../marvinlabs/laravel-luhn"
+        },
+        {
             "name": "mockery/mockery",
             "version": "1.6.12",
             "version_normalized": "1.6.12.0",
@@ -5809,17 +5883,17 @@
         },
         {
             "name": "saloonphp/saloon",
-            "version": "v3.14.3",
-            "version_normalized": "3.14.3.0",
+            "version": "v3.15.0",
+            "version_normalized": "3.15.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/saloonphp/saloon.git",
-                "reference": "bdd2ab945fb490d51b3c419cc21c5937651f5ef4"
+                "reference": "8039c76132ca52d08c887407773a770c15ab04a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/saloonphp/saloon/zipball/bdd2ab945fb490d51b3c419cc21c5937651f5ef4",
-                "reference": "bdd2ab945fb490d51b3c419cc21c5937651f5ef4",
+                "url": "https://api.github.com/repos/saloonphp/saloon/zipball/8039c76132ca52d08c887407773a770c15ab04a0",
+                "reference": "8039c76132ca52d08c887407773a770c15ab04a0",
                 "shasum": ""
             },
             "require": {
@@ -5851,7 +5925,7 @@
                 "symfony/dom-crawler": "Required for the response dom() method.",
                 "symfony/var-dumper": "Required for default debugging drivers."
             },
-            "time": "2026-02-26T22:12:38+00:00",
+            "time": "2026-03-02T22:04:13+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -5881,7 +5955,7 @@
             ],
             "support": {
                 "issues": "https://github.com/saloonphp/saloon/issues",
-                "source": "https://github.com/saloonphp/saloon/tree/v3.14.3"
+                "source": "https://github.com/saloonphp/saloon/tree/v3.15.0"
             },
             "funding": [
                 {
@@ -10184,6 +10258,59 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.4.0"
             },
             "install-path": "../tijsverkoyen/css-to-inline-styles"
+        },
+        {
+            "name": "twilio/sdk",
+            "version": "8.11.1",
+            "version_normalized": "8.11.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twilio/twilio-php",
+                "reference": "7061dc4f080787660ae2a442db620e6afad99c5a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/7061dc4f080787660ae2a442db620e6afad99c5a",
+                "reference": "7061dc4f080787660ae2a442db620e6afad99c5a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "guzzlehttp/guzzle": "^6.3 || ^7.0",
+                "phpunit/phpunit": ">=7.0 < 10"
+            },
+            "suggest": {
+                "guzzlehttp/guzzle": "An HTTP client to execute the API requests"
+            },
+            "time": "2026-02-18T08:25:57+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Twilio\\": "src/Twilio/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Twilio API Team",
+                    "email": "api@twilio.com"
+                }
+            ],
+            "description": "A PHP wrapper for Twilio's API",
+            "homepage": "https://github.com/twilio/twilio-php",
+            "keywords": [
+                "api",
+                "sms",
+                "twilio"
+            ],
+            "install-path": "../twilio/sdk"
         },
         {
             "name": "vlucas/phpdotenv",

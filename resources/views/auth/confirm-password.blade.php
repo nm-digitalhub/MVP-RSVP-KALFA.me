@@ -1,8 +1,6 @@
-@extends('layouts.guest')
+<x-layouts.guest>
+    <x-slot:title>אישור סיסמה</x-slot:title>
 
-@section('title', 'אישור סיסמה')
-
-@section('content')
 <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
         <div>
@@ -72,4 +70,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-layouts.guest>

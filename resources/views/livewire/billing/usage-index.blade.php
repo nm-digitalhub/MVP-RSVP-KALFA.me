@@ -24,10 +24,10 @@
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Period') }}</th>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Usage count') }}</th>
-                            <th scope="col" class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Updated') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Feature key') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Period') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Usage count') }}</th>
+                            <th scope="col" class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Updated') }}</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">

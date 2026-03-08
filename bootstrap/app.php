@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'ensure.organization' => \App\Http\Middleware\EnsureOrganizationSelected::class,
             'system.admin' => \App\Http\Middleware\EnsureSystemAdmin::class,
         ]);
+        $middleware->web(replace: [
+            \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class => \App\Http\Middleware\VerifyCsrfToken::class,
+        ]);
         $middleware->web(append: [
             \App\Http\Middleware\ImpersonationExpiry::class,
         ]);

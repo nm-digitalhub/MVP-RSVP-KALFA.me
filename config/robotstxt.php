@@ -1,58 +1,87 @@
 <?php
 
-// config for Daikazu/Robotstxt
+declare(strict_types=1);
+
+/**
+ * robots.txt configuration for Kalfa RSVP + Seating SaaS.
+ *
+ * Environment-specific: production allows public event/RSVP pages;
+ * staging/local/testing disallow all crawling.
+ *
+ * @see https://github.com/daikazu/robotstxt
+ */
 return [
     'environments' => [
         'production' => [
-            // Content Signals Policy Configuration
             'content_signals_policy' => [
-                // Whether to include the human-readable policy comment block (shown once at top)
-                'enabled' => false,
-                // Optional: Custom policy text (use HEREDOC for multi-line)
-                // If null, uses the default Cloudflare Content Signals Policy
+                'enabled' => true,
                 'custom_policy' => null,
             ],
-            // Global Content Signals (applied to all user-agents unless overridden per-agent)
-            // Set to null to disable global signals
             'content_signals' => [
-                'search'   => null,    // Building a search index and providing search results
-                'ai_input' => null,    // Inputting content into one or more AI models
-                'ai_train' => null,    // Training or fine-tuning AI models
+                'search' => true,
+                'ai_input' => false,
+                'ai_train' => false,
             ],
             'paths' => [
                 '*' => [
-                    'disallow' => [],
-                    'allow'    => [],
+                    'disallow' => [
+                        '/api',
+                        '/dashboard',
+                        '/system',
+                        '/checkout',
+                        '/organizations',
+                        '/organization',
+                        '/billing',
+                        '/profile',
+                        '/login',
+                        '/register',
+                        '/reset-password',
+                        '/verify-email',
+                        '/sanctum',
+                        '/livewire',
+                        '/storage',
+                        '/officeguy',
+                        '/_boost',
+                    ],
+                    'allow' => [
+                        '/',
+                        '/event',
+                        '/rsvp',
+                    ],
                 ],
             ],
             'sitemaps' => [
                 'sitemap.xml',
             ],
-            // Optional: Host directive (specifies the preferred domain for crawlers)
-            // Example: 'https://example.com' or 'https://www.example.com'
-            'host' => null,
-            // Optional: Custom text to include in robots.txt (use HEREDOC for multi-line)
-            // This text will be added at the end of the robots.txt file
-            // Lines starting with # will be treated as comments
-            'custom_text' => <<<'TEXT'
-#    .__________________________.
-#    | .___________________. |==|
-#    | | ................. | |  |
-#    | | ::[ Dear robot ]: | |  |
-#    | | ::::[ be nice ]:: | |  |
-#    | | ::::::::::::::::: | |  |
-#    | | ::::::::::::::::: | |  |
-#    | | ::::::::::::::::: | |  |
-#    | | ::::::::::::::::: | | ,|
-#    | !___________________! |(c|
-#    !_______________________!__!
-#   /                            \
-#  /  [][][][][][][][][][][][][]  \
-# /  [][][][][][][][][][][][][][]  \
-#(  [][][][][____________][][][][]  )
-# \ ------------------------------ /
-#  \______________________________/
-TEXT,
+            'host' => env('APP_URL'),
+            'custom_text' => null,
+        ],
+
+        'staging' => [
+            'paths' => [
+                '*' => [
+                    'disallow' => ['/'],
+                ],
+            ],
+            'sitemaps' => [],
+        ],
+
+        'local' => [
+            'paths' => [
+                '*' => [
+                    'disallow' => ['/'],
+                ],
+            ],
+            'sitemaps' => [],
+        ],
+
+        'testing' => [
+            'paths' => [
+                '*' => [
+                    'disallow' => ['/'],
+                ],
+            ],
+            'sitemaps' => [],
         ],
     ],
 ];

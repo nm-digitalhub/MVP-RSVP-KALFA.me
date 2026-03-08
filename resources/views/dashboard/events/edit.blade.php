@@ -1,17 +1,13 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>{{ __('Edit event') }}</x-slot:title>
+    <x-slot:containerWidth>max-w-2xl</x-slot:containerWidth>
+    <x-slot:header>
+        <x-page-header
+            :title="__('Edit event')"
+            :subtitle="$event->name"
+        />
+    </x-slot:header>
 
-@section('title', __('Edit event'))
-
-@section('containerWidth', 'max-w-2xl')
-
-@section('header')
-    <x-page-header
-        :title="__('Edit event')"
-        :subtitle="$event->name"
-    />
-@endsection
-
-@section('content')
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <form action="{{ route('dashboard.events.update', $event) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
@@ -44,25 +40,34 @@
                 <x-input-error :messages="$errors->get('venue_address')" class="mt-1" />
             </div>
 
-            {{-- Event image (MediaLibrary + Cropper.js 16:9) --}}
+            {{-- Event image (MediaLibrary + Cropper.js 16:9) — hierarchy: preview → button + filename → hint --}}
             <fieldset class="space-y-3" id="event-image-fieldset">
                 <legend class="text-sm font-medium text-gray-700">{{ __('Event image') }}</legend>
                 <input type="hidden" name="cropped_image" id="cropped_image" value="" />
-                @if($event->getFirstMediaUrl('event-image'))
-                    <div class="flex flex-wrap items-center gap-4">
-                        <img src="{{ $event->getFirstMediaUrl('event-image', 'thumb') }}" alt="" class="h-24 w-auto rounded-lg border border-gray-200 object-cover" width="400" height="225" />
-                        <label class="inline-flex min-h-[44px] cursor-pointer items-center gap-2 text-sm text-gray-700">
-                            <input type="checkbox" name="remove_image" value="1" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                            {{ __('Remove image') }}
+
+                <div class="space-y-3">
+                    @if($event->getFirstMediaUrl('event-image'))
+                        <div class="space-y-2">
+                            <img src="{{ $event->getFirstMediaUrl('event-image', 'thumb') }}" alt="" class="w-full max-w-sm rounded-lg border border-gray-200 object-cover aspect-[16/9]" width="400" height="225" />
+                            <label class="inline-flex min-h-[44px] cursor-pointer items-center gap-2 text-sm text-gray-700">
+                                <input type="checkbox" name="remove_image" value="1" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                                {{ __('Remove image') }}
+                            </label>
+                        </div>
+                    @endif
+
+                    <div class="flex flex-wrap items-center gap-3">
+                        <input type="file" id="image-input" name="image" accept="image/jpeg,image/png,image/gif,image/webp" class="sr-only" aria-describedby="image-hint" />
+                        <label for="image-input" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] shrink-0 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+                            {{ __('Choose file') }}
                         </label>
+                        <span id="image-filename" class="text-sm text-gray-600 truncate min-w-0 max-w-[12rem] sm:max-w-xs" aria-live="polite"></span>
                     </div>
-                @endif
-                <div>
-                    <input type="file" id="image-input" name="image" accept="image/jpeg,image/png,image/gif,image/webp" class="mt-1 block w-full min-h-[44px] text-sm text-gray-600 file:mr-4 file:min-h-[44px] file:rounded-lg file:border-0 file:bg-indigo-50 file:px-4 file:text-sm file:font-medium file:text-indigo-700 hover:file:bg-indigo-100 file:cursor-pointer" aria-describedby="image-hint" />
-                    <p id="image-hint" class="mt-1 text-sm text-gray-500">{{ __('JPEG, PNG, GIF or WebP. Max 5 MB. Cropped to 16:9.') }}</p>
+                    <p id="image-hint" class="text-xs text-gray-500">{{ __('JPEG, PNG, GIF or WebP. Max 5 MB. Cropped to 16:9.') }}</p>
                     <x-input-error :messages="$errors->get('image')" class="mt-1" />
                 </div>
-                <div id="cropper-wrap" class="hidden mt-3 space-y-4">
+
+                <div id="cropper-wrap" class="hidden space-y-4">
                     <div class="flex flex-wrap items-center gap-2">
                         <button type="button" id="cropper-zoom-out" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">
                             −
@@ -157,156 +162,139 @@
 
     @push('scripts')
 <script>
+(function () {
 
-document.addEventListener('DOMContentLoaded', () => {
+    function runEventImageCropper() {
+        if (!document.getElementById('image-input')) return
 
-    const waitForCropper = () => {
-
-        if (typeof window.Cropper !== 'function') {
-            setTimeout(waitForCropper, 50)
-            return
-        }
-
-        const form = document.querySelector('form')
-        const fileInput = document.getElementById('image-input')
-        const cropperWrap = document.getElementById('cropper-wrap')
-        const cropperImg = document.getElementById('cropper-image')
-        const croppedInput = document.getElementById('cropped_image')
-
-        const zoomInBtn = document.getElementById('cropper-zoom-in')
-        const zoomOutBtn = document.getElementById('cropper-zoom-out')
-
-        const EVENT_ASPECT = 16 / 9
-        const ZOOM_STEP = 0.1
-
-        let cropper = null
-        let submittingAfterCrop = false
-
-
-        /* ---------------------------------------------
-        IMAGE SELECT
-        --------------------------------------------- */
-
-        fileInput.addEventListener('change', e => {
-
-            const file = e.target.files?.[0]
-            if (!file) return
-
-            if (cropper) {
-                cropper.destroy()
-                cropper = null
+        const waitForCropper = () => {
+            if (typeof window.Cropper !== 'function') {
+                setTimeout(waitForCropper, 50)
+                return
             }
 
-            const url = URL.createObjectURL(file)
+            const form = document.querySelector('#event-image-fieldset')?.closest('form')
+            const fileInput = document.getElementById('image-input')
+            const cropperWrap = document.getElementById('cropper-wrap')
+            const cropperImg = document.getElementById('cropper-image')
+            const croppedInput = document.getElementById('cropped_image')
 
-            cropperImg.src = url
-            cropperWrap.classList.remove('hidden')
+            const zoomInBtn = document.getElementById('cropper-zoom-in')
+            const zoomOutBtn = document.getElementById('cropper-zoom-out')
 
-            cropperImg.onload = () => {
+            if (!form || !fileInput || !cropperWrap || !cropperImg || !croppedInput) return
 
-                requestAnimationFrame(() => {
+            const EVENT_ASPECT = 16 / 9
+            const ZOOM_STEP = 0.1
 
-                    if (cropper) cropper.destroy()
+            let cropper = null
+            let submittingAfterCrop = false
 
-                    cropper = new Cropper(cropperImg, {
+            /* ---------------------------------------------
+            IMAGE SELECT
+            --------------------------------------------- */
 
-                        aspectRatio: EVENT_ASPECT,
-                        viewMode: 1,
-                        dragMode: "move",
-                        autoCropArea: 1,
+            fileInput.addEventListener('change', e => {
+                const file = e.target.files?.[0]
+                const filenameEl = document.getElementById('image-filename')
+                if (filenameEl) filenameEl.textContent = file ? file.name : ''
 
-                        zoomable: true,
-                        movable: true,
-                        responsive: true,
-                        background: false,
+                if (!file) return
 
-                        checkOrientation: true,
-                        wheelZoomRatio: 0.1,
+                if (cropper) {
+                    cropper.destroy()
+                    cropper = null
+                }
 
-                        crop() {
-                            const canvas = cropper.getCroppedCanvas({
-                                width: 320,
-                                height: 180
-                            })
-                            if (!canvas) return
-                            const preview = document.getElementById('crop-preview')
-                            preview.innerHTML = ''
-                            preview.appendChild(canvas)
-                        }
+                const url = URL.createObjectURL(file)
 
+                cropperImg.src = url
+                cropperWrap.classList.remove('hidden')
+
+                cropperImg.onload = () => {
+                    requestAnimationFrame(() => {
+                        if (cropper) cropper.destroy()
+
+                        cropper = new Cropper(cropperImg, {
+                            aspectRatio: EVENT_ASPECT,
+                            viewMode: 1,
+                            dragMode: 'move',
+                            autoCropArea: 1,
+                            zoomable: true,
+                            movable: true,
+                            responsive: true,
+                            background: false,
+                            checkOrientation: true,
+                            wheelZoomRatio: 0.1,
+                            crop() {
+                                const canvas = cropper.getCroppedCanvas({
+                                    width: 320,
+                                    height: 180
+                                })
+                                if (!canvas) return
+                                const preview = document.getElementById('crop-preview')
+                                if (preview) {
+                                    preview.innerHTML = ''
+                                    preview.appendChild(canvas)
+                                }
+                            }
+                        })
                     })
-
-                })
-
-            }
-
-        })
-
-
-        /* ---------------------------------------------
-        ZOOM BUTTONS
-        --------------------------------------------- */
-
-        zoomInBtn?.addEventListener('click', () => {
-            if (!cropper) return
-            cropper.zoom(ZOOM_STEP)
-        })
-
-        zoomOutBtn?.addEventListener('click', () => {
-            if (!cropper) return
-            cropper.zoom(-ZOOM_STEP)
-        })
-
-
-        /* ---------------------------------------------
-        FORM SUBMIT
-        --------------------------------------------- */
-
-        form.addEventListener('submit', async e => {
-
-            if (submittingAfterCrop) return
-
-            if (!cropper) return
-
-            const canvas = cropper.getCroppedCanvas({
-                width: 1600,
-                height: 900
+                }
             })
 
-            if (!canvas) return
+            /* ---------------------------------------------
+            ZOOM BUTTONS
+            --------------------------------------------- */
 
-            e.preventDefault()
+            zoomInBtn?.addEventListener('click', () => {
+                if (!cropper) return
+                cropper.zoom(ZOOM_STEP)
+            })
 
-            try {
+            zoomOutBtn?.addEventListener('click', () => {
+                if (!cropper) return
+                cropper.zoom(-ZOOM_STEP)
+            })
 
-                const dataUrl = canvas.toDataURL('image/jpeg', 0.9)
+            /* ---------------------------------------------
+            FORM SUBMIT
+            --------------------------------------------- */
 
-                croppedInput.value = dataUrl
+            form.addEventListener('submit', async e => {
+                if (submittingAfterCrop) return
+                if (!cropper) return
 
-                /* prevent original file upload */
-                fileInput.removeAttribute('name')
+                const canvas = cropper.getCroppedCanvas({
+                    width: 1600,
+                    height: 900
+                })
 
-                submittingAfterCrop = true
+                if (!canvas) return
 
-                form.submit()
+                e.preventDefault()
 
-            } catch (err) {
+                try {
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.9)
+                    croppedInput.value = dataUrl
+                    fileInput.removeAttribute('name')
+                    submittingAfterCrop = true
+                    form.submit()
+                } catch (err) {
+                    console.error(err)
+                    submittingAfterCrop = true
+                    form.submit()
+                }
+            })
+        }
 
-                console.error(err)
-
-                submittingAfterCrop = true
-                form.submit()
-
-            }
-
-        })
-
+        waitForCropper()
     }
 
-    waitForCropper()
+    document.addEventListener('DOMContentLoaded', runEventImageCropper)
+    document.addEventListener('livewire:navigated', runEventImageCropper)
 
-})
-
+})()
 </script>
 @endpush
-@endsection
+</x-layouts.app>

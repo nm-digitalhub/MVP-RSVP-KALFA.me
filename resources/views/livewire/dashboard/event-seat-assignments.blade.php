@@ -13,8 +13,8 @@
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
-                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Guest') }}</th>
-                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Table') }}</th>
+                    <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Guest') }}</th>
+                    <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Table') }}</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">

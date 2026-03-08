@@ -1,3 +1,9 @@
 # Project Analyzer – Learnings
 
 - **2025-03-03**: First full project analysis run on `httpdocs`. Project type: fullstack (Laravel 12 backend + Livewire 4 + Vite 7 + Tailwind 4). No ESLint; Laravel Pint for PHP formatting. PHPUnit present with Unit/Feature suites; no coverage config. Artifacts written to `.claude/context/artifacts/project-analysis.json`.
+
+- **2025-03-05 (Twilio Voice)**: Twilio voice webhooks have a **15-second timeout**; the caller hears nothing until the app returns TwiML. Best practice: respond immediately with minimal TwiML and never block on external APIs (e.g. LLM) in the webhook. Use static or cache-only content for the first `<Say>`; do heavy work in background jobs or in the next webhook (e.g. after `<Gather>` when processing the user's reply). Optional: pre-warm cache with AI-generated greetings (job when invitation is sent) so personalized greeting is still instant.
+
+- **2025-03-05 (Twilio Media Streams + Node relay)**: The 15s timeout applies only to the **HTTP webhook** that returns TwiML. A separate Node (or any) WebSocket server that Twilio connects to via `<Connect><Stream url="wss://...">` is a long-lived connection and is not subject to that timeout. When relaying Twilio Media Streams ↔ Gemini Live API: (1) forward Twilio `start`/`media`/`stop` and use `streamSid` from `start` for outbound `media` events; (2) add backpressure (e.g. skip or throttle when `geminiWs.bufferedAmount` is high); (3) always send a `toolResponse` after handling a tool call so the model can continue; (4) use a fetch timeout for the PHP webhook call so a hung backend doesn’t block the relay.
+
+- **2025-03-05 (server.js code review)**: Webhook fetch must have timeout (AbortController) and must check HTTP status; send toolResponse with actual result (ok/error); fail fast or reject stream when GEMINI_API_KEY is missing; document or add auth for /media if exposed.

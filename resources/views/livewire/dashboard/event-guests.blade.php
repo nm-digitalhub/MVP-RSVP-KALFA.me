@@ -52,7 +52,7 @@
             <p class="text-sm text-gray-500 mb-2">{{ __('CSV columns: name (or שם), email, phone, notes') }}</p>
             <form wire:submit="import" class="flex flex-wrap items-end gap-3">
                 <div>
-                    <input type="file" wire:model="importFile" accept=".csv,.txt" class="block text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
+                    <input type="file" wire:model="importFile" accept=".csv,.txt" class="block text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
                     <x-input-error :messages="$errors->get('importFile')" class="mt-1" />
                 </div>
                 <x-primary-button type="submit">{{ __('Import') }}</x-primary-button>
@@ -65,11 +65,11 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Name') }}</th>
-                        <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Email') }}</th>
-                        <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Phone') }}</th>
-                        <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">{{ __('Group') }}</th>
-                        <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase"></th>
+                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Name') }}</th>
+                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Email') }}</th>
+                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Phone') }}</th>
+                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Group') }}</th>
+                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase"></th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
