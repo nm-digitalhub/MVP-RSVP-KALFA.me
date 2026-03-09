@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use OfficeGuy\LaravelSumitGateway\Contracts\HasSumitCustomer;
+use OfficeGuy\LaravelSumitGateway\Support\Traits\HasSumitCustomerTrait;
 
-class Organization extends Model
+class Organization extends Model implements HasSumitCustomer
 {
-    use HasFactory;
+    use HasFactory, HasSumitCustomerTrait;
 
     protected $fillable = [
         'account_id',
@@ -23,6 +25,22 @@ class Organization extends Model
         'settings',
         'is_suspended',
     ];
+
+    /**
+     * Get the SUMIT customer ID from the linked account if not set on organization.
+     */
+    public function getSumitCustomerId(): ?int
+    {
+        return $this->sumit_customer_id ?? $this->account?->sumit_customer_id;
+    }
+
+    /**
+     * Get the customer's email address for SUMIT documents.
+     */
+    public function getSumitCustomerEmail(): ?string
+    {
+        return $this->billing_email ?? $this->account?->owner?->email;
+    }
 
     protected function casts(): array
     {

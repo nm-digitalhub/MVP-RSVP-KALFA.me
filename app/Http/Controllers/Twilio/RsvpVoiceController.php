@@ -11,6 +11,7 @@ use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Invitation;
 use App\Models\RsvpResponse;
+use App\Support\Feature;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -205,6 +206,15 @@ final class RsvpVoiceController extends Controller
                 ]);
 
                 \App\Events\RsvpReceived::dispatch($invitation);
+
+                // Log resource usage
+                $account = $event->organization->account;
+                if ($account) {
+                    $account->featureUsage()->updateOrCreate(
+                        ['feature_key' => 'voice_rsvp_calls', 'period_key' => now()->format('Ym')],
+                        ['usage_count' => \Illuminate\Support\Facades\DB::raw('usage_count + 1')]
+                    );
+                }
             });
 
             if ($responseType === RsvpResponseType::Yes) {
@@ -287,6 +297,31 @@ final class RsvpVoiceController extends Controller
             return;
         }
 
+        $account = $event->organization->account;
+        if (! $account) {
+            return;
+        }
+
+        $twilioEnabled = Feature::enabled($account, 'twilio_enabled');
+        $smsEnabled = Feature::enabled($account, 'sms_confirmation_enabled');
+
+        if (! $twilioEnabled || ! $smsEnabled) {
+            return;
+        }
+
+        $limit = Feature::integer($account, 'sms_confirmation_limit');
+
+        if ($limit !== null) {
+            $usage = $account->featureUsage()
+                ->where('feature_key', 'sms_confirmation_messages')
+                ->where('period_key', now()->format('Ym'))
+                ->sum('usage_count');
+
+            if ($usage >= $limit) {
+                return;
+            }
+        }
+
         try {
             $sms = "אישור ההגעה התקבל בהצלחה!\n".
                    "אירוע: {$event->name}\n".
@@ -302,6 +337,18 @@ final class RsvpVoiceController extends Controller
             }
 
             $this->twilio->messages->create($guest->phone, $params);
+
+            $usage = $account->featureUsage()->firstOrCreate(
+                [
+                    'feature_key' => 'sms_confirmation_messages',
+                    'period_key' => (int) now()->format('Ym'),
+                ],
+                [
+                    'usage_count' => 0,
+                ]
+            );
+
+            $usage->increment('usage_count');
         } catch (\Throwable $e) {
             Log::error('Twilio SMS confirmation failed', ['error' => $e->getMessage()]);
         }

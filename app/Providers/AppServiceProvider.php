@@ -2,14 +2,27 @@
 
 namespace App\Providers;
 
+use App\Contracts\BillingProvider;
 use App\Contracts\PaymentGatewayInterface;
+use App\Events\ProductEngineEvent;
+use App\Listeners\LogProductEngineEvent;
+use App\Services\Billing\SumitBillingProvider;
+use App\Services\FeatureResolver;
+use App\Services\ProductEngineOperationsMonitor;
+use App\Services\ProductIntegrityChecker;
 use App\Services\StubPaymentGateway;
+use App\Services\SubscriptionManager;
+use App\Services\SubscriptionService;
 use App\Services\SumitPaymentGateway;
+use App\Services\UsageMeter;
+use App\Services\UsagePolicyService;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Console\Events\CommandStarting;
+use Illuminate\Database\Events\MigrationsEnded;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Pail\Handler as PailHandler;
@@ -25,6 +38,14 @@ class AppServiceProvider extends ServiceProvider
         $gateway = config('billing.default_gateway', 'stub');
         $implementation = $gateway === 'sumit' ? SumitPaymentGateway::class : StubPaymentGateway::class;
         $this->app->bind(PaymentGatewayInterface::class, $implementation);
+        $this->app->bind(BillingProvider::class, SumitBillingProvider::class);
+        $this->app->singleton(UsageMeter::class, fn (): UsageMeter => new UsageMeter(app(BillingProvider::class)));
+        $this->app->singleton(FeatureResolver::class, fn (): FeatureResolver => new FeatureResolver(app(UsageMeter::class)));
+        $this->app->singleton(SubscriptionService::class, fn (): SubscriptionService => new SubscriptionService(app(BillingProvider::class), app(FeatureResolver::class)));
+        $this->app->singleton(SubscriptionManager::class, fn (): SubscriptionManager => new SubscriptionManager(app(SubscriptionService::class)));
+        $this->app->singleton(UsagePolicyService::class, fn (): UsagePolicyService => new UsagePolicyService(app(FeatureResolver::class)));
+        $this->app->singleton(ProductEngineOperationsMonitor::class, fn (): ProductEngineOperationsMonitor => new ProductEngineOperationsMonitor);
+        $this->app->singleton(ProductIntegrityChecker::class, fn (): ProductIntegrityChecker => new ProductIntegrityChecker);
 
         $this->app->singleton(TwilioClient::class, function (): TwilioClient {
             $sid = config('services.twilio.sid');
@@ -93,6 +114,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Event::listen(ProductEngineEvent::class, LogProductEngineEvent::class);
+        Event::listen(MigrationsEnded::class, fn (): ProductIntegrityChecker => tap(app(ProductIntegrityChecker::class), fn (ProductIntegrityChecker $checker) => $checker->reportAll()));
+
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
             return $user->is_system_admin ? true : null;
         });
@@ -105,7 +129,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('rsvp_submit', fn () => Limit::perMinute(10));
         RateLimiter::for('webhooks', fn () => Limit::perMinute(120));
 
-        if (app()->environment('production') && config('billing.default_gateway') === 'sumit') {
+        if (app()->environment('production')) {
             $this->validateSumitConfig();
         }
     }

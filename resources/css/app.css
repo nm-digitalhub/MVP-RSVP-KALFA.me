@@ -4,16 +4,23 @@
   /* Brand Palette */
   --color-brand: #6C4CF1;
   --color-brand-hover: #5A3DE0;
-  
+  --color-brand-light: #A594F9;
+
   /* Neutral Palette */
   --color-surface: #FAFAFC;
   --color-card: #FFFFFF;
   --color-stroke: #E4E4E7;
-  
+
+  /* Navigation Specific */
+  --color-nav-bg: rgba(255, 255, 255, 0.9);
+  --color-nav-border: rgba(228, 228, 231, 0.8);
+  --color-nav-link: #4B5563;
+  --color-nav-link-hover: #111827;
+
   /* Typography */
   --color-content: #18181B;
   --color-content-muted: #71717A;
-  
+
   /* Semantic Status */
   --color-success: #22C55E;
   --color-warning: #F59E0B;
@@ -22,49 +29,80 @@
   /* Custom Shadows */
   --shadow-brand: 0 20px 50px rgba(108, 76, 241, 0.15);
   --shadow-danger: 0 20px 50px rgba(239, 68, 68, 0.15);
+  --shadow-nav: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 /* RTL/LTR settings */
 @layer base {
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
   ::placeholder {
     text-align: start;
   }
+
   select {
     direction: inherit;
-  }
-  body {
-    @apply bg-surface text-content;
   }
 }
 
 @layer components {
+
   .cropper-view-box,
   .cropper-face {
     @apply rounded-lg;
   }
+
   .cropper-dashed {
     @apply opacity-20;
   }
+
   .cropper-modal {
     @apply bg-black/55;
   }
 
-  /* Mobile drawer styles - moved from dynamic-navbar.blade.php */
-  .mobile-drawer {
-    transform: translateX(-100%);
+  /* Premium Glass Navbar */
+  .glass-navbar {
+    @apply sticky top-0 z-40 w-full backdrop-blur-md border-b border-[var(--color-nav-border)] shadow-nav transition-all duration-300;
+    background: var(--color-nav-bg);
   }
 
-  [dir="rtl"] .mobile-drawer {
-    transform: translateX(100%);
+  /* Mobile drawer styles */
+  .mobile-drawer {
+    @apply fixed inset-y-0 z-50 flex flex-col w-80 max-w-[85vw] bg-white dark:bg-gray-950 shadow-2xl transition-transform duration-300 ease-in-out will-change-transform;
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  [dir="rtl"] .mobile-drawer,
+  .mobile-drawer.is-rtl {
+    left: auto;
+    right: 0;
+    transform: translate3d(100%, 0, 0);
   }
 
   .mobile-drawer.is-open {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) !important;
+  }
+
+  [dir="rtl"] .mobile-drawer.is-open,
+  .mobile-drawer.is-rtl.is-open {
+    transform: translate3d(0, 0, 0) !important;
   }
 
   #mobile-overlay.is-open {
-    opacity: 1;
-    pointer-events: auto;
+    @apply opacity-100 pointer-events-auto;
+  }
+
+  /* Navigation Link Base */
+  .nav-link {
+    @apply flex items-center gap-2 text-nav-link hover:text-nav-link-hover hover:bg-gray-50/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 rounded-lg min-h-[44px] px-3 py-2 transition-all duration-200 ease-out;
+  }
+
+  .nav-link-active {
+    @apply font-bold text-brand bg-brand/5 ring-1 ring-brand/10;
   }
 
   /* Smooth touch scrolling in drawer nav (iOS) */
@@ -72,27 +110,24 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  @media (min-width: 768px) {
-    .mobile-drawer,
-    .mobile-drawer.is-open {
-      transform: none;
-    }
+  /* Dark mode overrides for common components */
+  .dark .mobile-drawer {
+    @apply bg-gray-900 border-r border-gray-800;
   }
 
-  /* Dark mode colors for components */
-  .dark .bg-gray-50 {
-    background-color: rgb(17 24 39); /* gray-900 */
+  .dark .nav-link:hover {
+    @apply bg-gray-800/50;
   }
+}
 
-  .dark .text-gray-900 {
-    color: rgb(243 244 246); /* gray-100 */
-  }
-
-  .dark .bg-white {
-    background-color: rgb(31 41 55); /* gray-800 */
-  }
-
-  .dark .border-gray-200 {
-    border-color: rgb(55 65 81); /* gray-700 */
-  }
+.dark {
+  --color-nav-bg: rgba(17, 24, 39, 0.95);
+  --color-nav-border: rgba(55, 65, 81, 0.8);
+  --color-nav-link: #9CA3AF;
+  --color-nav-link-hover: #F9FAFB;
+  --color-surface: #09090B;
+  --color-card: #18181B;
+  --color-stroke: #27272A;
+  --color-content: #F4F4F5;
+  --color-content-muted: #A1A1AA;
 }

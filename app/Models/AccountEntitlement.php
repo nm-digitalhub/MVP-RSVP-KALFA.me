@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\EntitlementType;
+use App\Services\FeatureResolver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,6 +18,7 @@ class AccountEntitlement extends Model
         'account_id',
         'feature_key',
         'value',
+        'type',
         'product_entitlement_id',
         'expires_at',
     ];
@@ -23,8 +26,20 @@ class AccountEntitlement extends Model
     protected function casts(): array
     {
         return [
+            'type' => EntitlementType::class,
             'expires_at' => 'datetime',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::saved(function (AccountEntitlement $entitlement): void {
+            app(FeatureResolver::class)->forgetByAccountId($entitlement->account_id, $entitlement->feature_key);
+        });
+
+        static::deleted(function (AccountEntitlement $entitlement): void {
+            app(FeatureResolver::class)->forgetByAccountId($entitlement->account_id, $entitlement->feature_key);
+        });
     }
 
     public function account(): BelongsTo
