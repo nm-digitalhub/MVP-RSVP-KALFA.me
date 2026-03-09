@@ -23,6 +23,7 @@
 |-------------------------|---------------------|---------------------------------|
 | `dashboard`             | Dashboard           | דסקטופ + מובייל                 |
 | `dashboard.events.index`| Events              | דסקטופ + מובייל (נוסף 2026-03-05) |
+| `twilio.calling.index`  | Calling             | דסקטופ + מובייל (נוסף 2026-03-08) |
 | ארגון נבחר (dropdown)  | שם הארגון + החלפה  | דסקטופ: dropdown               |
 | `dashboard.organization-settings.edit` | Organization settings | דסקטופ: תחת dropdown הארגון; מובייל: כשנבחר ארגון (נוסף 2026-03-05) |
 | `organizations.index`   | Manage Organizations| דסקטופ: תחת dropdown; מובייל   |

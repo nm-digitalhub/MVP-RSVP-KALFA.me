@@ -7,11 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -62,6 +63,7 @@ class User extends Authenticatable
     public function ownedOrganizations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Organization::class, 'organization_users')
+            ->using(OrganizationUser::class)
             ->withPivot('role')
             ->withTimestamps()
             ->wherePivot('role', \App\Enums\OrganizationUserRole::Owner->value);
@@ -73,6 +75,7 @@ class User extends Authenticatable
     public function organizations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Organization::class, 'organization_users')
+            ->using(OrganizationUser::class)
             ->withPivot('role')
             ->withTimestamps();
     }
@@ -81,21 +84,23 @@ class User extends Authenticatable
      * Active organization for dashboard context (multi-tenant).
      * When system admin is impersonating (session key set), skip membership check.
      */
-    public function currentOrganization(): ?Organization
-    {
-        if ($this->current_organization_id === null) {
-            return null;
-        }
-        $org = Organization::find($this->current_organization_id);
-        if ($org === null) {
-            return null;
-        }
-        if ($this->is_system_admin && session()->has('impersonation.original_organization_id')) {
+    public ?Organization $currentOrganization {
+        get {
+            if ($this->current_organization_id === null) {
+                return null;
+            }
+            $org = Organization::find($this->current_organization_id);
+            if ($org === null) {
+                return null;
+            }
+            if ($this->is_system_admin && session()->has('impersonation.original_organization_id')) {
+                return $org;
+            }
+            if (! $this->organizations()->where('organizations.id', $org->id)->exists()) {
+                return null;
+            }
+
             return $org;
         }
-        if (! $this->organizations()->where('organizations.id', $org->id)->exists()) {
-            return null;
-        }
-        return $org;
     }
 }

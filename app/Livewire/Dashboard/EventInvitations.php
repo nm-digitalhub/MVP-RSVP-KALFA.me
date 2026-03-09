@@ -8,6 +8,7 @@ use App\Enums\InvitationStatus;
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 final class EventInvitations extends Component
@@ -19,6 +20,12 @@ final class EventInvitations extends Component
     public function mount(Event $event): void
     {
         $this->event = $event;
+    }
+
+    #[On('echo-private:event.{event.id},RsvpReceived')]
+    public function onRsvpReceived(): void
+    {
+        // Refresh the list
     }
 
     public function createInvitation(): void

@@ -33,12 +33,31 @@ final class Show extends Component
 
     public ?int $edit_sumit_customer_id = null;
 
+    // Entitlement management
+    public bool $showEntitlementForm = false;
+
+    public ?int $editingEntitlementId = null;
+
+    public string $entitlement_feature_key = '';
+
+    public string $entitlement_value = '';
+
+    public ?string $entitlement_expires_at = null;
+
     #[Layout('layouts.app')]
-    #[Title('Account')]
+    #[Title('Account Details')]
     public function mount(Account $account): void
     {
         $this->account = $account;
     }
+
+    public function setTab(string $tab): void
+    {
+        $this->activeTab = $tab;
+        $this->cancelEntitlement();
+    }
+
+    // --- Account Management ---
 
     public function openEdit(): void
     {
@@ -55,19 +74,101 @@ final class Show extends Component
             'edit_owner_user_id' => 'nullable|exists:users,id',
             'edit_sumit_customer_id' => 'nullable|integer|min:0',
         ]);
+
         $this->account->update([
             'name' => $this->edit_name ?: null,
             'owner_user_id' => $this->edit_owner_user_id,
             'sumit_customer_id' => $this->edit_sumit_customer_id,
         ]);
+
+        SystemAuditLogger::log(auth()->user(), 'account.updated', $this->account, [
+            'name' => $this->edit_name,
+            'owner_id' => $this->edit_owner_user_id,
+            'sumit_id' => $this->edit_sumit_customer_id,
+        ]);
+
         $this->account->refresh();
         $this->showEditForm = false;
+        session()->flash('success', __('Account updated successfully.'));
     }
 
     public function cancelEdit(): void
     {
         $this->showEditForm = false;
     }
+
+    // --- Entitlement Management ---
+
+    public function openCreateEntitlement(): void
+    {
+        $this->resetEntitlementFields();
+        $this->showEntitlementForm = true;
+    }
+
+    public function openEditEntitlement(int $id): void
+    {
+        $e = $this->account->entitlements()->findOrFail($id);
+        $this->editingEntitlementId = $id;
+        $this->entitlement_feature_key = $e->feature_key;
+        $this->entitlement_value = (string) $e->value;
+        $this->entitlement_expires_at = $e->expires_at?->format('Y-m-d');
+        $this->showEntitlementForm = true;
+    }
+
+    public function saveEntitlement(): void
+    {
+        $this->validate([
+            'entitlement_feature_key' => 'required|string|max:100',
+            'entitlement_value' => 'nullable|string|max:255',
+            'entitlement_expires_at' => 'nullable|date',
+        ]);
+
+        $data = [
+            'feature_key' => $this->entitlement_feature_key,
+            'value' => $this->entitlement_value,
+            'expires_at' => $this->entitlement_expires_at,
+        ];
+
+        if ($this->editingEntitlementId) {
+            $e = $this->account->entitlements()->findOrFail($this->editingEntitlementId);
+            $e->update($data);
+            $action = 'account.entitlement_updated';
+        } else {
+            $this->account->entitlements()->create($data);
+            $action = 'account.entitlement_created';
+        }
+
+        SystemAuditLogger::log(auth()->user(), $action, $this->account, $data);
+
+        $this->cancelEntitlement();
+        session()->flash('success', __('Entitlement saved.'));
+    }
+
+    public function deleteEntitlement(int $id): void
+    {
+        $e = $this->account->entitlements()->findOrFail($id);
+        $key = $e->feature_key;
+        $e->delete();
+
+        SystemAuditLogger::log(auth()->user(), 'account.entitlement_deleted', $this->account, ['feature_key' => $key]);
+        session()->flash('success', __('Entitlement deleted.'));
+    }
+
+    public function cancelEntitlement(): void
+    {
+        $this->showEntitlementForm = false;
+        $this->resetEntitlementFields();
+    }
+
+    protected function resetEntitlementFields(): void
+    {
+        $this->editingEntitlementId = null;
+        $this->entitlement_feature_key = '';
+        $this->entitlement_value = '';
+        $this->entitlement_expires_at = null;
+    }
+
+    // --- Organization Linking ---
 
     public function attachOrganization(): void
     {
@@ -102,11 +203,6 @@ final class Show extends Component
             ['organization_id' => $org->id, 'organization_name' => $org->name],
         );
         $this->account->refresh();
-    }
-
-    public function setTab(string $tab): void
-    {
-        $this->activeTab = $tab;
     }
 
     public function render(): View

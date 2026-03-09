@@ -60,6 +60,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('payments/{payment}', [PaymentController::class, 'show'])->name('payments.show');
 });
 
+// Twilio/Node.js integration endpoints (secured via secret key in controller)
+Route::prefix('twilio')->group(function () {
+    Route::post('/rsvp/process', [\App\Http\Controllers\Twilio\RsvpVoiceController::class, 'process'])->name('api.twilio.rsvp.process');
+    Route::post('/calling/log', [\App\Http\Controllers\Twilio\CallingController::class, 'appendLog'])->name('api.twilio.calling.log.append');
+});
+
 Route::middleware('throttle:rsvp_show')->get('rsvp/{slug}', [PublicRsvpController::class, 'showBySlug'])->name('api.rsvp.show');
 Route::middleware('throttle:rsvp_submit')->post('rsvp/{slug}/responses', [PublicRsvpController::class, 'storeResponse'])->name('api.rsvp.responses.store');
 

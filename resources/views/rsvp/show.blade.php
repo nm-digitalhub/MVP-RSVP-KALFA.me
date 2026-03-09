@@ -10,9 +10,9 @@
         @endif
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-            @if($invitation->event->imageUrl())
+            @if($invitation->event->imageUrl)
                 <section class="rounded-t-xl overflow-hidden border-b border-gray-200" aria-hidden="true">
-                    <img src="{{ $invitation->event->imageUrl() }}" alt="" class="w-full h-48 sm:h-64 object-cover" width="672" height="256" />
+                    <img src="{{ $invitation->event->imageUrl }}" alt="" class="w-full h-48 sm:h-64 object-cover" width="672" height="256" />
                 </section>
             @endif
 
@@ -47,11 +47,11 @@
                 </div>
             @endif
 
-            @if(count($invitation->event->customFields()) > 0)
+            @if(count($invitation->event->customFields) > 0)
                 <div class="px-6 pb-6 border-t border-gray-100">
                     <h2 class="text-sm font-semibold text-gray-700 mb-2 pt-6">{{ __('Additional info') }}</h2>
                     <dl class="space-y-1 text-sm">
-                        @foreach($invitation->event->customFields() as $row)
+                        @foreach($invitation->event->customFields as $row)
                             <div><dt class="inline font-medium text-gray-700">{{ e($row['label']) }}:</dt> <dd class="inline text-gray-600">{{ e($row['value']) }}</dd></div>
                         @endforeach
                     </dl>

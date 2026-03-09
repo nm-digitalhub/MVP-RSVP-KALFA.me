@@ -16,17 +16,20 @@ class EventPolicy
 
     public function view(User $user, Event $event): bool
     {
-        return $user->organizations()->where('organizations.id', $event->organization_id)->exists();
+        return $user->organizations()->where('organizations.id', $event->organization_id)->exists()
+            && $user->can('view-event-details');
     }
 
     public function create(User $user, int $organizationId): bool
     {
-        return $user->organizations()->where('organizations.id', $organizationId)->exists();
+        return $user->organizations()->where('organizations.id', $organizationId)->exists()
+            && $user->can('manage-event-guests'); // Or a more specific permission
     }
 
     public function update(User $user, Event $event): bool
     {
-        return $user->organizations()->where('organizations.id', $event->organization_id)->exists();
+        return $user->organizations()->where('organizations.id', $event->organization_id)->exists()
+            && $user->can('manage-event-guests');
     }
 
     public function delete(User $user, Event $event): bool

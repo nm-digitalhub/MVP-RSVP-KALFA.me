@@ -8,6 +8,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
 
+    <meta name="color-scheme" content="light dark">
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
@@ -21,7 +23,7 @@
 
 </head>
 
-<body class="min-h-screen bg-gray-50 antialiased text-gray-900">
+<body class="min-h-screen bg-gray-50 dark:bg-gray-900 antialiased text-gray-900 dark:text-gray-100 transition-colors duration-200">
 
 <div class="min-h-screen px-4 py-8 sm:py-12">
 

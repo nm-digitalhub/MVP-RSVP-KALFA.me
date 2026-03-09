@@ -17,7 +17,7 @@ const sharedEnv = {
   TWILIO_NUMBER: process.env.TWILIO_NUMBER,
   RSVP_NODE_WS_URL: process.env.RSVP_NODE_WS_URL || "wss://node.kalfa.me/media",
   GEMINI_API_KEY: process.env.GEMINI_API_KEY,
-  PHP_WEBHOOK: process.env.PHP_WEBHOOK || "https://kalfa.me/twilio/rsvp-process.php",
+  PHP_WEBHOOK: process.env.PHP_WEBHOOK || "https://kalfa.me/api/twilio/rsvp/process",
 };
 
 export default {

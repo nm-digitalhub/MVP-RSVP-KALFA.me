@@ -38,6 +38,35 @@
         </div>
     </div>
 
+    {{-- System Tools --}}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-8">
+        <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">{{ __('System Real-time Monitoring') }}</h2>
+        <x-pulse>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <livewire:pulse.servers cols="full" />
+                <livewire:pulse.usage cols="4" rows="2" />
+                <livewire:pulse.exceptions cols="4" />
+                <livewire:pulse.slow-queries cols="4" />
+            </div>
+        </x-pulse>
+        <div class="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <a href="/pulse" target="_blank" class="flex items-center justify-between p-3 rounded-lg border border-indigo-100 bg-indigo-50/50 hover:bg-indigo-50 transition-colors group">
+                <div class="flex items-center gap-3">
+                    <x-heroicon-o-chart-bar class="w-5 h-5 text-indigo-600" />
+                    <span class="font-medium text-indigo-900">{{ __('Full System Pulse') }}</span>
+                </div>
+                <x-heroicon-o-arrow-top-right-on-square class="w-4 h-4 text-indigo-400 group-hover:text-indigo-600" />
+            </a>
+            <a href="/telescope" target="_blank" class="flex items-center justify-between p-3 rounded-lg border border-amber-100 bg-amber-50/50 hover:bg-amber-50 transition-colors group">
+                <div class="flex items-center gap-3">
+                    <x-heroicon-o-bug-ant class="w-5 h-5 text-amber-600" />
+                    <span class="font-medium text-amber-900">{{ __('Laravel Telescope') }}</span>
+                </div>
+                <x-heroicon-o-arrow-top-right-on-square class="w-4 h-4 text-amber-400 group-hover:text-amber-600" />
+            </a>
+        </div>
+    </div>
+
     {{-- Health --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
         <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">{{ __('Health') }}</h2>

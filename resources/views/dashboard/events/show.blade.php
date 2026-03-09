@@ -13,9 +13,9 @@
     @endif
 
     <div class="space-y-6">
-        @if($event->imageUrl())
+        @if($event->imageUrl)
             <section class="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm" aria-hidden="true">
-                <img src="{{ $event->imageUrl() }}" alt="" class="w-full h-48 sm:h-64 object-cover" width="800" height="256" />
+                <img src="{{ $event->imageUrl }}" alt="" class="w-full h-48 sm:h-64 object-cover" width="800" height="256" />
             </section>
         @endif
 
@@ -84,11 +84,11 @@
                     @endforeach
                 </div>
             @endif
-            @if(count($event->customFields()) > 0)
+            @if(count($event->customFields) > 0)
                 <div class="px-6 pb-6 border-t border-gray-100">
                     <h3 class="text-sm font-semibold text-gray-700 mb-2">{{ __('Additional info') }}</h3>
                     <dl class="space-y-1 text-sm">
-                        @foreach($event->customFields() as $row)
+                        @foreach($event->customFields as $row)
                             <div><dt class="inline font-medium text-gray-700">{{ e($row['label']) }}:</dt> <dd class="inline text-gray-600">{{ e($row['value']) }}</dd></div>
                         @endforeach
                     </dl>

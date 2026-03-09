@@ -7,9 +7,22 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Twilio Webhooks
+| Twilio & Calling Routes
 |--------------------------------------------------------------------------
 */
+Route::prefix('twilio')->group(function () {
+    Route::middleware(['auth', 'verified', 'ensure.organization'])->group(function () {
+        Route::get('/calling', [\App\Http\Controllers\Twilio\CallingController::class, 'index'])->name('twilio.calling.index');
+        Route::post('/calling/initiate', [\App\Http\Controllers\Twilio\CallingController::class, 'call'])->name('twilio.calling.initiate');
+        Route::get('/calling/logs', [\App\Http\Controllers\Twilio\CallingController::class, 'getLogs'])->name('twilio.calling.logs');
+    });
+
+    // Public webhooks/callbacks from Twilio
+    Route::post('/calling/status', [\App\Http\Controllers\Twilio\CallingController::class, 'statusCallback'])->name('twilio.calling.status');
+    Route::match(['get', 'post'], '/rsvp/connect', [\App\Http\Controllers\Twilio\RsvpVoiceController::class, 'connect'])->name('twilio.rsvp.connect');
+    Route::post('/rsvp/response', [\App\Http\Controllers\Twilio\RsvpVoiceController::class, 'digitResponse'])->name('twilio.rsvp.digit_response');
+});
+
 Route::match(['get', 'post'], '/mvp-rsvp/webhook/callcomes', [TwilioController::class, 'callComes']);
 
 /*
@@ -47,6 +60,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Organization-scoped routes (require active organization)
     Route::middleware('ensure.organization')->group(function () {
+        Route::livewire('team', \App\Livewire\Dashboard\OrganizationMembers::class)->name('dashboard.team');
         Route::get('dashboard/events', [\App\Http\Controllers\Dashboard\DashboardController::class, 'index'])->name('dashboard.events.index');
         Route::get('dashboard/events/create', [\App\Http\Controllers\Dashboard\EventController::class, 'create'])->name('dashboard.events.create');
         Route::post('dashboard/events', [\App\Http\Controllers\Dashboard\EventController::class, 'store'])->name('dashboard.events.store');
@@ -107,6 +121,7 @@ Route::get('event/{slug}', [\App\Http\Controllers\PublicEventController::class, 
     ->name('event.show');
 
 // Public RSVP page (no auth)
+Route::livewire('invitations/{token}', \App\Livewire\AcceptInvitation::class)->name('invitations.accept');
 Route::get('rsvp/{slug}', [\App\Http\Controllers\PublicRsvpViewController::class, 'show'])
     ->name('rsvp.show');
 Route::post('rsvp/{slug}/responses', [\App\Http\Controllers\PublicRsvpViewController::class, 'store'])

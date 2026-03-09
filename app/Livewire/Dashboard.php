@@ -11,7 +11,7 @@ class Dashboard extends Component
 {
     public function mount(): mixed
     {
-        $organization = auth()->user()->currentOrganization();
+        $organization = auth()->user()->currentOrganization;
 
         if ($organization === null) {
             return $this->redirect(route('organizations.index'), navigate: true);
@@ -22,7 +22,7 @@ class Dashboard extends Component
 
     public function render(): View
     {
-        $organization = auth()->user()->currentOrganization();
+        $organization = auth()->user()->currentOrganization;
         $events = $organization
             ? $organization->events()->withCount('guests')->orderByDesc('event_date')->get()
             : collect();

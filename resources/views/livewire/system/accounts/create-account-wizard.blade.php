@@ -1,179 +1,200 @@
-<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-w-0 text-start" role="main" aria-label="{{ __('Create account wizard') }}" dir="{{ isRTL() ? 'rtl' : 'ltr' }}">
-    <div class="mb-6">
-        <a href="{{ route('system.accounts.index') }}" class="inline-flex items-center gap-1 min-h-[44px] px-4 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2" aria-label="{{ __('Back to accounts') }}">
-            @if(isRTL()){{ __('Back to accounts') }} &rarr;@else&larr; {{ __('Back to accounts') }}@endif
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-w-0 text-start animate-in fade-in duration-700" role="main" aria-label="{{ __('Create Account Wizard') }}" dir="{{ isRTL() ? 'rtl' : 'ltr' }}">
+    
+    {{-- Top Navigation --}}
+    <div class="mb-10 flex items-center justify-between">
+        <a href="{{ route('system.accounts.index') }}" class="group inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold text-content-muted hover:text-brand hover:bg-brand/5 transition-all">
+            <x-heroicon-m-arrow-left class="size-4 group-hover:-translate-x-1 transition-transform rtl:rotate-180" />
+            {{ __('Cancel & Exit') }}
         </a>
+        <div class="text-xs font-black text-content-muted uppercase tracking-widest">{{ __('New Billing Entity') }}</div>
     </div>
 
-    {{-- Step indicator: RTL reverses order (3←2←1), LTR (1→2→3) --}}
-    <div class="mb-8 overflow-x-auto">
-        <ul class="flex items-center justify-between min-w-[280px] {{ isRTL() ? 'flex-row-reverse' : 'flex-row' }}" aria-label="{{ __('Steps') }}">
-            @for ($i = 1; $i <= $totalSteps; $i++)
-                <li class="flex-1 flex items-center min-w-0" wire:key="step-indicator-{{ $i }}">
-                    <div class="flex items-center w-full">
-                        <div class="flex flex-col items-center">
-                            <span class="w-10 h-10 flex items-center justify-center rounded-full font-semibold transition-colors duration-300
-                                {{ $step >= $i ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-600' }}">
-                                {{ $i }}
-                            </span>
-                            <span class="text-xs mt-2 text-gray-600 text-center">
-                                @if($i == 1) {{ __('Account holder details') }}
-                                @elseif($i == 2) {{ __('Owner') }}
-                                @else {{ __('Review & create') }}
-                                @endif
-                            </span>
-                        </div>
-                        @if ($i < $totalSteps)
-                            <div class="flex-1 h-1 ms-2 me-2 sm:ms-4 sm:me-4 rounded min-w-[8px]
-                                {{ $step > $i ? 'bg-indigo-600' : 'bg-gray-200' }}
-                                transition-colors duration-300">
-                            </div>
+    {{-- Modern Stepper --}}
+    <div class="mb-12">
+        <div class="relative flex items-center justify-between w-full">
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-stroke rounded-full -z-10"></div>
+            <div class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-brand rounded-full -z-10 transition-all duration-500 ease-out" style="width: {{ ($step - 1) / ($totalSteps - 1) * 100 }}%"></div>
+            
+            @foreach(range(1, $totalSteps) as $i)
+                <div class="flex flex-col items-center gap-2 relative group cursor-default">
+                    <div class="size-10 rounded-full flex items-center justify-center text-sm font-black border-4 transition-all duration-500 {{ $step >= $i ? 'bg-brand border-brand text-white shadow-lg shadow-brand/30 scale-110' : 'bg-surface border-stroke text-content-muted' }}">
+                        @if($step > $i)
+                            <x-heroicon-m-check class="size-5" />
+                        @else
+                            {{ $i }}
                         @endif
                     </div>
-                </li>
-            @endfor
-        </ul>
+                    <span class="absolute top-12 whitespace-nowrap text-[10px] font-bold uppercase tracking-wider transition-colors duration-300 {{ $step >= $i ? 'text-brand' : 'text-content-muted' }}">
+                        @if($i == 1) {{ __('Entity Type') }}
+                        @elseif($i == 2) {{ __('Ownership') }}
+                        @else {{ __('Review') }}
+                        @endif
+                    </span>
+                </div>
+            @endforeach
+        </div>
     </div>
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 min-h-[320px]">
+    {{-- Main Card --}}
+    <div class="bg-card rounded-[2.5rem] shadow-2xl shadow-slate-900/10 border border-stroke p-8 sm:p-12 min-h-[400px] flex flex-col relative overflow-hidden">
+        
+        {{-- Step 1: Type & Identity --}}
         @if ($step === 1)
-            <div wire:transition="step">
-                <h2 class="text-xl font-bold mb-6 text-gray-800">{{ __('Account holder details') }}</h2>
-                <div class="space-y-4">
-                    <div>
-                        <x-input-label for="wizard-type" :value="__('Customer Type')" class="text-sm font-medium text-gray-700" />
-                        <select id="wizard-type" wire:model.live="type" dir="{{ isRTL() ? 'rtl' : 'ltr' }}" class="mt-1 block w-full min-h-[44px] rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-start shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200">
-                            <option value="organization">{{ __('Organization') }}</option>
-                            <option value="individual">{{ __('Individual') }}</option>
-                        </select>
-                        <x-input-error :messages="$errors->get('type')" class="mt-1" />
-                    </div>
-                    <div>
-                        <x-input-label for="wizard-name" :value="__('Name')" class="text-sm font-medium text-gray-700" />
-                        <x-text-input id="wizard-name" type="text" wire:model.defer="name" class="mt-1 block w-full min-h-[44px] text-start" placeholder="{{ __('Account display name') }}" />
-                        <x-input-error :messages="$errors->get('name')" class="mt-1" />
-                    </div>
+            <div wire:transition.out.opacity.duration.200ms.in.opacity.duration.300ms class="space-y-8">
+                <div class="text-center sm:text-start">
+                    <h2 class="text-3xl font-black text-content tracking-tight">{{ __('Who is this account for?') }}</h2>
+                    <p class="mt-2 text-content-muted text-lg font-medium">{{ __('Select the legal entity type for billing and invoices.') }}</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <label class="relative group cursor-pointer">
+                        <input type="radio" wire:model.live="type" value="organization" class="peer sr-only">
+                        <div class="p-6 rounded-[2rem] border-2 transition-all duration-300 flex flex-col items-center gap-4 text-center hover:shadow-xl peer-checked:border-brand peer-checked:bg-brand/5 peer-checked:shadow-brand/20 bg-surface border-transparent">
+                            <div class="size-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-content-muted peer-checked:text-brand peer-checked:bg-white peer-checked:shadow-inner transition-colors">
+                                <x-heroicon-o-building-office-2 class="size-8" />
+                            </div>
+                            <div>
+                                <span class="block text-lg font-black text-content peer-checked:text-brand">{{ __('Organization') }}</span>
+                                <span class="text-xs font-bold text-content-muted mt-1 block">{{ __('Company, NGO, or Business') }}</span>
+                            </div>
+                            <div class="absolute top-6 right-6 opacity-0 peer-checked:opacity-100 transition-opacity text-brand">
+                                <x-heroicon-s-check-circle class="size-6" />
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="relative group cursor-pointer">
+                        <input type="radio" wire:model.live="type" value="individual" class="peer sr-only">
+                        <div class="p-6 rounded-[2rem] border-2 transition-all duration-300 flex flex-col items-center gap-4 text-center hover:shadow-xl peer-checked:border-emerald-500 peer-checked:bg-emerald-500/5 peer-checked:shadow-emerald-500/20 bg-surface border-transparent">
+                            <div class="size-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-content-muted peer-checked:text-emerald-600 peer-checked:bg-white peer-checked:shadow-inner transition-colors">
+                                <x-heroicon-o-user class="size-8" />
+                            </div>
+                            <div>
+                                <span class="block text-lg font-black text-content peer-checked:text-emerald-700">{{ __('Individual') }}</span>
+                                <span class="text-xs font-bold text-content-muted mt-1 block">{{ __('Private person or Freelancer') }}</span>
+                            </div>
+                            <div class="absolute top-6 right-6 opacity-0 peer-checked:opacity-100 transition-opacity text-emerald-600">
+                                <x-heroicon-s-check-circle class="size-6" />
+                            </div>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="space-y-3">
+                    <x-input-label for="wizard-name" :value="__('Display Name')" class="text-xs font-black text-content-muted uppercase tracking-widest px-1" />
+                    <input id="wizard-name" type="text" wire:model.defer="name" class="block w-full px-6 py-4 rounded-2xl bg-surface border-transparent focus:bg-white focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all text-lg font-bold shadow-inner placeholder:text-content-muted/50" placeholder="{{ $type === 'organization' ? 'Acme Corp Ltd.' : 'John Doe' }}" />
+                    <x-input-error :messages="$errors->get('name')" class="px-2" />
                 </div>
             </div>
         @endif
 
+        {{-- Step 2: Ownership --}}
         @if ($step === 2)
-            <div wire:transition="step">
-                <h2 class="text-xl font-bold mb-6 text-gray-800">{{ __('Owner (optional)') }}</h2>
+            <div wire:transition.out.opacity.duration.200ms.in.opacity.duration.300ms class="space-y-8">
+                <div class="text-center sm:text-start">
+                    <h2 class="text-3xl font-black text-content tracking-tight">{{ __('Assign Ownership') }}</h2>
+                    <p class="mt-2 text-content-muted text-lg font-medium">{{ __('Who is the primary contact for this account?') }}</p>
+                </div>
+
                 <div class="space-y-4">
-                    <div>
-                        <x-input-label for="wizard-owner" :value="__('Owner user')" class="text-sm font-medium text-gray-700" />
-                        <select id="wizard-owner" wire:model.defer="owner_user_id" dir="{{ isRTL() ? 'rtl' : 'ltr' }}" class="mt-1 block w-full min-h-[44px] rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-start shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200">
-                            <option value="">{{ __('— None —') }}</option>
+                    <x-input-label for="wizard-owner" :value="__('Select User')" class="text-xs font-black text-content-muted uppercase tracking-widest px-1" />
+                    <div class="relative">
+                        <select id="wizard-owner" wire:model.defer="owner_user_id" class="block w-full px-6 py-4 rounded-2xl bg-surface border-transparent focus:bg-white focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all text-lg font-bold shadow-inner appearance-none cursor-pointer">
+                            <option value="">{{ __('— No Owner Assigned —') }}</option>
                             @foreach($users as $u)
-                                <option value="{{ $u->id }}" wire:key="user-{{ $u->id }}">{{ $u->name }} ({{ $u->email }})</option>
+                                <option value="{{ $u->id }}">{{ $u->name }} ({{ $u->email }})</option>
                             @endforeach
                         </select>
-                        <x-input-error :messages="$errors->get('owner_user_id')" class="mt-1" />
+                        <div class="absolute inset-y-0 right-0 flex items-center px-6 pointer-events-none text-content-muted">
+                            <x-heroicon-m-chevron-up-down class="size-5" />
+                        </div>
                     </div>
+                    <p class="text-xs font-medium text-content-muted px-2">
+                        <x-heroicon-o-information-circle class="size-4 inline me-1 -mt-0.5" />
+                        {{ __('You can assign or change the owner later from the account settings.') }}
+                    </p>
+                    <x-input-error :messages="$errors->get('owner_user_id')" class="px-2" />
                 </div>
             </div>
         @endif
 
+        {{-- Step 3: Review --}}
         @if ($step === 3)
-            <div wire:transition="step">
-                <h2 class="text-xl font-bold mb-6 text-gray-800">{{ __('Review & create') }}</h2>
+            <div wire:transition.out.opacity.duration.200ms.in.opacity.duration.300ms class="space-y-8">
+                <div class="text-center sm:text-start">
+                    <h2 class="text-3xl font-black text-content tracking-tight">{{ __('Ready to Launch') }}</h2>
+                    <p class="mt-2 text-content-muted text-lg font-medium">{{ __('Review the details below before creating the account.') }}</p>
+                </div>
+
                 @if($type === 'organization' && $organizationsWithoutAccount->isNotEmpty())
-                    <div class="mb-6">
-                        <x-input-label for="wizard-attach-org" :value="__('Attach to organization (optional)')" class="text-sm font-medium text-gray-700" />
-                        <select id="wizard-attach-org" wire:model.defer="attach_organization_id" dir="{{ isRTL() ? 'rtl' : 'ltr' }}" class="mt-1 block w-full min-h-[44px] rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-start shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200">
-                            <option value="">{{ __('— None —') }}</option>
-                            @foreach($organizationsWithoutAccount as $org)
-                                <option value="{{ $org->id }}" wire:key="org-{{ $org->id }}">{{ $org->name }}</option>
-                            @endforeach
-                        </select>
-                        <p class="mt-1 text-xs text-gray-500">{{ __('Organizations without an account. Attaching links this account to the organization.') }}</p>
-                        <x-input-error :messages="$errors->get('attach_organization_id')" class="mt-1" />
+                    <div class="p-6 rounded-[2rem] bg-indigo-50 border border-indigo-100 shadow-sm space-y-4">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-white rounded-xl text-indigo-600 shadow-sm shrink-0">
+                                <x-heroicon-o-link class="size-6" />
+                            </div>
+                            <div class="space-y-2 w-full">
+                                <h3 class="text-sm font-black text-indigo-900 uppercase tracking-widest">{{ __('Quick Link') }}</h3>
+                                <p class="text-sm text-indigo-700 font-medium leading-relaxed">{{ __('We found organizations without a billing account. Link one now?') }}</p>
+                                <select id="wizard-attach-org" wire:model.defer="attach_organization_id" class="block w-full mt-2 px-4 py-3 rounded-xl bg-white border-transparent focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm font-bold shadow-sm">
+                                    <option value="">{{ __('— Skip Linking —') }}</option>
+                                    @foreach($organizationsWithoutAccount as $org)
+                                        <option value="{{ $org->id }}">{{ $org->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 @endif
-                <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 mb-6">
-                    <p class="text-indigo-800 text-sm">{{ __('Please review before creating.') }}</p>
-                </div>
-                <dl class="space-y-3">
-                    <div class="flex justify-between gap-4 py-2 border-b border-gray-100 text-start">
-                        <dt class="text-sm text-gray-500">{{ __('Customer Type') }}</dt>
-                        <dd class="text-sm font-medium text-gray-900">{{ $type === 'organization' ? __('Organization') : __('Individual') }}</dd>
+
+                <div class="bg-surface/50 rounded-[2rem] border border-stroke p-8 space-y-6">
+                    <div class="flex justify-between items-center pb-6 border-b border-stroke/50">
+                        <span class="text-sm font-bold text-content-muted">{{ __('Account Type') }}</span>
+                        <span class="px-4 py-1.5 rounded-full bg-white border border-stroke text-xs font-black uppercase tracking-wider shadow-sm">
+                            {{ $type === 'organization' ? __('Organization') : __('Individual') }}
+                        </span>
                     </div>
-                    <div class="flex justify-between gap-4 py-2 border-b border-gray-100 text-start">
-                        <dt class="text-sm text-gray-500">{{ __('Name') }}</dt>
-                        <dd class="text-sm font-medium text-gray-900">{{ $name ?: '—' }}</dd>
+                    <div class="flex justify-between items-center pb-6 border-b border-stroke/50">
+                        <span class="text-sm font-bold text-content-muted">{{ __('Display Name') }}</span>
+                        <span class="text-lg font-black text-content">{{ $name ?: '—' }}</span>
                     </div>
-                    <div class="flex justify-between gap-4 py-2 border-b border-gray-100 text-start">
-                        <dt class="text-sm text-gray-500">{{ __('Owner') }}</dt>
-                        <dd class="text-sm font-medium text-gray-900">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-bold text-content-muted">{{ __('Primary Owner') }}</span>
+                        <div class="text-end">
                             @if($owner_user_id)
                                 @php $owner = $users->firstWhere('id', (int) $owner_user_id); @endphp
-                                {{ $owner?->name ?? $owner_user_id }}
+                                <span class="block text-sm font-black text-content">{{ $owner?->name }}</span>
+                                <span class="block text-xs font-bold text-content-muted">{{ $owner?->email }}</span>
                             @else
-                                —
+                                <span class="text-sm font-bold text-content-muted italic">{{ __('Unassigned') }}</span>
                             @endif
-                        </dd>
-                    </div>
-                    @if($type === 'organization' && $attach_organization_id)
-                        <div class="flex justify-between gap-4 py-2 border-b border-gray-100 text-start">
-                            <dt class="text-sm text-gray-500">{{ __('Attach organization') }}</dt>
-                            <dd class="text-sm font-medium text-gray-900">
-                                @php $org = $organizationsWithoutAccount->firstWhere('id', (int) $attach_organization_id); @endphp
-                                {{ $org?->name ?? $attach_organization_id }}
-                            </dd>
                         </div>
-                    @endif
-                </dl>
+                    </div>
+                </div>
             </div>
         @endif
-    </div>
 
-    {{-- Buttons: RTL = Next | Previous, LTR = Previous | Next --}}
-    <div class="flex justify-between items-center mt-6 gap-4 {{ isRTL() ? 'flex-row-reverse' : '' }}">
-        <button type="button" wire:click="previousStep"
-            {{ $step === 1 ? 'disabled' : '' }}
-            wire:loading.attr="disabled"
-            wire:loading.class="opacity-50"
-            class="min-h-[44px] px-6 py-2.5 rounded-lg text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2">
-            {{ __('Previous') }}
-        </button>
-        <button type="button" wire:click="nextStep"
-            wire:loading.attr="disabled"
-            wire:loading.class="opacity-50"
-            class="min-h-[44px] px-6 py-2.5 rounded-lg text-sm font-medium text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2
-                {{ $step === $totalSteps ? 'bg-green-600 hover:bg-green-700' : 'bg-indigo-600 hover:bg-indigo-700' }}">
-            <span wire:loading.remove>
-                {{ $step === $totalSteps ? __('Create account') : __('Next') }}
-            </span>
-            <span wire:loading>{{ __('Processing...') }}</span>
-        </button>
+        {{-- Action Bar --}}
+        <div class="mt-auto pt-10 flex justify-between items-center gap-4">
+            <button type="button" wire:click="previousStep"
+                {{ $step === 1 ? 'disabled' : '' }}
+                class="px-8 py-4 rounded-2xl font-bold text-content-muted hover:text-content hover:bg-surface disabled:opacity-30 disabled:cursor-not-allowed transition-all active:scale-95">
+                {{ __('Back') }}
+            </button>
+
+            <button type="button" wire:click="nextStep"
+                wire:loading.attr="disabled"
+                class="group relative inline-flex items-center justify-center gap-3 px-10 py-4 rounded-2xl font-black text-white shadow-xl transition-all active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed min-w-[160px] {{ $step === $totalSteps ? 'bg-success hover:bg-success/90 shadow-success/20' : 'bg-brand hover:bg-brand-hover shadow-brand/20' }}">
+                <span wire:loading.remove class="flex items-center gap-2">
+                    {{ $step === $totalSteps ? __('Create Account') : __('Continue') }}
+                    <x-heroicon-m-arrow-right class="size-5 group-hover:translate-x-1 transition-transform rtl:rotate-180" />
+                </span>
+                <span wire:loading>
+                    <svg class="animate-spin size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                    </svg>
+                </span>
+            </button>
+        </div>
     </div>
 </div>
-
-{{-- View Transitions API: directional step animation; RTL-aware (respects prefers-reduced-motion) --}}
-<style>
-@media (prefers-reduced-motion: no-preference) {
-    /* LTR: next = slide left out, new from right; back = opposite */
-    html:active-view-transition-type(forward) {
-        &::view-transition-old(step) { animation: 300ms ease-out both slide-out-left; }
-        &::view-transition-new(step) { animation: 300ms ease-in both slide-in-right; }
-    }
-    html:active-view-transition-type(backward) {
-        &::view-transition-old(step) { animation: 300ms ease-out both slide-out-right; }
-        &::view-transition-new(step) { animation: 300ms ease-in both slide-in-left; }
-    }
-    /* RTL: next = slide right out, new from left; back = opposite */
-    [dir="rtl"] html:active-view-transition-type(forward) {
-        &::view-transition-old(step) { animation: 300ms ease-out both slide-out-right; }
-        &::view-transition-new(step) { animation: 300ms ease-in both slide-in-left; }
-    }
-    [dir="rtl"] html:active-view-transition-type(backward) {
-        &::view-transition-old(step) { animation: 300ms ease-out both slide-out-left; }
-        &::view-transition-new(step) { animation: 300ms ease-in both slide-in-right; }
-    }
-}
-@keyframes slide-out-left { from { transform: translateX(0); opacity: 1; } to { transform: translateX(-100%); opacity: 0; } }
-@keyframes slide-in-right { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes slide-out-right { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
-@keyframes slide-in-left { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-</style>

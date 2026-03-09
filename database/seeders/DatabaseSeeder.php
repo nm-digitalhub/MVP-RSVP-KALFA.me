@@ -28,10 +28,8 @@ class DatabaseSeeder extends Seeder
         // RSVP: at least one per_event plan for billing
         $this->call(PlanSeeder::class);
 
-        // Seed workflow data
-        $this->call([
-            AppointmentWorkflowSeeder::class,
-            CheckoutWorkflowSeeder::class,
-        ]);
+        // Workflow seeders require models that are not in this codebase (CartItem, Provider, Service, Appointment).
+        // Uncomment when those domains are implemented:
+        // $this->call([AppointmentWorkflowSeeder::class, CheckoutWorkflowSeeder::class]);
     }
 }

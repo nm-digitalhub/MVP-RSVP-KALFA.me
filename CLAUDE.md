@@ -11,14 +11,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This is an **RSVP + Seating SaaS application** built with Laravel 12 and Livewire 4. It provides multi-tenant event management with guest invitations, seating assignments, and payment processing.
 
 ### Tech Stack
-- **Backend**: Laravel 12 (PHP 8.2+)
+- **Backend**: Laravel 12 (PHP 8.4.18)
 - **Frontend**: Livewire 4 + Alpine.js + Tailwind CSS v4
 - **Build**: Vite 7
 - **UI Components**: Flowbite 4
 - **Authentication**: Laravel Sanctum
-- **Payment**: `officeguy/laravel-sumit-gateway` (Israel-focused gateway) with stub fallback for local
+- **Payment**: `officeguy/laravel-sumit-gateway` (SUMIT is the only active gateway; CardCom/PayPal are legacy)
+- **Twilio**: Verify API for OTP (SMS/WhatsApp). SID: `VA5f1c126dd6b47bcd05492197c1c36f73`. **Programmable Voice**: outbound RSVP calls; TwiML connect → Stream to Node.js; Node relays to **Gemini Live API** for voice-to-voice; Hebrew TTS (Google.he-IL-Standard-A + SSML); WhatsApp fallback on no-answer/short call.
+- **Node.js** (`server.js`): WebSocket relay Twilio Media Stream ↔ Gemini Live (BidiGenerateContent); receives guest/event/invitation params; calls `save_rsvp` tool and POSTs to Laravel `POST /api/twilio/rsvp/process`. Env: `GEMINI_API_KEY`, `PHP_WEBHOOK`, `CALL_LOG_URL`, `CALL_LOG_SECRET`.
 - **Database**: PostgreSQL (production) or MySQL; SQLite for tests
 - **Language**: Hebrew (RTL support) - `app.blade.php` sets `dir="rtl"`
+- **Mail**: Laravel Mail (e.g. `App\Mail\WelcomeOrganizer`); views in `resources/views/emails/`
 
 ---
 
@@ -87,7 +90,7 @@ The application uses **organization-based multi-tenancy**. Every resource (event
 
 **Key pattern**: `User → Organization → Resources`
 
-- Users can belong to multiple organizations via `organization_users` pivot table with roles (Owner, Admin, Editor, Viewer)
+- Users can belong to multiple organizations via `organization_users` pivot table with roles (Owner, Admin, Member) — see `OrganizationUserRole` enum
 - User's active organization is stored in `users.current_organization_id` (database is source of truth)
 - `OrganizationContext` service manages organization switching — always call `OrganizationContext::current()` to get active org, never read from request directly
 - `EnsureOrganizationSelected` middleware enforces that authenticated users have an active organization before accessing tenant routes

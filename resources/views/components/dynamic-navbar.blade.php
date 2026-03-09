@@ -10,6 +10,7 @@
   $mobileNavActive = 'border-s-4 border-indigo-600 rtl:border-s-0 rtl:border-e-4 bg-indigo-50 text-indigo-700 font-semibold ' . $mobileNavBase;
   $isDashboard = request()->routeIs('dashboard');
   $isEventsIndex = request()->routeIs('dashboard.events.index');
+  $isCalling = request()->routeIs('twilio.calling.index');
   $isOrganizations = request()->routeIs('organizations.index');
   $isOrganizationSettings = request()->routeIs('dashboard.organization-settings.*');
   $isBilling = request()->routeIs('billing.*');
@@ -34,11 +35,16 @@
             <a href="{{ route('register') }}" class="{{ $navLinkClass }}">{{ __('register') }}</a>
         @else
             @php
-                $currentOrg = auth()->user()->currentOrganization();
+                $currentOrg = auth()->user()->currentOrganization;
                 $userOrganizations = auth()->user()->organizations()->orderBy('name')->get();
             @endphp
-            <a href="{{ route('dashboard') }}" class="{{ $navLinkClass }} {{ $isDashboard ? $navLinkActiveClass : '' }}">{{ __('dashboard') }}</a>
-            <a href="{{ route('dashboard.events.index') }}" class="{{ $navLinkClass }} {{ $isEventsIndex ? $navLinkActiveClass : '' }}">{{ __('Events') }}</a>
+            @can('view-event-details')
+                <a href="{{ route('dashboard') }}" class="{{ $navLinkClass }} {{ $isDashboard ? $navLinkActiveClass : '' }}">{{ __('dashboard') }}</a>
+                <a href="{{ route('dashboard.events.index') }}" class="{{ $navLinkClass }} {{ $isEventsIndex ? $navLinkActiveClass : '' }}">{{ __('Events') }}</a>
+            @endcan
+            @can('manage-system')
+                <a href="{{ route('twilio.calling.index') }}" class="{{ $navLinkClass }} {{ $isCalling ? $navLinkActiveClass : '' }}">{{ __('Calling') }}</a>
+            @endcan
             <details class="relative group">
                 <summary class="flex items-center gap-2 px-3 py-2 cursor-pointer list-none text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-50 rounded-lg min-h-[44px] font-medium [&::-webkit-details-marker]:hidden transition-all duration-200 ease-out motion-reduce:transition-none">
                     <div class="flex items-center gap-2">
@@ -47,9 +53,7 @@
                             <span class="text-xs bg-gradient-to-br from-indigo-100 to-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded-full font-medium ring-1 ring-indigo-200/50 shadow-sm">{{ $userOrganizations->count() }}</span>
                         @endif
                     </div>
-                    <svg class="w-4 h-4 shrink-0 text-gray-400 group-hover:text-indigo-500 transition-transform duration-300 ease-out group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
+                    <x-heroicon-o-chevron-down class="w-4 h-4 shrink-0 text-gray-400 group-hover:text-indigo-500 transition-transform duration-300 ease-out group-open:rotate-180" />
                 </summary>
                 <div class="absolute right-0 mt-2 w-64 rounded-xl bg-white/95 py-2 shadow-2xl ring-1 ring-gray-200/80 z-50 border border-gray-200/60 backdrop-blur-md opacity-0 invisible scale-95 group-open:opacity-100 group-open:visible group-open:scale-100 transition-all duration-200 ease-out origin-top-right">
                     <div class="px-3 py-2 text-xs font-semibold text-gray-500/80 uppercase tracking-wider bg-gray-50/50">{{ __('Your Organizations') }}</div>
@@ -60,7 +64,7 @@
                                 <button type="submit" class="w-full min-h-[44px] px-4 py-2.5 text-sm {{ $currentOrg && $currentOrg->id === $org->id ? 'text-indigo-600 bg-indigo-50/80 ring-1 ring-indigo-200/50' : 'text-gray-700 hover:bg-gray-100/80' }} flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">
                                     <span class="truncate">{{ $org->name }}</span>
                                     @if($currentOrg && $currentOrg->id === $org->id)
-                                        <svg class="w-4 h-4 shrink-0 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                        <x-heroicon-o-check class="w-4 h-4 shrink-0 text-indigo-600" />
                                     @endif
                                 </button>
                             </form>
@@ -69,11 +73,15 @@
                     <div class="border-t border-gray-100 my-1">
                         @if($currentOrg)
                             <a href="{{ route('dashboard.organization-settings.edit') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100/80 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Organization settings') }}</a>
+                            <a href="{{ route('dashboard.team') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Team Management') }}</a>
                         @endif
-                        <a href="{{ route('organizations.index') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Manage Organizations') }}</a>
+                        <a href="{{ route('organizations.index') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100/80 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Manage Organizations') }}</a>
                     </div>
                 </div>
             </details>
+            {{-- Dark mode toggle --}}
+            <x-dark-mode-toggle class="hidden md:inline-flex" />
+
             @if(session('impersonation.original_organization_id'))
                 <form method="POST" action="{{ route('system.impersonation.exit') }}" class="inline">
                     @csrf
@@ -81,27 +89,25 @@
                 </form>
             @endif
             <a href="{{ route('billing.account') }}" class="{{ $navLinkClass }} {{ request()->routeIs('billing.*') ? $navLinkActiveClass : '' }}">{{ __('Billing & Entitlements') }}</a>
-            @if($isSystemAdmin)
+            @can('manage-system')
                 <div class="flex items-center">
                     <span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-amber-700 bg-gradient-to-br from-amber-50 to-amber-100/70 border border-amber-200/80 rounded-full ring-1 ring-amber-200/40 shadow-sm">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
+                        <x-heroicon-o-shield-check class="w-3.5 h-3.5 shrink-0" />
                         <span>{{ __('Admin') }}</span>
                     </span>
                 </div>
                 <a href="{{ route('system.dashboard') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.dashboard') ? $navLinkActiveClass : '' }}">{{ __('System Dashboard') }}</a>
+                <a href="/pulse" class="{{ $navLinkClass }}" target="_blank">{{ __('System Pulse') }}</a>
+                <a href="/telescope" class="{{ $navLinkClass }}" target="_blank">{{ __('Telescope') }}</a>
                 <a href="{{ route('system.organizations.index') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.organizations.*') ? $navLinkActiveClass : '' }}">{{ __('System Organizations') }}</a>
                 <a href="{{ route('system.accounts.index') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.accounts.*') ? $navLinkActiveClass : '' }}">{{ __('Accounts') }}</a>
                 <a href="{{ route('system.users.index') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.users.*') ? $navLinkActiveClass : '' }}">{{ __('System Users') }}</a>
-            @endif
+            @endcan
             {{-- User menu: Profile + Logout so Logout is always visible (avoids overflow on narrow desktop) --}}
             <details class="relative group/user">
                 <summary class="flex items-center gap-2 px-3 py-2 cursor-pointer list-none text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-50 rounded-lg min-h-[44px] font-medium [&::-webkit-details-marker]:hidden transition-all duration-200 ease-out motion-reduce:transition-none">
                     <span class="truncate max-w-[120px]">{{ auth()->user()->name }}</span>
-                    <svg class="w-4 h-4 shrink-0 text-gray-400 group-hover/user:text-indigo-500 transition-transform duration-300 ease-out group-open/user:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
+                    <x-heroicon-o-chevron-down class="w-4 h-4 shrink-0 text-gray-400 group-hover/user:text-indigo-500 transition-transform duration-300 ease-out group-open/user:rotate-180" />
                 </summary>
                 <div class="absolute end-0 mt-2 w-56 rounded-xl bg-white/95 py-2 shadow-2xl ring-1 ring-gray-200/80 z-50 border border-gray-200/60 backdrop-blur-md opacity-0 invisible scale-95 group-open/user:opacity-100 group-open/user:visible group-open/user:scale-100 transition-all duration-200 ease-out origin-top-right rtl:origin-top-left">
                     <a href="{{ route('profile') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100/80 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Profile') }}</a>
@@ -117,9 +123,7 @@
             </div>
 
             <button id="mobile-menu-toggle" type="button" class="md:hidden min-h-[44px] min-w-[44px] p-2.5 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 rounded-xl transition-all duration-200 ease-out cursor-pointer motion-reduce:transition-none" aria-label="{{ __('Open menu') }}">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-                </svg>
+                <x-heroicon-o-bars-3 class="w-6 h-6" />
             </button>
         </div>
     </div>
@@ -133,17 +137,18 @@
     <div class="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between shrink-0 bg-white">
         <div>
             @auth
-                <p class="font-semibold text-gray-900">{{ auth()->user()->name }}</p>
-                <p class="text-sm text-gray-500 mt-0.5">{{ $appName }}</p>
+                <p class="font-semibold text-gray-900 dark:text-gray-100">{{ auth()->user()->name }}</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{ $appName }}</p>
             @else
-                <p class="font-semibold text-gray-900">{{ $appName }}</p>
+                <p class="font-semibold text-gray-900 dark:text-gray-100">{{ $appName }}</p>
             @endauth
         </div>
-        <button id="mobile-drawer-close" type="button" class="min-h-[44px] min-w-[44px] p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-all duration-200 ease-out" aria-label="{{ __('Close menu') }}">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-        </button>
+        <div class="flex items-center gap-2">
+            <x-dark-mode-toggle />
+            <button id="mobile-drawer-close" type="button" class="min-h-[44px] min-w-[44px] p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-all duration-200 ease-out" aria-label="{{ __('Close menu') }}">
+                <x-heroicon-o-x-mark class="w-6 h-6" />
+            </button>
+        </div>
     </div>
     <nav class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain p-4 text-base" aria-label="{{ __('Mobile navigation') }}">
         @guest
@@ -153,13 +158,18 @@
             </div>
         @else
             @php
-                $currentOrgMobile = auth()->user()->currentOrganization();
+                $currentOrgMobile = auth()->user()->currentOrganization;
             @endphp
             {{-- Main: section header + links (tighter spacing, active accent) --}}
             <p class="text-xs font-medium uppercase tracking-wide text-gray-500 mt-0 mb-1 px-4">{{ __('Main') }}</p>
             <div class="flex flex-col gap-y-0.5 mb-2">
-                <a href="{{ route('dashboard') }}" class="{{ $isDashboard ? $mobileNavActive : $mobileNavDefault }}" {{ $isDashboard ? 'aria-current="page"' : '' }}>{{ __('dashboard') }}</a>
-                <a href="{{ route('dashboard.events.index') }}" class="{{ $isEventsIndex ? $mobileNavActive : $mobileNavDefault }}" {{ $isEventsIndex ? 'aria-current="page"' : '' }}>{{ __('Events') }}</a>
+                @can('view-event-details')
+                    <a href="{{ route('dashboard') }}" class="{{ $isDashboard ? $mobileNavActive : $mobileNavDefault }}" {{ $isDashboard ? 'aria-current="page"' : '' }}>{{ __('dashboard') }}</a>
+                    <a href="{{ route('dashboard.events.index') }}" class="{{ $isEventsIndex ? $mobileNavActive : $mobileNavDefault }}" {{ $isEventsIndex ? 'aria-current="page"' : '' }}>{{ __('Events') }}</a>
+                @endcan
+                @can('manage-system')
+                    <a href="{{ route('twilio.calling.index') }}" class="{{ $isCalling ? $mobileNavActive : $mobileNavDefault }}" {{ $isCalling ? 'aria-current="page"' : '' }}>{{ __('Calling') }}</a>
+                @endcan
                 @if($currentOrgMobile)
                     <div class="mx-1 my-1.5 p-2.5 bg-gray-50 rounded-xl border border-gray-200/80">
                         <p class="text-xs uppercase tracking-wide text-gray-500 mb-0.5">{{ __('Current Organization') }}</p>
@@ -174,15 +184,13 @@
             @if(session('impersonation.original_organization_id'))
                 <form method="POST" action="{{ route('system.impersonation.exit') }}">
                     @csrf
-                    <button type="submit" class="text-start w-full {{ $mobileNavBase }} text-amber-600 hover:bg-amber-50/90 hover:text-amber-700 focus-visible:ring-amber-500/50">
-                        <svg class="w-4 h-4 me-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
-                        </svg>
+                    <button type="submit" class="text-start w-full {{ $mobileNavBase }} text-amber-600 hover:bg-amber-50/90 hover:text-amber-700 focus-visible:ring-amber-500/50 inline-flex items-center">
+                        <x-heroicon-o-arrow-right-on-rectangle class="w-4 h-4 me-2 shrink-0" />
                         {{ __('Exit impersonation') }}
                     </button>
                 </form>
             @endif
-            @if($isSystemAdmin)
+            @can('manage-system')
                 <div class="mt-3 pt-3 border-t border-gray-200/80">
                     <p class="text-xs font-medium uppercase tracking-wide text-gray-500 mb-1.5 px-4 flex items-center gap-2">
                         {{ __('System Administration') }}
@@ -190,12 +198,14 @@
                     </p>
                     <div class="bg-gray-50 rounded-lg p-1.5 flex flex-col gap-y-0.5">
                         <a href="{{ route('system.dashboard') }}" class="{{ $isSystemDashboard ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemDashboard ? 'aria-current="page"' : '' }}>{{ __('System Dashboard') }}</a>
+                        <a href="/pulse" class="{{ $mobileNavDefault }}" target="_blank">{{ __('System Pulse') }}</a>
+                        <a href="/telescope" class="{{ $mobileNavDefault }}" target="_blank">{{ __('Telescope') }}</a>
                         <a href="{{ route('system.organizations.index') }}" class="{{ $isSystemOrgs ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemOrgs ? 'aria-current="page"' : '' }}>{{ __('System Organizations') }}</a>
                         <a href="{{ route('system.accounts.index') }}" class="{{ $isSystemAccounts ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemAccounts ? 'aria-current="page"' : '' }}>{{ __('Accounts') }}</a>
                         <a href="{{ route('system.users.index') }}" class="{{ $isSystemUsers ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemUsers ? 'aria-current="page"' : '' }}>{{ __('System Users') }}</a>
                     </div>
                 </div>
-            @endif
+            @endcan
         @endguest
     </nav>
     {{-- Logout always visible at bottom of drawer (auth only) --}}
@@ -210,19 +220,6 @@
     </div>
     @endauth
 </aside>
-
-<style>
-/* Mobile drawer: closed = off-screen; open = translate(0). Single class for open state avoids RTL/LTR conflict. */
-.mobile-drawer { transform: translateX(-100%); }
-[dir="rtl"] .mobile-drawer { transform: translateX(100%); }
-.mobile-drawer.is-open { transform: translateX(0); }
-#mobile-overlay.is-open { opacity: 1; pointer-events: auto; }
-/* Smooth touch scrolling in drawer nav (iOS) */
-.mobile-drawer nav { -webkit-overflow-scrolling: touch; }
-@media (min-width: 768px) {
-    .mobile-drawer, .mobile-drawer.is-open { transform: none; }
-}
-</style>
 
 <script>
 (function() {

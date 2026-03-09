@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->web(append: [
             \App\Http\Middleware\ImpersonationExpiry::class,
+            \App\Http\Middleware\SpatiePermissionTeam::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

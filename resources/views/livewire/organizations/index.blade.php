@@ -20,7 +20,7 @@
         </div>
     @endif
 
-    @if($currentOrg = auth()->user()->currentOrganization())
+    @if($currentOrg = auth()->user()->currentOrganization)
         <div class="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-50 to-white rounded-xl border border-indigo-100/50 shadow-sm" role="status" aria-live="polite">
             <div class="flex items-center gap-2">
                 <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

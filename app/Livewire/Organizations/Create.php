@@ -36,6 +36,12 @@ class Create extends Component
         auth()->user()->update(['current_organization_id' => $organization->id]);
         app(\App\Services\OrganizationContext::class)->set($organization);
 
+        try {
+            \Illuminate\Support\Facades\Mail::to(auth()->user()->email)->send(new \App\Mail\WelcomeOrganizer($organization, auth()->user()));
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Failed to send welcome email', ['error' => $e->getMessage()]);
+        }
+
         return $this->redirect(route('dashboard'), navigate: true)
             ->with('status', __('Organization created.'));
     }

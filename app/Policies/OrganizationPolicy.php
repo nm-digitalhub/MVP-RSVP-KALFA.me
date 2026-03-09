@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Policies;
 
+use App\Enums\OrganizationUserRole;
 use App\Models\Organization;
 use App\Models\User;
-use App\Enums\OrganizationUserRole;
 
 class OrganizationPolicy
 {
@@ -25,6 +25,11 @@ class OrganizationPolicy
         return $this->isOwnerOrAdmin($user, $organization);
     }
 
+    public function manageMembers(User $user, Organization $organization): bool
+    {
+        return $this->isOwnerOrAdmin($user, $organization);
+    }
+
     private function belongsToOrganization(User $user, Organization $organization): bool
     {
         return $user->organizations()->where('organizations.id', $organization->id)->exists();
@@ -33,7 +38,7 @@ class OrganizationPolicy
     private function isOwnerOrAdmin(User $user, Organization $organization): bool
     {
         $pivot = $user->organizations()->where('organizations.id', $organization->id)->first()?->pivot;
-        if (!$pivot) {
+        if (! $pivot) {
             return false;
         }
         $role = $pivot->role instanceof OrganizationUserRole ? $pivot->role : OrganizationUserRole::tryFrom($pivot->role);

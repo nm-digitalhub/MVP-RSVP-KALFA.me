@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace Tests\Feature\Feature;
 
 use App\Models\Event;
-use App\Models\Guest;
 use App\Models\Organization;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class GuestImportTest extends TestCase
@@ -21,7 +19,7 @@ class GuestImportTest extends TestCase
     public function test_upload_csv_creates_guests_for_event(): void
     {
         $organization = Organization::factory()->create();
-        $user = $organization->users()->first()->user;
+        $user = $organization->users()->first();
         $event = Event::factory()->for($organization)->create(['status' => \App\Enums\EventStatus::Active]);
 
         $csvContent = "name,email,phone,notes\nJohn Doe,john@example.com,050-1234567,Birthday guest\nJane Smith,jane@example.com,052-9876543,VIP";
@@ -33,18 +31,16 @@ class GuestImportTest extends TestCase
             ]);
 
         $response->assertStatus(201);
-        $this->assertDatabaseCount('guests', 3);
-        $this->assertDatabaseHas('guests', function ($guest) use ($event) {
-            return $guest->event_id === $event->id
-        });
+        $this->assertDatabaseCount('guests', 2);
+        $this->assertDatabaseHas('guests', ['event_id' => $event->id]);
     }
 
     public function test_guests_belong_to_correct_event(): void
     {
         $org1 = Organization::factory()->create();
         $org2 = Organization::factory()->create();
-        $user1 = $org1->users()->first()->user;
-        $user2 = $org2->users()->first()->user;
+        $user1 = $org1->users()->first();
+        $user2 = $org2->users()->first();
 
         $event1 = Event::factory()->for($org1)->create(['status' => \App\Enums\EventStatus::Active]);
         $event2 = Event::factory()->for($org2)->create(['status' => \App\Enums\EventStatus::Active]);
@@ -60,23 +56,21 @@ class GuestImportTest extends TestCase
                 'file' => $file1,
             ]);
 
-        // Try to import guests for event2 as user2 (should fail)
+        // user2 cannot import into event1 (different organization)
         $this->actingAs($user2)
-            ->postJson(route('guests.import', ['organization' => $org2->id, 'event' => $event2->id]), [
+            ->postJson(route('guests.import', ['organization' => $org1->id, 'event' => $event1->id]), [
                 'file' => $file2,
             ])
             ->assertStatus(403);
 
         // Verify guests belong to correct event
-        $this->assertDatabaseHas('guests', function ($guest) use ($event1, $event2) {
-            return in_array($guest->event_id, [$event1->id, $event2->id]);
-        });
+        $this->assertGreaterThanOrEqual(1, \App\Models\Guest::whereIn('event_id', [$event1->id, $event2->id])->count());
     }
 
     public function test_empty_rows_are_skipped(): void
     {
         $organization = Organization::factory()->create();
-        $user = $organization->users()->first()->user;
+        $user = $organization->users()->first();
         $event = Event::factory()->for($organization)->create(['status' => \App\Enums\EventStatus::Active]);
 
         // CSV with mixed data - some valid, some empty
@@ -93,15 +87,15 @@ class GuestImportTest extends TestCase
 
         // Only the valid row should be created (2 valid, 1 empty skipped)
         $this->assertDatabaseCount('guests', 2);
-        $this->assertDatabaseHas('guests', function ($guest) use ($event) {
-            return $guest->event_id === $event->id && in_array($guest->name, ['Valid Guest', 'invalid@example.com']);
-        });
+        $this->assertTrue(
+            \App\Models\Guest::where('event_id', $event->id)->whereIn('name', ['Valid Guest', 'invalid@example.com'])->exists()
+        );
     }
 
     public function test_import_without_file_returns_error(): void
     {
         $organization = Organization::factory()->create();
-        $user = $organization->users()->first()->user;
+        $user = $organization->users()->first();
         $event = Event::factory()->for($organization)->create(['status' => \App\Enums\EventStatus::Active]);
 
         $response = $this->actingAs($user)
@@ -114,7 +108,7 @@ class GuestImportTest extends TestCase
     public function test_import_with_invalid_csv_returns_error(): void
     {
         $organization = Organization::factory()->create();
-        $user = $organization->users()->first()->user;
+        $user = $organization->users()->first();
         $event = Event::factory()->for($organization)->create(['status' => \App\Enums\EventStatus::Active]);
 
         // CSV with wrong column count
@@ -134,7 +128,7 @@ class GuestImportTest extends TestCase
     public function test_file_upload_error_returns_error(): void
     {
         $organization = Organization::factory()->create();
-        $user = $organization->users()->first()->user;
+        $user = $organization->users()->first();
         $event = Event::factory()->for($organization)->create(['status' => \App\Enums\EventStatus::Active]);
 
         // Simulate file with error

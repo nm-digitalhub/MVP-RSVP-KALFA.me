@@ -5,6 +5,13 @@
 
 The Laravel Boost guidelines are specifically curated by Laravel maintainers for this application. These guidelines should be followed closely to ensure the best experience when building Laravel applications.
 
+## Active Project Context
+
+- **PHP Version**: 8.4.18
+- **Active Payment Gateway**: **SUMIT** (officeguy/laravel-sumit-gateway). CardCom, PayPal, and Paddle are legacy and NOT in use.
+- **Active Verify Service (Twilio)**: `VA5f1c126dd6b47bcd05492197c1c36f73`.
+- **Active Messaging Service (Twilio)**: `MG744fe08efc3f7b3f11047c8da2e7770b`.
+
 ## Foundational Context
 
 This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.

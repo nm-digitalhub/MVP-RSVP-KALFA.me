@@ -126,6 +126,7 @@ return [
     // Navbar & navigation
     'Main navigation' => 'ניווט ראשי',
     'Events' => 'אירועים',
+    'Calling' => 'חיוג',
     'Organizations' => 'ארגונים',
     'Your Organizations' => 'הארגונים שלך',
     'Organization settings' => 'הגדרות ארגון',

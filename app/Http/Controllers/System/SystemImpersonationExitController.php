@@ -13,7 +13,7 @@ class SystemImpersonationExitController extends Controller
     public function __invoke(Request $request): RedirectResponse
     {
         $user = $request->user();
-        if (! $user->is_system_admin) {
+        if (! $user->can('impersonate-users')) {
             abort(403);
         }
 

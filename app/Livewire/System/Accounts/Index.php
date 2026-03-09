@@ -43,8 +43,16 @@ final class Index extends Component
             ->latest()
             ->paginate(15);
 
+        $stats = [
+            'total' => Account::count(),
+            'organizations' => Account::where('type', 'organization')->count(),
+            'individuals' => Account::where('type', 'individual')->count(),
+            'new_this_week' => Account::where('created_at', '>=', now()->startOfWeek())->count(),
+        ];
+
         return view('livewire.system.accounts.index', [
             'accounts' => $accounts,
+            'stats' => $stats,
         ]);
     }
 }
