@@ -5,10 +5,11 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | SUMIT redirect URLs (required when BILLING_GATEWAY=sumit)
+    | SUMIT redirect URLs
     |--------------------------------------------------------------------------
-    | Where to send the user after payment success/cancel. API-only: set to
-    | your frontend or a thank-you page. Must be absolute URLs.
+    | Legacy one-time payments still use redirect mode through the OfficeGuy
+    | package, while subscriptions use saved payment methods and recurring
+    | charges. These URLs must stay absolute when redirect mode is enabled.
     */
     'sumit' => [
         'redirect_success_url' => env('BILLING_SUMIT_SUCCESS_URL'),

@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Enums\InvitationStatus;
 use App\Models\Guest;
 use App\Models\Invitation;
+use App\Support\Feature;
 use Illuminate\Support\Str;
 use Twilio\Rest\Client as TwilioClient;
 
@@ -67,11 +68,43 @@ class CallingService
     }
 
     /**
+     * Ensure the account associated with the guest's event has permission to call.
+     */
+    protected function ensureAccountCanCall(Guest $guest): void
+    {
+        $organization = $guest->event->organization;
+        $account = $organization->account;
+
+        if (! $account) {
+            throw new \RuntimeException(__('No billing account attached to this organization. Calling is disabled.'));
+        }
+
+        if (! Feature::enabled($account, 'voice_rsvp_enabled')) {
+            throw new \RuntimeException(__('AI Voice RSVP is not enabled for this account.'));
+        }
+
+        $limit = Feature::integer($account, 'voice_rsvp_limit');
+
+        if ($limit !== null) {
+            $usage = $account->featureUsage()
+                ->where('feature_key', 'voice_rsvp_calls')
+                ->where('period_key', now()->format('Ym'))
+                ->sum('usage_count');
+
+            if ($usage >= $limit) {
+                throw new \RuntimeException(__('Monthly AI Voice RSVP call limit reached.'));
+            }
+        }
+    }
+
+    /**
      * Initiate the Twilio call.
      * Guest phone is normalized to E.164 so Twilio accepts it (e.g. 0532743588 → +972532743588).
      */
     public function initiateCall(Guest $guest, Invitation $invitation): string
     {
+        $this->ensureAccountCanCall($guest);
+
         $toE164 = $this->normalizePhoneNumber($guest->phone);
         if (! preg_match('/^\+[1-9]\d{8,14}$/', $toE164)) {
             throw new \InvalidArgumentException('Invalid guest phone for Twilio: '.$guest->phone);

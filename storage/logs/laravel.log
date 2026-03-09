@@ -1,0 +1,52 @@
+[2026-03-09 21:07:53] production.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":8,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-09 21:07:53] production.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":8,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-09 21:07:53] production.DEBUG: SUMIT FINAL CUSTOMER PAYLOAD {"order_id":"subscription_6","customer":{"ID":1095061474},"endpoint":"/billing/recurring/charge/"} 
+[2026-03-09 21:07:55] production.ERROR: Undefined property: OfficeGuy\LaravelSumitGateway\Events\PaymentFailed::$payable {"userId":1,"exception":"ErrorException: Undefined property: OfficeGuy\\LaravelSumitGateway\\Events\\PaymentFailed::$payable in /var/www/vhosts/kalfa.me/httpdocs/vendor/officeguy/laravel-sumit-gateway/src/Listeners/NotifyPaymentFailedListener.php:44
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/officeguy/laravel-sumit-gateway/src/Listeners/NotifyPaymentFailedListener.php(44): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/officeguy/laravel-sumit-gateway/src/Listeners/NotifyPaymentFailedListener.php(23): OfficeGuy\\LaravelSumitGateway\\Listeners\\NotifyPaymentFailedListener->getNotifiable()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Events/Dispatcher.php(512): OfficeGuy\\LaravelSumitGateway\\Listeners\\NotifyPaymentFailedListener->handle()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Events/Dispatcher.php(319): Illuminate\\Events\\Dispatcher->{closure:Illuminate\\Events\\Dispatcher::createClassListener():505}()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Events/Dispatcher.php(299): Illuminate\\Events\\Dispatcher->invokeListeners()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(505): Illuminate\\Events\\Dispatcher->dispatch()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/officeguy/laravel-sumit-gateway/src/Services/PaymentService.php(1031): event()
+#8 /var/www/vhosts/kalfa.me/httpdocs/app/Services/Billing/SumitBillingProvider.php(114): OfficeGuy\\LaravelSumitGateway\\Services\\PaymentService::processCharge()
+#9 /var/www/vhosts/kalfa.me/httpdocs/app/Services/SubscriptionService.php(63): App\\Services\\Billing\\SumitBillingProvider->createSubscriptio
+... [truncated 12681 chars]"} 
+[2026-03-09 21:15:26] production.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":9,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-09 21:15:26] production.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":9,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-09 21:15:26] production.DEBUG: SUMIT FINAL CUSTOMER PAYLOAD {"order_id":"subscription_7","customer":{"ID":1095061474},"endpoint":"/billing/recurring/charge/"} 
+[2026-03-09 21:15:29] production.ERROR: Payment failed - תקלה במספר ה-CVV (הספרות בגב הכרטיס). יש לוודא שהספרות הוזנו בצורה מדויקת. (קוד 006) {"userId":1,"exception":"RuntimeException: Payment failed - תקלה במספר ה-CVV (הספרות בגב הכרטיס). יש לוודא שהספרות הוזנו בצורה מדויקת. (קוד 006) in /var/www/vhosts/kalfa.me/httpdocs/app/Services/Billing/SumitBillingProvider.php:130
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/app/Services/SubscriptionService.php(63): App\\Services\\Billing\\SumitBillingProvider->createSubscription()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Services\\SubscriptionService->{closure:App\\Services\\SubscriptionService::activate():55}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call()
+#4 /var/www/vhosts/kalfa.me/httpdocs/app/Services/SubscriptionService.php(55): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#5 /var/www/vhosts/kalfa.me/httpdocs/app/Models/AccountSubscription.php(78): App\\Services\\SubscriptionService->activate()
+#6 /var/www/vhosts/kalfa.me/httpdocs/app/Livewire/System/Accounts/Show.php(317): App\\Models\\AccountSubscription->activate()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Livewire\\System\\Accounts\\Show->grantSelectedProduct()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#
+... [truncated 11089 chars]"} 
+[2026-03-09 21:45:53] production.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":10,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-09 21:45:53] production.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":10,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-09 21:45:53] production.DEBUG: SUMIT FINAL CUSTOMER PAYLOAD {"order_id":"subscription_8","customer":{"ID":1095061474},"endpoint":"/billing/recurring/charge/"} 
+[2026-03-09 21:45:55] production.ERROR: Payment failed - תקלה במספר ה-CVV (הספרות בגב הכרטיס). יש לוודא שהספרות הוזנו בצורה מדויקת. (קוד 006) {"userId":1,"exception":"RuntimeException: Payment failed - תקלה במספר ה-CVV (הספרות בגב הכרטיס). יש לוודא שהספרות הוזנו בצורה מדויקת. (קוד 006) in /var/www/vhosts/kalfa.me/httpdocs/app/Services/Billing/SumitBillingProvider.php:130
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/app/Services/SubscriptionService.php(63): App\\Services\\Billing\\SumitBillingProvider->createSubscription()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php(35): App\\Services\\SubscriptionService->{closure:App\\Services\\SubscriptionService::activate():55}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/DatabaseManager.php(491): Illuminate\\Database\\Connection->transaction()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Support/Facades/Facade.php(363): Illuminate\\Database\\DatabaseManager->__call()
+#4 /var/www/vhosts/kalfa.me/httpdocs/app/Services/SubscriptionService.php(55): Illuminate\\Support\\Facades\\Facade::__callStatic()
+#5 /var/www/vhosts/kalfa.me/httpdocs/app/Models/AccountSubscription.php(78): App\\Services\\SubscriptionService->activate()
+#6 /var/www/vhosts/kalfa.me/httpdocs/app/Livewire/System/Accounts/Show.php(317): App\\Models\\AccountSubscription->activate()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Livewire\\System\\Accounts\\Show->grantSelectedProduct()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#
+... [truncated 11089 chars]"} 

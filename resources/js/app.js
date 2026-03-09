@@ -9,11 +9,13 @@ import $ from 'jquery'
 window.$ = window.jQuery = $
 
 import Cropper from 'cropperjs'
-
-import { Livewire, Alpine } from '../../vendor/livewire/livewire/dist/livewire.esm'
 import Clipboard from '@ryangjchandler/alpine-clipboard'
 
-Alpine.plugin(Clipboard)
+// In Livewire v4, Alpine is automatically available.
+// We just need to register plugins on the global Alpine instance.
+document.addEventListener('alpine:init', () => {
+    window.Alpine.plugin(Clipboard)
+})
 
 document.addEventListener('DOMContentLoaded', () => {
     const image = document.getElementById('image')
@@ -22,5 +24,3 @@ document.addEventListener('DOMContentLoaded', () => {
         new Cropper(image)
     }
 })
-
-Livewire.start()

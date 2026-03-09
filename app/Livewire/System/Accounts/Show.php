@@ -6,6 +6,9 @@ namespace App\Livewire\System\Accounts;
 
 use App\Models\Account;
 use App\Models\Organization;
+use App\Models\Product;
+use App\Models\ProductPlan;
+use App\Services\Sumit\OfficeGuyCustomerSearchService;
 use App\Services\SystemAuditLogger;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
@@ -33,6 +36,13 @@ final class Show extends Component
 
     public ?int $edit_sumit_customer_id = null;
 
+    public string $sumit_customer_search = '';
+
+    /** @var list<array<string, mixed>> */
+    public array $sumit_customer_results = [];
+
+    public ?string $sumit_customer_search_message = null;
+
     // Entitlement management
     public bool $showEntitlementForm = false;
 
@@ -43,6 +53,10 @@ final class Show extends Component
     public string $entitlement_value = '';
 
     public ?string $entitlement_expires_at = null;
+
+    public ?int $selected_product_id = null;
+
+    public ?int $selected_plan_id = null;
 
     #[Layout('layouts.app')]
     #[Title('Account Details')]
@@ -95,6 +109,103 @@ final class Show extends Component
     public function cancelEdit(): void
     {
         $this->showEditForm = false;
+    }
+
+    public function searchSumitCustomers(): void
+    {
+        $this->resetErrorBag('sumit_customer_search');
+        $this->sumit_customer_search_message = null;
+
+        $searchTerm = trim($this->sumit_customer_search);
+
+        if ($searchTerm === '') {
+            $this->sumit_customer_results = [];
+            $this->addError('sumit_customer_search', __('Enter an email address or SUMIT customer ID.'));
+
+            return;
+        }
+
+        $results = app(OfficeGuyCustomerSearchService::class)->search($searchTerm);
+
+        $this->sumit_customer_results = $results;
+
+        if ($results === []) {
+            $this->sumit_customer_search_message = __('No matching SUMIT customers were found.');
+        }
+    }
+
+    public function useOwnerEmailForSumitSearch(): void
+    {
+        $ownerEmail = $this->account->owner?->email;
+
+        if ($ownerEmail === null || $ownerEmail === '') {
+            $this->resetErrorBag('sumit_customer_search');
+            $this->addError('sumit_customer_search', __('This account owner does not have an email address.'));
+
+            return;
+        }
+
+        $this->sumit_customer_search = $ownerEmail;
+        $this->searchSumitCustomers();
+    }
+
+    public function connectSumitCustomer(int $sumitCustomerId): void
+    {
+        $candidate = collect($this->sumit_customer_results)
+            ->firstWhere('sumit_customer_id', $sumitCustomerId);
+
+        if ($candidate === null) {
+            $this->resetErrorBag('sumit_customer_search');
+            $this->addError('sumit_customer_search', __('The selected SUMIT customer is no longer available. Search again and retry.'));
+
+            return;
+        }
+
+        $previousSumitCustomerId = $this->account->sumit_customer_id;
+
+        $this->account->update([
+            'sumit_customer_id' => $sumitCustomerId,
+        ]);
+
+        SystemAuditLogger::log(auth()->user(), 'account.sumit_customer_connected', $this->account, [
+            'previous_sumit_customer_id' => $previousSumitCustomerId,
+            'sumit_customer_id' => $sumitCustomerId,
+            'customer_name' => $candidate['name'] ?? null,
+            'customer_email' => $candidate['email'] ?? null,
+            'source' => $candidate['source'] ?? null,
+            'customer_model_class' => $candidate['model_class'] ?? null,
+            'customer_model_id' => $candidate['model_id'] ?? null,
+        ]);
+
+        $this->account->refresh();
+        $this->edit_sumit_customer_id = $this->account->sumit_customer_id;
+        $this->sumit_customer_results = [];
+        $this->sumit_customer_search_message = null;
+
+        session()->flash('success', __('SUMIT customer connected successfully.'));
+    }
+
+    public function disconnectSumitCustomer(): void
+    {
+        $previousSumitCustomerId = $this->account->sumit_customer_id;
+
+        if ($previousSumitCustomerId === null) {
+            return;
+        }
+
+        $this->account->update([
+            'sumit_customer_id' => null,
+        ]);
+
+        SystemAuditLogger::log(auth()->user(), 'account.sumit_customer_disconnected', $this->account, [
+            'previous_sumit_customer_id' => $previousSumitCustomerId,
+        ]);
+
+        $this->account->refresh();
+        $this->edit_sumit_customer_id = null;
+        $this->sumit_customer_search_message = null;
+
+        session()->flash('success', __('SUMIT customer disconnected successfully.'));
     }
 
     // --- Entitlement Management ---
@@ -154,6 +265,100 @@ final class Show extends Component
         session()->flash('success', __('Entitlement deleted.'));
     }
 
+    public function grantSelectedProduct(): void
+    {
+        if (! $this->selected_product_id) {
+            return;
+        }
+
+        $this->resetErrorBag(['selected_product_id', 'selected_plan_id']);
+
+        $product = Product::query()
+            ->with([
+                'productEntitlements',
+                'productPlans' => fn ($query) => $query
+                    ->where('is_active', true)
+                    ->with(['activePrices' => fn ($priceQuery) => $priceQuery->orderBy('id')])
+                    ->orderBy('name'),
+            ])
+            ->find($this->selected_product_id);
+
+        if ($product === null) {
+            $this->addError('selected_product_id', __('The selected product is no longer available.'));
+
+            return;
+        }
+
+        $commercialPlans = $product->productPlans;
+
+        if ($commercialPlans->isNotEmpty()) {
+            if ($this->selected_plan_id === null) {
+                $this->addError('selected_plan_id', __('Select a commercial plan before activating this product.'));
+
+                return;
+            }
+
+            /** @var ProductPlan|null $plan */
+            $plan = $commercialPlans->firstWhere('id', $this->selected_plan_id);
+
+            if ($plan === null) {
+                $this->addError('selected_plan_id', __('The selected plan does not belong to this product.'));
+
+                return;
+            }
+
+            $subscription = $this->account->subscribeToPlan($plan, metadata: [
+                'source' => 'system_account_admin',
+                'initiated_from' => 'account_show',
+                'granted_by' => auth()->id(),
+            ]);
+
+            try {
+                $subscription = $subscription->activate(auth()->id());
+            } catch (\RuntimeException $exception) {
+                $subscription->delete();
+                $this->handleCommercialActivationFailure($exception);
+
+                return;
+            }
+
+            SystemAuditLogger::log(auth()->user(), 'account.product_subscription_activated', $this->account, [
+                'product_id' => $product->id,
+                'product_name' => $product->name,
+                'product_plan_id' => $plan->id,
+                'product_plan_name' => $plan->name,
+                'account_subscription_id' => $subscription->id,
+            ]);
+
+            $this->selected_product_id = null;
+            $this->selected_plan_id = null;
+            session()->flash('success', __('Commercial subscription activated successfully.'));
+
+            return;
+        }
+
+        $this->account->grantProduct($product, auth()->id(), metadata: [
+            'source' => 'system_account_admin',
+            'grant_type' => 'complimentary',
+            'initiated_from' => 'account_show',
+        ]);
+
+        SystemAuditLogger::log(auth()->user(), 'account.product_granted', $this->account, [
+            'product_id' => $product->id,
+            'product_name' => $product->name,
+            'grant_type' => 'complimentary',
+        ]);
+
+        $this->selected_product_id = null;
+        $this->selected_plan_id = null;
+        session()->flash('success', __('Complimentary product access granted successfully.'));
+    }
+
+    public function updatedSelectedProductId(): void
+    {
+        $this->selected_plan_id = null;
+    }
+
     public function cancelEntitlement(): void
     {
         $this->showEntitlementForm = false;
@@ -166,6 +371,25 @@ final class Show extends Component
         $this->entitlement_feature_key = '';
         $this->entitlement_value = '';
         $this->entitlement_expires_at = null;
+    }
+
+    protected function handleCommercialActivationFailure(\RuntimeException $exception): void
+    {
+        $message = $exception->getMessage();
+
+        if ($message === 'SUMIT subscription requires a default OfficeGuy payment token for the account.') {
+            $this->addError('selected_plan_id', __('A default SUMIT payment method is required before activating this subscription.'));
+
+            return;
+        }
+
+        if (str_contains($message, 'must have an owner email before syncing to SUMIT')) {
+            $this->addError('selected_plan_id', __('An account owner email is required before activating a SUMIT subscription.'));
+
+            return;
+        }
+
+        throw $exception;
     }
 
     // --- Organization Linking ---
@@ -215,6 +439,22 @@ final class Show extends Component
         $entitlements = $this->account->entitlements()->orderBy('feature_key')->get();
         $usage = $this->account->featureUsage()->orderByDesc('period_key')->orderBy('feature_key')->get();
         $billingIntents = $this->account->billingIntents()->orderByDesc('created_at')->get();
+        $paymentMethods = $this->account->paymentMethods()->orderByDesc('is_default')->orderByDesc('id')->get();
+        $products = Product::query()
+            ->with([
+                'productPlans' => fn ($query) => $query
+                    ->where('is_active', true)
+                    ->with(['activePrices' => fn ($priceQuery) => $priceQuery->orderBy('id')])
+                    ->orderBy('name'),
+            ])
+            ->orderBy('name')
+            ->get();
+        $selectedProduct = $products->firstWhere('id', $this->selected_product_id);
+        $selectedProductPlans = $selectedProduct?->productPlans ?? collect();
+        $sumitCustomerModelLabel = app(OfficeGuyCustomerSearchService::class)->customerModelLabel();
+        $sumitPaymentsReady = filled(config('officeguy.company_id'))
+            && filled(config('officeguy.public_key'))
+            && filled(config('officeguy.private_key'));
 
         return view('livewire.system.accounts.show', [
             'organizationsAttached' => $organizationsAttached,
@@ -222,6 +462,12 @@ final class Show extends Component
             'entitlements' => $entitlements,
             'usage' => $usage,
             'billingIntents' => $billingIntents,
+            'paymentMethods' => $paymentMethods,
+            'products' => $products,
+            'selectedProduct' => $selectedProduct,
+            'selectedProductPlans' => $selectedProductPlans,
+            'sumitCustomerModelLabel' => $sumitCustomerModelLabel,
+            'sumitPaymentsReady' => $sumitPaymentsReady,
         ]);
     }
 }

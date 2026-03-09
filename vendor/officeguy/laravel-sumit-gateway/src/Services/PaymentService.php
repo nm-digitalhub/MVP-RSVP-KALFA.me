@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace OfficeGuy\LaravelSumitGateway\Services;
 
-use Carbon\Carbon;
 use OfficeGuy\LaravelSumitGateway\Contracts\Payable;
-use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyDocument;
-use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyToken;
-use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyTransaction;
 use OfficeGuy\LaravelSumitGateway\DataTransferObjects\ResolvedPaymentIntent;
 use OfficeGuy\LaravelSumitGateway\Http\Connectors\SumitConnector;
 use OfficeGuy\LaravelSumitGateway\Http\DTOs\CredentialsData;
-use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\SetPaymentMethodRequest;
-use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\GetPaymentDetailsRequest;
-use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\ListPaymentsRequest;
-use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\GetPaymentMethodsRequest;
-use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\RemovePaymentMethodRequest;
 use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\ChargePaymentRequest;
-use OfficeGuy\LaravelSumitGateway\Http\Requests\Subscription\ChargeSubscriptionRequest;
-use OfficeGuy\LaravelSumitGateway\Http\Requests\Bit\CreateBitPaymentRequest;
+use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\GetPaymentDetailsRequest;
+use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\GetPaymentMethodsRequest;
+use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\ListPaymentsRequest;
+use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\RemovePaymentMethodRequest;
+use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\SetPaymentMethodRequest;
+use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyToken;
+use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyTransaction;
 
 /**
  * Payment Service
@@ -33,8 +29,6 @@ class PaymentService
      * Get credentials array for API requests
      *
      * Port of: GetCredentials($Gateway)
-     *
-     * @return array
      */
     public static function getCredentials(): array
     {
@@ -49,19 +43,19 @@ class PaymentService
      *
      * Port of: GetMaximumPayments($Gateway, $OrderValue)
      *
-     * @param float $orderValue Order total amount
+     * @param  float  $orderValue  Order total amount
      * @return int Maximum number of installments
      */
     public static function getMaximumPayments(float $orderValue): int
     {
-        $maximumPayments = (int)config('officeguy.max_payments', 1);
+        $maximumPayments = (int) config('officeguy.max_payments', 1);
 
-        $minAmountPerPayment = (float)config('officeguy.min_amount_per_payment', 0);
+        $minAmountPerPayment = (float) config('officeguy.min_amount_per_payment', 0);
         if ($minAmountPerPayment > 0) {
-            $maximumPayments = min($maximumPayments, (int)floor($orderValue / $minAmountPerPayment));
+            $maximumPayments = min($maximumPayments, (int) floor($orderValue / $minAmountPerPayment));
         }
 
-        $minAmountForPayments = (float)config('officeguy.min_amount_for_payments', 0);
+        $minAmountForPayments = (float) config('officeguy.min_amount_for_payments', 0);
         if ($minAmountForPayments > 0 && round($orderValue) < round($minAmountForPayments)) {
             $maximumPayments = 1;
         }
@@ -77,12 +71,12 @@ class PaymentService
      *
      * Port of: GetOrderVatRate($Order)
      *
-     * @param Payable $order Order instance
+     * @param  Payable  $order  Order instance
      * @return string VAT rate as string percentage
      */
     public static function getOrderVatRate(Payable $order): string
     {
-        if (!$order->isTaxEnabled()) {
+        if (! $order->isTaxEnabled()) {
             return '';
         }
 
@@ -91,7 +85,7 @@ class PaymentService
             return '0';
         }
 
-        return (string)$vatRate;
+        return (string) $vatRate;
     }
 
     /**
@@ -103,7 +97,7 @@ class PaymentService
      */
     public static function getOrderLanguage(): string
     {
-        if (!config('officeguy.automatic_languages', true)) {
+        if (! config('officeguy.automatic_languages', true)) {
             return '';
         }
 
@@ -123,9 +117,8 @@ class PaymentService
      *
      * Endpoint: POST /billing/paymentmethods/setforcustomer/
      *
-     * @param string|int $sumitCustomerId
-     * @param string $token CreditCard_Token from SUMIT
-     * @param array $method Additional fields (optional) from PaymentMethod schema
+     * @param  string  $token  CreditCard_Token from SUMIT
+     * @param  array  $method  Additional fields (optional) from PaymentMethod schema
      * @return array{success: bool, error?: string}
      */
     public static function setPaymentMethodForCustomer(string|int $sumitCustomerId, string $token, array $method = []): array
@@ -154,7 +147,7 @@ class PaymentService
             );
 
             // Instantiate connector and request
-            $connector = new SumitConnector();
+            $connector = new SumitConnector;
             $request = new SetPaymentMethodRequest(
                 customerId: (int) $sumitCustomerId,
                 token: $token,
@@ -162,7 +155,7 @@ class PaymentService
                 additionalFields: $additionalFields
             );
 
-            \Log::info('setPaymentMethodForCustomer request', ['customer_id' => $sumitCustomerId, 'token' => substr($token, 0, 8) . '...']);
+            \Log::info('setPaymentMethodForCustomer request', ['customer_id' => $sumitCustomerId, 'token' => substr($token, 0, 8).'...']);
 
             // Send request
             $response = $connector->send($request);
@@ -191,7 +184,6 @@ class PaymentService
      * קבלת פירוט עסקה לפי PaymentID.
      * Endpoint: POST /billing/payments/get/
      *
-     * @param int|string $paymentId
      * @return array{success: bool, payment?: array|null, error?: string}
      */
     public static function getPaymentDetails(int|string $paymentId): array
@@ -204,7 +196,7 @@ class PaymentService
             );
 
             // Instantiate connector and request
-            $connector = new SumitConnector();
+            $connector = new SumitConnector;
             $request = new GetPaymentDetailsRequest(
                 paymentId: (int) $paymentId,
                 credentials: $credentials
@@ -238,7 +230,7 @@ class PaymentService
      * List payments history (paged) with optional date/valid filters.
      * Endpoint: POST /billing/payments/list/
      *
-     * @param array $filters [Date_From?, Date_To?, Valid?, StartIndex?]
+     * @param  array  $filters  [Date_From?, Date_To?, Valid?, StartIndex?]
      * @return array{success: bool, payments?: array<int, array>, has_next?: bool, error?: string}
      */
     public static function listPayments(array $filters = []): array
@@ -251,7 +243,7 @@ class PaymentService
             );
 
             // Instantiate connector and request
-            $connector = new SumitConnector();
+            $connector = new SumitConnector;
             $request = new ListPaymentsRequest(
                 credentials: $credentials,
                 dateFrom: $filters['Date_From'] ?? null,
@@ -290,8 +282,6 @@ class PaymentService
      *
      * Endpoint: POST /billing/paymentmethods/getforcustomer/
      *
-     * @param string|int $sumitCustomerId
-     * @param bool $includeInactive
      * @return array{success: bool, payment_methods?: array<int, array>, active_method?: array|null, inactive_methods?: array<int, array>, error?: string}
      */
     public static function getPaymentMethodsForCustomer(string|int $sumitCustomerId, bool $includeInactive = false): array
@@ -304,7 +294,7 @@ class PaymentService
             );
 
             // Instantiate connector and request
-            $connector = new SumitConnector();
+            $connector = new SumitConnector;
             $request = new GetPaymentMethodsRequest(
                 customerId: (int) $sumitCustomerId,
                 credentials: $credentials,
@@ -325,7 +315,7 @@ class PaymentService
             $responseData = $data['Data'] ?? [];
 
             $active = $responseData['PaymentMethod'] ?? null;
-            $inactive = !empty($responseData['InactivePaymentMethods']) && is_array($responseData['InactivePaymentMethods'])
+            $inactive = ! empty($responseData['InactivePaymentMethods']) && is_array($responseData['InactivePaymentMethods'])
                 ? $responseData['InactivePaymentMethods']
                 : [];
 
@@ -354,7 +344,7 @@ class PaymentService
      * Remove active payment method from customer in SUMIT.
      * Endpoint: POST /billing/paymentmethods/remove/
      *
-     * @param string|int $sumitCustomerId SUMIT customer ID
+     * @param  string|int  $sumitCustomerId  SUMIT customer ID
      * @return array{success: bool, error?: string}
      */
     public static function removePaymentMethodForCustomer(string|int $sumitCustomerId): array
@@ -367,7 +357,7 @@ class PaymentService
             );
 
             // Instantiate connector and request
-            $connector = new SumitConnector();
+            $connector = new SumitConnector;
             $request = new RemovePaymentMethodRequest(
                 customerId: (int) $sumitCustomerId,
                 credentials: $credentials
@@ -398,8 +388,8 @@ class PaymentService
      * Test a payment method with a minimal charge (₪1).
      * Useful for validating that a token is still active and working.
      *
-     * @param string $token Payment token to test
-     * @param string|int $sumitCustomerId SUMIT customer ID
+     * @param  string  $token  Payment token to test
+     * @param  string|int  $sumitCustomerId  SUMIT customer ID
      * @return array{success: bool, transaction_id?: string, error?: string}
      */
     public static function testPayment(string $token, string|int $sumitCustomerId): array
@@ -412,7 +402,7 @@ class PaymentService
             );
 
             // Instantiate connector and request
-            $connector = new SumitConnector();
+            $connector = new SumitConnector;
             $request = new ChargePaymentRequest(
                 customerId: (int) $sumitCustomerId,
                 amount: 1.0, // ₪1 test charge
@@ -451,8 +441,8 @@ class PaymentService
      *
      * Port of: GetOrderCustomer($Gateway, $Order)
      *
-     * @param Payable $order Order instance
-     * @param string|null $citizenId Optional citizen ID from request
+     * @param  Payable  $order  Order instance
+     * @param  string|null  $citizenId  Optional citizen ID from request
      * @return array Customer data for API
      */
     public static function getOrderCustomer(Payable $order, ?string $citizenId = null): array
@@ -460,8 +450,8 @@ class PaymentService
         $customerName = $order->getCustomerName();
         $company = $order->getCustomerCompany();
 
-        if (!empty($company)) {
-            $customerName = $company . ' - ' . $customerName;
+        if (! empty($company)) {
+            $customerName = $company.' - '.$customerName;
         }
 
         if (empty(trim($customerName))) {
@@ -482,7 +472,7 @@ class PaymentService
         $sumitCustomerId = null;
         if ($order instanceof \Illuminate\Database\Eloquent\Model && method_exists($order, 'client')) {
             $client = $order->client()->first();
-            if ($client && !empty($client->sumit_customer_id)) {
+            if ($client && ! empty($client->sumit_customer_id)) {
                 $sumitCustomerId = $client->sumit_customer_id;
             }
         }
@@ -514,21 +504,21 @@ class PaymentService
 
         if ($address) {
             $customer['Address'] = $address['address'] ?? '';
-            if (!empty($address['address2'])) {
-                $customer['Address'] = trim($customer['Address'] . ', ' . $address['address2']);
+            if (! empty($address['address2'])) {
+                $customer['Address'] = trim($customer['Address'].', '.$address['address2']);
             }
 
             $customer['City'] = $address['city'] ?? '';
-            if (!empty($address['state'])) {
+            if (! empty($address['state'])) {
                 $customer['City'] = empty($customer['City'])
                     ? $address['state']
-                    : $customer['City'] . ', ' . $address['state'];
+                    : $customer['City'].', '.$address['state'];
             }
 
-            if (!empty($address['country']) && $address['country'] !== 'IL') {
+            if (! empty($address['country']) && $address['country'] !== 'IL') {
                 $customer['City'] = empty($customer['City'])
                     ? $address['country']
-                    : $customer['City'] . ', ' . $address['country'];
+                    : $customer['City'].', '.$address['country'];
             }
 
             $customer['ZipCode'] = $address['zip_code'] ?? '';
@@ -555,8 +545,7 @@ class PaymentService
      *
      * Port of: IsCurrencySupported()
      *
-     * @param string $currency Currency code
-     * @return bool
+     * @param  string  $currency  Currency code
      */
     public static function isCurrencySupported(string $currency): bool
     {
@@ -568,7 +557,7 @@ class PaymentService
      *
      * Port of: GetPaymentOrderItems($Order)
      *
-     * @param Payable $order Order instance
+     * @param  Payable  $order  Order instance
      * @return array Items array for API request
      */
     public static function getPaymentOrderItems(Payable $order): array
@@ -619,7 +608,7 @@ class PaymentService
         // Add shipping
         $shippingAmount = $order->getShippingAmount();
         $shippingMethod = $order->getShippingMethod();
-        if ($shippingAmount > 0 && !empty($shippingMethod)) {
+        if ($shippingAmount > 0 && ! empty($shippingMethod)) {
             $items[] = [
                 'Item' => [
                     'Name' => $shippingMethod,
@@ -658,7 +647,7 @@ class PaymentService
      *
      * Port of: GetDocumentOrderItems($Order)
      *
-     * @param Payable $order Order instance
+     * @param  Payable  $order  Order instance
      * @return array Items array for document API request
      */
     public static function getDocumentOrderItems(Payable $order): array
@@ -741,13 +730,7 @@ class PaymentService
      * Build charge request for card/redirect payments.
      * Mirrors GetOrderRequest logic from the Woo plugin.
      *
-     * @param Payable $order
-     * @param int $paymentsCount
-     * @param bool $recurring
-     * @param bool $redirectMode
-     * @param OfficeGuyToken|null $token
-     * @param array $extra Additional request overrides
-     * @return array
+     * @param  array  $extra  Additional request overrides
      */
     public static function buildChargeRequest(
         Payable $order,
@@ -765,22 +748,22 @@ class PaymentService
         $authorizeOnly = config('officeguy.authorize_only', false) || config('officeguy.testing', false);
 
         $request = [
-            'Credentials'          => self::getCredentials(),
-            'Items'                => self::getPaymentOrderItems($order),
-            'VATIncluded'          => 'true',
-            'VATRate'              => self::getOrderVatRate($order),
-            'Customer'             => self::getOrderCustomer($order, $customerCitizenId),
-            'AuthoriseOnly'        => $authorizeOnly ? 'true' : 'false',
-            'DraftDocument'        => config('officeguy.draft_document', false) ? 'true' : 'false',
-            'SendDocumentByEmail'  => config('officeguy.email_document', true) ? 'true' : 'false',
-            'UpdateCustomerByEmail'=> config('officeguy.email_document', true) ? 'true' : 'false',
+            'Credentials' => self::getCredentials(),
+            'Items' => self::getPaymentOrderItems($order),
+            'VATIncluded' => 'true',
+            'VATRate' => self::getOrderVatRate($order),
+            'Customer' => self::getOrderCustomer($order, $customerCitizenId),
+            'AuthoriseOnly' => $authorizeOnly ? 'true' : 'false',
+            'DraftDocument' => config('officeguy.draft_document', false) ? 'true' : 'false',
+            'SendDocumentByEmail' => config('officeguy.email_document', true) ? 'true' : 'false',
+            'UpdateCustomerByEmail' => config('officeguy.email_document', true) ? 'true' : 'false',
             'UpdateCustomerOnSuccess' => config('officeguy.email_document', true) ? 'true' : 'false',
-            'DocumentDescription'  => __('Order number') . ': ' . $order->getPayableId() .
-                (empty($order->getCustomerNote()) ? '' : "\r\n" . $order->getCustomerNote()),
-            'Payments_Count'       => $paymentsCount,
-            'MaximumPayments'      => self::getMaximumPayments($orderTotal),
-            'DocumentLanguage'     => self::getOrderLanguage(),
-            'MerchantNumber'       => $recurring
+            'DocumentDescription' => __('Order number').': '.$order->getPayableId().
+                (empty($order->getCustomerNote()) ? '' : "\r\n".$order->getCustomerNote()),
+            'Payments_Count' => $paymentsCount,
+            'MaximumPayments' => self::getMaximumPayments($orderTotal),
+            'DocumentLanguage' => self::getOrderLanguage(),
+            'MerchantNumber' => $recurring
                 ? config('officeguy.subscriptions_merchant_number')
                 : config('officeguy.merchant_number'),
         ];
@@ -790,11 +773,11 @@ class PaymentService
             $authorizeAmount = $orderTotal;
             $percent = config('officeguy.authorize_added_percent');
             if ($percent !== null) {
-                $authorizeAmount = round($authorizeAmount * (1 + ((float)$percent) / 100), 2);
+                $authorizeAmount = round($authorizeAmount * (1 + ((float) $percent) / 100), 2);
             }
             $minAddition = config('officeguy.authorize_minimum_addition');
-            if ($minAddition !== null && ($authorizeAmount - $orderTotal) < (float)$minAddition) {
-                $authorizeAmount = round($orderTotal + (float)$minAddition, 2);
+            if ($minAddition !== null && ($authorizeAmount - $orderTotal) < (float) $minAddition) {
+                $authorizeAmount = round($orderTotal + (float) $minAddition, 2);
             }
             $request['AuthorizeAmount'] = $authorizeAmount;
         }
@@ -812,7 +795,7 @@ class PaymentService
                 'CreditCard_ExpirationYear' => $token->expiry_year,
                 'Type' => 1,  // Credit card
             ];
-        } elseif (!$redirectMode && !empty($paymentMethodPayload)) {
+        } elseif (! $redirectMode && ! empty($paymentMethodPayload)) {
             // Use direct card details (PCI mode = 'yes')
             $request['PaymentMethod'] = $paymentMethodPayload;
         }
@@ -884,13 +867,10 @@ class PaymentService
                 apiKey: (string) config('officeguy.private_key')
             );
 
-            $connector = new SumitConnector();
-            $saloonRequest = new class(
-                $credentials,
-                $request,
-                $endpoint,
-                !$recurring // sendClientIp
-            ) extends \Saloon\Http\Request implements \Saloon\Contracts\Body\HasBody {
+            $connector = new SumitConnector;
+            $saloonRequest = new class($credentials, $request, $endpoint, ! $recurring // sendClientIp
+            ) extends \Saloon\Http\Request implements \Saloon\Contracts\Body\HasBody
+            {
                 use \Saloon\Traits\Body\HasJsonBody;
 
                 protected \Saloon\Enums\Method $method = \Saloon\Enums\Method::POST;
@@ -921,6 +901,7 @@ class PaymentService
                     if ($this->sendClientIp && request()->ip()) {
                         $headers['X-OG-ClientIP'] = request()->ip();
                     }
+
                     return $headers;
                 }
 
@@ -934,10 +915,11 @@ class PaymentService
             $response = $saloonResponse->json();
 
         } catch (\Throwable $e) {
-            OfficeGuyApi::writeToLog('Payment charge exception: ' . $e->getMessage(), 'error');
+            OfficeGuyApi::writeToLog('Payment charge exception: '.$e->getMessage(), 'error');
+
             return [
                 'success' => false,
-                'message' => __('Payment failed') . ' - ' . $e->getMessage(),
+                'message' => __('Payment failed').' - '.$e->getMessage(),
             ];
         }
 
@@ -958,10 +940,10 @@ class PaymentService
             ];
         }
 
-        if (!$response) {
+        if (! $response) {
             return [
                 'success' => false,
-                'message' => __('Payment failed') . ' - ' . __('No response'),
+                'message' => __('Payment failed').' - '.__('No response'),
             ];
         }
 
@@ -1018,11 +1000,14 @@ class PaymentService
             event(new \OfficeGuy\LaravelSumitGateway\Events\PaymentFailed(
                 $order->getPayableId(),
                 $response,
-                $response['UserErrorMessage'] ?? 'Gateway error'
+                $response['UserErrorMessage'] ?? 'Gateway error',
+                null,
+                $order
             ));
+
             return [
                 'success' => false,
-                'message' => __('Payment failed') . ' - ' . ($response['UserErrorMessage'] ?? 'Gateway error'),
+                'message' => __('Payment failed').' - '.($response['UserErrorMessage'] ?? 'Gateway error'),
                 'response' => $response,
             ];
         }
@@ -1031,14 +1016,18 @@ class PaymentService
         event(new \OfficeGuy\LaravelSumitGateway\Events\PaymentFailed(
             $order->getPayableId(),
             $response,
-            $payment['StatusDescription'] ?? 'Declined'
+            $payment['StatusDescription'] ?? 'Declined',
+            $payment,
+            $order
         ));
+
         return [
             'success' => false,
-            'message' => __('Payment failed') . ' - ' . ($payment['StatusDescription'] ?? 'Declined'),
+            'message' => __('Payment failed').' - '.($payment['StatusDescription'] ?? 'Declined'),
             'response' => $response,
         ];
     }
+
     /**
      * Execute payment from a resolved checkout intent
      *
@@ -1058,7 +1047,7 @@ class PaymentService
 
         // Resolve saved payment token with security validation
         $tokenModel = null;
-        if (!empty($intent->token)) {
+        if (! empty($intent->token)) {
             // Get customer ID for security validation
             $customerId = $intent->payable->getCustomerId();
 
@@ -1071,7 +1060,7 @@ class PaymentService
                 ->first();
 
             // Log warning if token not found
-            if (!$tokenModel) {
+            if (! $tokenModel) {
                 OfficeGuyApi::writeToLog('⚠️ Token not found for intent', 'warning', [
                     'token' => $intent->token,
                     'customer_id' => $customerId,
@@ -1087,8 +1076,8 @@ class PaymentService
             }
         } else {
             OfficeGuyApi::writeToLog('ℹ️ No saved token in intent', 'info', [
-                'has_single_use_token' => !empty($intent->singleUseToken),
-                'has_payment_method_payload' => !empty($intent->paymentMethodPayload),
+                'has_single_use_token' => ! empty($intent->singleUseToken),
+                'has_payment_method_payload' => ! empty($intent->paymentMethodPayload),
             ]);
         }
 
@@ -1117,10 +1106,10 @@ class PaymentService
      * This returns money back to the original credit card.
      * This is NOT an accounting credit note - use DocumentService::createCreditNote() for that.
      *
-     * @param \OfficeGuy\LaravelSumitGateway\Contracts\HasSumitCustomer $customer Customer instance
-     * @param string $transactionId Original transaction auth number
-     * @param float $amount Amount to refund
-     * @param string $reason Refund reason (default: החזר כספי ללקוח)
+     * @param  \OfficeGuy\LaravelSumitGateway\Contracts\HasSumitCustomer  $customer  Customer instance
+     * @param  string  $transactionId  Original transaction auth number
+     * @param  float  $amount  Amount to refund
+     * @param  string  $reason  Refund reason (default: החזר כספי ללקוח)
      * @return array{success: bool, transaction_id?: string, auth_number?: string, amount?: float, error?: string}
      */
     public static function processRefund(
@@ -1131,7 +1120,7 @@ class PaymentService
     ): array {
         $sumitCustomerId = $customer->getSumitCustomerId();
 
-        if (!$sumitCustomerId) {
+        if (! $sumitCustomerId) {
             return [
                 'success' => false,
                 'error' => 'Customer not synced to SUMIT',
@@ -1156,7 +1145,7 @@ class PaymentService
             ];
 
             // Instantiate connector and request
-            $connector = new SumitConnector();
+            $connector = new SumitConnector;
             $request = new ChargePaymentRequest(
                 customerId: (int) $sumitCustomerId,
                 amount: $amount, // Amount is ignored when items are provided
@@ -1188,17 +1177,17 @@ class PaymentService
                     ->orWhere('auth_number', $transactionId)
                     ->first();
 
-                if (!$originalTransaction) {
+                if (! $originalTransaction) {
                     // Log warning but don't fail the refund
                     OfficeGuyApi::writeToLog(
-                        'Warning: Original transaction not found for refund. Transaction ID: ' . $transactionId,
+                        'Warning: Original transaction not found for refund. Transaction ID: '.$transactionId,
                         'warning'
                     );
                 }
 
                 // Create new transaction record for the refund
                 $refundRecord = OfficeGuyTransaction::create([
-                    'order_id' => 'REFUND-' . $transactionId,  // Unique identifier
+                    'order_id' => 'REFUND-'.$transactionId,  // Unique identifier
                     'payment_id' => $refundTransactionId,
                     'sumit_entity_id' => $refundTransactionId, // CRITICAL: Used by TransactionSyncListener to match CRM webhooks
                     'auth_number' => $refundAuthNumber,
@@ -1232,10 +1221,10 @@ class PaymentService
                 }
 
                 OfficeGuyApi::writeToLog(
-                    'SUMIT refund processed successfully. Original Transaction: ' . $transactionId .
-                    ', Refund Transaction: ' . ($refundTransactionId ?? 'N/A') .
-                    ', Auth Number: ' . ($refundAuthNumber ?? 'N/A') .
-                    ', Refund Record ID: ' . $refundRecord->id,
+                    'SUMIT refund processed successfully. Original Transaction: '.$transactionId.
+                    ', Refund Transaction: '.($refundTransactionId ?? 'N/A').
+                    ', Auth Number: '.($refundAuthNumber ?? 'N/A').
+                    ', Refund Record ID: '.$refundRecord->id,
                     'info'
                 );
 
@@ -1251,7 +1240,7 @@ class PaymentService
             }
 
             OfficeGuyApi::writeToLog(
-                'SUMIT refund failed for transaction ' . $transactionId . ': ' . ($response['ErrorMessage'] ?? 'Unknown error'),
+                'SUMIT refund failed for transaction '.$transactionId.': '.($response['ErrorMessage'] ?? 'Unknown error'),
                 'error'
             );
 
@@ -1262,7 +1251,7 @@ class PaymentService
 
         } catch (\Throwable $e) {
             OfficeGuyApi::writeToLog(
-                'SUMIT refund exception for transaction ' . $transactionId . ': ' . $e->getMessage(),
+                'SUMIT refund exception for transaction '.$transactionId.': '.$e->getMessage(),
                 'error'
             );
 

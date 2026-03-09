@@ -15,6 +15,12 @@
         </div>
     </div>
 
+    @if (session()->has('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
             <p class="text-sm font-medium text-gray-500">{{ __('Organizations') }}</p>
@@ -36,12 +42,35 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-            <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">{{ __('Organizations list') }}</h2>
-            <ul class="space-y-1 text-sm text-gray-700">
+            <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">{{ __('Organizations list & Subscriptions') }}</h2>
+            <ul class="space-y-3 text-sm text-gray-700">
                 @forelse($user->organizations as $org)
-                    <li wire:key="org-{{ $org->id }}">
-                        <a href="{{ route('system.organizations.show', $org) }}" class="text-indigo-600 hover:text-indigo-900">{{ $org->name }}</a>
-                        <span class="text-gray-500">({{ is_object($org->pivot->role) ? $org->pivot->role->value : $org->pivot->role }})</span>
+                    <li wire:key="org-{{ $org->id }}" class="border-b border-gray-100 last:border-0 pb-2 last:pb-0">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <a href="{{ route('system.organizations.show', $org) }}" class="text-indigo-600 font-medium hover:text-indigo-900">{{ $org->name }}</a>
+                                <span class="text-gray-500 text-xs">({{ is_object($org->pivot->role) ? $org->pivot->role->value : $org->pivot->role }})</span>
+                                <button wire:click="syncOrganization({{ $org->id }})" wire:loading.attr="disabled" class="ml-2 text-gray-400 hover:text-indigo-600" title="{{ __('Sync from SUMIT') }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="text-right">
+                                @php $sub = $organizationSubscriptions[$org->id] ?? null; @endphp
+                                @if($sub)
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">{{ ucfirst($sub->status) }}</span>
+                                    <div class="text-xs text-gray-500 mt-0.5">
+                                        {{ number_format((float)$sub->amount, 2) }} {{ $sub->currency }}
+                                        @if($sub->next_charge_at)
+                                            <br>Next: {{ \Carbon\Carbon::parse($sub->next_charge_at)->format('Y-m-d') }}
+                                        @endif
+                                    </div>
+                                @else
+                                    <span class="text-gray-400 text-xs italic">{{ __('No active subscription') }}</span>
+                                @endif
+                            </div>
+                        </div>
                     </li>
                 @empty
                     <li class="text-gray-500">{{ __('None') }}</li>
@@ -50,8 +79,8 @@
         </div>
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
             <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">{{ __('Events (in member orgs)') }}</h2>
-            <p class="text-gray-900 font-semibold">{{ $eventsCount ?? 0 }}</p>
-            <p class="text-sm text-gray-500 mt-1">{{ __('Billing impact') }}: {{ __('Placeholder until OfficeGuy ready.') }}</p>
+            <p class="text-gray-900 font-semibold text-2xl">{{ $eventsCount ?? 0 }}</p>
+            <p class="text-sm text-gray-500 mt-2">{{ __('Usage data based on current organization memberships.') }}</p>
         </div>
     </div>
 

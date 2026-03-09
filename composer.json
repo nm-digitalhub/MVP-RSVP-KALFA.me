@@ -23,6 +23,7 @@
         "spatie/calendar-links": "^1.11",
         "spatie/laravel-medialibrary": "^11.21",
         "spatie/laravel-permission": "^7.2",
+        "spatie/laravel-settings": "^3.7",
         "twilio/sdk": "^8.11",
         "vlucas/phpdotenv": "^5.6"
     },

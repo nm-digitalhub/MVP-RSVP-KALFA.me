@@ -1,256 +1,379 @@
-{{-- Tailwind v4 + tailwind-css-patterns: mobile-first navbar, container, flex layout, focus ring, transition. --}}
 @props(['location' => 'header'])
 @php
-  $appName = config('app.name');
-  $isSystemAdmin = auth()->check() && auth()->user()->is_system_admin;
-  $navLinkClass = 'text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-50 rounded-lg min-h-[44px] inline-flex items-center px-3 py-2 transition-all duration-200 ease-out cursor-pointer motion-reduce:transition-none';
-  $navLinkActiveClass = 'font-semibold text-gray-900 bg-indigo-50 text-indigo-700 ring-1 ring-indigo-200';
-  $mobileNavBase = 'min-h-[44px] inline-flex items-center px-4 py-2.5 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-inset transition-all duration-200 ease-out cursor-pointer';
-  $mobileNavDefault = 'text-gray-700 hover:bg-gray-100/90 hover:text-gray-900 ' . $mobileNavBase;
-  $mobileNavActive = 'border-s-4 border-indigo-600 rtl:border-s-0 rtl:border-e-4 bg-indigo-50 text-indigo-700 font-semibold ' . $mobileNavBase;
-  $isDashboard = request()->routeIs('dashboard');
-  $isEventsIndex = request()->routeIs('dashboard.events.index');
-  $isCalling = request()->routeIs('twilio.calling.index');
-  $isOrganizations = request()->routeIs('organizations.index');
-  $isOrganizationSettings = request()->routeIs('dashboard.organization-settings.*');
-  $isBilling = request()->routeIs('billing.*');
-  $isProfile = request()->routeIs('profile');
-  $isSystemDashboard = request()->routeIs('system.dashboard');
-  $isSystemOrgs = request()->routeIs('system.organizations.*');
-  $isSystemAccounts = request()->routeIs('system.accounts.*');
-  $isSystemUsers = request()->routeIs('system.users.*');
+    $appName = config('app.name');
+    $isSystemAdmin = auth()->check() && auth()->user()->is_system_admin;
+    
+    // Check current routes for active states
+    $isDashboard = request()->routeIs('dashboard');
+    $isEventsIndex = request()->routeIs('dashboard.events.index');
+    $isCalling = request()->routeIs('twilio.calling.index');
+    $isOrganizations = request()->routeIs('organizations.index');
+    $isOrganizationSettings = request()->routeIs('dashboard.organization-settings.*');
+    $isBilling = request()->routeIs('billing.*');
+    $isProfile = request()->routeIs('profile');
+    $isSystemDashboard = request()->routeIs('system.dashboard');
+    $isSystemOrgs = request()->routeIs('system.organizations.*');
+    $isSystemAccounts = request()->routeIs('system.accounts.*');
+    $isSystemUsers = request()->routeIs('system.users.*');
+    $isSystemProducts = request()->routeIs('system.products.*');
+    $isSystemSettings = request()->routeIs('system.settings.index');
 @endphp
 
-<nav class="bg-white/95 border-b border-gray-200/80 backdrop-blur-md shadow-sm sticky top-0 z-30" aria-label="{{ __('Main navigation') }}">
-    <div class="container mx-auto px-4 max-w-7xl">
-        <div class="flex justify-between items-center h-16">
-            <a href="{{ url('/') }}" class="text-lg font-bold tracking-tight bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent hover:from-indigo-600 hover:via-indigo-500 hover:to-indigo-600 hover:text-transparent focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 rounded-lg min-h-[44px] inline-flex items-center px-3 py-2 transition-all duration-300 ease-out motion-reduce:transition-none">
-                {{ $appName }}
-            </a>
+<div x-data="{ mobileMenuOpen: false }" x-id="['navbar']" x-cloak>
+    {{-- Overlay --}}
+    <div x-show="mobileMenuOpen" 
+         x-transition:enter="transition-opacity ease-out duration-300"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="transition-opacity ease-in duration-200"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="mobileMenuOpen = false"
+         class="fixed inset-0 z-50 bg-gray-900/60 backdrop-blur-sm lg:hidden"></div>
 
-            {{-- Desktop nav (hidden md:flex space-x-8 pattern) --}}
-            <div class="hidden md:flex items-center gap-6">
-        @guest
-            <a href="{{ route('login') }}" class="{{ $navLinkClass }}">{{ __('login') }}</a>
-            <a href="{{ route('register') }}" class="{{ $navLinkClass }}">{{ __('register') }}</a>
-        @else
-            @php
-                $currentOrg = auth()->user()->currentOrganization;
-                $userOrganizations = auth()->user()->organizations()->orderBy('name')->get();
-            @endphp
-            @can('view-event-details')
-                <a href="{{ route('dashboard') }}" class="{{ $navLinkClass }} {{ $isDashboard ? $navLinkActiveClass : '' }}">{{ __('dashboard') }}</a>
-                <a href="{{ route('dashboard.events.index') }}" class="{{ $navLinkClass }} {{ $isEventsIndex ? $navLinkActiveClass : '' }}">{{ __('Events') }}</a>
-            @endcan
-            @can('manage-system')
-                <a href="{{ route('twilio.calling.index') }}" class="{{ $navLinkClass }} {{ $isCalling ? $navLinkActiveClass : '' }}">{{ __('Calling') }}</a>
-            @endcan
-            <details class="relative group">
-                <summary class="flex items-center gap-2 px-3 py-2 cursor-pointer list-none text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-50 rounded-lg min-h-[44px] font-medium [&::-webkit-details-marker]:hidden transition-all duration-200 ease-out motion-reduce:transition-none">
-                    <div class="flex items-center gap-2">
-                        <span class="truncate max-w-[150px]">{{ $currentOrg ? $currentOrg->name : __('Organizations') }}</span>
-                        @if($userOrganizations->count() > 1)
-                            <span class="text-xs bg-gradient-to-br from-indigo-100 to-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded-full font-medium ring-1 ring-indigo-200/50 shadow-sm">{{ $userOrganizations->count() }}</span>
-                        @endif
+    {{-- Main Navbar --}}
+    <nav class="glass-navbar sticky top-0 z-40" aria-label="{{ __('Main navigation') }}">
+        <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                {{-- Brand Logo --}}
+                <a href="{{ url('/') }}" wire:navigate class="group flex items-center gap-2.5 transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-lg py-1">
+                    <div class="size-9 bg-brand rounded-xl flex items-center justify-center shadow-lg shadow-brand/20 group-hover:rotate-6 transition-transform">
+                        <span class="text-white font-black text-xl leading-none">{{ substr($appName, 0, 1) }}</span>
                     </div>
-                    <x-heroicon-o-chevron-down class="w-4 h-4 shrink-0 text-gray-400 group-hover:text-indigo-500 transition-transform duration-300 ease-out group-open:rotate-180" />
-                </summary>
-                <div class="absolute right-0 mt-2 w-64 rounded-xl bg-white/95 py-2 shadow-2xl ring-1 ring-gray-200/80 z-50 border border-gray-200/60 backdrop-blur-md opacity-0 invisible scale-95 group-open:opacity-100 group-open:visible group-open:scale-100 transition-all duration-200 ease-out origin-top-right">
-                    <div class="px-3 py-2 text-xs font-semibold text-gray-500/80 uppercase tracking-wider bg-gray-50/50">{{ __('Your Organizations') }}</div>
-                    @foreach($userOrganizations as $org)
-                        <div class="block">
-                            <form action="{{ route('organizations.switch', $org) }}" method="POST" class="w-full text-start">
-                                @csrf
-                                <button type="submit" class="w-full min-h-[44px] px-4 py-2.5 text-sm {{ $currentOrg && $currentOrg->id === $org->id ? 'text-indigo-600 bg-indigo-50/80 ring-1 ring-indigo-200/50' : 'text-gray-700 hover:bg-gray-100/80' }} flex items-center justify-between focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">
-                                    <span class="truncate">{{ $org->name }}</span>
-                                    @if($currentOrg && $currentOrg->id === $org->id)
-                                        <x-heroicon-o-check class="w-4 h-4 shrink-0 text-indigo-600" />
-                                    @endif
-                                </button>
-                            </form>
-                        </div>
-                    @endforeach
-                    <div class="border-t border-gray-100 my-1">
-                        @if($currentOrg)
-                            <a href="{{ route('dashboard.organization-settings.edit') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100/80 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Organization settings') }}</a>
-                            <a href="{{ route('dashboard.team') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-indigo-600 hover:bg-indigo-50 hover:text-indigo-700 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Team Management') }}</a>
-                        @endif
-                        <a href="{{ route('organizations.index') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100/80 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Manage Organizations') }}</a>
-                    </div>
-                </div>
-            </details>
-            {{-- Dark mode toggle --}}
-            <x-dark-mode-toggle class="hidden md:inline-flex" />
-
-            @if(session('impersonation.original_organization_id'))
-                <form method="POST" action="{{ route('system.impersonation.exit') }}" class="inline">
-                    @csrf
-                    <button type="submit" class="text-amber-600 hover:text-amber-700 hover:bg-amber-50 text-sm font-semibold min-h-[44px] inline-flex items-center px-3 py-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:ring-offset-2 rounded-lg transition-all duration-200 ease-out cursor-pointer motion-reduce:transition-none">{{ __('Exit impersonation') }}</button>
-                </form>
-            @endif
-            <a href="{{ route('billing.account') }}" class="{{ $navLinkClass }} {{ request()->routeIs('billing.*') ? $navLinkActiveClass : '' }}">{{ __('Billing & Entitlements') }}</a>
-            @can('manage-system')
-                <div class="flex items-center">
-                    <span class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold text-amber-700 bg-gradient-to-br from-amber-50 to-amber-100/70 border border-amber-200/80 rounded-full ring-1 ring-amber-200/40 shadow-sm">
-                        <x-heroicon-o-shield-check class="w-3.5 h-3.5 shrink-0" />
-                        <span>{{ __('Admin') }}</span>
+                    <span class="text-xl font-black tracking-tight text-gray-900 dark:text-gray-100 group-hover:text-brand transition-colors">
+                        {{ $appName }}
                     </span>
-                </div>
-                <a href="{{ route('system.dashboard') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.dashboard') ? $navLinkActiveClass : '' }}">{{ __('System Dashboard') }}</a>
-                <a href="/pulse" class="{{ $navLinkClass }}" target="_blank">{{ __('System Pulse') }}</a>
-                <a href="/telescope" class="{{ $navLinkClass }}" target="_blank">{{ __('Telescope') }}</a>
-                <a href="{{ route('system.organizations.index') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.organizations.*') ? $navLinkActiveClass : '' }}">{{ __('System Organizations') }}</a>
-                <a href="{{ route('system.accounts.index') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.accounts.*') ? $navLinkActiveClass : '' }}">{{ __('Accounts') }}</a>
-                <a href="{{ route('system.users.index') }}" class="{{ $navLinkClass }} {{ request()->routeIs('system.users.*') ? $navLinkActiveClass : '' }}">{{ __('System Users') }}</a>
-            @endcan
-            {{-- User menu: Profile + Logout so Logout is always visible (avoids overflow on narrow desktop) --}}
-            <details class="relative group/user">
-                <summary class="flex items-center gap-2 px-3 py-2 cursor-pointer list-none text-gray-600 hover:text-gray-900 hover:bg-gray-50/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-indigo-50 rounded-lg min-h-[44px] font-medium [&::-webkit-details-marker]:hidden transition-all duration-200 ease-out motion-reduce:transition-none">
-                    <span class="truncate max-w-[120px]">{{ auth()->user()->name }}</span>
-                    <x-heroicon-o-chevron-down class="w-4 h-4 shrink-0 text-gray-400 group-hover/user:text-indigo-500 transition-transform duration-300 ease-out group-open/user:rotate-180" />
-                </summary>
-                <div class="absolute end-0 mt-2 w-56 rounded-xl bg-white/95 py-2 shadow-2xl ring-1 ring-gray-200/80 z-50 border border-gray-200/60 backdrop-blur-md opacity-0 invisible scale-95 group-open/user:opacity-100 group-open/user:visible group-open/user:scale-100 transition-all duration-200 ease-out origin-top-right rtl:origin-top-left">
-                    <a href="{{ route('profile') }}" class="block min-h-[44px] px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-100/80 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-inset transition-all duration-200 ease-out">{{ __('Profile') }}</a>
-                    <div class="border-t border-gray-100 my-1">
-                        <form method="POST" action="{{ route('logout') }}" class="block">
-                            @csrf
-                            <button type="submit" class="w-full text-start min-h-[44px] px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-inset transition-all duration-200 ease-out cursor-pointer">{{ __('Logout') }}</button>
-                        </form>
-                    </div>
-                </div>
-            </details>
-        @endguest
-            </div>
+                </a>
 
-            <button id="mobile-menu-toggle" type="button" class="md:hidden min-h-[44px] min-w-[44px] p-2.5 text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50 focus-visible:ring-offset-2 rounded-xl transition-all duration-200 ease-out cursor-pointer motion-reduce:transition-none" aria-label="{{ __('Open menu') }}">
-                <x-heroicon-o-bars-3 class="w-6 h-6" />
+                {{-- Desktop Navigation --}}
+                <div class="hidden lg:flex items-center gap-1 ms-auto">
+                    @guest
+                        <a href="{{ route('login') }}" wire:navigate class="nav-link whitespace-nowrap">{{ __('login') }}</a>
+                        <a href="{{ route('register') }}" wire:navigate class="px-5 py-2 bg-brand text-white font-bold rounded-xl shadow-lg shadow-brand/20 hover:bg-brand-hover hover:scale-[1.02] active:scale-95 transition-all">{{ __('register') }}</a>
+                    @else
+                        @php
+                            $currentOrg = auth()->user()->currentOrganization;
+                            $userOrganizations = auth()->user()->organizations()->orderBy('name')->get();
+                        @endphp
+
+                        {{-- Main Links --}}
+                        <div class="flex items-center gap-1 border-e border-gray-200 dark:border-gray-800 pe-4 me-4">
+                            @can('view-event-details')
+                                <a href="{{ route('dashboard') }}" wire:navigate class="nav-link {{ $isDashboard ? 'nav-link-active' : '' }}">{{ __('dashboard') }}</a>
+                                <a href="{{ route('dashboard.events.index') }}" wire:navigate class="nav-link {{ $isEventsIndex ? 'nav-link-active' : '' }}">{{ __('Events') }}</a>
+                            @endcan
+                            @can('manage-system')
+                                <a href="{{ route('twilio.calling.index') }}" wire:navigate class="nav-link {{ $isCalling ? 'nav-link-active' : '' }}">{{ __('Calling') }}</a>
+                            @endcan
+                        </div>
+
+                        {{-- Organizations Dropdown --}}
+                        <div x-data="{ open: false }" @click.away="open = false" class="relative">
+                            <button @click="open = !open" class="nav-link gap-2 group {{ $isOrganizations || $isOrganizationSettings ? 'nav-link-active' : '' }}">
+                                <span class="truncate max-w-[140px]">{{ $currentOrg ? $currentOrg->name : __('Organizations') }}</span>
+                                @if($userOrganizations->count() > 1)
+                                    <span class="bg-brand/10 text-brand text-[10px] font-black px-1.5 py-0.5 rounded-full ring-1 ring-brand/20">{{ $userOrganizations->count() }}</span>
+                                @endif
+                                <span x-bind:class="{ 'rotate-180': open }" class="transition-transform duration-300">
+                                    <x-heroicon-o-chevron-down class="size-4 shrink-0 text-gray-400 group-hover:text-brand" />
+                                </span>
+                            </button>
+                            <div x-show="open" 
+                                 x-transition:enter="transition ease-out duration-200"
+                                 x-transition:enter-start="opacity-0 scale-95 origin-top-right"
+                                 x-transition:enter-end="opacity-100 scale-100 origin-top-right"
+                                 x-cloak
+                                 class="absolute right-0 mt-3 w-64 rounded-2xl bg-white dark:bg-gray-900 py-3 shadow-2xl ring-1 ring-black/5 z-50 border border-gray-100 dark:border-gray-800">
+                                 
+                                <div class="px-5 py-2 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">{{ __('Your Organizations') }}</div>
+                                <div class="max-h-[300px] overflow-y-auto custom-scrollbar">
+                                    @foreach($userOrganizations as $org)
+                                        <form action="{{ route('organizations.switch', $org) }}" method="POST" class="block">
+                                            @csrf
+                                            <button type="submit" class="w-full px-5 py-2.5 text-start text-sm flex items-center justify-between transition-colors {{ $currentOrg && $currentOrg->id === $org->id ? 'text-brand font-bold bg-brand/5' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800' }}">
+                                                <span class="truncate">{{ $org->name }}</span>
+                                                @if($currentOrg && $currentOrg->id === $org->id)
+                                                    <x-heroicon-o-check class="size-4 text-brand" />
+                                                @endif
+                                            </button>
+                                        </form>
+                                    @endforeach
+                                </div>
+                                
+                                <div class="border-t border-gray-100 dark:border-gray-800 mt-2 pt-2 px-2 flex flex-col gap-1">
+                                    @if($currentOrg)
+                                        <a href="{{ route('dashboard.organization-settings.edit') }}" wire:navigate class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-cog-6-tooth class="size-4 shrink-0 text-gray-400" />
+                                            {{ __('Settings') }}
+                                        </a>
+                                        <a href="{{ route('dashboard.team') }}" wire:navigate class="px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-users class="size-4 shrink-0" />
+                                            {{ __('Team Management') }}
+                                        </a>
+                                    @endif
+                                    <a href="{{ route('organizations.index') }}" wire:navigate class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg flex items-center gap-2">
+                                        <x-heroicon-o-squares-plus class="size-4 shrink-0 text-gray-400" />
+                                        {{ __('All Organizations') }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Admin Dropdown --}}
+                        @can('manage-system')
+                            <div x-data="{ open: false }" @click.away="open = false" class="relative ms-1">
+                                <button @click="open = !open" class="nav-link gap-2 group {{ str_contains(request()->route()->getName(), 'system.') ? 'nav-link-active' : '' }}">
+                                    <span class="px-2 py-0.5 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400 text-[10px] font-black uppercase tracking-widest rounded-full ring-1 ring-amber-200/50">Admin</span>
+                                    <span x-bind:class="{ 'rotate-180': open }" class="transition-transform duration-300">
+                                        <x-heroicon-o-chevron-down class="size-4 shrink-0 text-gray-300 group-hover:text-amber-500" />
+                                    </span>
+                                </button>
+                                <div x-show="open" 
+                                     x-transition:enter="transition ease-out duration-200"
+                                     x-transition:enter-start="opacity-0 scale-95 origin-top-right"
+                                     x-transition:enter-end="opacity-100 scale-100 origin-top-right"
+                                     x-cloak
+                                     class="absolute right-0 mt-3 w-60 rounded-2xl bg-white dark:bg-gray-900 py-3 shadow-2xl ring-1 ring-black/5 z-50 border border-gray-100 dark:border-gray-800">
+                                    
+                                    <div class="px-5 py-2 text-[10px] font-black text-amber-600/60 uppercase tracking-[0.2em] mb-1">{{ __('System Administration') }}</div>
+                                    <div class="px-2 flex flex-col gap-1">
+                                        <a href="{{ route('system.dashboard') }}" wire:navigate class="px-4 py-2 text-sm font-medium {{ $isSystemDashboard ? 'text-brand bg-brand/5 font-bold' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800' }} rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-presentation-chart-line class="size-4 shrink-0" />
+                                            {{ __('Dashboard') }}
+                                        </a>
+                                        <a href="{{ route('system.organizations.index') }}" wire:navigate class="px-4 py-2 text-sm font-medium {{ $isSystemOrgs ? 'text-brand bg-brand/5 font-bold' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800' }} rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-building-office class="size-4 shrink-0" />
+                                            {{ __('Organizations') }}
+                                        </a>
+                                        <a href="{{ route('system.accounts.index') }}" wire:navigate class="px-4 py-2 text-sm font-medium {{ $isSystemAccounts ? 'text-brand bg-brand/5 font-bold' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800' }} rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-credit-card class="size-4 shrink-0" />
+                                            {{ __('Accounts') }}
+                                        </a>
+                                        <a href="{{ route('system.products.index') }}" wire:navigate class="px-4 py-2 text-sm font-medium {{ $isSystemProducts ? 'text-brand bg-brand/5 font-bold' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800' }} rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-cube class="size-4 shrink-0" />
+                                            {{ __('Products') }}
+                                        </a>
+                                        <a href="{{ route('system.users.index') }}" wire:navigate class="px-4 py-2 text-sm font-medium {{ $isSystemUsers ? 'text-brand bg-brand/5 font-bold' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800' }} rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-user-group class="size-4 shrink-0" />
+                                            {{ __('Users') }}
+                                        </a>
+                                        <a href="{{ route('system.settings.index') }}" wire:navigate class="px-4 py-2 text-sm font-medium {{ $isSystemSettings ? 'text-brand bg-brand/5 font-bold' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800' }} rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-cog-8-tooth class="size-4 shrink-0" />
+                                            {{ __('Settings') }}
+                                        </a>
+                                        <a href="/pulse" target="_blank" class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg flex items-center gap-2">
+                                            <x-heroicon-o-bolt class="size-4 shrink-0" />
+                                            {{ __('Pulse') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endcan
+
+                        {{-- Billing --}}
+                        <a href="{{ route('billing.account') }}" wire:navigate class="nav-link ms-1 {{ $isBilling ? 'nav-link-active' : '' }}">
+                            <x-heroicon-o-credit-card class="size-5 lg:hidden xl:block me-2 opacity-50" />
+                            {{ __('Billing') }}
+                        </a>
+
+                        {{-- User Menu --}}
+                        <div x-data="{ open: false }" @click.away="open = false" class="relative ms-4 ps-4 border-s border-gray-200 dark:border-gray-800">
+                            <button @click="open = !open" class="flex items-center gap-3 group focus:outline-none transition-all active:scale-95">
+                                <div class="size-10 rounded-xl bg-gradient-to-br from-brand to-indigo-600 flex items-center justify-center text-white font-black shadow-md shadow-brand/20 group-hover:shadow-lg transition-all">
+                                    {{ substr(auth()->user()->name, 0, 1) }}
+                                </div>
+                                <div class="hidden xl:block text-start leading-none pe-2">
+                                    <p class="text-xs font-black text-gray-900 dark:text-gray-100 truncate max-w-[100px] mb-1">{{ auth()->user()->name }}</p>
+                                    <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest">{{ __('Member') }}</p>
+                                </div>
+                                <span x-bind:class="{ 'rotate-180': open }" class="transition-transform duration-300">
+                                    <x-heroicon-o-chevron-down class="size-4 text-gray-300 group-hover:text-brand" />
+                                </span>
+                            </button>
+                            <div x-show="open" 
+                                 x-transition:enter="transition ease-out duration-200"
+                                 x-transition:enter-start="opacity-0 scale-95 origin-top-right"
+                                 x-transition:enter-end="opacity-100 scale-100 origin-top-right"
+                                 x-cloak
+                                 class="absolute right-0 mt-3 w-56 rounded-2xl bg-white dark:bg-gray-900 py-3 shadow-2xl ring-1 ring-black/5 z-50 border border-gray-100 dark:border-gray-800">
+                                
+                                <a href="{{ route('profile') }}" wire:navigate class="px-5 py-3 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3">
+                                    <x-heroicon-o-user-circle class="size-5 text-gray-400" />
+                                    {{ __('My Profile') }}
+                                </a>
+                                <x-dark-mode-toggle class="w-full px-5 py-3 text-sm font-bold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center gap-3" />
+                                
+                                <div class="border-t border-gray-100 dark:border-gray-800 mt-2 pt-2">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="w-full px-5 py-3 text-start text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20 flex items-center gap-3 transition-colors">
+                                            <x-heroicon-o-arrow-left-on-rectangle class="size-5" />
+                                            {{ __('Logout') }}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endguest
+                </div>
+
+                {{-- Mobile Toggle --}}
+                <div class="flex items-center gap-3 lg:hidden shrink-0">
+                    @auth
+                        <div class="size-10 rounded-xl bg-brand/5 text-brand flex items-center justify-center font-black">
+                            {{ substr(auth()->user()->name, 0, 1) }}
+                        </div>
+                    @endauth
+                    <button @click="mobileMenuOpen = true" class="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-brand active:scale-90 transition-all">
+                        <x-heroicon-o-bars-3-bottom-right class="size-7" />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {{-- Mobile Sidebar Drawer --}}
+    <div x-show="mobileMenuOpen" 
+         x-transition:enter="transition ease-out duration-300 transform"
+         x-transition:enter-start="{{ isRTL() ? 'translate-x-full' : '-translate-x-full' }}"
+         x-transition:enter-end="translate-x-0"
+         x-transition:leave="transition ease-in duration-200 transform"
+         x-transition:leave-start="translate-x-0"
+         x-transition:leave-end="{{ isRTL() ? 'translate-x-full' : '-translate-x-full' }}"
+         class="fixed inset-y-0 {{ isRTL() ? 'right-0 is-rtl' : 'left-0' }} z-50 w-80 max-w-[85vw] bg-white dark:bg-gray-950 flex flex-col shadow-2xl overflow-hidden mobile-drawer lg:hidden"
+         :class="{ 'is-open': mobileMenuOpen }"
+         x-cloak>
+        
+        <div class="p-6 border-b border-gray-100 dark:border-gray-900 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="size-10 bg-brand rounded-xl flex items-center justify-center text-white font-black">{{ substr($appName, 0, 1) }}</div>
+                <span class="font-black text-gray-900 dark:text-white tracking-tight">{{ $appName }}</span>
+            </div>
+            <button @click="mobileMenuOpen = false" class="size-10 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-400 flex items-center justify-center active:scale-90 transition-all">
+                <x-heroicon-o-x-mark class="size-6" />
             </button>
         </div>
-    </div>
-</nav>
 
-<div id="mobile-overlay" class="fixed inset-0 z-40 md:hidden bg-gray-900/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 ease-out" aria-hidden="true"></div>
-
-<aside id="mobile-drawer"
-    class="mobile-drawer fixed inset-y-0 start-0 z-50 md:hidden flex flex-col w-80 max-w-[85vw] bg-white shadow-2xl transition-transform duration-300 ease-out will-change-transform"
-    aria-label="{{ __('Mobile menu') }}" aria-hidden="true">
-    <div class="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between shrink-0 bg-white">
-        <div>
-            @auth
-                <p class="font-semibold text-gray-900 dark:text-gray-100">{{ auth()->user()->name }}</p>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{ $appName }}</p>
+        <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-8 overscroll-contain">
+            @guest
+                <div class="space-y-2 px-2">
+                    <a href="{{ route('login') }}" wire:navigate class="flex items-center justify-center w-full py-4 text-gray-700 dark:text-gray-300 font-bold hover:bg-gray-50 dark:hover:bg-gray-900 rounded-2xl">{{ __('login') }}</a>
+                    <a href="{{ route('register') }}" wire:navigate class="flex items-center justify-center w-full py-4 bg-brand text-white font-bold rounded-2xl shadow-lg shadow-brand/20 hover:bg-brand-hover">{{ __('register') }}</a>
+                </div>
             @else
-                <p class="font-semibold text-gray-900 dark:text-gray-100">{{ $appName }}</p>
-            @endauth
-        </div>
-        <div class="flex items-center gap-2">
-            <x-dark-mode-toggle />
-            <button id="mobile-drawer-close" type="button" class="min-h-[44px] min-w-[44px] p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-all duration-200 ease-out" aria-label="{{ __('Close menu') }}">
-                <x-heroicon-o-x-mark class="w-6 h-6" />
-            </button>
-        </div>
-    </div>
-    <nav class="flex-1 min-h-0 overflow-y-auto overflow-x-hidden overscroll-contain p-4 text-base" aria-label="{{ __('Mobile navigation') }}">
-        @guest
-            <div class="flex flex-col gap-y-0.5">
-                <a href="{{ route('login') }}" class="{{ $mobileNavBase }} text-gray-700 hover:bg-gray-100/90 hover:text-gray-900">{{ __('login') }}</a>
-                <a href="{{ route('register') }}" class="{{ $mobileNavBase }} text-gray-700 hover:bg-gray-100/90 hover:text-gray-900">{{ __('register') }}</a>
-            </div>
-        @else
-            @php
-                $currentOrgMobile = auth()->user()->currentOrganization;
-            @endphp
-            {{-- Main: section header + links (tighter spacing, active accent) --}}
-            <p class="text-xs font-medium uppercase tracking-wide text-gray-500 mt-0 mb-1 px-4">{{ __('Main') }}</p>
-            <div class="flex flex-col gap-y-0.5 mb-2">
-                @can('view-event-details')
-                    <a href="{{ route('dashboard') }}" class="{{ $isDashboard ? $mobileNavActive : $mobileNavDefault }}" {{ $isDashboard ? 'aria-current="page"' : '' }}>{{ __('dashboard') }}</a>
-                    <a href="{{ route('dashboard.events.index') }}" class="{{ $isEventsIndex ? $mobileNavActive : $mobileNavDefault }}" {{ $isEventsIndex ? 'aria-current="page"' : '' }}>{{ __('Events') }}</a>
-                @endcan
-                @can('manage-system')
-                    <a href="{{ route('twilio.calling.index') }}" class="{{ $isCalling ? $mobileNavActive : $mobileNavDefault }}" {{ $isCalling ? 'aria-current="page"' : '' }}>{{ __('Calling') }}</a>
-                @endcan
-                @if($currentOrgMobile)
-                    <div class="mx-1 my-1.5 p-2.5 bg-gray-50 rounded-xl border border-gray-200/80">
-                        <p class="text-xs uppercase tracking-wide text-gray-500 mb-0.5">{{ __('Current Organization') }}</p>
-                        <p class="font-semibold text-gray-900 text-sm">{{ $currentOrgMobile->name }}</p>
+                {{-- User Summary --}}
+                <div class="p-5 rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-900">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="size-12 rounded-2xl bg-brand flex items-center justify-center text-white font-black shadow-lg shadow-brand/20">
+                            {{ substr(auth()->user()->name, 0, 1) }}
+                        </div>
+                        <div class="min-w-0">
+                            <p class="font-black text-gray-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
+                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest truncate">{{ auth()->user()->email }}</p>
+                        </div>
                     </div>
-                    <a href="{{ route('dashboard.organization-settings.edit') }}" class="{{ $isOrganizationSettings ? $mobileNavActive : $mobileNavDefault }}" {{ $isOrganizationSettings ? 'aria-current="page"' : '' }}>{{ __('Organization settings') }}</a>
-                @endif
-                <a href="{{ route('organizations.index') }}" class="{{ $isOrganizations ? $mobileNavActive : $mobileNavDefault }}" {{ $isOrganizations ? 'aria-current="page"' : '' }}>{{ __('Manage Organizations') }}</a>
-                <a href="{{ route('billing.account') }}" class="{{ $isBilling ? $mobileNavActive : $mobileNavDefault }}" {{ $isBilling ? 'aria-current="page"' : '' }}>{{ __('Billing & Entitlements') }}</a>
-                <a href="{{ route('profile') }}" class="{{ $isProfile ? $mobileNavActive : $mobileNavDefault }}" {{ $isProfile ? 'aria-current="page"' : '' }}>{{ __('Profile') }}</a>
-            </div>
-            @if(session('impersonation.original_organization_id'))
-                <form method="POST" action="{{ route('system.impersonation.exit') }}">
+                    <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                        <x-dark-mode-toggle class="text-xs font-bold text-gray-500 flex items-center gap-2" />
+                        <a href="{{ route('profile') }}" wire:navigate class="text-xs font-bold text-brand">{{ __('My Profile') }}</a>
+                    </div>
+                </div>
+
+                {{-- Main Nav --}}
+                <div>
+                    <p class="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">{{ __('App Directory') }}</p>
+                    <div class="space-y-1">
+                        @can('view-event-details')
+                            <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all {{ $isDashboard ? 'bg-brand/5 text-brand' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900' }}">
+                                <x-heroicon-o-home class="size-5" />
+                                {{ __('Dashboard') }}
+                            </a>
+                            <a href="{{ route('dashboard.events.index') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all {{ $isEventsIndex ? 'bg-brand/5 text-brand' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900' }}">
+                                <x-heroicon-o-calendar class="size-5" />
+                                {{ __('Events') }}
+                            </a>
+                        @endcan
+                        @can('manage-system')
+                            <a href="{{ route('twilio.calling.index') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all {{ $isCalling ? 'bg-brand/5 text-brand' : 'text-gray-600 dark:text-gray-400' }}">
+                                <x-heroicon-o-phone class="size-5" />
+                                {{ __('Calling') }}
+                            </a>
+                        @endcan
+                    </div>
+                </div>
+
+                {{-- Organizations --}}
+                <div>
+                    <p class="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">{{ __('Organization Workspace') }}</p>
+                    <div class="space-y-4">
+                        @if($currentOrg)
+                            <div class="mx-2 p-4 bg-indigo-50 dark:bg-indigo-950/20 rounded-2xl border border-indigo-100 dark:border-indigo-900/50">
+                                <p class="text-[9px] font-black text-indigo-600/60 uppercase tracking-widest mb-1">{{ __('Active Space') }}</p>
+                                <p class="font-black text-indigo-900 dark:text-indigo-200 mb-3 truncate">{{ $currentOrg->name }}</p>
+                                <a href="{{ route('dashboard.organization-settings.edit') }}" wire:navigate class="flex items-center gap-2 text-xs font-black text-indigo-600">
+                                    <x-heroicon-o-cog class="size-4" />
+                                    {{ __('Config Environment') }}
+                                </a>
+                            </div>
+                        @endif
+                        <a href="{{ route('organizations.index') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900">
+                            <x-heroicon-o-squares-2x2 class="size-5" />
+                            {{ __('All Entities') }}
+                        </a>
+                    </div>
+                </div>
+
+                {{-- System Administration --}}
+                @can('manage-system')
+                    <div class="pt-4 border-t border-gray-100 dark:border-gray-900">
+                        <p class="px-4 text-[10px] font-black text-amber-600 uppercase tracking-[0.2em] mb-3 flex items-center justify-between">
+                            {{ __('Internal Tools') }}
+                            <span class="bg-amber-100 dark:bg-amber-900/30 text-amber-700 px-1.5 py-0.5 rounded text-[8px] tracking-normal">{{ __('Admin Mode') }}</span>
+                        </p>
+                        <div class="grid grid-cols-3 gap-2 px-2">
+                            <a href="{{ route('system.dashboard') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <x-heroicon-o-presentation-chart-line class="size-5 text-amber-500" />
+                                <span class="text-[9px] font-black uppercase text-center">{{ __('Stats') }}</span>
+                            </a>
+                            <a href="{{ route('system.organizations.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <x-heroicon-o-building-office class="size-5 text-amber-500" />
+                                <span class="text-[9px] font-black uppercase text-center">{{ __('Organizations') }}</span>
+                            </a>
+                            <a href="{{ route('system.accounts.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <x-heroicon-o-credit-card class="size-5 text-amber-500" />
+                                <span class="text-[9px] font-black uppercase text-center">{{ __('Billing') }}</span>
+                            </a>
+                            <a href="{{ route('system.products.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <x-heroicon-o-cube class="size-5 text-amber-500" />
+                                <span class="text-[9px] font-black uppercase text-center">{{ __('Products') }}</span>
+                            </a>
+                            <a href="{{ route('system.users.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <x-heroicon-o-user-group class="size-5 text-amber-500" />
+                                <span class="text-[9px] font-black uppercase text-center">{{ __('Users') }}</span>
+                            </a>
+                            <a href="{{ route('system.settings.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <x-heroicon-o-cog-8-tooth class="size-5 text-amber-500" />
+                                <span class="text-[9px] font-black uppercase text-center">{{ __('Settings') }}</span>
+                            </a>
+                            <a href="/pulse" target="_blank" class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                                <x-heroicon-o-bolt class="size-5 text-amber-500" />
+                                <span class="text-[9px] font-black uppercase text-center">{{ __('Pulse') }}</span>
+                            </a>
+                        </div>
+                    </div>
+                @endcan
+            @endguest
+        </nav>
+
+        @auth
+            <div class="p-6 border-t border-gray-100 dark:border-gray-900 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
+                <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="text-start w-full {{ $mobileNavBase }} text-amber-600 hover:bg-amber-50/90 hover:text-amber-700 focus-visible:ring-amber-500/50 inline-flex items-center">
-                        <x-heroicon-o-arrow-right-on-rectangle class="w-4 h-4 me-2 shrink-0" />
-                        {{ __('Exit impersonation') }}
+                    <button type="submit" class="flex items-center justify-center w-full py-4 text-red-600 font-black hover:bg-red-50 dark:hover:bg-red-950/20 rounded-2xl transition-colors">
+                        <x-heroicon-o-arrow-left-on-rectangle class="size-5 me-2" />
+                        {{ __('Sign Out of Kernel') }}
                     </button>
                 </form>
-            @endif
-            @can('manage-system')
-                <div class="mt-3 pt-3 border-t border-gray-200/80">
-                    <p class="text-xs font-medium uppercase tracking-wide text-gray-500 mb-1.5 px-4 flex items-center gap-2">
-                        {{ __('System Administration') }}
-                        <span class="inline-flex items-center gap-1 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700 bg-amber-50 border border-amber-200/70 rounded-full" title="{{ __('Administrator access') }}">{{ __('Admin') }}</span>
-                    </p>
-                    <div class="bg-gray-50 rounded-lg p-1.5 flex flex-col gap-y-0.5">
-                        <a href="{{ route('system.dashboard') }}" class="{{ $isSystemDashboard ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemDashboard ? 'aria-current="page"' : '' }}>{{ __('System Dashboard') }}</a>
-                        <a href="/pulse" class="{{ $mobileNavDefault }}" target="_blank">{{ __('System Pulse') }}</a>
-                        <a href="/telescope" class="{{ $mobileNavDefault }}" target="_blank">{{ __('Telescope') }}</a>
-                        <a href="{{ route('system.organizations.index') }}" class="{{ $isSystemOrgs ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemOrgs ? 'aria-current="page"' : '' }}>{{ __('System Organizations') }}</a>
-                        <a href="{{ route('system.accounts.index') }}" class="{{ $isSystemAccounts ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemAccounts ? 'aria-current="page"' : '' }}>{{ __('Accounts') }}</a>
-                        <a href="{{ route('system.users.index') }}" class="{{ $isSystemUsers ? $mobileNavActive : $mobileNavDefault }}" {{ $isSystemUsers ? 'aria-current="page"' : '' }}>{{ __('System Users') }}</a>
-                    </div>
-                </div>
-            @endcan
-        @endguest
-    </nav>
-    {{-- Logout always visible at bottom of drawer (auth only) --}}
-    @auth
-    <div class="border-t border-gray-200 p-4 bg-white shrink-0">
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="text-start w-full {{ $mobileNavBase }} text-red-600 hover:bg-red-50 hover:text-red-700 focus-visible:ring-red-500/50 font-medium" aria-label="{{ __('Log out') }}">
-                {{ __('Logout') }}
-            </button>
-        </form>
+            </div>
+        @endauth
     </div>
-    @endauth
-</aside>
-
-<script>
-(function() {
-    var toggle = document.getElementById('mobile-menu-toggle');
-    var drawer = document.getElementById('mobile-drawer');
-    var overlay = document.getElementById('mobile-overlay');
-    var closeBtn = document.getElementById('mobile-drawer-close');
-    if (!toggle || !drawer || !overlay || !closeBtn) return;
-
-    function openDrawer() {
-        drawer.classList.add('is-open');
-        drawer.setAttribute('aria-hidden', 'false');
-        overlay.classList.add('is-open');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeDrawer() {
-        drawer.classList.remove('is-open');
-        drawer.setAttribute('aria-hidden', 'true');
-        overlay.classList.remove('is-open');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-    }
-
-    toggle.addEventListener('click', openDrawer);
-    closeBtn.addEventListener('click', closeDrawer);
-    overlay.addEventListener('click', closeDrawer);
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeDrawer();
-    });
-})();
-</script>
+</div>

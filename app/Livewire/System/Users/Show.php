@@ -6,6 +6,7 @@ namespace App\Livewire\System\Users;
 
 use App\Models\Event;
 use App\Models\User;
+use App\Services\OfficeGuy\SystemBillingService;
 use App\Services\SystemAuditLogger;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\DB;
@@ -23,11 +24,32 @@ class Show extends Component
 
     public string $confirmPassword = '';
 
+    public array $organizationSubscriptions = [];
+
     #[Layout('layouts.app')]
     #[Title('User')]
-    public function mount(User $user): void
+    public function mount(User $user, SystemBillingService $billingService): void
     {
         $this->user = $user;
+        $this->loadSubscriptions($billingService);
+    }
+
+    protected function loadSubscriptions(SystemBillingService $billingService): void
+    {
+        foreach ($this->user->organizations as $org) {
+            $subscription = $billingService->getOrganizationSubscription($org);
+            $this->organizationSubscriptions[$org->id] = $subscription;
+        }
+    }
+
+    public function syncOrganization(int $orgId, SystemBillingService $billingService): void
+    {
+        $org = Organization::find($orgId);
+        if ($org) {
+            $billingService->syncOrganizationSubscriptions($org);
+            $this->loadSubscriptions($billingService);
+            session()->flash('success', __('Subscriptions synced successfully for :name', ['name' => $org->name]));
+        }
     }
 
     public function requestAction(string $action): void

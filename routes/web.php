@@ -102,6 +102,7 @@ Route::prefix('system')
     ->middleware(['auth', 'verified', 'system.admin'])
     ->group(function () {
         Route::livewire('/dashboard', \App\Livewire\System\Dashboard::class)->name('system.dashboard');
+        Route::livewire('/settings', \App\Livewire\System\Settings\Index::class)->name('system.settings.index');
         Route::livewire('/organizations', \App\Livewire\System\Organizations\Index::class)->name('system.organizations.index');
         Route::livewire('/organizations/{organization}', \App\Livewire\System\Organizations\Show::class)->name('system.organizations.show')->scopeBindings();
         Route::livewire('/users', \App\Livewire\System\Users\Index::class)->name('system.users.index');
@@ -109,6 +110,20 @@ Route::prefix('system')
         Route::livewire('/accounts', \App\Livewire\System\Accounts\Index::class)->name('system.accounts.index');
         Route::livewire('/accounts/create', \App\Livewire\System\Accounts\CreateAccountWizard::class)->name('system.accounts.create');
         Route::livewire('/accounts/{account}', \App\Livewire\System\Accounts\Show::class)->name('system.accounts.show')->scopeBindings();
+        Route::post('/accounts/{account}/payment-methods', [\App\Http\Controllers\System\AccountPaymentMethodController::class, 'store'])
+            ->name('system.accounts.payment-methods.store')
+            ->scopeBindings();
+        Route::post('/accounts/{account}/payment-methods/{paymentMethod}/default', [\App\Http\Controllers\System\AccountPaymentMethodController::class, 'setDefault'])
+            ->name('system.accounts.payment-methods.default')
+            ->scopeBindings();
+        Route::delete('/accounts/{account}/payment-methods/{paymentMethod}', [\App\Http\Controllers\System\AccountPaymentMethodController::class, 'destroy'])
+            ->name('system.accounts.payment-methods.destroy')
+            ->scopeBindings();
+
+        Route::livewire('/products', \App\Livewire\System\Products\Index::class)->name('system.products.index');
+        Route::livewire('/products/create', \App\Livewire\System\Products\CreateProductWizard::class)->name('system.products.create');
+        Route::livewire('/products/{product}', \App\Livewire\System\Products\Show::class)->name('system.products.show')->scopeBindings();
+
         Route::post('/impersonate/{organization}', [\App\Http\Controllers\System\SystemImpersonationController::class, '__invoke'])
             ->name('system.impersonate')
             ->scopeBindings();

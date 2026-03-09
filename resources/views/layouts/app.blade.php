@@ -20,9 +20,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Livewire styles --}}
-    @livewireStyles
-
     {{-- PWA meta + manifest + icons --}}
     @PwaHead
 
@@ -54,9 +51,6 @@
 </div>
 
 @stack('scripts')
-
-{{-- Livewire scripts --}}
-@livewireScripts
 
 {{-- Register PWA service worker --}}
 @RegisterServiceWorkerScript

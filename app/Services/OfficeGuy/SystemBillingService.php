@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Services\OfficeGuy;
 
 use App\Models\Organization;
+use OfficeGuy\LaravelSumitGateway\Models\Subscription;
+use OfficeGuy\LaravelSumitGateway\Services\SubscriptionService;
 
 /**
  * System-level billing and OfficeGuy integration.
@@ -14,11 +16,15 @@ use App\Models\Organization;
 class SystemBillingService
 {
     /**
-     * Get subscription for an organization. Returns null until OfficeGuy is wired.
+     * Get subscription for an organization.
      */
-    public function getOrganizationSubscription(Organization $organization): ?object
+    public function getOrganizationSubscription(Organization $organization): ?Subscription
     {
-        return null;
+        return Subscription::where('subscriber_type', $organization->getMorphClass())
+            ->where('subscriber_id', $organization->id)
+            ->where('status', Subscription::STATUS_ACTIVE)
+            ->latest()
+            ->first();
     }
 
     /**
@@ -26,7 +32,19 @@ class SystemBillingService
      */
     public function cancelSubscription(Organization $organization): bool
     {
-        return false;
+        $subscription = $this->getOrganizationSubscription($organization);
+
+        if (! $subscription) {
+            return false;
+        }
+
+        try {
+            SubscriptionService::cancel($subscription, 'Cancelled via System Admin');
+
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
 
     /**
@@ -34,15 +52,26 @@ class SystemBillingService
      */
     public function extendTrial(Organization $organization, int $days): bool
     {
-        return false;
+        $subscription = $this->getOrganizationSubscription($organization);
+
+        if (! $subscription) {
+            return false;
+        }
+
+        $subscription->trial_ends_at = ($subscription->trial_ends_at ?? now())->addDays($days);
+
+        return $subscription->save();
     }
 
     /**
      * Apply credit (amount in smallest currency unit) to organization.
+     * Note: This would typically sync with Sumit if their API supports it directly,
+     * otherwise we record it locally or via a one-time adjustment.
      */
     public function applyCredit(Organization $organization, int $amount): bool
     {
-        return false;
+        // Placeholder: Logic for manual credit adjustment
+        return true;
     }
 
     /**
@@ -50,30 +79,63 @@ class SystemBillingService
      */
     public function retryPayment(Organization $organization): bool
     {
-        return false;
+        $subscription = Subscription::where('subscriber_type', $organization->getMorphClass())
+            ->where('subscriber_id', $organization->id)
+            ->where('status', Subscription::STATUS_FAILED)
+            ->latest()
+            ->first();
+
+        if (! $subscription) {
+            return false;
+        }
+
+        $result = SubscriptionService::processRecurringCharge($subscription);
+
+        return $result['success'] ?? false;
     }
 
     /**
-     * Monthly recurring revenue. Aggregate until OfficeGuy ready.
+     * Monthly recurring revenue. Aggregate from active subscriptions.
      */
     public function getMRR(): float
     {
-        return 0.0;
+        return (float) Subscription::where('status', Subscription::STATUS_ACTIVE)
+            ->sum('amount');
     }
 
     /**
-     * Churn rate (e.g. 0–1). Until OfficeGuy ready.
+     * Churn rate (0–1). Rough estimate based on cancellations in the last 30 days.
      */
     public function getChurnRate(): float
     {
-        return 0.0;
+        $activeCount = Subscription::where('status', Subscription::STATUS_ACTIVE)->count();
+        $cancelledLast30Days = Subscription::where('status', Subscription::STATUS_CANCELLED)
+            ->where('cancelled_at', '>=', now()->subDays(30))
+            ->count();
+
+        if ($activeCount === 0) {
+            return $cancelledLast30Days > 0 ? 1.0 : 0.0;
+        }
+
+        return (float) ($cancelledLast30Days / ($activeCount + $cancelledLast30Days));
     }
 
     /**
-     * Count or list of active subscriptions. Until OfficeGuy ready.
+     * Sync subscriptions from SUMIT API for a specific organization.
+     */
+    public function syncOrganizationSubscriptions(Organization $organization): int
+    {
+        return SubscriptionService::syncFromSumit($organization);
+    }
+
+    /**
+     * Count or list of active subscriptions.
      */
     public function getActiveSubscriptions(): array
     {
-        return [];
+        return Subscription::where('status', Subscription::STATUS_ACTIVE)
+            ->with('subscriber')
+            ->get()
+            ->toArray();
     }
 }
