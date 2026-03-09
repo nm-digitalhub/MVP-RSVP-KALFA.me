@@ -34,7 +34,7 @@ class EnsureOrganizationSelected
             return redirect()->route('organizations.create');
         }
 
-        $current = $user->currentOrganization();
+        $current = $user->currentOrganization;
         if ($current === null) {
             return redirect()->route('organizations.index');
         }

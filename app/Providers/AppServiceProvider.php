@@ -28,7 +28,21 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(TwilioClient::class, function (): TwilioClient {
             $sid = config('services.twilio.sid');
+            $apiKey = config('services.twilio.api_key');
+            $apiSecret = config('services.twilio.api_secret');
             $token = config('services.twilio.token');
+
+            \Illuminate\Support\Facades\Log::info('Twilio Initialization', [
+                'sid' => $sid,
+                'has_api_key' => ! empty($apiKey),
+                'has_api_secret' => ! empty($apiSecret),
+                'token_preview' => $token ? substr((string) $token, 0, 4).'...'.substr((string) $token, -4) : 'NONE',
+            ]);
+
+            if ($apiKey && $apiSecret) {
+                return new TwilioClient((string) $apiKey, (string) $apiSecret, (string) $sid);
+            }
+
             if (blank($sid) || blank($token)) {
                 throw new \RuntimeException('Twilio credentials not set (TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN).');
             }
@@ -79,6 +93,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
+            return $user->is_system_admin ? true : null;
+        });
+
+        \Illuminate\Support\Facades\Gate::define('viewPulse', function ($user) {
+            return $user->is_system_admin === true;
+        });
+
         RateLimiter::for('rsvp_show', fn () => Limit::perMinute(60));
         RateLimiter::for('rsvp_submit', fn () => Limit::perMinute(10));
         RateLimiter::for('webhooks', fn () => Limit::perMinute(120));

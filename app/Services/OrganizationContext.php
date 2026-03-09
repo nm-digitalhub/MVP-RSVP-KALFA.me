@@ -27,6 +27,7 @@ class OrganizationContext
         $user = Auth::user();
         if (! $user || ! $this->validateMembership($user, $organization)) {
             $this->clear();
+
             return;
         }
         $user->update(['current_organization_id' => $organization->id]);
@@ -45,10 +46,12 @@ class OrganizationContext
         $organization = Organization::find($organizationId);
         if (! $organization || ! $this->validateMembership($user, $organization)) {
             $this->clear();
+
             return false;
         }
         $user->update(['current_organization_id' => $organization->id]);
         Session::put(self::SESSION_KEY, $organization->id);
+
         return true;
     }
 
@@ -63,7 +66,7 @@ class OrganizationContext
             return null;
         }
 
-        return $user->currentOrganization();
+        return $user->currentOrganization;
     }
 
     public function clear(): void
@@ -76,6 +79,7 @@ class OrganizationContext
         if (! $user instanceof \App\Models\User) {
             return false;
         }
+
         return $user->organizations()->where('organizations.id', $organization->id)->exists();
     }
 }

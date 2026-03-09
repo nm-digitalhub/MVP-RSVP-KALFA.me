@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\OrganizationUserRole;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Organization extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'account_id',
         'name',
@@ -37,6 +40,7 @@ class Organization extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'organization_users')
+            ->using(OrganizationUser::class)
             ->withPivot('role')
             ->withTimestamps();
     }
@@ -59,6 +63,11 @@ class Organization extends Model
     /**
      * Owner of the organization (first user with Owner role). For system admin display.
      */
+    public function invitations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(OrganizationInvitation::class);
+    }
+
     public function owner(): ?User
     {
         return $this->users()->wherePivot('role', OrganizationUserRole::Owner->value)->first();

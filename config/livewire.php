@@ -30,23 +30,25 @@ return [
 
     /*
     |---------------------------------------------------------------------------
-    | Layout (v4: component_layout)
+    | Component Layout
     |---------------------------------------------------------------------------
+    |
     | The view used when rendering a full-page component. v4 uses layouts::app
-    | (resources/views/layouts/app.blade.php). Legacy key kept for compatibility.
+    | (resources/views/layouts/app.blade.php) by default.
     |
     */
 
-    'layout' => 'layouts.app',
     'component_layout' => 'layouts::app',
 
     /*
     |---------------------------------------------------------------------------
-    | Lazy Loading Placeholder (v4: component_placeholder)
+    | Component Placeholder
     |---------------------------------------------------------------------------
+    |
+    | The view used as a placeholder when a component is lazy loaded or deferred.
+    |
     */
 
-    'lazy_placeholder' => null,
     'component_placeholder' => null,
 
     /*

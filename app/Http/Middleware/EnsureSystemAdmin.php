@@ -13,7 +13,7 @@ class EnsureSystemAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (! auth()->check() || ! auth()->user()->is_system_admin) {
+        if (! auth()->check() || ! auth()->user()->can('manage-system')) {
             abort(403);
         }
 

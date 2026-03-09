@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\EventStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -17,6 +18,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Event extends Model implements HasMedia
 {
+    use HasFactory;
     use InteractsWithMedia;
     use SoftDeletes;
 
@@ -87,28 +89,28 @@ class Event extends Model implements HasMedia
             ->height(225);
     }
 
-    public function imageUrl(): ?string
-    {
-        $url = $this->getFirstMediaUrl('event-image', 'hero');
-        if ($url !== '') {
-            return $url;
-        }
+    public ?string $imageUrl {
+        get {
+            $url = $this->getFirstMediaUrl('event-image', 'hero');
+            if ($url !== '') {
+                return $url;
+            }
 
-        $path = $this->settings['image_path'] ?? null;
-        if (! $path) {
-            return null;
-        }
+            $path = $this->settings['image_path'] ?? null;
+            if (! $path) {
+                return null;
+            }
 
-        return Storage::disk('public')->exists($path)
-            ? Storage::disk('public')->url($path)
-            : null;
+            return Storage::disk('public')->exists($path)
+                ? Storage::disk('public')->url($path)
+                : null;
+        }
     }
 
     /**
-     * @return array<int, array{label: string, value: string}>
+     * @var array<int, array{label: string, value: string}>
      */
-    public function customFields(): array
-    {
-        return $this->settings['custom'] ?? [];
+    public array $customFields {
+        get => $this->settings['custom'] ?? [];
     }
 }

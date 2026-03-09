@@ -137,7 +137,7 @@
                 <legend class="text-sm font-medium text-gray-700">{{ __('Additional custom fields') }}</legend>
                 <p class="text-sm text-gray-500">{{ __('Optional label-value pairs (e.g. Dress code, Parking info).') }}</p>
                 @php
-                    $custom = old('custom', $event->customFields());
+                    $custom = old('custom', $event->customFields);
                     $custom = array_values($custom);
                     while (count($custom) < 5) {
                         $custom[] = ['label' => '', 'value' => ''];

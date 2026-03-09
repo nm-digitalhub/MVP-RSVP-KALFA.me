@@ -9,6 +9,7 @@ use App\Enums\OrganizationUserRole;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\OrganizationMemberService;
 use App\Services\SystemAuditLogger;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
@@ -23,6 +24,8 @@ class Show extends Component
 
     public Organization $organization;
 
+    public string $activeTab = 'team';
+
     public ?string $pendingAction = null;
 
     public ?int $pendingUserId = null;
@@ -33,9 +36,61 @@ class Show extends Component
 
     #[Layout('layouts.app')]
     #[Title('Organization')]
+    public ?int $directAddUserId = null;
+
+    public string $directAddRole = 'member';
+
+    protected OrganizationMemberService $memberService;
+
+    public function boot(OrganizationMemberService $memberService): void
+    {
+        $this->memberService = $memberService;
+    }
+
     public function mount(Organization $organization): void
     {
         $this->organization = $organization;
+    }
+
+    public function setTab(string $tab): void
+    {
+        $this->activeTab = $tab;
+    }
+
+    public function addMemberDirect(): void
+    {
+        $this->validate([
+            'directAddUserId' => 'required|exists:users,id',
+            'directAddRole' => 'required|in:admin,member',
+        ]);
+
+        $user = User::find($this->directAddUserId);
+        $this->memberService->addMember($this->organization, $user, OrganizationUserRole::from($this->directAddRole));
+
+        SystemAuditLogger::log(
+            actor: auth()->user(),
+            action: 'organization.member_added_direct',
+            target: $this->organization,
+            metadata: ['user_id' => $user->id, 'role' => $this->directAddRole],
+        );
+
+        $this->reset(['directAddUserId', 'directAddRole']);
+        session()->flash('success', __('Member added successfully.'));
+    }
+
+    public function removeMemberDirect(int $userId): void
+    {
+        $user = User::findOrFail($userId);
+        $this->memberService->removeMember($this->organization, $user);
+
+        SystemAuditLogger::log(
+            actor: auth()->user(),
+            action: 'organization.member_removed_direct',
+            target: $this->organization,
+            metadata: ['user_id' => $userId],
+        );
+
+        session()->flash('success', __('Member removed successfully.'));
     }
 
     public function requestAction(string $action, ?int $userId = null, ?int $eventId = null): void
@@ -172,12 +227,14 @@ class Show extends Component
         $membersCount = $organization->users()->count();
         $members = $organization->users()->orderBy('name')->get();
         $events = $organization->events()->latest('event_date')->paginate(10);
+        $allUsers = User::orderBy('name')->get(['id', 'name', 'email']);
 
         return view('livewire.system.organizations.show', [
             'owner' => $owner,
             'membersCount' => $membersCount,
             'members' => $members,
             'events' => $events,
+            'allUsers' => $allUsers,
         ]);
     }
 }

@@ -121,6 +121,7 @@ return [
     // Navbar & navigation
     'Main navigation' => 'Main navigation',
     'Events' => 'Events',
+    'Calling' => 'Calling',
     'Organizations' => 'Organizations',
     'Your Organizations' => 'Your Organizations',
     'Organization settings' => 'Organization settings',

@@ -6,6 +6,7 @@ namespace App\Livewire\Dashboard;
 
 use App\Models\Event;
 use Illuminate\Contracts\View\View;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -17,6 +18,12 @@ final class EventGuests extends Component
     use WithFileUploads;
 
     public Event $event;
+
+    #[On('echo-private:event.{event.id},RsvpReceived')]
+    public function onRsvpReceived(): void
+    {
+        // Refresh the list
+    }
 
     public bool $showForm = false;
 
