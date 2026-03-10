@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use App\Enums\AccountProductStatus;
 use App\Services\FeatureResolver;
 use Illuminate\Database\Eloquent\Builder;
@@ -66,7 +67,8 @@ class AccountProduct extends Model
         return $this->belongsTo(User::class, 'granted_by');
     }
 
-    public function scopeActive(Builder $query): Builder
+    #[Scope]
+    protected function active(Builder $query): Builder
     {
         return $query
             ->where('status', AccountProductStatus::Active->value)
