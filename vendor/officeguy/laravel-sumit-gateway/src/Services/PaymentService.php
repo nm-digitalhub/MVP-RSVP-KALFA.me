@@ -787,14 +787,22 @@ class PaymentService
             $request['SingleUseToken'] = $singleUseToken;
         } elseif ($token !== null) {
             // Use saved payment token
-            // CRITICAL: Must use token's citizen_id (not customer input) for bank validation
-            $request['PaymentMethod'] = [
-                'CreditCard_Token' => $token->token,
-                'CreditCard_CitizenID' => $token->citizen_id,  // ← From token, not customer input!
-                'CreditCard_ExpirationMonth' => $token->expiry_month,
-                'CreditCard_ExpirationYear' => $token->expiry_year,
-                'Type' => 1,  // Credit card
-            ];
+            if ($recurring) {
+                // Recurring billing (billing/recurring/charge) - Nested PaymentMethod, NO CVV
+                $request['PaymentMethod'] = [
+                    'CreditCard_Token' => $token->token,
+                    'CreditCard_CitizenID' => $token->citizen_id,
+                    'ExpirationMonth' => $token->expiry_month,
+                    'ExpirationYear' => $token->expiry_year,
+                ];
+            } else {
+                // Gateway transaction (creditguy/gateway/transaction) - Flat structure, WITH CVV
+                $request['Token'] = $token->token;
+                $request['CVV'] = $token->cvv; // CVV required for token payments in Gateway
+                $request['CitizenID'] = $token->citizen_id;
+                $request['ExpirationMonth'] = $token->expiry_month;
+                $request['ExpirationYear'] = $token->expiry_year;
+            }
         } elseif (! $redirectMode && ! empty($paymentMethodPayload)) {
             // Use direct card details (PCI mode = 'yes')
             $request['PaymentMethod'] = $paymentMethodPayload;
@@ -910,11 +918,24 @@ class PaymentService
                     return ['timeout' => 180];
                 }
             };
-
+            \Log::debug('SUMIT API REQUEST', [
+                'order_id' => $order->getPayableId(),
+                'endpoint' => $endpoint,
+                'payload' => $request,
+            ]);
             $saloonResponse = $connector->send($saloonRequest);
             $response = $saloonResponse->json();
-
+            \Log::debug('SUMIT API RESPONSE', [
+                'order_id' => $order->getPayableId(),
+                'endpoint' => $endpoint,
+                'response' => $response,
+            ]);
         } catch (\Throwable $e) {
+            \Log::debug('SUMIT API EXCEPTION', [
+                'order_id' => $order->getPayableId(),
+                'endpoint' => $endpoint,
+                'exception' => $e->getMessage(),
+            ]);
             OfficeGuyApi::writeToLog('Payment charge exception: '.$e->getMessage(), 'error');
 
             return [

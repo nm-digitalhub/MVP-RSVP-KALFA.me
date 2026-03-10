@@ -59,32 +59,32 @@ class PaymentData
         ];
 
         // Order ID (optional)
-        if ($this->orderId) {
+        if ($this->orderId !== null) {
             $data['OrderID'] = $this->orderId;
         }
 
         // SUMIT Entity ID (critical for webhooks!)
-        if ($this->sumitEntityId) {
+        if ($this->sumitEntityId !== null) {
             $data['SumitEntityID'] = $this->sumitEntityId;
         }
 
         // Transaction Type (1=charge, 2=authorize)
-        if ($this->transactionType) {
+        if ($this->transactionType !== null) {
             $data['TransactionType'] = $this->transactionType;
         }
 
         // ParamJ (J2/J5/J6 for token storage)
-        if ($this->paramJ) {
+        if ($this->paramJ !== null) {
             $data['ParamJ'] = $this->paramJ;
         }
 
         // PCI Mode 'no' - Single-use token from PaymentsJS
-        if ($this->singleUseToken) {
+        if ($this->singleUseToken !== null) {
             $data['SingleUseToken'] = $this->singleUseToken;
         }
 
         // PCI Mode 'yes' - Direct card data
-        if ($this->cardNumber) {
+        if ($this->cardNumber !== null) {
             $data['CardNumber'] = $this->cardNumber;
             $data['CVV'] = $this->cvv;
             $data['CitizenID'] = $this->citizenId;
@@ -92,30 +92,31 @@ class PaymentData
             $data['ExpirationYear'] = $this->expirationYear;
         }
 
-        // Token-based payment (existing permanent token)
-        if ($this->token) {
+        // Token-based payment (existing permanent token - Gateway mode)
+        if ($this->token !== null) {
             $data['Token'] = $this->token;
-            if ($this->cvv) {
-                $data['CVV'] = $this->cvv; // CVV required for token payments
+            // CVV is required for token payments in Gateway mode
+            if ($this->cvv !== null) {
+                $data['CVV'] = $this->cvv;
             }
-            if ($this->citizenId) {
+            if ($this->citizenId !== null) {
                 $data['CitizenID'] = $this->citizenId;
             }
         }
 
         // Multi-vendor credentials (override default credentials)
-        if ($this->vendorCredentials) {
+        if ($this->vendorCredentials !== null) {
             $data['VendorCredentials'] = $this->vendorCredentials;
         }
 
         // Customer metadata (optional)
-        if ($this->description) {
+        if ($this->description !== null) {
             $data['Description'] = $this->description;
         }
-        if ($this->customerEmail) {
+        if ($this->customerEmail !== null) {
             $data['CustomerEmail'] = $this->customerEmail;
         }
-        if ($this->customerPhone) {
+        if ($this->customerPhone !== null) {
             $data['CustomerPhone'] = $this->customerPhone;
         }
 

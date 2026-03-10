@@ -109,9 +109,18 @@ class Subscription extends Model implements Payable
     // Payable Interface Implementation
     // ========================================
 
-    public function getPayableId(): string | int
+    public function getPayableId(): int
     {
-        return 'subscription_' . $this->id;
+        return $this->id;
+    }
+
+    /**
+     * Business / display identifier
+     * Used for documents and UI.
+     */
+    public function getDisplayIdentifier(): string
+    {
+        return 'subscription_'.$this->id;
     }
 
     public function getPayableAmount(): float
@@ -138,7 +147,7 @@ class Subscription extends Model implements Payable
     {
         if ($this->subscriber) {
             return $this->subscriber->name ??
-                   (($this->subscriber->first_name ?? '') . ' ' . ($this->subscriber->last_name ?? ''));
+                   (($this->subscriber->first_name ?? '').' '.($this->subscriber->last_name ?? ''));
         }
 
         return __('Guest');
@@ -154,7 +163,7 @@ class Subscription extends Model implements Payable
         return $this->subscriber?->company ?? null;
     }
 
-    public function getCustomerId(): string | int | null
+    public function getCustomerId(): string|int|null
     {
         return $this->subscriber_id;
     }
@@ -164,8 +173,7 @@ class Subscription extends Model implements Payable
         return [
             [
                 'name' => $this->name,
-                'sku' => 'subscription_' . $this->id,
-                'quantity' => 1,
+                'sku' => $this->getDisplayIdentifier(),                'quantity' => 1,
                 'unit_price' => (float) $this->amount,
                 'product_id' => $this->id,
                 'variation_id' => null,
@@ -200,7 +208,7 @@ class Subscription extends Model implements Payable
 
     public function getCustomerNote(): ?string
     {
-        return __('Subscription payment') . ': ' . $this->name;
+        return __('Subscription payment').': '.$this->name;
     }
 
     public function getPayableType(): PayableType
@@ -403,10 +411,10 @@ class Subscription extends Model implements Payable
                 return __('2 Years');
             }
 
-            return $years . ' ' . __('Years');
+            return $years.' '.__('Years');
         }
 
-        return $months . ' ' . __('months');
+        return $months.' '.__('months');
     }
 
     /**
@@ -414,15 +422,15 @@ class Subscription extends Model implements Payable
      */
     public function getFormattedPrice(): string
     {
-        $price = number_format((float) $this->amount, 2) . ' ' . $this->currency;
-        $interval = ' / ' . $this->getIntervalDescription();
+        $price = number_format((float) $this->amount, 2).' '.$this->currency;
+        $interval = ' / '.$this->getIntervalDescription();
 
         if ($this->total_cycles) {
             $totalMonths = $this->interval_months * $this->total_cycles;
-            $interval .= ' ' . __('for') . ' ' . $this->getMonthsString($totalMonths);
+            $interval .= ' '.__('for').' '.$this->getMonthsString($totalMonths);
         }
 
-        return $price . $interval;
+        return $price.$interval;
     }
 
     /**
@@ -448,10 +456,10 @@ class Subscription extends Model implements Payable
                 return __('2 Years');
             }
 
-            return $years . ' ' . __('Years');
+            return $years.' '.__('Years');
         }
 
-        return $months . ' ' . __('months');
+        return $months.' '.__('months');
     }
 
     // ========================================

@@ -43,7 +43,6 @@ class PWAService
         return <<<HTML
         {$installApp}
         <!-- PWA scripts -->
-        <script {$isLivewire} src="{$swPath}"></script>
         <script {$isLivewire}>
             "use strict";
             if ("serviceWorker" in navigator) {

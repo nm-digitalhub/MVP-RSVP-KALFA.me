@@ -1,0 +1,68 @@
+[90m= [39m[34;4mIlluminate\Support\Collection[39;24m {#6605
+    [34mall[39m: [
+      "[34mheroicons[39m" => [
+        "[34mprefix[39m" => "[32mheroicon[39m",
+        "[34mfallback[39m" => "",
+        "[34mclass[39m" => "",
+        "[34mattributes[39m" => [],
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/blade-ui-kit/blade-heroicons/src/../resources/svg[39m",
+        ],
+      ],
+      "[34mteeny-icons[39m" => [
+        "[34mprefix[39m" => "[32mtni[39m",
+        "[34mfallback[39m" => "",
+        "[34mclass[39m" => "",
+        "[34mattributes[39m" => [],
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/codeat3/blade-teeny-icons/src/../resources/svg[39m",
+        ],
+      ],
+      "[34mboxicons-regular[39m" => [
+        "[34mprefix[39m" => "[32mbx[39m",
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/mallardduck/blade-boxicons/src/../resources/svg/regular[39m",
+        ],
+      ],
+      "[34mboxicons-solid[39m" => [
+        "[34mprefix[39m" => "[32mbxs[39m",
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/mallardduck/blade-boxicons/src/../resources/svg/solid[39m",
+        ],
+      ],
+      "[34mboxicons-logos[39m" => [
+        "[34mprefix[39m" => "[32mbxl[39m",
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/mallardduck/blade-boxicons/src/../resources/svg/logos[39m",
+        ],
+      ],
+      "[34miconsax[39m" => [
+        "[34mprefix[39m" => "[32miconsax[39m",
+        "[34mfallback[39m" => "",
+        "[34mclass[39m" => "",
+        "[34mattributes[39m" => [],
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/saade/blade-iconsax/src/../resources/svg[39m",
+        ],
+      ],
+      "[34mflowbiteicons[39m" => [
+        "[34mprefix[39m" => "[32mflowbite[39m",
+        "[34mfallback[39m" => "",
+        "[34mclass[39m" => "",
+        "[34mattributes[39m" => [],
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/themesberg/flowbite-blade-icons/src/../resources/svg[39m",
+        ],
+      ],
+      "[34mflowbite-icons[39m" => [
+        "[34mprefix[39m" => "[32mfwb[39m",
+        "[34mfallback[39m" => "",
+        "[34mclass[39m" => "",
+        "[34mattributes[39m" => [],
+        "[34mpaths[39m" => [
+          "[32m/var/www/vhosts/kalfa.me/httpdocs/vendor/themesberg/flowbite-blade-icons/src/../resources/svg[39m",
+        ],
+      ],
+    ],
+  }
+

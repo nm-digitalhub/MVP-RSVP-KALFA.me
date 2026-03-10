@@ -1,0 +1,51 @@
+<?php
+
+use Codeat3\BladeIconGeneration\IconProcessor;
+use Symfony\Component\Finder\SplFileInfo;
+
+$svgNormalization = static function (string $tempFilepath, array $iconSet, SplFileInfo $file) {
+
+    // perform generic optimizations
+    $iconProcessor = new IconProcessor($tempFilepath, $iconSet);
+    $iconProcessor
+        ->optimize()
+        ->save();
+
+};
+
+return [
+    [
+        // Define a source directory for the sets like a node_modules/ or vendor/ directory...
+        'source' => __DIR__.'/../dist/solid/',
+
+        // Define a destination directory for your icons. The below is a good default...
+        'destination' => __DIR__.'/../resources/svg',
+
+        // Enable "safe" mode which will prevent deletion of old icons...
+        'safe' => true,
+
+        // Call an optional callback to manipulate the icon
+        // with the pathname of the icon and the settings from above...
+        'after' => $svgNormalization,
+
+        'is-solid' => true,
+
+    ],
+    [
+        // Define a source directory for the sets like a node_modules/ or vendor/ directory...
+        'source' => __DIR__.'/../dist/outline/',
+
+        // Define a destination directory for your icons. The below is a good default...
+        'destination' => __DIR__.'/../resources/svg',
+
+        // Enable "safe" mode which will prevent deletion of old icons...
+        'safe' => true,
+
+        // Call an optional callback to manipulate the icon
+        // with the pathname of the icon and the settings from above...
+        'after' => $svgNormalization,
+
+        'output-suffix' => '-o'
+
+    ],
+];
