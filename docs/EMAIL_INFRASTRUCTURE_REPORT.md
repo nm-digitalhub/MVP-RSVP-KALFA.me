@@ -16,7 +16,7 @@ MAIL_HOST=smtp.ionos.com
 MAIL_PORT=587
 MAIL_USERNAME=netanel.kalfa@kalfa.me
 MAIL_PASSWORD="your_password_here"
-MAIL_ENCRYPTION=tls
+MAIL_SCHEME=tls
 MAIL_FROM_ADDRESS=netanel.kalfa@kalfa.me
 MAIL_FROM_NAME="Netanel Mevorach KALFA"
 ```
