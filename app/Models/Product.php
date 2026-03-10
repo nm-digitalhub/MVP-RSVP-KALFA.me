@@ -73,7 +73,7 @@ class Product extends Model
 
     public function productPlans(): HasMany
     {
-        return $this->hasMany(ProductPlan::class, 'product_id');
+        return $this->hasMany(ProductPlan::class, 'product_id')->orderBy('sort_order');
     }
 
     public function accountProducts(): HasMany

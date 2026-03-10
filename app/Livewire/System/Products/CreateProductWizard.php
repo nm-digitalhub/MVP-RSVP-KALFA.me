@@ -22,7 +22,7 @@ final class CreateProductWizard extends Component
 {
     public int $step = 1;
 
-    public int $totalSteps = 4;
+    public int $totalSteps = 5;
 
     public ?Product $product = null;
 
@@ -63,6 +63,23 @@ final class CreateProductWizard extends Component
     public ?string $featureDescription = '';
 
     public bool $featureIsEnabled = true;
+
+    // Plans and Pricing (Step 4)
+    public string $planName = '';
+
+    public string $planSlug = '';
+
+    public string $planSku = '';
+
+    public ?string $planDescription = '';
+
+    public bool $planIsActive = true;
+
+    public string $planCurrency = 'USD';
+
+    public string $planAmount = '';
+
+    public string $planBillingCycle = 'monthly';
 
     #[Transition(type: 'forward')]
     public function nextStep(): mixed
@@ -109,18 +126,45 @@ final class CreateProductWizard extends Component
         if (in_array($property, ['featureKey', 'featureLabel', 'featureValue', 'featureDescription', 'featureIsEnabled'], true) && $this->product !== null) {
             $this->validateOnly($property, $this->featureRules());
         }
+
+        if (in_array($property, ['planName', 'planSlug', 'planDescription', 'planAmount', 'planCurrency'], true) && $this->product !== null) {
+            if ($property === 'planSlug') {
+                $this->planSlug = Str::slug($this->planSlug);
+            }
+            $this->validateOnly($property, $this->planRules());
+        }
     }
 
-    public function updatedName(): void
+    public function updatedPlanName(): void
     {
-        if (blank($this->slug)) {
-            $this->slug = Str::slug($this->name);
+        if (empty($this->planSlug)) {
+            $this->planSlug = Str::slug($this->planName);
         }
+
+        if (empty($this->planSku)) {
+            $productSlug = $this->product?->slug ?? $this->slug;
+            $this->planSku = strtoupper("{$productSlug}_{$this->planSlug}");
+        }
+    }
+
+    public function updatedPlanSlug(): void
+    {
+        $this->planSlug = Str::slug($this->planSlug);
+
+        if (empty($this->planSku)) {
+            $productSlug = $this->product?->slug ?? $this->slug;
+            $this->planSku = strtoupper("{$productSlug}_{$this->planSlug}");
+        }
+    }
+
+    public function updatedPlanSku(): void
+    {
+        $this->planSku = strtoupper($this->planSku);
     }
 
     public function generateSlug(): void
     {
-        $this->slug = Str::slug($this->name);
+        $this->slug = (string) Str::slug($this->slug);
         $this->validateOnly('slug', $this->productRules());
     }
 
@@ -178,6 +222,23 @@ final class CreateProductWizard extends Component
         session()->flash('success', __('Limit added to draft product.'));
     }
 
+    public function toggleLimit(int $limitId): void
+    {
+        if (! $this->supportsLimits()) {
+            return;
+        }
+
+        $limit = $this->requireProduct()
+            ->limits()
+            ->find($limitId);
+
+        if ($limit) {
+            $limit->update(['is_active' => ! $limit->is_active]);
+        }
+
+        $this->product = $this->product?->fresh();
+    }
+
     public function removeLimit(int $limitId): void
     {
         if (! $this->supportsLimits()) {
@@ -217,6 +278,23 @@ final class CreateProductWizard extends Component
         session()->flash('success', __('Feature configuration added to draft product.'));
     }
 
+    public function toggleFeature(int $featureId): void
+    {
+        if (! $this->supportsFeatures()) {
+            return;
+        }
+
+        $feature = $this->requireProduct()
+            ->features()
+            ->find($featureId);
+
+        if ($feature) {
+            $feature->update(['is_enabled' => ! $feature->is_enabled]);
+        }
+
+        $this->product = $this->product?->fresh();
+    }
+
     public function removeFeature(int $featureId): void
     {
         if (! $this->supportsFeatures()) {
@@ -230,6 +308,56 @@ final class CreateProductWizard extends Component
 
         $this->product = $this->product?->fresh();
         session()->flash('success', __('Feature removed.'));
+    }
+
+    public function addPlan(): void
+    {
+        $product = $this->requireProduct();
+        $validated = $this->validate($this->planRules());
+
+        $plan = $product->productPlans()->create([
+            'name' => $validated['planName'],
+            'slug' => $validated['planSlug'],
+            'sku' => $this->planSku,
+            'description' => $validated['planDescription'] ?: null,
+            'is_active' => $this->planIsActive,
+        ]);
+
+        if (! empty($validated['planAmount'])) {
+            $plan->prices()->create([
+                'currency' => $validated['planCurrency'],
+                'amount' => (int) $validated['planAmount'],
+                'billing_cycle' => $this->planBillingCycle,
+                'is_active' => true,
+            ]);
+        }
+
+        $this->resetPlanForm();
+        $this->product = $product->fresh();
+        session()->flash('success', __('Plan added to draft product.'));
+    }
+
+    public function removePlan(int $planId): void
+    {
+        $this->requireProduct()
+            ->productPlans()
+            ->whereKey($planId)
+            ->delete();
+
+        $this->product = $this->product?->fresh();
+        session()->flash('success', __('Plan removed.'));
+    }
+
+    public function reorderPlans(array $ids): void
+    {
+        foreach ($ids as $index => $id) {
+            $this->requireProduct()
+                ->productPlans()
+                ->whereKey((int) $id)
+                ->update(['sort_order' => $index]);
+        }
+
+        $this->product = $this->product?->fresh();
     }
 
     public function publish(): mixed
@@ -329,6 +457,29 @@ final class CreateProductWizard extends Component
         ];
     }
 
+    protected function planRules(): array
+    {
+        return [
+            'planName' => ['required', 'string', 'max:255'],
+            'planSlug' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('product_plans', 'slug')
+                    ->where(fn ($query) => $query->where('product_id', $this->requireProduct()->id)),
+            ],
+            'planDescription' => ['nullable', 'string', 'max:1000'],
+            'planSku' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('product_plans', 'sku'),
+            ],
+            'planCurrency' => ['required', 'string', 'size:3'],
+            'planAmount' => ['nullable', 'integer', 'min:0'],
+        ];
+    }
+
     protected function persistProduct(): void
     {
         $this->slug = Str::slug($this->slug);
@@ -408,5 +559,19 @@ final class CreateProductWizard extends Component
         ]);
 
         $this->featureIsEnabled = true;
+    }
+
+    protected function resetPlanForm(): void
+    {
+        $this->reset([
+            'planName',
+            'planSlug',
+            'planDescription',
+            'planAmount',
+        ]);
+
+        $this->planIsActive = true;
+        $this->planCurrency = 'USD';
+        $this->planBillingCycle = 'monthly';
     }
 }

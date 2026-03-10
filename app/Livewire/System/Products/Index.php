@@ -36,7 +36,10 @@ final class Index extends Component
                     $builder
                         ->where('name', 'like', $search)
                         ->orWhere('slug', 'like', $search)
-                        ->orWhere('description', 'like', $search);
+                        ->orWhere('description', 'like', $search)
+                        ->orWhereHas('productPlans', function ($q) use ($search) {
+                            $q->where('sku', 'like', $search);
+                        });
                 });
             })
             ->when($this->filterStatus !== null, fn ($query) => $query->where('status', $this->filterStatus))

@@ -433,6 +433,7 @@ Product
 $product->productPlans()->create([
     'name' => 'Pro',
     'slug' => 'pro',
+    'sku' => 'PRO-PLAN-001',
     'description' => 'Professional tier',
     'is_active' => true,
     'metadata' => [

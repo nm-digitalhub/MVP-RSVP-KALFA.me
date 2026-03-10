@@ -115,6 +115,19 @@
                             @error('slug') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                         </div>
 
+                            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                                <div class="space-y-2">
+                                    <label for="plan-slug" class="block px-1 text-[10px] font-black uppercase tracking-[0.20em] text-slate-400">{{ __('Slug') }}</label>
+                                    <input id="plan-slug" wire:model.blur="planSlug" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
+                                    @error('planSlug') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="plan-sku" class="block px-1 text-[10px] font-black uppercase tracking-[0.20em] text-slate-400">{{ __('SKU') }}</label>
+                                    <input id="plan-sku" wire:model.blur="planSku" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
+                                    @error('planSku') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                                </div>
+                            </div>
+
                         <div class="space-y-2">
                             <label for="edit-category" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Category') }}</label>
                             <input id="edit-category" wire:model.blur="category" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
@@ -331,7 +344,11 @@
                                                 <span>{{ __('Edit') }}</span>
                                             </button>
                                             <button wire:click="toggleLimit({{ $limit->id }})" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg bg-slate-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-600 transition hover:bg-slate-200">
-                                                <x-heroicon-o-eye class="size-4" />
+                                                @if($limit->is_active)
+                                                    <x-fwb-o-eye-slash class="size-4"/>
+                                                @else
+                                                    <x-fwb-o-eye class="size-4"/>
+                                                @endif
                                                 <span>{{ $limit->is_active ? __('Disable') : __('Enable') }}</span>
                                             </button>
                                             <button wire:click="deleteLimit({{ $limit->id }})" wire:confirm="{{ __('Delete this limit?') }}" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg bg-rose-50 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
@@ -605,9 +622,35 @@
                     </form>
                 @endif
 
-                <div class="space-y-4">
+                <div
+                    x-data
+                    x-init="
+                        Sortable.create($el,{
+                            animation:150,
+                            handle:'.drag-handle',
+                            onEnd(event){
+                                $wire.reorderPlans(
+                                    [...$el.children].map(el => el.dataset.id)
+                                )
+                            }
+                        })
+                    "
+                    class="space-y-4"
+                >
                     @forelse($productPlans as $plan)
-                        <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                        <div
+                            data-id="{{ $plan->id }}"
+                            wire:key="product-plan-{{ $plan->id }}"
+                            class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4 flex gap-3"
+                        >
+                            {{-- Drag Handle --}}
+                            <div class="drag-handle cursor-move text-slate-400 flex items-start pt-1 hover:text-brand transition-colors" title="{{ __('Drag to reorder') }}">
+                                <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h8M8 15h8"/>
+                                </svg>
+                            </div>
+
+                            <div class="flex-1">
                             <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                                 <div class="space-y-2">
                                     <div class="flex flex-wrap items-center gap-2">
@@ -617,6 +660,10 @@
                                         </span>
                                     </div>
                                     <div class="break-all text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">{{ $plan->slug }}</div>
+                                    <div class="mt-1 flex items-center gap-1.5 rounded-lg bg-slate-200/50 px-2 py-0.5 text-[9px] font-black uppercase tracking-wider text-slate-500 w-fit">
+                                        <x-iconsax-bol-barcode class="size-3" />
+                                        <span>{{ $plan->sku }}</span>
+                                    </div>
                                     @if($plan->description)
                                         <p class="text-sm leading-6 text-slate-500">{{ $plan->description }}</p>
                                     @endif
@@ -785,7 +832,8 @@
                                     </div>
                                 @endforelse
                             </div>
-                        </div>
+                            </div> {{-- Close flex-1 --}}
+                        </div> {{-- Close plan card --}}
                     @empty
                         <div class="rounded-[1.5rem] border border-dashed border-slate-200 px-5 py-8 text-sm font-semibold text-slate-400">
                             {{ __('No commercial plans configured for this product yet.') }}

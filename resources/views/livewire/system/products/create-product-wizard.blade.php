@@ -72,7 +72,7 @@
             <div class="absolute inset-x-0 top-5 hidden h-1 rounded-full bg-slate-200 sm:block"></div>
             <div class="absolute top-5 hidden h-1 rounded-full bg-brand transition-all duration-500 sm:block" style="width: {{ ($step - 1) / max($totalSteps - 1, 1) * 100 }}%; {{ isRTL() ? 'right: 0;' : 'left: 0;' }}"></div>
 
-            @foreach ([1 => __('Product Info'), 2 => __('Entitlements'), 3 => __('Limits & Config'), 4 => __('Review & Publish')] as $index => $label)
+            @foreach ([1 => __('Product Info'), 2 => __('Entitlements'), 3 => __('Limits & Config'), 4 => __('Plans & Pricing'), 5 => __('Review & Publish')] as $index => $label)
                 <div class="relative flex flex-1 flex-col items-center gap-3">
                     <div class="flex size-10 items-center justify-center rounded-full border-4 text-sm font-black transition-all duration-300 sm:size-12 {{ $step >= $index ? 'border-brand bg-brand text-white shadow-lg shadow-brand/20' : 'border-slate-200 bg-white text-slate-400' }}">
                         @if ($step > $index)
@@ -232,10 +232,9 @@
                                 {{ $entitlements->count() }}
                             </div>
                         </div>
-
                         <div class="space-y-3">
-                            @forelse ($entitlements as $entitlement)
-                                <div wire:key="wizard-entitlement-{{ $entitlement->id }}" class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
+                            @if($product)
+@forelse ($entitlements as $entitlement)                                <div wire:key="wizard-entitlement-{{ $entitlement->id }}" class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4">
                                     <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                                         <div class="space-y-2">
                                             <div class="flex flex-wrap items-center gap-2">
@@ -262,11 +261,13 @@
                                     {{ __('No entitlements attached yet. Add at least the core grants that define the product.') }}
                                 </div>
                             @endforelse
-                        </div>
+                        @endif
+                    </div>
                     </div>
                 </div>
             </section>
         @endif
+        
 
         @if ($step === 3)
             <section class="space-y-8 p-6 sm:p-8 lg:p-10">
@@ -353,10 +354,20 @@
                                             @endif
                                         </div>
 
-                                        <button type="button" wire:click="removeLimit({{ $limit->id }})" class="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
-                                            <x-heroicon-o-trash class="size-4" />
-                                            <span>{{ __('Remove') }}</span>
-                                        </button>
+                                        <div class="flex flex-wrap gap-2">
+                                            <button type="button" wire:click="toggleLimit({{ $limit->id }})" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg bg-slate-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-600 transition hover:bg-slate-200">
+                                                @if($limit->is_active)
+                                                    <x-fwb-o-eye-slash class="size-4"/>
+                                                @else
+                                                    <x-fwb-o-eye class="size-4"/>
+                                                @endif
+                                                <span>{{ $limit->is_active ? __('Disable') : __('Enable') }}</span>
+                                            </button>
+                                            <button type="button" wire:click="removeLimit({{ $limit->id }})" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
+                                                <x-heroicon-o-trash class="size-4" />
+                                                <span>{{ __('Remove') }}</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             @empty
@@ -435,10 +446,20 @@
                                             @endif
                                         </div>
 
-                                        <button type="button" wire:click="removeFeature({{ $feature->id }})" class="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
-                                            <x-heroicon-o-trash class="size-4" />
-                                            <span>{{ __('Remove') }}</span>
-                                        </button>
+                                        <div class="flex flex-wrap gap-2">
+                                            <button type="button" wire:click="toggleFeature({{ $feature->id }})" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg bg-slate-100 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-slate-600 transition hover:bg-slate-200">
+                                                @if($feature->is_enabled)
+                                                    <x-fwb-o-eye-slash class="size-4"/>
+                                                @else
+                                                    <x-fwb-o-eye class="size-4"/>
+                                                @endif
+                                                <span>{{ $feature->is_enabled ? __('Disable') : __('Enable') }}</span>
+                                            </button>
+                                            <button type="button" wire:click="removeFeature({{ $feature->id }})" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
+                                                <x-heroicon-o-trash class="size-4" />
+                                                <span>{{ __('Remove') }}</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             @empty
@@ -455,7 +476,137 @@
         @if ($step === 4)
             <section class="space-y-8 p-6 sm:p-8 lg:p-10">
                 <div class="space-y-2">
-                    <h2 class="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">{{ __('Step 4: Review and publish') }}</h2>
+                    <h2 class="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">{{ __('Step 4: Plans and pricing') }}</h2>
+                    <p class="text-sm font-medium leading-6 text-slate-500 sm:text-base">
+                        {{ __('Create the commercial plans for this product. A SKU will be automatically generated for each plan based on the product and plan slugs.') }}
+                    </p>
+                </div>
+
+                <div class="grid gap-6 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+                    <form wire:submit.prevent="addPlan" class="space-y-5 rounded-[1.75rem] bg-slate-50 p-5 sm:p-6">
+                        <div class="grid gap-5 md:grid-cols-2">
+                            <div class="space-y-2">
+                                <label for="plan-name" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Plan Name') }}</label>
+                                <input id="plan-name" type="text" wire:model.blur="planName" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('Basic Plan') }}" />
+                                @error('planName') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="plan-slug" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Slug') }}</label>
+                                <input id="plan-slug" type="text" wire:model.blur="planSlug" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('basic-plan') }}" />
+                                @error('planSlug') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="plan-amount" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Price (Cents)') }}</label>
+                                <input id="plan-amount" type="number" wire:model.blur="planAmount" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('2990') }}" />
+                                @error('planAmount') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="plan-currency" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Currency') }}</label>
+                                <select id="plan-currency" wire:model.live="planCurrency" class="block w-full cursor-pointer rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10">
+                                    <option value="USD">USD</option>
+                                    <option value="ILS">ILS</option>
+                                    <option value="EUR">EUR</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="plan-description" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Description') }}</label>
+                            <textarea id="plan-description" wire:model.blur="planDescription" rows="3" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('Explain what is included in this plan.') }}"></textarea>
+                            @error('planDescription') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                        </div>
+
+                        <button type="submit" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-3 text-sm font-black text-white shadow-xl shadow-brand/20 transition-all hover:bg-brand-hover">
+                            <x-heroicon-o-plus class="size-5" />
+                            <span>{{ __('Add Plan') }}</span>
+                        </button>
+                    </form>
+
+                    <div class="rounded-[1.75rem] border border-slate-200 bg-white p-5 sm:p-6">
+                        <div class="mb-5 flex items-center justify-between gap-3">
+                            <div>
+                                <h3 class="text-lg font-black text-slate-900">{{ __('Draft plans') }}</h3>
+                                <p class="text-sm font-medium text-slate-500">{{ __('Commercial models attached to this product.') }}</p>
+                            </div>
+                            <div class="rounded-full bg-slate-100 px-3 py-1 text-xs font-black uppercase tracking-[0.18em] text-slate-500">
+                                {{ $product?->productPlans->count() ?? 0 }}
+                            </div>
+                        </div>
+
+<div
+    x-data
+    x-init="
+        Sortable.create($el,{
+            animation:150,
+            handle:'.drag-handle',
+            onEnd(event){
+                $wire.reorderPlans(
+                    [...$el.children].map(el => el.dataset.id)
+                )
+            }
+        })
+    "
+    class="space-y-3"
+>
+                            @if($product)
+                                @forelse ($product->productPlans as $plan)
+<div
+data-id="{{ $plan->id }}"
+wire:key="wizard-plan-{{ $plan->id }}"
+class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 flex gap-3"
+>
+                                        {{-- Drag Handle --}}
+                                        <div class="drag-handle cursor-move text-slate-400 flex items-start pt-1 hover:text-brand transition-colors" title="{{ __('Drag to reorder') }}">
+                                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9h8M8 15h8"/>
+                                            </svg>
+                                        </div>
+
+                                        <div class="flex flex-1 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                                            <div class="space-y-2">
+                                                <div class="flex flex-wrap items-center gap-2">
+                                                    <span class="text-sm font-black text-slate-900">{{ $plan->name }}</span>
+                                                    @if($plan->primaryPrice())
+                                                        <span class="rounded-full bg-brand/10 px-2 py-1 text-[10px] font-black text-brand uppercase">{{ $plan->primaryPrice()->amount / 100 }} {{ $plan->primaryPrice()->currency }}</span>
+                                                    @endif
+                                                </div>
+                                                <div class="flex flex-col gap-1">
+                                                    <div class="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">
+                                                        {{ $plan->slug }}
+                                                    </div>
+
+                                                    <div class="flex items-center gap-1 text-[9px] font-black uppercase tracking-wider text-slate-500">
+                                                        <x-iconsax-bol-barcode class="size-3" />
+                                                        <span>{{ $plan->sku }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <button type="button" wire:click="removePlan({{ $plan->id }})" class="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
+                                                <x-heroicon-o-trash class="size-4" />
+                                                <span>{{ __('Remove') }}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <div class="rounded-2xl border border-dashed border-slate-200 px-5 py-8 text-center text-sm font-semibold text-slate-400">
+                                        {{ __('No plans created yet. Add at least one commercial plan.') }}
+                                    </div>
+                                @endforelse
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
+    
+        @if ($step === 5)
+            <section class="space-y-8 p-6 sm:p-8 lg:p-10">
+                <div class="space-y-2">
+                    <h2 class="text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">{{ __('Step 5: Review and publish') }}</h2>
                     <p class="text-sm font-medium leading-6 text-slate-500 sm:text-base">
                         {{ __('Review the persisted draft product and publish it by promoting the status from draft to active.') }}
                     </p>
@@ -477,7 +628,7 @@
                             </div>
                         </div>
 
-                        <div class="grid gap-4 sm:grid-cols-3">
+                        <div class="grid gap-4 sm:grid-cols-4">
                             <div class="rounded-[1.5rem] bg-white p-5 shadow-sm">
                                 <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Entitlements') }}</div>
                                 <div class="mt-3 text-3xl font-black tracking-tight text-slate-900">{{ $entitlements->count() }}</div>
@@ -489,6 +640,10 @@
                             <div class="rounded-[1.5rem] bg-white p-5 shadow-sm">
                                 <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Features') }}</div>
                                 <div class="mt-3 text-3xl font-black tracking-tight text-slate-900">{{ $features->count() }}</div>
+                            </div>
+                            <div class="rounded-[1.5rem] bg-white p-5 shadow-sm">
+                                <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Plans') }}</div>
+                                <div class="mt-3 text-3xl font-black tracking-tight text-slate-900">{{ $product?->productPlans->count() ?? 0 }}</div>
                             </div>
                         </div>
                     </div>
@@ -530,9 +685,9 @@
                     </a>
                 @endif
 
-                <button type="button" wire:click="nextStep" wire:loading.attr="disabled" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl px-7 py-3 text-sm font-black text-white shadow-xl transition-all disabled:cursor-not-allowed disabled:opacity-60 {{ $step === $totalSteps ? 'bg-emerald-600 shadow-emerald-600/20 hover:bg-emerald-700' : 'bg-brand shadow-brand/20 hover:bg-brand-hover' }}">
+                <button type="button" wire:click="nextStep" wire:loading.attr="disabled" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl px-7 py-3 text-sm font-black text-white shadow-xl transition-all disabled:cursor-not-allowed disabled:opacity-60 {{ $step === 5 ? 'bg-emerald-600 shadow-emerald-600/20 hover:bg-emerald-700' : 'bg-brand shadow-brand/20 hover:bg-brand-hover' }}">
                     <span wire:loading.remove>
-                        {{ $step === 1 ? __('Create Draft & Continue') : ($step === $totalSteps ? __('Publish Product') : __('Continue')) }}
+                        {{ $step === 1 ? __('Create Draft & Continue') : ($step === 5 ? __('Publish Product') : __('Continue')) }}
                     </span>
                     <span wire:loading>{{ __('Working...') }}</span>
                     <x-heroicon-m-arrow-right class="size-5 rtl:rotate-180" />

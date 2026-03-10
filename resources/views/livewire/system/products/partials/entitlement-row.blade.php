@@ -5,7 +5,7 @@
         <div class="p-4 sm:p-5">
             <div class="flex items-start gap-4">
                 <div class="flex size-10 shrink-0 items-center justify-center rounded-xl {{ $typeToneClasses }}">
-                    <x-heroicon-o-{{ $typeIcon }} class="size-5" />
+                   <x-dynamic-component :component="$typeIcon" class="size-5" />        
                 </div>
 
                 <div class="flex-1 min-w-0">
@@ -21,7 +21,11 @@
 
                         <div class="flex w-full items-center justify-end gap-1 sm:w-auto sm:shrink-0">
                             <button wire:click="toggleActive" wire:loading.attr="disabled" class="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg {{ $entitlement->is_active ? 'bg-emerald-100 text-emerald-600' : 'bg-slate-100 text-slate-400' }} hover:{{ $entitlement->is_active ? 'bg-emerald-200' : 'bg-slate-200' }} transition-all cursor-pointer" title="{{ $entitlement->is_active ? __('Deactivate') : __('Activate') }}">
-                                <x-heroicon-o-{{ $entitlement->is_active ? 'eye' : 'eye-slash' }} class="size-4" />
+                                @if($entitlement->is_active)
+                                    <x-fwb-o-eye-slash class="size-4" />
+                                @else
+                                    <x-fwb-o-eye class="size-4" />
+                                @endif
                             </button>
                             <button wire:click="startEdit" class="min-h-[36px] min-w-[36px] flex items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-100 transition-all cursor-pointer" title="{{ __('Edit') }}">
                                 <x-heroicon-o-pencil class="size-4" />

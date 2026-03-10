@@ -11,7 +11,7 @@ class WebPushManager {
         this.subscription = null;
         this.vapidPublicKey = null;
         this.deviceId = null;
-        
+
         // Hebrew messages
         this.messages = {
             notSupported: 'התראות דחיפה אינן נתמכות בדפדפן זה',
@@ -23,7 +23,7 @@ class WebPushManager {
             testSent: 'התראת בדיקה נשלחה',
             testFailed: 'שליחת התראת בדיקה נכשלה'
         };
-        
+
         this.init();
     }
 
@@ -40,13 +40,13 @@ class WebPushManager {
         try {
             // Register service worker
             await this.registerServiceWorker();
-            
+
             // Get VAPID public key and status
             await this.getStatus();
-            
+
             // Update UI
             this.updateUI();
-            
+
             return true;
         } catch (error) {
             console.error('❌ [Push] Initialization failed:', error);
@@ -55,32 +55,51 @@ class WebPushManager {
     }
 
     /**
-     * Register service worker
+     * Get existing service worker registration
      */
     async registerServiceWorker() {
+
         try {
-            this.swRegistration = await navigator.serviceWorker.register('/sw.js', {
-                scope: '/'
-            });
-            
-            console.log('✅ [Push] Service worker registered:', this.swRegistration);
-            
+
+            // Already cached
+            if (this.swRegistration) {
+                return this.swRegistration;
+            }
+
+            // Wait until a service worker becomes active
+            const registration = await navigator.serviceWorker.ready;
+
+            if (!registration) {
+                console.warn('[Push] Service worker not ready');
+                return null;
+            }
+
+            console.log('ℹ️ [Push] Using existing service worker:', registration);
+
+            this.swRegistration = registration;
+
             // Listen for messages from service worker
-            navigator.serviceWorker.addEventListener('message', this.handleServiceWorkerMessage.bind(this));
-            
-            return this.swRegistration;
+            if (!this._swMessageListenerAdded) {
+                navigator.serviceWorker.addEventListener(
+                    'message',
+                    this.handleServiceWorkerMessage.bind(this)
+                );
+                this._swMessageListenerAdded = true;
+            }
+
+            return registration;
+
         } catch (error) {
-            console.error('❌ [Push] Service worker registration failed:', error);
+            console.error('❌ [Push] Unable to access service worker:', error);
             throw error;
         }
     }
-
     /**
      * Handle messages from service worker
      */
     handleServiceWorkerMessage(event) {
         console.log('📨 [Push] Message from SW:', event.data);
-        
+
         if (event.data?.type === 'NOTIFICATION_CLICKED') {
             // Handle notification click
             if (event.data.url && event.data.url !== window.location.pathname) {
@@ -97,20 +116,20 @@ class WebPushManager {
             const response = await fetch('/api/web-push/status', {
                 headers: this.getAuthHeaders()
             });
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 this.vapidPublicKey = data.vapid_public_key;
                 this.isSubscribed = data.devices_count > 0;
-                
+
                 if (data.devices.length > 0) {
                     this.deviceId = data.devices[0].id;
                 }
-                
+
                 console.log('ℹ️ [Push] Status:', data);
             }
-            
+
             return data;
         } catch (error) {
             console.error('❌ [Push] Failed to get status:', error);
@@ -169,10 +188,10 @@ class WebPushManager {
                 this.subscription = subscription;
                 this.isSubscribed = true;
                 this.deviceId = data.device_id;
-                
+
                 this.showMessage(this.messages.subscribeSuccess, 'success');
                 this.updateUI();
-                
+
                 // Show test notification
                 this.showLocalNotification(
                     'התראות הופעלו',
@@ -328,8 +347,8 @@ class WebPushManager {
         }
 
         // Add authorization header if available
-        const authToken = localStorage.getItem('auth_token') || 
-                         sessionStorage.getItem('auth_token');
+        const authToken = localStorage.getItem('auth_token') ||
+            sessionStorage.getItem('auth_token');
         if (authToken) {
             headers['Authorization'] = `Bearer ${authToken}`;
         }
@@ -342,7 +361,7 @@ class WebPushManager {
      */
     getDeviceType() {
         const userAgent = navigator.userAgent;
-        
+
         if (/iPad|iPhone|iPod/.test(userAgent)) {
             return 'ios';
         } else if (/Android/.test(userAgent)) {
@@ -408,10 +427,14 @@ class WebPushManager {
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    // Only initialize for authenticated users
-    if (document.querySelector('meta[name="user-authenticated"]')) {
+
+    if (
+        !window.pushManager &&
+        document.querySelector('meta[name="user-authenticated"]')
+    ) {
         window.pushManager = new WebPushManager();
     }
+
 });
 
 // Global functions for easy access
