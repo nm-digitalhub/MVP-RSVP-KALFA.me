@@ -269,7 +269,7 @@ In v3, Livewire component tags would render even without being properly closed. 
 
 @boostsnippet('Component Tags Closed', 'blade')
 <!-- Before (v3) - unclosed tag -->
-<livewire:component-name>
+<livewire:component-name />
 
 <!-- After (v4) - Self-closing tag -->
 <livewire:component-name />
