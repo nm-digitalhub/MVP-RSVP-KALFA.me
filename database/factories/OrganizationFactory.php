@@ -15,8 +15,6 @@ use Illuminate\Support\Str;
  */
 class OrganizationFactory extends Factory
 {
-    protected $model = Organization::class;
-
     /**
      * @return array<string, mixed>
      */
