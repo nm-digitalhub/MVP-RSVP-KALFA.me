@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\InitiateCheckoutRequest;
 use App\Models\Event;
@@ -12,6 +11,7 @@ use App\Models\Organization;
 use App\Models\Plan;
 use App\Services\BillingService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 
 class CheckoutController extends Controller
 {

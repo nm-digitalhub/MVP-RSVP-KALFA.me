@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class EventInvitationsController extends Controller

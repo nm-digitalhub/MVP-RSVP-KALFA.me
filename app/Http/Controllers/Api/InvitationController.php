@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Gate;
 use App\Enums\InvitationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
@@ -12,6 +11,7 @@ use App\Models\Invitation;
 use App\Services\WhatsAppRsvpService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class InvitationController extends Controller
