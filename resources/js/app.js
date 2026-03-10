@@ -11,6 +11,7 @@ window.$ = window.jQuery = $
 import Cropper from 'cropperjs'
 import Clipboard from '@ryangjchandler/alpine-clipboard'
 import intersect from '@alpinejs/intersect'
+import collapse from '@alpinejs/collapse'
 
 import Sortable from 'sortablejs'
 import Chart from 'chart.js/auto'
@@ -30,6 +31,7 @@ window.FloatingUI = {
 document.addEventListener('alpine:init', () => {
     window.Alpine.plugin(Clipboard)
     window.Alpine.plugin(intersect)
+    window.Alpine.plugin(collapse)
 })
 
 // Cropper init

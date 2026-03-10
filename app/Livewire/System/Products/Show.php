@@ -18,6 +18,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -388,6 +389,7 @@ final class Show extends Component
         $this->filterType = null;
     }
 
+    #[On('tree:open-add-limit')]
     public function openAddLimitForm(): void
     {
         $this->resetLimitForm();
@@ -395,6 +397,7 @@ final class Show extends Component
         $this->editingLimitId = null;
     }
 
+    #[On('tree:open-edit-limit')]
     public function startEditLimit(int $limitId): void
     {
         $limit = $this->findLimit($limitId);
@@ -443,6 +446,7 @@ final class Show extends Component
         $this->resetLimitForm();
     }
 
+    #[On('tree:toggle-limit')]
     public function toggleLimit(int $limitId): void
     {
         $limit = $this->findLimit($limitId);
@@ -453,6 +457,7 @@ final class Show extends Component
         session()->flash('success', $limit->fresh()->is_active ? __('Limit activated.') : __('Limit disabled.'));
     }
 
+    #[On('tree:delete-limit')]
     public function deleteLimit(int $limitId): void
     {
         $this->findLimit($limitId)->delete();
@@ -464,6 +469,7 @@ final class Show extends Component
         session()->flash('success', __('Limit removed.'));
     }
 
+    #[On('tree:open-add-feature')]
     public function openAddFeatureForm(): void
     {
         $this->resetFeatureForm();
@@ -471,6 +477,7 @@ final class Show extends Component
         $this->editingFeatureId = null;
     }
 
+    #[On('tree:open-edit-feature')]
     public function startEditFeature(int $featureId): void
     {
         $feature = $this->findFeature($featureId);
@@ -519,6 +526,7 @@ final class Show extends Component
         $this->resetFeatureForm();
     }
 
+    #[On('tree:toggle-feature')]
     public function toggleFeature(int $featureId): void
     {
         $feature = $this->findFeature($featureId);
@@ -529,6 +537,7 @@ final class Show extends Component
         session()->flash('success', $feature->fresh()->is_enabled ? __('Feature enabled.') : __('Feature disabled.'));
     }
 
+    #[On('tree:delete-feature')]
     public function deleteFeature(int $featureId): void
     {
         $this->findFeature($featureId)->delete();
@@ -540,6 +549,7 @@ final class Show extends Component
         session()->flash('success', __('Feature removed.'));
     }
 
+    #[On('tree:open-add-plan')]
     public function openAddPlanForm(): void
     {
         $this->resetPlanForm();
@@ -547,6 +557,7 @@ final class Show extends Component
         $this->editingPlanId = null;
     }
 
+    #[On('tree:open-edit-plan')]
     public function startEditPlan(int $planId): void
     {
         $plan = $this->findPlan($planId);
@@ -608,6 +619,7 @@ final class Show extends Component
         $this->resetPlanForm();
     }
 
+    #[On('tree:toggle-plan')]
     public function togglePlan(int $planId): void
     {
         $plan = $this->findPlan($planId);
@@ -627,6 +639,7 @@ final class Show extends Component
         }
     }
 
+    #[On('tree:delete-plan')]
     public function deletePlan(int $planId): void
     {
         $this->findPlan($planId)->delete();
@@ -642,6 +655,7 @@ final class Show extends Component
         session()->flash('success', __('Plan removed.'));
     }
 
+    #[On('tree:open-add-price')]
     public function openAddPriceForm(int $planId): void
     {
         $this->findPlan($planId);
