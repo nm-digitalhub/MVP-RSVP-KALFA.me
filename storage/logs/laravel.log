@@ -559,3 +559,323 @@ Stack trace:
 #11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
 #12 {main}
 "} 
+[2026-03-10 15:48:21] production.ERROR: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] {"userId":1,"exception":"Livewire\\Features\\SupportMultipleRootElementDetection\\MultipleRootElementsDetectedException: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php:26
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php(16): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection->warnAgainstMoreThanOneRootElement()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(100): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::{closure:{closure:Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::provide():12}:15}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(96): Livewire\\EventBus->{closure:Livewire\\EventBus::trigger():94}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fdd980c9f1bb97560d604e4b51c10f67.php(665): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\Show->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEng
+... [truncated 14599 chars]"} 
+[2026-03-10 15:54:53] production.ERROR: syntax error, unexpected token "endif", expecting end of file (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) {"userId":1,"exception":"ParseError: syntax error, unexpected token \"endif\", expecting end of file in /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/8415f5548ea25f6337f0d3ceb49535bd.php:126
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\\View\\Engines\\CompilerEngine->get()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\\View\\View->renderContents()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesComponents.php(103): Illuminate\\View\\View->render()
+#7 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fcc5cd6ccfe8f1eb2f05f4f2821685d0.php(172): Illuminate\\View\\Factory->renderComponent()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerE
+... [truncated 69510 chars]"} 
+[2026-03-10 15:55:36] production.ERROR: syntax error, unexpected token "endif", expecting end of file (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) {"userId":1,"exception":"ParseError: syntax error, unexpected token \"endif\", expecting end of file in /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/8415f5548ea25f6337f0d3ceb49535bd.php:126
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\\View\\Engines\\CompilerEngine->get()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\\View\\View->renderContents()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesComponents.php(103): Illuminate\\View\\View->render()
+#7 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fcc5cd6ccfe8f1eb2f05f4f2821685d0.php(172): Illuminate\\View\\Factory->renderComponent()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerE
+... [truncated 69510 chars]"} 
+[2026-03-10 15:56:24] production.ERROR: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] {"userId":1,"exception":"Livewire\\Features\\SupportMultipleRootElementDetection\\MultipleRootElementsDetectedException: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php:26
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php(16): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection->warnAgainstMoreThanOneRootElement()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(100): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::{closure:{closure:Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::provide():12}:15}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(96): Livewire\\EventBus->{closure:Livewire\\EventBus::trigger():94}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fdd980c9f1bb97560d604e4b51c10f67.php(665): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\Show->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEng
+... [truncated 14599 chars]"} 
+[2026-03-10 15:57:41] production.ERROR: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] {"userId":1,"exception":"Livewire\\Features\\SupportMultipleRootElementDetection\\MultipleRootElementsDetectedException: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php:26
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php(16): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection->warnAgainstMoreThanOneRootElement()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(100): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::{closure:{closure:Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::provide():12}:15}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(96): Livewire\\EventBus->{closure:Livewire\\EventBus::trigger():94}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fdd980c9f1bb97560d604e4b51c10f67.php(665): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\Show->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEng
+... [truncated 14599 chars]"} 
+[2026-03-10 15:59:17] production.ERROR: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] {"userId":1,"exception":"Livewire\\Features\\SupportMultipleRootElementDetection\\MultipleRootElementsDetectedException: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php:26
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php(16): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection->warnAgainstMoreThanOneRootElement()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(100): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::{closure:{closure:Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::provide():12}:15}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(96): Livewire\\EventBus->{closure:Livewire\\EventBus::trigger():94}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fdd980c9f1bb97560d604e4b51c10f67.php(665): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\Show->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEng
+... [truncated 14599 chars]"} 
+[2026-03-10 15:59:56] production.ERROR: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] {"userId":1,"exception":"Livewire\\Features\\SupportMultipleRootElementDetection\\MultipleRootElementsDetectedException: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php:26
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php(16): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection->warnAgainstMoreThanOneRootElement()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(100): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::{closure:{closure:Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::provide():12}:15}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(96): Livewire\\EventBus->{closure:Livewire\\EventBus::trigger():94}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fdd980c9f1bb97560d604e4b51c10f67.php(665): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\Show->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEng
+... [truncated 14599 chars]"} 
+[2026-03-10 16:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-10 16:00:38] production.ERROR: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] {"userId":1,"exception":"Livewire\\Features\\SupportMultipleRootElementDetection\\MultipleRootElementsDetectedException: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php:26
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php(16): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection->warnAgainstMoreThanOneRootElement()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(100): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::{closure:{closure:Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::provide():12}:15}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(96): Livewire\\EventBus->{closure:Livewire\\EventBus::trigger():94}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fdd980c9f1bb97560d604e4b51c10f67.php(665): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\Show->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEng
+... [truncated 14599 chars]"} 
+[2026-03-10 16:02:50] production.ERROR: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] {"userId":1,"exception":"Livewire\\Features\\SupportMultipleRootElementDetection\\MultipleRootElementsDetectedException: Livewire only supports one HTML element per component. Multiple root elements detected for component: [system.products.product-tree] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php:26
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php(16): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection->warnAgainstMoreThanOneRootElement()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(100): Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::{closure:{closure:Livewire\\Features\\SupportMultipleRootElementDetection\\SupportMultipleRootElementDetection::provide():12}:15}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(96): Livewire\\EventBus->{closure:Livewire\\EventBus::trigger():94}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fdd980c9f1bb97560d604e4b51c10f67.php(665): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\Show->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEng
+... [truncated 14599 chars]"} 
+[2026-03-10 16:24:50] production.ERROR: syntax error, unexpected token "{" (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) {"userId":1,"exception":"ParseError: syntax error, unexpected token \"{\" in /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/c208e98e2cf463ca070f6206c1ebe5fb.php:71
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\\View\\Engines\\CompilerEngine->get()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\\View\\View->renderContents()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesComponents.php(103): Illuminate\\View\\View->render()
+#7 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fcc5cd6ccfe8f1eb2f05f4f2821685d0.php(193): Illuminate\\View\\Factory->renderComponent()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mech
+... [truncated 69410 chars]"} 
+[2026-03-10 17:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-10 17:06:01] production.ERROR: Undefined variable $isActive (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/node.blade.php) {"userId":1,"exception":"ErrorException: Undefined variable $isActive in /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/8415f5548ea25f6337f0d3ceb49535bd.php:71
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/8415f5548ea25f6337f0d3ceb49535bd.php(71): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\\View\\Engines\\CompilerEngine->get()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\\View\\View->renderContents()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesComponents.php(103): Illuminate\\View\\View->render()
+#10 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fcc5cd6ccfe8f1eb2f05f4f2821685d0.php(174): 
+... [truncated 69941 chars]"} 
+[2026-03-10 17:08:34] production.ERROR: Unable to locate a class or view for component [tree-node]. (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) {"userId":1,"exception":"InvalidArgumentException: Unable to locate a class or view for component [tree-node]. in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php:315
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(235): Illuminate\\View\\Compilers\\ComponentTagCompiler->componentClass()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(220): Illuminate\\View\\Compilers\\ComponentTagCompiler->componentString()
+#2 [internal function]: Illuminate\\View\\Compilers\\ComponentTagCompiler->{closure:Illuminate\\View\\Compilers\\ComponentTagCompiler::compileSelfClosingTags():215}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(215): preg_replace_callback()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(89): Illuminate\\View\\Compilers\\ComponentTagCompiler->compileSelfClosingTags()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(76): Illuminate\\View\\Compilers\\ComponentTagCompiler->compileTags()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(456): Illuminate\\View\\Compilers\\ComponentTagCompiler->compile()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(288): Illuminate\\View\\Compilers\\BladeCompiler->compileComponentTags()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(188): Illuminate\\View\\Compilers\\BladeCompiler->compileString()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(68): Illuminate\\View\\Compilers\\BladeCompiler->compile()
+#10 /var/www/vhosts/kalf
+... [truncated 51566 chars]"} 
+[2026-03-10 17:09:33] production.ERROR: Unable to locate a class or view for component [tree-node]. (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) {"userId":1,"exception":"InvalidArgumentException: Unable to locate a class or view for component [tree-node]. in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php:315
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(235): Illuminate\\View\\Compilers\\ComponentTagCompiler->componentClass()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(220): Illuminate\\View\\Compilers\\ComponentTagCompiler->componentString()
+#2 [internal function]: Illuminate\\View\\Compilers\\ComponentTagCompiler->{closure:Illuminate\\View\\Compilers\\ComponentTagCompiler::compileSelfClosingTags():215}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(215): preg_replace_callback()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(89): Illuminate\\View\\Compilers\\ComponentTagCompiler->compileSelfClosingTags()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(76): Illuminate\\View\\Compilers\\ComponentTagCompiler->compileTags()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(456): Illuminate\\View\\Compilers\\ComponentTagCompiler->compile()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(288): Illuminate\\View\\Compilers\\BladeCompiler->compileComponentTags()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(188): Illuminate\\View\\Compilers\\BladeCompiler->compileString()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(68): Illuminate\\View\\Compilers\\BladeCompiler->compile()
+#10 /var/www/vhosts/kalf
+... [truncated 51566 chars]"} 
+[2026-03-10 17:20:02] production.ERROR: Undefined variable $icon (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/components/tree/branch.blade.php) {"userId":1,"exception":"ErrorException: Undefined variable $icon in /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/c208e98e2cf463ca070f6206c1ebe5fb.php:72
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
+#1 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/c208e98e2cf463ca070f6206c1ebe5fb.php(72): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->{closure:Illuminate\\Foundation\\Bootstrap\\HandleExceptions::forwardsTo():257}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\\View\\Engines\\CompilerEngine->get()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\\View\\View->renderContents()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Concerns/ManagesComponents.php(103): Illuminate\\View\\View->render()
+#10 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fcc5cd6ccfe8f1eb2f05f4f2821685d0.php(193): Illu
+... [truncated 69937 chars]"} 
+[2026-03-10 17:39:26] production.ERROR: Unable to find component: [tree-branch] {"userId":1,"exception":"Livewire\\Exceptions\\ComponentNotFoundException: Unable to find component: [tree-branch] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Factory/Factory.php:76
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Factory/Factory.php(23): Livewire\\Factory\\Factory->resolveComponentNameAndClass()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(79): Livewire\\Factory\\Factory->create()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(55): Livewire\\LivewireManager->new()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fcc5cd6ccfe8f1eb2f05f4f2821685d0.php(205): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\\View\\Engines\\CompilerEngine->get()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#11 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framewor
+... [truncated 16313 chars]"} 
+[2026-03-10 17:41:31] production.ERROR: Command "livewire:list" is not defined.
+
+Did you mean one of these?
+    channel:list
+    event:list
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs
+    make:listener
+    queue:listen
+    route:list
+    schedule:list {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"livewire:list\" is not defined.
+
+Did you mean one of these?
+    channel:list
+    event:list
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs
+    make:listener
+    queue:listen
+    route:list
+    schedule:list at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+[2026-03-10 17:45:26] production.ERROR: Unable to find component: [tree-branch] {"userId":1,"exception":"Livewire\\Exceptions\\ComponentNotFoundException: Unable to find component: [tree-branch] in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Factory/Factory.php:76
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Factory/Factory.php(23): Livewire\\Factory\\Factory->resolveComponentNameAndClass()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(79): Livewire\\Factory\\Factory->create()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(55): Livewire\\LivewireManager->new()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(102): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->mount()
+#4 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/fcc5cd6ccfe8f1eb2f05f4f2821685d0.php(205): Livewire\\LivewireManager->mount()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(37): include('...')
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(38): App\\Livewire\\System\\Products\\ProductTree->{closure:Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine::evaluatePath():35}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(16): Illuminate\\View\\Engines\\CompilerEngine->get()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#11 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framewor
+... [truncated 16313 chars]"} 
+[2026-03-10 17:52:24] production.ERROR: Unable to call component method. Public method [requestAddFeature] not found on component {"userId":1,"exception":"Livewire\\Exceptions\\MethodNotFoundException: Unable to call component method. Public method [requestAddFeature] not found on component in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php:656
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(239): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->callMethods()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(131): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->update()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleRequests/HandleRequests.php(190): Livewire\\LivewireManager->update()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire\\Mechanisms\\HandleRequests\\HandleRequests->handleUpdate()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleRequests/RequireLivewireHeaders.php(19): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\\Mechanisms\\HandleRequests\\RequireLivewireHeaders->handle()
+#10 /var/www/vhosts/kalfa.me/http
+... [truncated 9073 chars]"} 
+[2026-03-10 18:00:04] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-10 18:20:10] production.ERROR: Not enough arguments (missing: "name"). {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): Not enough arguments (missing: \"name\"). at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php:69)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(335): Symfony\\Component\\Console\\Input\\Input->validate()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#7 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#8 {main}
+"} 

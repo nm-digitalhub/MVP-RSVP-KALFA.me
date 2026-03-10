@@ -55,3 +55,143 @@
 [2026-03-10 08:43:17] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T06:43:16.985Z"} 
 [2026-03-10 09:20:48] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-10T07:20:47.665Z"} 
 [2026-03-10 09:20:55] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-10T07:20:54.499Z"} 
+[2026-03-10 15:38:57] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/accounts/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:38:56.401Z"} 
+[2026-03-10 15:39:02] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:01.911Z"} 
+[2026-03-10 15:39:08] production.WARNING: Alpine Expression Error: undefined is not an object (evaluating '$store.productTree.showStatuses')
+
+Expression: "$store.productTree.showStatuses" null 347 null null   null  {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.161Z"} 
+[2026-03-10 15:39:08] production.WARNING: Alpine Expression Error: undefined is not an object (evaluating '$store.productTree.showIdentifiers')
+
+Expression: "$store.productTree.showIdentifiers" null 350 null null   null  {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.162Z"} 
+[2026-03-10 15:39:08] production.WARNING: Alpine Expression Error: undefined is not an object (evaluating '$store.productTree.showIcons')
+
+Expression: "$store.productTree.showIcons" null 353 null null   null  {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.162Z"} 
+[2026-03-10 15:39:08] production.ERROR: TypeError: undefined is not an object (evaluating '$store.productTree.showStatuses') https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 TypeError undefined is not an object (evaluating '$store.productTree.showStatuses') anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+getValue@https://kalfa.me/vendor/livewire/livewire.js:3656:18
+@https://kalfa.me/vendor/livewire/livewire.js:3747:27
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3746:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.175Z"} 
+[2026-03-10 15:39:08] production.ERROR: TypeError: undefined is not an object (evaluating '$store.productTree.showStatuses') https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 TypeError undefined is not an object (evaluating '$store.productTree.showStatuses') anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+getValue@https://kalfa.me/vendor/livewire/livewire.js:3656:18
+@https://kalfa.me/vendor/livewire/livewire.js:3747:27
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3746:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.175Z"} 
+[2026-03-10 15:39:08] production.ERROR: TypeError: undefined is not an object (evaluating '$store.productTree.showIdentifiers') https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 TypeError undefined is not an object (evaluating '$store.productTree.showIdentifiers') anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+getValue@https://kalfa.me/vendor/livewire/livewire.js:3656:18
+@https://kalfa.me/vendor/livewire/livewire.js:3747:27
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3746:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.175Z"} 
+[2026-03-10 15:39:08] production.ERROR: TypeError: undefined is not an object (evaluating '$store.productTree.showIdentifiers') https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 TypeError undefined is not an object (evaluating '$store.productTree.showIdentifiers') anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+getValue@https://kalfa.me/vendor/livewire/livewire.js:3656:18
+@https://kalfa.me/vendor/livewire/livewire.js:3747:27
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3746:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.175Z"} 
+[2026-03-10 15:39:08] production.ERROR: TypeError: undefined is not an object (evaluating '$store.productTree.showIcons') https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 TypeError undefined is not an object (evaluating '$store.productTree.showIcons') anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+getValue@https://kalfa.me/vendor/livewire/livewire.js:3656:18
+@https://kalfa.me/vendor/livewire/livewire.js:3747:27
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3746:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.176Z"} 
+[2026-03-10 15:39:08] production.ERROR: TypeError: undefined is not an object (evaluating '$store.productTree.showIcons') https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 TypeError undefined is not an object (evaluating '$store.productTree.showIcons') anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+getValue@https://kalfa.me/vendor/livewire/livewire.js:3656:18
+@https://kalfa.me/vendor/livewire/livewire.js:3747:27
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3746:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.176Z"} 
+[2026-03-10 15:39:08] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T13:39:07.179Z"} 
+[2026-03-10 16:05:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T14:05:51.936Z"} 
+[2026-03-10 16:06:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T14:06:36.421Z"} 
+[2026-03-10 16:15:01] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T14:15:00.410Z"} 
+[2026-03-10 16:27:51] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T14:27:50.722Z"} 
+[2026-03-10 16:38:50] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T14:38:49.377Z"} 
+[2026-03-10 17:50:46] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T15:50:45.226Z"} 
+[2026-03-10 17:51:41] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T15:51:40.184Z"} 
+[2026-03-10 18:08:36] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-10T16:08:35.278Z"} 

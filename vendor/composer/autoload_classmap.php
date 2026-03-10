@@ -107,6 +107,7 @@ return array(
     'App\\Livewire\\System\\Products\\Index' => $baseDir . '/app/Livewire/System/Products/Index.php',
     'App\\Livewire\\System\\Products\\ProductCard' => $baseDir . '/app/Livewire/System/Products/ProductCard.php',
     'App\\Livewire\\System\\Products\\ProductStatusBadge' => $baseDir . '/app/Livewire/System/Products/ProductStatusBadge.php',
+    'App\\Livewire\\System\\Products\\ProductTree' => $baseDir . '/app/Livewire/System/Products/ProductTree.php',
     'App\\Livewire\\System\\Products\\Show' => $baseDir . '/app/Livewire/System/Products/Show.php',
     'App\\Livewire\\System\\Settings\\Index' => $baseDir . '/app/Livewire/System/Settings/Index.php',
     'App\\Livewire\\System\\Users\\Index' => $baseDir . '/app/Livewire/System/Users/Index.php',

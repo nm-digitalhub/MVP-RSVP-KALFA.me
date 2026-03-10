@@ -1017,6 +1017,7 @@ class ComposerStaticInitcb83028486eabf5424b2ab1e42d40bd1
         'App\\Livewire\\System\\Products\\Index' => __DIR__ . '/../..' . '/app/Livewire/System/Products/Index.php',
         'App\\Livewire\\System\\Products\\ProductCard' => __DIR__ . '/../..' . '/app/Livewire/System/Products/ProductCard.php',
         'App\\Livewire\\System\\Products\\ProductStatusBadge' => __DIR__ . '/../..' . '/app/Livewire/System/Products/ProductStatusBadge.php',
+        'App\\Livewire\\System\\Products\\ProductTree' => __DIR__ . '/../..' . '/app/Livewire/System/Products/ProductTree.php',
         'App\\Livewire\\System\\Products\\Show' => __DIR__ . '/../..' . '/app/Livewire/System/Products/Show.php',
         'App\\Livewire\\System\\Settings\\Index' => __DIR__ . '/../..' . '/app/Livewire/System/Settings/Index.php',
         'App\\Livewire\\System\\Users\\Index' => __DIR__ . '/../..' . '/app/Livewire/System/Users/Index.php',
