@@ -39,6 +39,7 @@ class CheckoutController extends Controller
                     'payment_id' => $result['payment_id'],
                 ], 200);
             }
+
             return response()->json([
                 'status' => 'failed',
                 'payment_id' => $result['payment_id'] ?? null,

@@ -9,7 +9,6 @@ use App\Models\Event;
 use App\Models\Guest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class GuestImportController extends Controller
 {
@@ -26,7 +25,7 @@ class GuestImportController extends Controller
         }
 
         if ($file->getError() !== null) {
-            return response()->json(['error' => 'File upload failed: ' . $file->getError()->getMessage()], 400);
+            return response()->json(['error' => 'File upload failed: '.$file->getError()->getMessage()], 400);
         }
 
         $handle = fopen($file->getRealPath(), 'r');
@@ -44,6 +43,7 @@ class GuestImportController extends Controller
 
         if ($headers === false) {
             fclose($handle);
+
             return response()->json(['error' => 'Could not read CSV headers'], 400);
         }
 
@@ -51,8 +51,9 @@ class GuestImportController extends Controller
 
         while (($data = fgetcsv($handle, 0)) !== false) {
             if (count($data) !== count($headers)) {
-                $errors[] = "Row " . ($importedCount + 1) . " has incorrect column count: " . count($data) . " (expected " . count($headers) . ")";
+                $errors[] = 'Row '.($importedCount + 1).' has incorrect column count: '.count($data).' (expected '.count($headers).')';
                 fclose($handle);
+
                 return response()->json(['error' => 'Invalid CSV format', 'details' => $errors], 400);
             }
 
@@ -65,6 +66,7 @@ class GuestImportController extends Controller
 
             if (empty($name) && empty($email)) {
                 $skippedCount++;
+
                 continue;
             }
 

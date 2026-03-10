@@ -13,7 +13,8 @@ class StubPaymentGateway implements PaymentGatewayInterface
 {
     public function createOneTimePayment(int $organizationId, int $amount, array $metadata = []): array
     {
-        $id = 'stub_' . uniqid('', true);
+        $id = 'stub_'.uniqid('', true);
+
         return [
             'transaction_id' => $id,
             'redirect_url' => url("/api/rsvp/stub-success?tid={$id}"),

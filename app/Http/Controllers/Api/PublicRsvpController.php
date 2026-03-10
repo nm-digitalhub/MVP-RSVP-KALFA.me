@@ -64,6 +64,7 @@ class PublicRsvpController extends Controller
                 'status' => \App\Enums\InvitationStatus::Responded,
                 'responded_at' => now(),
             ]);
+
             return $rsvp;
         });
 
