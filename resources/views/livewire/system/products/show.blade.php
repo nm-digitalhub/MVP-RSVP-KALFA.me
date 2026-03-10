@@ -102,7 +102,7 @@
                     <div class="grid gap-5 sm:grid-cols-2">
                         <div class="space-y-2">
                             <label for="edit-name" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Name') }}</label>
-                            <input id="edit-name" wire:model.blur="name" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
+                            <input id="edit-name" wire:model.live.blur="name" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
                             @error('name') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                         </div>
 
@@ -110,7 +110,7 @@
                             <label for="edit-slug" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Slug') }}</label>
                             <div class="relative">
                                 <span class="absolute start-4 top-1/2 -translate-y-1/2 text-xs font-black uppercase tracking-[0.18em] text-slate-300">/</span>
-                                <input id="edit-slug" wire:model.blur="slug" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 py-4 pe-5 ps-10 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
+                                <input id="edit-slug" wire:model.live.blur="slug" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 py-4 pe-5 ps-10 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
                             </div>
                             @error('slug') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                         </div>
@@ -118,19 +118,19 @@
                             <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                                 <div class="space-y-2">
                                     <label for="plan-slug" class="block px-1 text-[10px] font-black uppercase tracking-[0.20em] text-slate-400">{{ __('Slug') }}</label>
-                                    <input id="plan-slug" wire:model.blur="planSlug" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
+                                    <input id="plan-slug" wire:model.live.blur="planSlug" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
                                     @error('planSlug') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                                 </div>
                                 <div class="space-y-2">
                                     <label for="plan-sku" class="block px-1 text-[10px] font-black uppercase tracking-[0.20em] text-slate-400">{{ __('SKU') }}</label>
-                                    <input id="plan-sku" wire:model.blur="planSku" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
+                                    <input id="plan-sku" wire:model.live.blur="planSku" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
                                     @error('planSku') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                                 </div>
                             </div>
 
                         <div class="space-y-2">
                             <label for="edit-category" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Category') }}</label>
-                            <input id="edit-category" wire:model.blur="category" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
+                            <input id="edit-category" wire:model.live.blur="category" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
                             @error('category') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                         </div>
 
@@ -146,7 +146,7 @@
 
                     <div class="mt-5 space-y-2">
                         <label for="edit-description" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Description') }}</label>
-                        <textarea id="edit-description" wire:model.blur="description" rows="4" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10"></textarea>
+                        <textarea id="edit-description" wire:model.live.blur="description" rows="4" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10"></textarea>
                         @error('description') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                     </div>
 
@@ -296,7 +296,7 @@
                 <form wire:submit.prevent="addEntitlement" class="grid gap-4 sm:grid-cols-2">
                     <div class="space-y-2">
                         <label for="new-key" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-900/50">{{ __('Feature Key') }}</label>
-                        <input id="new-key" wire:model.blur="newFeatureKey" type="text" list="common-feature-keys" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="max_guests" />
+                        <input id="new-key" wire:model.live.blur="newFeatureKey" type="text" list="common-feature-keys" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="max_guests" />
                         <datalist id="common-feature-keys">
                             <option value="max_guests">
                             <option value="max_events">
@@ -313,7 +313,7 @@
 
                     <div class="space-y-2">
                         <label for="new-label" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-900/50">{{ __('Display Label') }}</label>
-                        <input id="new-label" wire:model.blur="newLabel" type="text" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('Maximum Guests') }}" />
+                        <input id="new-label" wire:model.live.blur="newLabel" type="text" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('Maximum Guests') }}" />
                         @error('newLabel') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                     </div>
 
@@ -328,13 +328,13 @@
 
                     <div class="space-y-2">
                         <label for="new-value" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-900/50">{{ __('Grant Value') }}</label>
-                        <input id="new-value" wire:model.blur="newValue" type="text" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="1000" />
+                        <input id="new-value" wire:model.live.blur="newValue" type="text" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="1000" />
                         @error('newValue') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="space-y-2 sm:col-span-2">
                         <label for="new-desc" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-indigo-900/50">{{ __('Description') }}</label>
-                        <textarea id="new-desc" wire:model.blur="newDescription" rows="3" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('Explain what this grant does in the domain model.') }}"></textarea>
+                        <textarea id="new-desc" wire:model.live.blur="newDescription" rows="3" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('Explain what this grant does in the domain model.') }}"></textarea>
                         @error('newDescription') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                     </div>
 
