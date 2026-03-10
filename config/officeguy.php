@@ -104,7 +104,7 @@ return [
     'customer_merging_enabled' => env('OFFICEGUY_CUSTOMER_MERGING_ENABLED', false),
     'customer_local_sync_enabled' => env('OFFICEGUY_CUSTOMER_LOCAL_SYNC_ENABLED', false),
     // Single source of truth: domain models (do not set via .env)
-    'customer_model_class' => 'App\\Models\\Organization',
+    'customer_model_class' => App\Models\Organization::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -116,8 +116,8 @@ return [
     |
     */
     'models' => [
-        'customer' => 'App\\Models\\Organization',
-        'order' => 'App\\Models\\EventBilling',
+        'customer' => App\Models\Organization::class,
+        'order' => App\Models\EventBilling::class,
     ],
 
     /*
@@ -290,7 +290,7 @@ return [
     */
     'order' => [
         'resolver' => null, // fn(string|int $orderId): ?Payable
-        'model' => 'App\\Models\\EventBilling',
+        'model' => App\Models\EventBilling::class,
     ],
 
     /*
