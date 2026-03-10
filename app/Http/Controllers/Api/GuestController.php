@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreGuestRequest;
 use App\Models\Event;
@@ -15,7 +16,7 @@ class GuestController extends Controller
 {
     public function index(Event $event): JsonResponse
     {
-        $this->authorize('view', $event);
+        Gate::authorize('view', $event);
 
         $guests = $event->guests()->orderBy('sort_order')->get();
 
@@ -24,7 +25,7 @@ class GuestController extends Controller
 
     public function store(StoreGuestRequest $request, Event $event): JsonResponse
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         $guest = $event->guests()->create($request->validated());
 
@@ -33,14 +34,14 @@ class GuestController extends Controller
 
     public function show(Guest $guest): JsonResponse
     {
-        $this->authorize('view', $guest);
+        Gate::authorize('view', $guest);
 
         return response()->json($guest);
     }
 
     public function update(Request $request, Guest $guest): JsonResponse
     {
-        $this->authorize('update', $guest);
+        Gate::authorize('update', $guest);
 
         $validated = $request->validate([
             'name' => ['sometimes', 'string', 'max:255'],
@@ -58,7 +59,7 @@ class GuestController extends Controller
 
     public function destroy(Guest $guest): JsonResponse
     {
-        $this->authorize('delete', $guest);
+        Gate::authorize('delete', $guest);
 
         $guest->delete();
 

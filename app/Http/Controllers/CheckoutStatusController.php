@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Models\Payment;
 use Illuminate\View\View;
 
@@ -14,7 +15,7 @@ class CheckoutStatusController extends Controller
 {
     public function show(Payment $payment): View
     {
-        $this->authorize('view', $payment);
+        Gate::authorize('view', $payment);
 
         return view('checkout.status', [
             'payment' => $payment,
