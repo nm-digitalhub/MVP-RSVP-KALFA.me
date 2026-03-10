@@ -165,7 +165,7 @@ Each scenario: type into input, verify ephemeral state via `x-text="$wire.prop"`
 ## Manual Testing
 
 1. **Test ephemeral-only blur**
-   - Create input with `wire:model.blur="title"`
+   - Create input with `wire:model.live.blur="title"`
    - Type "hello" — ephemeral should NOT update
    - Click away — ephemeral updates to "hello"
    - Server still shows old value

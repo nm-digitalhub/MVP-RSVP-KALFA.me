@@ -7,11 +7,11 @@ new class extends \Livewire\Component
 ?>
 
 <div>
-    <button wire:click="$js.test" dusk="test">Test</button>
+    <button wire:click="$wire.$js.test" dusk="test">Test</button>
 </div>
 
 <script>
-    $js('test', () => {
+    $wire.$js.test = () => {
         window.test = 'through dollar js'
-    })
+    }
 </script>
