@@ -24,10 +24,10 @@ enum EntitlementType: string
     public function icon(): string
     {
         return match ($this) {
-            self::Boolean => 'o-switch',
-            self::Number => 'o-chart-bar',
-            self::Text => 'o-document-text',
-            self::Enum => 'o-chevron-selector-vertical',
+            self::Boolean => 'tni-toggle',
+            self::Number => 'heroicon-o-chart-bar',
+            self::Text => 'heroicon-o-document-text',
+            self::Enum => 'heroicon-o-chevron-up-down',
         };
     }
 

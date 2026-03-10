@@ -114,12 +114,19 @@ final class SumitBillingProvider implements BillingProvider
         $result = PaymentService::processCharge(
             $officeGuySubscription,
             1,
-            true,
+            false,
             false,
             $defaultToken,
             [
                 'Customer' => [
                     'ID' => (int) $customer['customer_reference'],
+                ],
+                'PaymentMethod' => [
+                    'Type' => 'CreditCard',
+                    'CreditCard_Token' => $defaultToken->token,
+                    'CreditCard_CitizenID' => $defaultToken->citizen_id,
+                    'CreditCard_ExpirationMonth' => $defaultToken->expiry_month,
+                    'CreditCard_ExpirationYear' => $defaultToken->expiry_year,
                 ],
             ],
         );
@@ -127,7 +134,16 @@ final class SumitBillingProvider implements BillingProvider
         if (! ($result['success'] ?? false)) {
             $officeGuySubscription->markAsFailed();
 
-            throw new \RuntimeException($result['message'] ?? 'Failed to create SUMIT recurring subscription.');
+            return [
+                'provider' => 'sumit',
+                'failed' => true,
+                'error' => $result['message'] ?? 'Failed to create SUMIT recurring subscription.',
+                'metadata' => [
+                    'officeguy_subscription_id' => $officeGuySubscription->id,
+                    'sumit_customer_id' => (int) $customer['customer_reference'],
+                    'product_price_id' => $price->id,
+                ],
+            ];
         }
 
         $recurringId = $result['response']['Data']['RecurringID']
@@ -232,8 +248,6 @@ final class SumitBillingProvider implements BillingProvider
         );
 
         if (! ($result['success'] ?? false)) {
-            $officeGuySubscription->markAsFailed();
-
             return [
                 'provider' => 'sumit',
                 'subscription_reference' => null,
@@ -241,9 +255,9 @@ final class SumitBillingProvider implements BillingProvider
                 'failed' => true,
                 'error' => $result['message'] ?? 'Payment failed',
                 'metadata' => [
-                    'officeguy_subscription_id' => $officeGuySubscription->id,
                     'sumit_customer_id' => (int) $customer['customer_reference'],
-                    'product_price_id' => $price->id,
+                    'amount_minor' => $amountMinor,
+                    'metric' => $metric,
                 ],
             ];
         }

@@ -15,10 +15,22 @@ class ProductPlan extends Model
         'product_id',
         'name',
         'slug',
+        'sku',
         'description',
         'is_active',
         'metadata',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (ProductPlan $plan) {
+            if (empty($plan->sku)) {
+                $productSlug = $plan->product?->slug ?? 'PRODUCT';
+                $planSlug = $plan->slug;
+                $plan->sku = strtoupper("{$productSlug}_{$planSlug}");
+            }
+        });
+    }
 
     protected function casts(): array
     {

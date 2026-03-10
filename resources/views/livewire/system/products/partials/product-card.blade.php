@@ -63,7 +63,7 @@
                 <span class="text-sm">{{ __('Manage') }}</span>
             </a>
             <a href="{{ route('system.products.show', $product) }}" class="hidden items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-bold text-slate-600 transition-all hover:bg-slate-50 sm:flex">
-                <x-heroicon-o-eye class="size-4" />
+                                               <x-fwb-o-eye class="size-4" />
                 <span class="text-sm">{{ __('View') }}</span>
             </a>
         </div>

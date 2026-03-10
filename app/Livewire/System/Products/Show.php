@@ -88,6 +88,8 @@ final class Show extends Component
 
     public string $planSlug = '';
 
+    public string $planSku = '';
+
     public ?string $planDescription = '';
 
     public bool $planIsActive = true;
@@ -190,6 +192,12 @@ final class Show extends Component
                     ->ignore($this->editingPlanId)
                     ->where(fn ($query) => $query->where('product_id', $this->product->id)),
             ],
+            'planSku' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('product_plans', 'sku')->ignore($this->editingPlanId),
+            ],
             'planDescription' => ['nullable', 'string', 'max:1000'],
             'planIsActive' => ['required', 'boolean'],
             'planVoiceRsvpLimit' => ['nullable', 'integer', 'min:0'],
@@ -229,16 +237,41 @@ final class Show extends Component
         $this->editStatus = $product->status;
     }
 
+    public function updatedName(): void
+    {
+        if (blank($this->slug)) {
+            $this->slug = Str::slug($this->name);
+        }
+    }
+
+    public function updatedSlug(): void
+    {
+        $this->slug = Str::slug($this->slug);
+    }
+
     public function updatedPlanName(): void
     {
         if (blank($this->planSlug)) {
             $this->planSlug = Str::slug($this->planName);
+        }
+
+        if (blank($this->planSku)) {
+            $this->planSku = strtoupper("{$this->product->slug}_{$this->planSlug}");
         }
     }
 
     public function updatedPlanSlug(): void
     {
         $this->planSlug = Str::slug($this->planSlug);
+
+        if (blank($this->planSku)) {
+            $this->planSku = strtoupper("{$this->product->slug}_{$this->planSlug}");
+        }
+    }
+
+    public function updatedPlanSku(): void
+    {
+        $this->planSku = strtoupper($this->planSku);
     }
 
     public function updatedPlanIncludedUnit(): void
@@ -524,6 +557,7 @@ final class Show extends Component
         $this->showAddPlanForm = true;
         $this->planName = $plan->name;
         $this->planSlug = $plan->slug;
+        $this->planSku = $plan->sku ?? '';
         $this->planDescription = $plan->description;
         $this->planIsActive = $plan->is_active;
         $this->planVoiceRsvpLimit = (string) data_get($limits, 'voice_rsvp_limit', '');
@@ -546,6 +580,7 @@ final class Show extends Component
             $this->findPlan($this->editingPlanId)->update([
                 'name' => $validated['planName'],
                 'slug' => $validated['planSlug'],
+                'sku' => $validated['planSku'],
                 'description' => $validated['planDescription'],
                 'is_active' => $validated['planIsActive'],
                 'metadata' => $this->buildPlanMetadata($validated),
@@ -556,6 +591,7 @@ final class Show extends Component
             $this->product->productPlans()->create([
                 'name' => $validated['planName'],
                 'slug' => $validated['planSlug'],
+                'sku' => $validated['planSku'],
                 'description' => $validated['planDescription'],
                 'is_active' => $validated['planIsActive'],
                 'metadata' => $this->buildPlanMetadata($validated),
@@ -580,6 +616,15 @@ final class Show extends Component
         ]);
 
         session()->flash('success', $plan->fresh()->is_active ? __('Plan activated.') : __('Plan deactivated.'));
+    }
+
+    public function reorderPlans(array $ids): void
+    {
+        foreach ($ids as $index => $id) {
+            $this->product->productPlans()
+                ->whereKey((int) $id)
+                ->update(['sort_order' => $index]);
+        }
     }
 
     public function deletePlan(int $planId): void
@@ -802,6 +847,7 @@ final class Show extends Component
         $this->reset([
             'planName',
             'planSlug',
+            'planSku',
             'planDescription',
             'editingPlanId',
             'planVoiceRsvpLimit',

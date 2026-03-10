@@ -80,12 +80,7 @@ final class EntitlementRow extends Component
     {
         $type = $this->entitlement->type ?? EntitlementType::Text;
 
-        return match ($type) {
-            EntitlementType::Boolean => 'o-switch',
-            EntitlementType::Number => 'o-chart-bar',
-            EntitlementType::Text => 'o-document-text',
-            EntitlementType::Enum => 'o-chevron-selector-vertical',
-        };
+        return $type->icon();
     }
 
     public function getTypeColor(): string
