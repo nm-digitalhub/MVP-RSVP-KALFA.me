@@ -879,3 +879,383 @@ Stack trace:
 #7 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
 #8 {main}
 "} 
+[2026-03-10 18:58:36] production.ERROR: Command "livewire:version" is not defined.
+
+Did you mean one of these?
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"livewire:version\" is not defined.
+
+Did you mean one of these?
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+[2026-03-10 19:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-10 20:00:06] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-10 20:30:49] production.ERROR: Command "livewire:list" is not defined.
+
+Did you mean one of these?
+    channel:list
+    event:list
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs
+    make:listener
+    queue:listen
+    route:list
+    schedule:list {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"livewire:list\" is not defined.
+
+Did you mean one of these?
+    channel:list
+    event:list
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs
+    make:listener
+    queue:listen
+    route:list
+    schedule:list at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+[2026-03-10 20:32:11] production.ERROR: Command "livewire:list" is not defined.
+
+Did you mean one of these?
+    channel:list
+    event:list
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs
+    make:listener
+    queue:listen
+    route:list
+    schedule:list {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"livewire:list\" is not defined.
+
+Did you mean one of these?
+    channel:list
+    event:list
+    livewire:attribute
+    livewire:config
+    livewire:configure-s3-upload-cleanup
+    livewire:convert
+    livewire:form
+    livewire:layout
+    livewire:publish
+    livewire:stubs
+    make:listener
+    queue:listen
+    route:list
+    schedule:list at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+[2026-03-10 20:42:09] production.ERROR: Unable to locate a class or view for component [tree.node]. (View: /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/livewire/views/c9abce21.blade.php) (View: /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/livewire/views/c9abce21.blade.php) {"userId":1,"exception":"InvalidArgumentException: Unable to locate a class or view for component [tree.node]. in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php:315
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(235): Illuminate\\View\\Compilers\\ComponentTagCompiler->componentClass()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(220): Illuminate\\View\\Compilers\\ComponentTagCompiler->componentString()
+#2 [internal function]: Illuminate\\View\\Compilers\\ComponentTagCompiler->{closure:Illuminate\\View\\Compilers\\ComponentTagCompiler::compileSelfClosingTags():215}()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(215): preg_replace_callback()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(89): Illuminate\\View\\Compilers\\ComponentTagCompiler->compileSelfClosingTags()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/ComponentTagCompiler.php(76): Illuminate\\View\\Compilers\\ComponentTagCompiler->compileTags()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(456): Illuminate\\View\\Compilers\\ComponentTagCompiler->compile()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(288): Illuminate\\View\\Compilers\\BladeCompiler->compileComponentTags()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Compilers/BladeCompiler.php(188): Illuminate\\View\\Compilers\\BladeCompiler->compileString()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(68): Illuminate\\View\\Compilers\\BladeCompiler->compile()
+#10 /var/www/vhosts/kalf
+... [truncated 52386 chars]"} 
+[2026-03-10 20:45:47] production.ERROR: Unable to call component method. Public method [requestEditFeature] not found on component {"userId":1,"exception":"Livewire\\Exceptions\\MethodNotFoundException: Unable to call component method. Public method [requestEditFeature] not found on component in /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php:656
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(239): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->callMethods()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(131): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->update()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleRequests/HandleRequests.php(190): Livewire\\LivewireManager->update()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire\\Mechanisms\\HandleRequests\\HandleRequests->handleUpdate()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): Illuminate\\Routing\\Route->runController()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Router.php(822): Illuminate\\Routing\\Route->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(180): Illuminate\\Routing\\Router->{closure:Illuminate\\Routing\\Router::runRouteWithinStack():821}()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleRequests/RequireLivewireHeaders.php(19): Illuminate\\Pipeline\\Pipeline->{closure:Illuminate\\Pipeline\\Pipeline::prepareDestination():178}()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(219): Livewire\\Mechanisms\\HandleRequests\\RequireLivewireHeaders->handle()
+#10 /var/www/vhosts/kalfa.me/htt
+... [truncated 9074 chars]"} 
+[2026-03-10 20:56:32] production.ERROR: App\Livewire\System\Products\Show::startEditFeature(): Argument #1 ($featureId) must be of type int, array given, called in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php on line 36 {"userId":1,"exception":"TypeError: App\\Livewire\\System\\Products\\Show::startEditFeature(): Argument #1 ($featureId) must be of type int, array given, called in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php on line 36 and defined in /var/www/vhosts/kalfa.me/httpdocs/app/Livewire/System/Products/Show.php:481
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Livewire\\System\\Products\\Show->startEditFeature()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Wrapped.php(23): Illuminate\\Container\\BoundMethod::call()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportEvents/SupportEvents.php(29): Livewire\\Wrapped->__call()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/ComponentHook.php(41): Livewire\\Features\\SupportEvents\\SupportEvents->call()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/ComponentHookRegistry.php(114): Livewire\\ComponentHook->callCall()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/ComponentHookRegistry.php(65): Livewire\\ComponentHookRegistry::{closure:Livewire\\ComponentHookRegistry::proxyCallToHooks():110}()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(87): Livewire\\ComponentHookRegistry::{closure:Livewire\\ComponentHookRegistry::boot():64}()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/helpers.php(
+... [truncated 10991 chars]"} 
+[2026-03-10 20:58:49] production.ERROR: App\Livewire\System\Products\Show::startEditLimit(): Argument #1 ($limitId) must be of type int, array given, called in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php on line 36 {"userId":1,"exception":"TypeError: App\\Livewire\\System\\Products\\Show::startEditLimit(): Argument #1 ($limitId) must be of type int, array given, called in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php on line 36 and defined in /var/www/vhosts/kalfa.me/httpdocs/app/Livewire/System/Products/Show.php:401
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Livewire\\System\\Products\\Show->startEditLimit()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Wrapped.php(23): Illuminate\\Container\\BoundMethod::call()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Features/SupportEvents/SupportEvents.php(29): Livewire\\Wrapped->__call()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/ComponentHook.php(41): Livewire\\Features\\SupportEvents\\SupportEvents->call()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/ComponentHookRegistry.php(114): Livewire\\ComponentHook->callCall()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/ComponentHookRegistry.php(65): Livewire\\ComponentHookRegistry::{closure:Livewire\\ComponentHookRegistry::proxyCallToHooks():110}()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/EventBus.php(87): Livewire\\ComponentHookRegistry::{closure:Livewire\\ComponentHookRegistry::boot():64}()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/helpers.php(98): L
+... [truncated 10985 chars]"} 
+[2026-03-10 21:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-10 22:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-10 23:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-11 00:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-11 01:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-11 02:00:04] production.INFO: SUMIT debt auto-check completed successfully  
+[2026-03-11 02:00:07] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-11 02:00:12] production.INFO: CRM folders auto-sync completed successfully  
+[2026-03-11 03:00:05] production.ERROR: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "sumit_customer_id" does not exist
+LINE 1: select * from "organizations" where "sumit_customer_id" is n...
+                                            ^ (Connection: pgsql, Host: 127.0.0.1, Port: 5432, Database: kalfa_rsvp, SQL: select * from "organizations" where "sumit_customer_id" is not null) {"exception":"PDOException: SQLSTATE[42703]: Undefined column: 7 ERROR:  column \"sumit_customer_id\" does not exist
+LINE 1: select * from \"organizations\" where \"sumit_customer_id\" is n...
+                                            ^ in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php:425
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(425): PDOStatement->execute()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\\Database\\Connection->{closure:Illuminate\\Database\\Connection::select():411}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(411): Illuminate\\Database\\Connection->run()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3475): Illuminate\\Database\\Connection->select()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3460): Illuminate\\Database\\Query\\Builder->runSelect()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4050): Illuminate\\Database\\Query\\Builder->{closure:Illuminate\\Database\\Query\\Builder::get():3459}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3459): Illuminate\\Database\\Query\\Builder->onceWithColumns()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(902): Illuminate\\Database\\Query\\Builder->get()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(884): Illuminate\\Database\\Eloquent\\Builder->getModels()
+#10 /var/www/vhosts/kalfa.me/httpdocs/
+... [truncated 6735 chars]"} 
+[2026-03-11 03:00:05] production.ERROR: The "--fail-on-issues" option does not accept a value. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--fail-on-issues\" option does not accept a value. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:241)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-11 03:00:06] production.ERROR: SUMIT documents auto-sync failed  
+[2026-03-11 03:12:19] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-11 03:12:22] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-11 03:12:25] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 

@@ -36,6 +36,30 @@ return [
 
     /*
     |---------------------------------------------------------------------------
+    | Page Layout
+    |---------------------------------------------------------------------------
+    | The view that will be used as the layout when rendering a single component as
+    | an entire page via `Route::livewire('/post/create', 'pages::create-post')`.
+    | In this case, the content of pages::create-post will render into $slot.
+    |
+    */
+
+    'component_layout' => 'layouts::app',
+
+    /*
+    |---------------------------------------------------------------------------
+    | Lazy Loading Placeholder
+    |---------------------------------------------------------------------------
+    | Livewire allows you to lazy load components that would otherwise slow down
+    | the initial page load. Every component can have a custom placeholder or
+    | you can define the default placeholder view for all components below.
+    |
+    */
+
+    'component_placeholder' => null, // Example: 'placeholders::skeleton'
+
+    /*
+    |---------------------------------------------------------------------------
     | Make Command
     |---------------------------------------------------------------------------
     | This value determines the default configuration for the artisan make command
@@ -45,7 +69,7 @@ return [
     */
 
     'make_command' => [
-        'type' => 'class', // Options: 'sfc', 'mfc', 'class'
+        'type' => 'sfc', // Options: 'sfc', 'mfc', 'class'
         'emoji' => true, // Options: true, false
         'with' => [
             'js' => false,
@@ -69,6 +93,19 @@ return [
 
     /*
     |---------------------------------------------------------------------------
+    | Class Path
+    |---------------------------------------------------------------------------
+    |
+    | This value is used to specify the path where Livewire component class files
+    | are created when running creation commands like `artisan make:livewire`.
+    | This path is customizable to match your projects directory structure.
+    |
+    */
+
+    'class_path' => app_path('Livewire'),
+
+    /*
+    |---------------------------------------------------------------------------
     | View Path
     |---------------------------------------------------------------------------
     |
@@ -82,40 +119,6 @@ return [
 
     /*
     |---------------------------------------------------------------------------
-    | Component Layout
-    |---------------------------------------------------------------------------
-    |
-    | The view used when rendering a full-page component. v4 uses layouts::app
-    | (resources/views/layouts/app.blade.php) by default.
-    |
-    */
-
-    'component_layout' => 'layouts::app',
-
-    /*
-    |---------------------------------------------------------------------------
-    | Component Placeholder
-    |---------------------------------------------------------------------------
-    |
-    | The view used as a placeholder when a component is lazy loaded or deferred.
-    |
-    */
-
-    'component_placeholder' => null,
-
-    /*
-    |---------------------------------------------------------------------------
-    | Smart wire:key (v4 default: true)
-    |---------------------------------------------------------------------------
-    | Helps prevent wire:key issues on nested components. Manual wire:key in
-    | @foreach loops is still required.
-    |
-    */
-
-    'smart_wire_keys' => true,
-
-    /*
-    |---------------------------------------------------------------------------
     | Temporary File Uploads
     |---------------------------------------------------------------------------
     |
@@ -126,11 +129,11 @@ return [
     */
 
     'temporary_file_upload' => [
-        'disk' => null,        // Example: 'local', 's3'              | Default: 'default'
-        'rules' => null,       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
-        'directory' => null,   // Example: 'tmp'                      | Default: 'livewire-tmp'
-        'middleware' => null,  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
-        'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
+        'disk' => env('LIVEWIRE_TEMPORARY_FILE_UPLOAD_DISK'), // Example: 'local', 's3'             | Default: 'default'
+        'rules' => null,                                      // Example: ['file', 'mimes:png,jpg'] | Default: ['required', 'file', 'max:12288'] (12MB)
+        'directory' => null,                                  // Example: 'tmp'                     | Default: 'livewire-tmp'
+        'middleware' => null,                                 // Example: 'throttle:5,1'            | Default: 'throttle:60,1'
+        'preview_mimes' => [                                  // Supported file types for temporary pre-signed file URLs...
             'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
             'mov', 'avi', 'wmv', 'mp3', 'm4a',
             'jpg', 'jpeg', 'mpga', 'webp', 'wma',
@@ -209,6 +212,19 @@ return [
 
     /*
     |---------------------------------------------------------------------------
+    | Smart Wire Keys
+    |---------------------------------------------------------------------------
+    |
+    | Livewire uses loops and keys used within loops to generate smart keys that
+    | are applied to nested components that don't have them. This makes using
+    | nested components more reliable by ensuring that they all have keys.
+    |
+    */
+
+    'smart_wire_keys' => true,
+
+    /*
+    |---------------------------------------------------------------------------
     | Pagination Theme
     |---------------------------------------------------------------------------
     |
@@ -219,6 +235,19 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
+
+    /*
+    |---------------------------------------------------------------------------
+    | Release Token
+    |---------------------------------------------------------------------------
+    |
+    | This token is stored client-side and sent along with each request to check
+    | a users session to see if a new release has invalidated it. If there is
+    | a mismatch it will throw an error and prompt for a browser refresh.
+    |
+    */
+
+    'release_token' => 'a',
 
     /*
     |---------------------------------------------------------------------------

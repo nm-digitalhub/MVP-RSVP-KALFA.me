@@ -143,23 +143,20 @@ $wire.reorderPlans(
 .map(el => el.dataset.id)
 )
 }
-})
-"
+})"
 >
 
 @foreach ($this->plans as $plan)
 
 <div data-id="{{ $plan->id }}" wire:key="tree-plan-{{ $plan->id }}">
 
-<x-tree.node
-:node-id="$plan->id"
+<livewire:tree-node
+:nodeId="$plan->id"
 :label="$plan->name"
 :identifier="$plan->slug"
 :status="$plan->is_active ? 'active' : 'inactive'"
+:type="'plan'"
 :draggable="true"
-:edit-action="'requestEditPlan(' . $plan->id . ')'"
-:delete-action="'requestDeletePlan(' . $plan->id . ')'"
-:toggle-action="'requestTogglePlan(' . $plan->id . ')'"
 />
 
 </div>
@@ -184,15 +181,13 @@ add-action="requestAddLimit"
 
 @foreach ($this->limits as $limit)
 
-<x-tree.node
+<livewire:tree-node
 wire:key="tree-limit-{{ $limit->id }}"
-:node-id="$limit->id"
+:nodeId="$limit->id"
 :label="$limit->label ?: $limit->limit_key"
 :identifier="$limit->limit_key"
 :status="$limit->is_active ? 'active' : 'inactive'"
-:edit-action="'requestEditLimit(' . $limit->id . ')'"
-:delete-action="'requestDeleteLimit(' . $limit->id . ')'"
-:toggle-action="'requestToggleLimit(' . $limit->id . ')'"
+:type="'limit'"
 />
 
 @endforeach
@@ -211,15 +206,13 @@ add-action="requestAddFeature"
 
 @foreach ($this->features as $feature)
 
-<x-tree.node
+<livewire:tree-node
 wire:key="tree-feature-{{ $feature->id }}"
-:node-id="$feature->id"
+:nodeId="$feature->id"
 :label="$feature->label ?: $feature->feature_key"
 :identifier="$feature->feature_key"
 :status="$feature->is_enabled ? 'enabled' : 'disabled'"
-:edit-action="'requestEditFeature(' . $feature->id . ')'"
-:delete-action="'requestDeleteFeature(' . $feature->id . ')'"
-:toggle-action="'requestToggleFeature(' . $feature->id . ')'"
+:type="'feature'"
 />
 
 @endforeach
@@ -236,12 +229,13 @@ wire:key="tree-feature-{{ $feature->id }}"
 
 @foreach ($this->entitlements as $entitlement)
 
-<x-tree.node
+<livewire:tree-node
 wire:key="tree-entitlement-{{ $entitlement->id }}"
-:node-id="$entitlement->id"
+:nodeId="$entitlement->id"
 :label="$entitlement->label ?: $entitlement->feature_key"
 :identifier="$entitlement->feature_key"
 :status="$entitlement->is_active ? 'active' : 'inactive'"
+:type="'entitlement'"
 />
 
 @endforeach
