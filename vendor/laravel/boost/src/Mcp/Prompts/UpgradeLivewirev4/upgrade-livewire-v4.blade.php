@@ -48,7 +48,7 @@ Search the codebase for patterns affected by v4 changes:
 - Array property replacements from JavaScript - Hook behavior changed
 
 **Low Priority Searches:**
-- `$wire.$js(` or `$wire.$js(` - Deprecated syntax
+- `$wire.$js(` or `$js(` - Deprecated syntax
 - `Livewire.hook('commit'` or `Livewire.hook('request'` - Deprecated hooks
 
 ### 4. Apply Changes Systematically
@@ -269,7 +269,7 @@ In v3, Livewire component tags would render even without being properly closed. 
 
 @boostsnippet('Component Tags Closed', 'blade')
 <!-- Before (v3) - unclosed tag -->
-<livewire:component-name />
+<livewire:component-name>
 
 <!-- After (v4) - Self-closing tag -->
 <livewire:component-name />
@@ -374,9 +374,9 @@ The `$wire.$js()` method for defining JavaScript actions has been deprecated:
 
 @boostsnippet('Wire JS Deprecation', 'js')
 // Deprecated (v3)
-$wire.$js.bookmark = () => {
+$wire.$js('bookmark', () => {
     // Toggle bookmark...
-}
+})
 
 // New (v4)
 $wire.$js.bookmark = () => {
@@ -392,9 +392,9 @@ The use of `$js` in scripts without `$wire.$js` or `this.$js` prefix has been de
 
 @boostsnippet('JS Without Prefix Deprecation', 'js')
 // Deprecated (v3)
-$wire.$js.bookmark = () => {
+$js('bookmark', () => {
     // Toggle bookmark...
-}
+})
 
 // New (v4)
 $wire.$js.bookmark = () => {
@@ -407,7 +407,7 @@ this.$js.bookmark = () => {
 @endboostsnippet
 
 > [!tip] Old syntax still works
-> Both `$wire.$js.bookmark = ...` and `$wire.$js.bookmark = ...` will continue to work in v4 for backward compatibility, but you should migrate to the new syntax when convenient.
+> Both `$wire.$js('bookmark', ...)` and `$js('bookmark', ...)` will continue to work in v4 for backward compatibility, but you should migrate to the new syntax when convenient.
 
 #### Deprecated: `commit` and `request` hooks
 
@@ -736,7 +736,7 @@ Easily reference and interact with elements in your template:
     <!-- Modal content -->
 </div>
 
-<button wire:click="$wire.$js.scrollToModal">Scroll to modal</button>
+<button wire:click="$js.scrollToModal">Scroll to modal</button>
 
 <script>
     this.$js.scrollToModal = () => {

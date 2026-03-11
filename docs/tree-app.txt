@@ -1,0 +1,434 @@
+.
+├── ()
+├── 0
+├── AGENTS.md
+├── Admin-Layer.md
+├── CLAUDE.md
+├── CONFIG_ALIGNMENT_REPORT.md
+├── DOCUMENT_ROOT.md
+├── GEMINI.md
+├── HEARTBEAT.md
+├── IDENTITY.md
+├── MODEL_ROLE_SPEC.md
+├── MVP_RSVP_SYSTEM_ADMIN_E2E_VERIFICATION_DIRECTIVE.md
+├── PHASE_KALFA_C_PACKAGE_FEATURE_CAPABILITY_AUDIT.md
+├── PHASE_KALFA_VENDOR_CONTRACT_FORENSICS.md
+├── REPO_MIGRATION_REPORT.md
+├── SOUL.md
+├── SYSTEM_ADMIN_MATURITY_EXPANSION_DIRECTIVE.md
+├── TOOLS.md
+├── Tocheck.md
+├── USER.md
+├── app
+│   ├── Console
+│   ├── Contracts
+│   ├── Enums
+│   ├── Events
+│   ├── Guards
+│   ├── Http
+│   ├── Listeners
+│   ├── Livewire
+│   ├── Logging
+│   ├── Mail
+│   ├── Models
+│   ├── Policies
+│   ├── Providers
+│   ├── Services
+│   ├── Settings
+│   ├── Support
+│   └── View
+├── app.js
+├── artisan
+├── boost.json
+├── bootstrap
+│   ├── app.php
+│   ├── cache
+│   └── providers.php
+├── composer.json
+├── composer.lock
+├── config
+│   ├── app.php
+│   ├── auth.php
+│   ├── billing.php
+│   ├── blade-iconsax.php
+│   ├── broadcasting.php
+│   ├── cache.php
+│   ├── database.php
+│   ├── events.php
+│   ├── filesystems.php
+│   ├── livewire.php
+│   ├── logging.php
+│   ├── mail.php
+│   ├── media-library.php
+│   ├── officeguy-webhooks.php
+│   ├── officeguy.php
+│   ├── permission.php
+│   ├── product-engine.php
+│   ├── pulse.php
+│   ├── pwa.php
+│   ├── queue.php
+│   ├── reverb.php
+│   ├── robotstxt.php
+│   ├── sanctum.php
+│   ├── services.php
+│   ├── session.php
+│   └── telescope.php
+├── database
+│   ├── factories
+│   ├── migrations
+│   ├── seeders
+│   └── settings
+├── docs
+│   ├── ACCOUNT_ENTITLEMENTS_README.md
+│   ├── ACCOUNT_INSERTION_MAP.md
+│   ├── ARCHITECTURAL-NORMALIZATION-REPORT.md
+│   ├── AUTH_UI_LOGIN_LOGOUT_MAP.md
+│   ├── CALLING_SYSTEM_TECHNICAL.md
+│   ├── CALLING_SYSTEM_USER_GUIDE.md
+│   ├── CLAUDE_VERIFICATION_REPORT.md
+│   ├── CLIENT_ID_COUPLING_ANALYSIS.md
+│   ├── COMPATIBILITY_CHECKLIST_ACCOUNT_PHASE.md
+│   ├── Checklist+Fix.md
+│   ├── DB_SCHEMA_AUDIT.md
+│   ├── DEPENDENCY-STABILIZATION-AUDIT.md
+│   ├── DESIGN_SYSTEM_TAILWIND.md
+│   ├── EMAIL_INFRASTRUCTURE_REPORT.md
+│   ├── EMAIL_OPERATIONAL_GUIDE.md
+│   ├── EVENTS_CALENDAR_AND_MAPS.md
+│   ├── LIVEWIRE_V4_AUDIT.md
+│   ├── Livewire-Page-izard.md
+│   ├── MODELS_ORGANIZATION_ACCOUNT_USER_ANALYSIS.md
+│   ├── MVP-RSVP-Seating-Phase1.md
+│   ├── PANEL_READONLY_TO_FULL_MANAGEMENT_GAP_ANALYSIS.md
+│   ├── PANEL_TO_ACCOUNT_ENTITLEMENTS_CONNECTION.md
+│   ├── PANEL_UI_STRUCTURE.md
+│   ├── PDF_TOOLS_RULES.md
+│   ├── PERMISSION_MANAGEMENT_GUIDELINES.md
+│   ├── PHASE-8-DOMAIN-INTEGRITY-AUDIT.md
+│   ├── PRODUCT_CREATION_GUIDE.md
+│   ├── Public_Customer_ID_for_Account.md
+│   ├── ROUTES_NAVBAR_MAPPING.md
+│   ├── STORAGE_403_APACHE_PLESK.md
+│   ├── SYSTEM-BASELINE-AUDIT-REPORT.md
+│   ├── SYSTEM-STATUS-AUDIT.md
+│   ├── SYSTEM_ORGANIZATIONS_ANALYSIS.md
+│   ├── TABLES_SORT_AND_DIAGRAM_DESIGN.md
+│   ├── TWILIO_SMS_PRODUCT_SETUP_GUIDE.md
+│   ├── UI_UX_DESIGN_ANALYSIS_AND_MAPPING.md
+│   ├── UX_AUDIT_REPORT.md
+│   ├── VENDOR_CONTRACT_REQUIREMENTS.md
+│   ├── VOICE_RSVP_RESEARCH.md
+│   ├── auth-authorization-phase1.md
+│   ├── checkout-mode-tokenization-scope.md
+│   ├── configuration-governance-sumit.md
+│   ├── env-database.md
+│   ├── environment-recovery-report.md
+│   ├── filesystem-permissions-fix.md
+│   ├── final-routing-validation.md
+│   ├── hardening-and-production-readiness.md
+│   ├── hardening-phase-report.md
+│   ├── kalfa-auth-profile-registration
+│   ├── kalfa-domain-appointments
+│   ├── kalfa-domain-billing-checkout
+│   ├── kalfa-domain-organizations-admin
+│   ├── kalfa-laravel-core
+│   ├── kalfa-livewire-ui
+│   ├── legacy-cleanup-audit.md
+│   ├── live-sandbox-payment-execution-report.md
+│   ├── live-sandbox-payment-validation-report.md
+│   ├── local-hebrew-voice
+│   ├── pci-saq-tokenization.md
+│   ├── product-scope-out-of-scope-models.md
+│   ├── production-path-lock.md
+│   ├── production-routing-diagnosis.md
+│   ├── production-validation-tokenization.md
+│   ├── rsvp-voice-gemini-live-analysis.md
+│   ├── scope-approval-tokenization.md
+│   ├── sumit-config-validation.md
+│   ├── sumit-dependency-audit.md
+│   ├── sumit-integration.md
+│   ├── sumit-package-publish-decision.md
+│   ├── sumit-production-cutover-checklist.md
+│   ├── sumit-sandbox-execution-validation.md
+│   ├── sumit-sandbox-runbook.md
+│   ├── sumit-transaction-review.md
+│   ├── sumit-webhook-routing-audit.md
+│   ├── sumit-webhook-validation.md
+│   ├── supplemental-constraints-admin-phase1.md
+│   ├── tree-app.txt
+│   ├── tree-full.txt
+│   ├── twilio-cli-verify-whatsapp.md
+│   ├── twilio-stream-nginx-websocket.conf
+│   └── verify-whatsapp-setup.md
+├── ecosystem.config.cjs
+├── ecosystem.config.js
+├── er->organizations->first()->account->sumit_customer_id;
+├── git
+│   └── plesk-git
+├── js.md
+├── landing-backup
+│   ├── app.js
+│   └── robots.txt
+├── package-lock.json
+├── package.json
+├── phpunit.xml
+├── project-analysis-app-only.json
+├── project-analysis.json
+├── public
+│   ├── app.js
+│   ├── build
+│   ├── favicon.ico
+│   ├── fonts
+│   ├── git
+│   ├── images
+│   ├── index-laravel.php
+│   ├── js
+│   ├── logo.png
+│   ├── manifest.json
+│   ├── robots.txt
+│   ├── sw.js
+│   ├── test_glm.php
+│   ├── test_glm_models.php
+│   └── twilio
+├── resources
+│   ├── css
+│   ├── filament-icons
+│   ├── js
+│   ├── lang
+│   ├── svg
+│   └── views
+├── robots.txt
+├── routes
+│   ├── api.php
+│   ├── auth.php
+│   ├── channels.php
+│   ├── console.php
+│   └── web.php
+├── scripts
+│   └── install-local-voice-stack.sh
+├── server.js
+├── tests
+│   ├── Feature
+│   ├── TestCase.php
+│   └── Unit
+├── tinker.md
+└── vite.config.js
+
+57 directories, 158 files
+.
+├── ()
+├── 0
+├── AGENTS.md
+├── Admin-Layer.md
+├── CLAUDE.md
+├── CONFIG_ALIGNMENT_REPORT.md
+├── DOCUMENT_ROOT.md
+├── GEMINI.md
+├── HEARTBEAT.md
+├── IDENTITY.md
+├── MODEL_ROLE_SPEC.md
+├── MVP_RSVP_SYSTEM_ADMIN_E2E_VERIFICATION_DIRECTIVE.md
+├── PHASE_KALFA_C_PACKAGE_FEATURE_CAPABILITY_AUDIT.md
+├── PHASE_KALFA_VENDOR_CONTRACT_FORENSICS.md
+├── REPO_MIGRATION_REPORT.md
+├── SOUL.md
+├── SYSTEM_ADMIN_MATURITY_EXPANSION_DIRECTIVE.md
+├── TOOLS.md
+├── Tocheck.md
+├── USER.md
+├── app
+│   ├── Console
+│   ├── Contracts
+│   ├── Enums
+│   ├── Events
+│   ├── Guards
+│   ├── Http
+│   ├── Listeners
+│   ├── Livewire
+│   ├── Logging
+│   ├── Mail
+│   ├── Models
+│   ├── Policies
+│   ├── Providers
+│   ├── Services
+│   ├── Settings
+│   ├── Support
+│   └── View
+├── app.js
+├── artisan
+├── boost.json
+├── bootstrap
+│   ├── app.php
+│   ├── cache
+│   └── providers.php
+├── composer.json
+├── composer.lock
+├── config
+│   ├── app.php
+│   ├── auth.php
+│   ├── billing.php
+│   ├── blade-iconsax.php
+│   ├── broadcasting.php
+│   ├── cache.php
+│   ├── database.php
+│   ├── events.php
+│   ├── filesystems.php
+│   ├── livewire.php
+│   ├── logging.php
+│   ├── mail.php
+│   ├── media-library.php
+│   ├── officeguy-webhooks.php
+│   ├── officeguy.php
+│   ├── permission.php
+│   ├── product-engine.php
+│   ├── pulse.php
+│   ├── pwa.php
+│   ├── queue.php
+│   ├── reverb.php
+│   ├── robotstxt.php
+│   ├── sanctum.php
+│   ├── services.php
+│   ├── session.php
+│   └── telescope.php
+├── database
+│   ├── factories
+│   ├── migrations
+│   ├── seeders
+│   └── settings
+├── docs
+│   ├── ACCOUNT_ENTITLEMENTS_README.md
+│   ├── ACCOUNT_INSERTION_MAP.md
+│   ├── ARCHITECTURAL-NORMALIZATION-REPORT.md
+│   ├── AUTH_UI_LOGIN_LOGOUT_MAP.md
+│   ├── CALLING_SYSTEM_TECHNICAL.md
+│   ├── CALLING_SYSTEM_USER_GUIDE.md
+│   ├── CLAUDE_VERIFICATION_REPORT.md
+│   ├── CLIENT_ID_COUPLING_ANALYSIS.md
+│   ├── COMPATIBILITY_CHECKLIST_ACCOUNT_PHASE.md
+│   ├── Checklist+Fix.md
+│   ├── DB_SCHEMA_AUDIT.md
+│   ├── DEPENDENCY-STABILIZATION-AUDIT.md
+│   ├── DESIGN_SYSTEM_TAILWIND.md
+│   ├── EMAIL_INFRASTRUCTURE_REPORT.md
+│   ├── EMAIL_OPERATIONAL_GUIDE.md
+│   ├── EVENTS_CALENDAR_AND_MAPS.md
+│   ├── LIVEWIRE_V4_AUDIT.md
+│   ├── Livewire-Page-izard.md
+│   ├── MODELS_ORGANIZATION_ACCOUNT_USER_ANALYSIS.md
+│   ├── MVP-RSVP-Seating-Phase1.md
+│   ├── PANEL_READONLY_TO_FULL_MANAGEMENT_GAP_ANALYSIS.md
+│   ├── PANEL_TO_ACCOUNT_ENTITLEMENTS_CONNECTION.md
+│   ├── PANEL_UI_STRUCTURE.md
+│   ├── PDF_TOOLS_RULES.md
+│   ├── PERMISSION_MANAGEMENT_GUIDELINES.md
+│   ├── PHASE-8-DOMAIN-INTEGRITY-AUDIT.md
+│   ├── PRODUCT_CREATION_GUIDE.md
+│   ├── Public_Customer_ID_for_Account.md
+│   ├── ROUTES_NAVBAR_MAPPING.md
+│   ├── STORAGE_403_APACHE_PLESK.md
+│   ├── SYSTEM-BASELINE-AUDIT-REPORT.md
+│   ├── SYSTEM-STATUS-AUDIT.md
+│   ├── SYSTEM_ORGANIZATIONS_ANALYSIS.md
+│   ├── TABLES_SORT_AND_DIAGRAM_DESIGN.md
+│   ├── TWILIO_SMS_PRODUCT_SETUP_GUIDE.md
+│   ├── UI_UX_DESIGN_ANALYSIS_AND_MAPPING.md
+│   ├── UX_AUDIT_REPORT.md
+│   ├── VENDOR_CONTRACT_REQUIREMENTS.md
+│   ├── VOICE_RSVP_RESEARCH.md
+│   ├── auth-authorization-phase1.md
+│   ├── checkout-mode-tokenization-scope.md
+│   ├── configuration-governance-sumit.md
+│   ├── env-database.md
+│   ├── environment-recovery-report.md
+│   ├── filesystem-permissions-fix.md
+│   ├── final-routing-validation.md
+│   ├── hardening-and-production-readiness.md
+│   ├── hardening-phase-report.md
+│   ├── kalfa-auth-profile-registration
+│   ├── kalfa-domain-appointments
+│   ├── kalfa-domain-billing-checkout
+│   ├── kalfa-domain-organizations-admin
+│   ├── kalfa-laravel-core
+│   ├── kalfa-livewire-ui
+│   ├── legacy-cleanup-audit.md
+│   ├── live-sandbox-payment-execution-report.md
+│   ├── live-sandbox-payment-validation-report.md
+│   ├── local-hebrew-voice
+│   ├── pci-saq-tokenization.md
+│   ├── product-scope-out-of-scope-models.md
+│   ├── production-path-lock.md
+│   ├── production-routing-diagnosis.md
+│   ├── production-validation-tokenization.md
+│   ├── rsvp-voice-gemini-live-analysis.md
+│   ├── scope-approval-tokenization.md
+│   ├── sumit-config-validation.md
+│   ├── sumit-dependency-audit.md
+│   ├── sumit-integration.md
+│   ├── sumit-package-publish-decision.md
+│   ├── sumit-production-cutover-checklist.md
+│   ├── sumit-sandbox-execution-validation.md
+│   ├── sumit-sandbox-runbook.md
+│   ├── sumit-transaction-review.md
+│   ├── sumit-webhook-routing-audit.md
+│   ├── sumit-webhook-validation.md
+│   ├── supplemental-constraints-admin-phase1.md
+│   ├── tree-app.txt
+│   ├── tree-full.txt
+│   ├── twilio-cli-verify-whatsapp.md
+│   ├── twilio-stream-nginx-websocket.conf
+│   └── verify-whatsapp-setup.md
+├── ecosystem.config.cjs
+├── ecosystem.config.js
+├── er->organizations->first()->account->sumit_customer_id;
+├── git
+│   └── plesk-git
+├── js.md
+├── landing-backup
+│   ├── app.js
+│   └── robots.txt
+├── package-lock.json
+├── package.json
+├── phpunit.xml
+├── project-analysis-app-only.json
+├── project-analysis.json
+├── public
+│   ├── app.js
+│   ├── build
+│   ├── favicon.ico
+│   ├── fonts
+│   ├── git
+│   ├── images
+│   ├── index-laravel.php
+│   ├── js
+│   ├── logo.png
+│   ├── manifest.json
+│   ├── robots.txt
+│   ├── sw.js
+│   ├── test_glm.php
+│   ├── test_glm_models.php
+│   └── twilio
+├── resources
+│   ├── css
+│   ├── filament-icons
+│   ├── js
+│   ├── lang
+│   ├── svg
+│   └── views
+├── robots.txt
+├── routes
+│   ├── api.php
+│   ├── auth.php
+│   ├── channels.php
+│   ├── console.php
+│   └── web.php
+├── scripts
+│   └── install-local-voice-stack.sh
+├── server.js
+├── tests
+│   ├── Feature
+│   ├── TestCase.php
+│   └── Unit
+├── tinker.md
+└── vite.config.js
+
+57 directories, 158 files

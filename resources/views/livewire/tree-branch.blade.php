@@ -10,11 +10,8 @@ new class extends Component
     public bool $defaultOpen = true;
     public ?string $addLabel = null;
     public ?string $addAction = null;
-    
-    // אם נרצה לנהל את הילדים מתוך ה-Component עצמו במקום Slot
-    public array $children = []; 
 
-    public function mount($label, $count = 0, $icon = null, $defaultOpen = true, $addLabel = null, $addAction = null, $children = [])
+    public function mount($label, $count = 0, $icon = null, $defaultOpen = true, $addLabel = null, $addAction = null)
     {
         $this->label = $label;
         $this->count = $count;
@@ -22,7 +19,6 @@ new class extends Component
         $this->defaultOpen = $defaultOpen;
         $this->addLabel = $addLabel;
         $this->addAction = $addAction;
-        $this->children = $children;
     }
 
     // כאן תוכל להוסיף פונקציות Livewire עתידיות, למשל:
@@ -95,35 +91,8 @@ new class extends Component
         <div class="absolute top-0 bottom-0 left-[22px] w-px bg-slate-200 dark:bg-slate-700/60"></div>
 
         <ul class="relative pl-9 space-y-0.5 pb-1">
-            {{-- אם השתמשת ב-Slot במקור, אפשר להשאיר את {{ $slot }} --}}
-            {{-- אבל מאחר וזה Livewire Component, נהוג לעבור על מערך הילדים: --}}
-            
-            @if(count($children) > 0)
-                @foreach($children as $child)
-                    @if(isset($child['children']) && count($child['children']) > 0)
-                        {{-- רקורסיה: קריאה לענף נוסף --}}
-                        <livewire:tree-branch 
-                            :key="'branch-'.$child['id']" 
-                            :label="$child['label']" 
-                            :count="$child['count'] ?? 0"
-                            :icon="$child['icon'] ?? 'heroicon-o-folder'"
-                            :children="$child['children']"
-                        />
-                    @else
-                        {{-- קריאה לשורת פריט (Node) --}}
-                        <x-tree.node 
-                            :nodeId="$child['id']"
-                            :label="$child['label']"
-                            :identifier="$child['identifier'] ?? null"
-                            :status="$child['status'] ?? 'active'"
-                            :type="$child['type'] ?? 'task'"
-                        />
-                    @endif
-                @endforeach
-            @else
-                {{-- במקרה שאתה עדיין מעדיף להזריק תוכן מבחוץ --}}
-                {{ $slot ?? '' }}
-            @endif
+            {{-- Blade Slot for children content --}}
+            {{ $slot ?? '' }}
         </ul>
     </div>
 </li>
