@@ -1,48 +1,68 @@
-# Obsidian PKM Vault Context
+# KALFA PKM Vault Context
 
 ## System Purpose
-[CUSTOMIZE: Add your personal mission statement here]
+Complete developer PKM and documentation system for the KALFA Laravel SaaS platform - multi-tenant RSVP and seating management application.
 
-*Example: "Build meaningful technology while maintaining balance across health, relationships, and personal growth."*
+### Primary Focus Areas
+- **Technical Architecture** - Laravel 12 + Livewire 4 patterns and decisions
+- **SaaS Development** - Multi-tenancy, billing, notifications
+- **Knowledge Management** - Documenting patterns, best practices, and learnings
+- **Project Tracking** - Active projects, sprints, and task management
 
 ## Directory Structure
 
 | Folder | Purpose |
 |--------|---------|
-| `Daily Notes/` | Daily journal entries (`YYYY-MM-DD.md`) |
-| `Goals/` | Goal cascade (3-year → yearly → monthly → weekly) |
-| `Projects/` | Active projects with their own `CLAUDE.md` |
-| `Templates/` | Reusable note structures |
-| `Archives/` | Completed/inactive content |
-| `Inbox/` | Uncategorized captures (optional) |
+| `Architecture/` | Technical architecture, ADRs, API/Service/Database docs |
+| `Projects/` | Active development projects with CLAUDE.md |
+| `Tasks/` | Task tracking, sprint planning, blockers |
+| `Daily/` | Daily engineering logs, standup notes |
+| `Meetings/` | Meeting notes, design reviews, retros |
+| `Templates/` | Templater templates for rapid note creation |
+| `Dashboards/` | Obsidian Canvas views, project boards |
+| `Knowledge/` | General knowledge base, best practices, articles |
+| `Goals/` | Goal cascade (optional - if used) |
+| `Archives/` | Completed projects, old sprints, retired docs |
 
 ## Current Focus
 
-See @Goals/2. Monthly Goals.md for this month's priorities.
+**Active Sprint:** Sprint <% Math.ceil(new Date().getDate() / 14) %>
+**Primary Project:** [[Projects/]]
+**Architecture Focus:** [[Architecture/]]
+
+See [[Daily/]] for today's work log.
 
 ## Tag System
 
-**Priority:** `#priority/high`, `#priority/medium`, `#priority/low`
-**Status:** `#active`, `#waiting`, `#completed`, `#archived`
-**Context:** `#work`, `#personal`, `#health`, `#learning`, `#family`
+**Type:** `#daily`, `#meeting`, `#project`, `#adr`, `#architecture`, `#api`, `#service`, `#knowledge`, `#task`
+**Status:** `#planning`, `#active`, `#on-hold`, `#review`, `#complete`, `#blocked`
+**Priority:** `#priority/critical`, `#priority/high`, `#priority/medium`, `#priority/low`
+**Domain:** `#auth`, `#multi-tenant`, `#events`, `#rsvp`, `#seating`, `#payments`, `#notifications`, `#infrastructure`
 
-## Available Skills
+## Installed Plugins
 
-Skills are invoked with `/skill-name` or automatically by Claude when relevant.
+- **Templater** - Template automation (`Templates/` folder)
+- **Dataview** - Query vault data, create tables/lists
+- **Tasks** - Task management in Obsidian
+- **Pixel Banner** - Visual enhancements for notes
+- **Supercharged Links** - Improved link styling and navigation
+- **Style Settings** - Custom CSS and theming
+- **Iconize** - File type icons in explorer
+- **CardBoard** - Kanban-style boards for tasks/projects
+- **Git** - Git integration for version control
+- **Terminal** - Terminal window within Obsidian
+- **Large Language Models** - AI assistance integration
 
-| Skill | Invocation | Purpose |
-|-------|------------|---------|
-| `daily` | `/daily` | Create daily notes, morning/midday/evening routines |
-| `weekly` | `/weekly` | Run weekly review, reflect and plan |
-| `monthly` | `/monthly` | Monthly review, quarterly milestone check, next month planning |
-| `project` | `/project` | Create, track, and archive projects linked to goals |
-| `review` | `/review` | Smart router — auto-detects daily/weekly/monthly based on context |
-| `push` | `/push` | Commit and push changes to Git |
-| `onboard` | `/onboard` | Interactive setup (first run) + load vault context |
-| `adopt` | `/adopt` | Scaffold PKM system onto an existing Obsidian vault |
-| `upgrade` | `/upgrade` | Update to latest version, preserving your content |
-| `goal-tracking` | (auto) | Track progress across goal cascade with project awareness |
-| `obsidian-vault-ops` | (auto) | Read/write vault files, manage wiki-links |
+## Quick Templates
+
+Press `Ctrl/Cmd + P` to access templates:
+
+| Template | Purpose | When to use |
+|----------|---------|-------------|
+| `Daily.md` | Daily engineering log | Every day - morning/evening |
+| `Meeting.md` | Meeting notes | Standups, reviews, design sessions |
+| `Project.md` | Project documentation | Starting a new project |
+| `Architecture.md` | ADR (Architecture Decision Record) | Documenting significant technical decisions |
 
 ### Progress Visibility
 
@@ -67,13 +87,15 @@ Session tasks are temporary progress indicators—your actual to-do items remain
 
 ## Output Styles
 
-**Productivity Coach** (`/output-style coach`)
-- Challenges assumptions constructively
-- Holds you accountable to commitments
-- Asks powerful questions for clarity
-- Connects daily work to mission
+**Technical & Concise** - Clear, precise responses. Focus on:
+- Code quality and patterns
+- Architecture trade-offs
+- Practical solutions
+- Direct answers without fluff
 
-## The Cascade
+---
+
+## Key Workflows
 
 The full goals-to-tasks flow:
 

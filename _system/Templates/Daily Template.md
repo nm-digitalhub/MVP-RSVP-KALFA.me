@@ -1,18 +1,19 @@
 ---
-date: <% tp.date.now("YYYY-MM-DD") %>
+date: {{date}}
 tags: daily-note
 ---
 
-# <% tp.date.now("dddd, MMMM DD, YYYY") %>
+# {{date:dddd, MMMM DD, YYYY}}
 
-*Build meaningful technology while maintaining balance across health, relationships, and personal growth.*
+_[CUSTOMIZE THIS: Add your personal mission statement or daily reminder here]_
+*Example: "Every day, I choose to grow, contribute, and live with intention."*
 
 ---
 
 ## 🎯 Today's Focus
 *What's the ONE thing that would make today a win?*
 
-**Today's Priority:**
+**Today's Priority:** 
 
 ---
 
@@ -57,7 +58,7 @@ tags: daily-note
 ## 💡 Ideas & Thoughts
 *Capture anything that comes to mind*
 
--
+- 
 
 ---
 
@@ -65,21 +66,21 @@ tags: daily-note
 *Meeting notes, important information, key decisions*
 
 ### Meetings
-- **[Meeting Name]:**
+- **[Meeting Name]:** 
   - Key points:
   - Action items:
 
 ### Important Info
--
+- 
 
 ---
 
 ## 🌟 Gratitude
 *Three things I'm grateful for today*
 
-1.
-2.
-3.
+1. 
+2. 
+3. 
 
 ---
 
@@ -87,16 +88,16 @@ tags: daily-note
 *Complete before bed*
 
 ### What Went Well?
--
+- 
 
 ### What Could Be Better?
--
+- 
 
 ### What Did I Learn?
--
+- 
 
 ### Tomorrow's #1 Priority
--
+- 
 
 ### Energy Level Today
 - Physical: [1-10]
@@ -115,22 +116,14 @@ tags: daily-note
 ---
 
 ## 🔗 Related
-<%*
-  let weeklyFile = tp.file.findTFile("Goals/3. Weekly Review.md");
-  let monthlyFile = tp.file.findTFile("Goals/2. Monthly Goals.md");
-  let yesterday = tp.date.now("-1d", "YYYY-MM-DD");
-  let tomorrow = tp.date.now("+1d", "YYYY-MM-DD");
-  let weekNum = tp.date.now("w");
-  let dayOfYear = tp.date.now("D");
-*-%>
-<% if (weeklyFile) { %>[[<% weeklyFile.basename %>]]<% } %> - This Week's Plan
-<% if (monthlyFile) { %>[[<% monthlyFile.basename %>]]<% } %> - This Month's Focus
-- Yesterday: [[<% yesterday %>]]
-- Tomorrow: [[<% tomorrow %>]]
+- [[3. Weekly Review|This Week's Plan]]
+- [[2. Monthly Goals|This Month's Focus]]
+- Yesterday: [[{{date-1:YYYY-MM-DD}}]]
+- Tomorrow: [[{{date+1:YYYY-MM-DD}}]]
 
 ---
 
-*Day <% dayOfYear %> of 365*
-*Week <% weekNum %> of 52*
+*Day [X] of 365*
+*Week [X] of 52*
 
-**Today's Affirmation:** Focus on progress, not perfection. Each small step counts.
+**Today's Affirmation:** [CUSTOMIZE: Add a daily affirmation or quote]

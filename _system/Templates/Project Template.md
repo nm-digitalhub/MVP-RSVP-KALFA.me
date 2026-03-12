@@ -1,17 +1,11 @@
----
-created: <% tp.date.now("YYYY-MM-DD") %>
-status: active
-tags: project
----
-
-# Project: <% tp.system.prompt("Enter project name") %>
+# Project: [PROJECT NAME]
 
 ## 📋 Project Overview
 
 ### Purpose
 *Why does this project exist? What problem does it solve?*
 
-[Clear statement of project purpose]
+[CUSTOMIZE: Clear statement of project purpose]
 
 ### Success Criteria
 *How will we know when this project is complete and successful?*
@@ -21,7 +15,7 @@ tags: project
 3. [Specific, measurable outcome]
 
 ### Timeline
-- **Start Date:** <% tp.date.now("YYYY-MM-DD") %>
+- **Start Date:** {{date:YYYY-MM-DD}}
 - **Target Completion:** [DATE]
 - **Actual Completion:** [To be filled]
 
@@ -35,7 +29,7 @@ tags: project
 ## 🎯 Goals & Objectives
 
 ### Primary Goal
-[Main goal this project achieves]
+[CUSTOMIZE: Main goal this project achieves]
 
 ### Supporting Objectives
 1. [Objective that supports the goal]
@@ -43,7 +37,7 @@ tags: project
 3. [Objective that supports the goal]
 
 ### Link to Annual Goals
-*How does this connect to [[Goals/1. Yearly Goals.md]]?*
+*How does this connect to [[1. Yearly Goals]]?*
 
 [Explain connection]
 
@@ -237,13 +231,13 @@ Key Deliverables:
 *To be completed at project end*
 
 **What went well:**
--
+- 
 
 **What could be improved:**
--
+- 
 
 **What to do differently next time:**
--
+- 
 
 ### Follow-up Actions
 - [ ] [Post-project task]
@@ -253,13 +247,13 @@ Key Deliverables:
 
 ## 🔗 Quick Links
 - [[Projects/]] - All projects
-- [[Goals/2. Monthly Goals.md]] - Current month
-- [[Goals/1. Yearly Goals.md]] - Annual objectives
+- [[2. Monthly Goals]] - Current month
+- [[1. Yearly Goals]] - Annual objectives
 
 ---
 
-*Project Created: <% tp.date.now("YYYY-MM-DD") %>*
-*Last Updated: <% tp.date.now("YYYY-MM-DD") %>*
+*Project Created: {{date:YYYY-MM-DD}}*
+*Last Updated: {{date:YYYY-MM-DD}}*
 *Status: [Active/On Hold/Complete]*
 
-**Project Mantra:** Focus on progress, not perfection. Each step forward counts.
+**Project Mantra:** [CUSTOMIZE: Inspiring quote or reminder for this project]

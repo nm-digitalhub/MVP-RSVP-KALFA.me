@@ -1,7 +1,7 @@
-# Weekly Review - Week of <% tp.date.now("YYYY-MM-DD") %>
+# Weekly Review - Week of {{date:YYYY-MM-DD}}
 
 ## 🎯 Week at a Glance
-**Week Number:** Week <% tp.date.now("w") %> of 52
+**Week Number:** Week {{date:w}} of 52
 **Theme/Focus:** [Define this week's primary focus]
 **Energy Available:** [High/Medium/Low]
 
@@ -11,24 +11,25 @@
 - **Tasks Completed:** [X/Y]
 - **Projects Advanced:** [List projects worked on]
 - **Habits Maintained:** [X/7 days]
-- **One Metric Progress:** [Update from Goals/1. Yearly Goals.md]
+- **One Metric Progress:** [Update from [[1. Yearly Goals]]]
 
 ---
 
 ## 🔍 Last Week Review
 
 ### What Went Well? (Wins) 🎉
-1.
-2.
-3.
+1. 
+2. 
+3. 
 
-### What Didn't Go Well? (Challenges) 🔥
-1.
-2.
-3.
+### What Didn't Go Well? (Challenges) 🤔
+1. 
+2. 
+3. 
 
 ### Key Lessons Learned 📚
--
+- 
+- 
 
 ### Incomplete Tasks (Carry Forward?)
 - [ ] [Task] - Action: [Reschedule/Delegate/Delete]
@@ -41,47 +42,54 @@
 ### 🎯 ONE Big Thing
 **If I accomplish nothing else this week, I will:**
 
+
 ### Priority Matrix
 
 #### 🔴 Urgent & Important
-- [ ]
-- [ ]
+- [ ] 
+- [ ] 
 
-#### 🟡 Important Not Urgent
-- [ ]
-- [ ]
+#### 🟡 Important Not Urgent  
+- [ ] 
+- [ ] 
 
 #### 🟢 Quick Wins
-- [ ]
-- [ ]
+- [ ] 
+- [ ] 
 
 ---
 
 ## 🗓️ Day by Day
-<%*
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
-  const today = new Date();
-  const currentDay = today.getDay(); // 0 = Sunday, 1 = Monday, etc.
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - (currentDay === 0 ? 6 : currentDay - 1));
 
-  for (let i = 0; i < 5; i++) {
-    let dayDate = new Date(monday);
-    dayDate.setDate(monday.getDate() + i);
-    let dayNum = dayDate.getDate();
-    let month = dayDate.getMonth() + 1;
-*-%>
-
-### <% days[i] %> <% tp.date.now("+" + i + "d", "MM/DD") %>
-**Focus:**
+### Monday {{date+1:MM/DD}}
+**Focus:** 
 - [ ] Priority task
-- [ ]
-<% } %>
+- [ ] 
+
+### Tuesday {{date+2:MM/DD}}
+**Focus:** 
+- [ ] Priority task
+- [ ] 
+
+### Wednesday {{date+3:MM/DD}}
+**Focus:** 
+- [ ] Priority task
+- [ ] 
+
+### Thursday {{date+4:MM/DD}}
+**Focus:** 
+- [ ] Priority task
+- [ ] 
+
+### Friday {{date+5:MM/DD}}
+**Focus:** 
+- [ ] Priority task
+- [ ] 
 
 ### Weekend
 **Personal/Family Focus:**
-- [ ]
-- [ ]
+- [ ] 
+- [ ] 
 
 ---
 
@@ -113,10 +121,10 @@
 
 ## 📚 Learning Focus
 
-**This Week's Topic:**
-**Resource:**
-**Time Allocated:**
-**Key Question to Answer:**
+**This Week's Topic:** 
+**Resource:** 
+**Time Allocated:** 
+**Key Question to Answer:** 
 
 ---
 
@@ -130,30 +138,32 @@
 ### This Week's Intention
 *How do I want to show up?*
 
-### Potential Obstacles & Strategies
-1. **Obstacle:**
-   - **Strategy:**
 
-2. **Obstacle:**
-   - **Strategy:**
+### Potential Obstacles & Strategies
+1. **Obstacle:** 
+   - **Strategy:** 
+
+2. **Obstacle:** 
+   - **Strategy:** 
 
 ---
 
 ## 📝 Brain Dump
 *Ideas, thoughts, things to remember*
 
--
--
--
+- 
+- 
+- 
 
 ---
 
 ## ✅ Review Checklist
+
 - [ ] Reviewed last week's accomplishments
 - [ ] Processed all inbox items
 - [ ] Updated project statuses
 - [ ] Checked upcoming calendar
-- [ ] Reviewed Goals/2. Monthly Goals.md
+- [ ] Reviewed [[2. Monthly Goals]]
 - [ ] Planned this week's priorities
 - [ ] Blocked time for deep work
 - [ ] Set ONE big thing for the week
@@ -163,21 +173,15 @@
 ---
 
 ## 🔗 Navigation
-<%*
-  let monthlyFile = tp.file.findTFile("Goals/2. Monthly Goals.md");
-  let yearlyFile = tp.file.findTFile("Goals/1. Yearly Goals.md");
-  let lastWeek = tp.date.now("-7d", "YYYY-MM-DD");
-  let nextWeek = tp.date.now("+7d", "YYYY-MM-DD");
-*-%>
-<% if (monthlyFile) { %>[[<% monthlyFile.basename %>]]<% } %> - Current Month
-<% if (yearlyFile) { %>[[<% yearlyFile.basename %>]]<% } %> - Current Year
-- Previous: [[<% lastWeek %> Weekly Review]]
-- Next: [[<% nextWeek %> Weekly Review]]
+- [[2. Monthly Goals|Current Month]]
+- [[1. Yearly Goals|Current Year]]
+- Previous: [[{{date-7:YYYY-MM-DD}} Weekly Review]]
+- Next: [[{{date+7:YYYY-MM-DD}} Weekly Review]]
 
 ---
 
-*Review Started: <% tp.date.now("HH:mm") %>*
+*Review Started: {{time}}*
 *Review Completed: [TIME]*
 *Time Invested: [X minutes]*
 
-**This Week's Mantra:**
+**This Week's Mantra:** 
