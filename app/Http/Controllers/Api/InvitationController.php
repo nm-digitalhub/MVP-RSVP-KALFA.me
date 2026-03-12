@@ -15,6 +15,9 @@ use Illuminate\Support\Str;
 
 class InvitationController extends Controller
 {
+    /**
+     * List all invitations for an event with guest details.
+     */
     public function index(Event $event): JsonResponse
     {
         $this->authorize('view', $event);
@@ -24,6 +27,11 @@ class InvitationController extends Controller
         return response()->json($invitations);
     }
 
+    /**
+     * Create a new invitation for an event.
+     *
+     * Optionally link to a guest via `guest_id`. Generates a unique RSVP slug automatically.
+     */
     public function store(Request $request, Event $event): JsonResponse
     {
         $this->authorize('update', $event);
@@ -43,7 +51,9 @@ class InvitationController extends Controller
     }
 
     /**
-     * Send invitation: optionally send WhatsApp with RSVP link, then mark as sent.
+     * Send an invitation via WhatsApp (optional) and mark it as sent.
+     *
+     * Pass `send_whatsapp: true` to send the RSVP link via WhatsApp to the guest's phone number.
      */
     public function send(Request $request, Event $event, Invitation $invitation, WhatsAppRsvpService $whatsAppRsvp): JsonResponse
     {

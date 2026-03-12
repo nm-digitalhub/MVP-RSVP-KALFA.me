@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 
 class EventTableController extends Controller
 {
+    /**
+     * List all seating tables for an event, ordered by sort_order.
+     */
     public function index(Event $event): JsonResponse
     {
         $this->authorize('view', $event);
@@ -21,6 +24,9 @@ class EventTableController extends Controller
         return response()->json($tables);
     }
 
+    /**
+     * Create a new seating table/area for an event.
+     */
     public function store(Request $request, Event $event): JsonResponse
     {
         $this->authorize('update', $event);
@@ -36,6 +42,9 @@ class EventTableController extends Controller
         return response()->json($table, 201);
     }
 
+    /**
+     * Get a single seating table.
+     */
     public function show(EventTable $eventTable): JsonResponse
     {
         $this->authorize('view', $eventTable->event);
@@ -43,6 +52,9 @@ class EventTableController extends Controller
         return response()->json($eventTable);
     }
 
+    /**
+     * Update a seating table's name, capacity, or sort order.
+     */
     public function update(Request $request, EventTable $eventTable): JsonResponse
     {
         $this->authorize('update', $eventTable->event);
@@ -58,6 +70,9 @@ class EventTableController extends Controller
         return response()->json($eventTable);
     }
 
+    /**
+     * Delete a seating table.
+     */
     public function destroy(EventTable $eventTable): JsonResponse
     {
         $this->authorize('update', $eventTable->event);

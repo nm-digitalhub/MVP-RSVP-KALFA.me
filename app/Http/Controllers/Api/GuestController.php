@@ -13,6 +13,9 @@ use Illuminate\Http\Request;
 
 class GuestController extends Controller
 {
+    /**
+     * List all guests for an event, ordered by sort_order.
+     */
     public function index(Event $event): JsonResponse
     {
         $this->authorize('view', $event);
@@ -22,6 +25,9 @@ class GuestController extends Controller
         return response()->json($guests);
     }
 
+    /**
+     * Add a guest to an event.
+     */
     public function store(StoreGuestRequest $request, Event $event): JsonResponse
     {
         $this->authorize('update', $event);
@@ -31,6 +37,9 @@ class GuestController extends Controller
         return response()->json($guest, 201);
     }
 
+    /**
+     * Get a single guest record.
+     */
     public function show(Guest $guest): JsonResponse
     {
         $this->authorize('view', $guest);
@@ -38,6 +47,9 @@ class GuestController extends Controller
         return response()->json($guest);
     }
 
+    /**
+     * Update a guest. All fields are optional (PATCH semantics).
+     */
     public function update(Request $request, Guest $guest): JsonResponse
     {
         $this->authorize('update', $guest);
@@ -56,6 +68,9 @@ class GuestController extends Controller
         return response()->json($guest);
     }
 
+    /**
+     * Remove a guest from an event.
+     */
     public function destroy(Guest $guest): JsonResponse
     {
         $this->authorize('delete', $guest);

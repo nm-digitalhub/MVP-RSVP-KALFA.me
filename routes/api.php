@@ -57,6 +57,10 @@ Route::middleware('auth:sanctum')->group(function () {
         ->name('checkout.initiate')
         ->scopeBindings();
 
+    Route::middleware(['auth:sanctum', 'require.impersonation'])->group(function () {
+        Route::apiResource('organizations.events', EventController::class)->scoped(['organization'])->names('events');
+    });
+
     Route::get('payments/{payment}', [PaymentController::class, 'show'])->name('payments.show');
 });
 

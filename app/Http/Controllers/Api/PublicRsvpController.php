@@ -14,8 +14,12 @@ use Illuminate\Support\Facades\DB;
 class PublicRsvpController extends Controller
 {
     /**
-     * Get invitation by slug (public, no auth). Only public-safe fields.
-     * Event must be active. Never expose billing, payment IDs, organization, or internal IDs.
+     * Get invitation details by slug.
+     *
+     * Returns public-safe event and guest information for an invitation link.
+     * Event must be in Active status.
+     *
+     * @unauthenticated
      */
     public function showBySlug(string $slug): JsonResponse
     {
@@ -36,8 +40,12 @@ class PublicRsvpController extends Controller
     }
 
     /**
-     * Submit or update RSVP response (public, idempotent per invitation).
-     * Only for active events. Response contains only public-safe fields.
+     * Submit or update RSVP response.
+     *
+     * Idempotent per invitation: calling again with a different response will update the existing one.
+     * Only available for events in Active status.
+     *
+     * @unauthenticated
      */
     public function storeResponse(StoreRsvpResponseRequest $request, string $slug): JsonResponse
     {
@@ -64,6 +72,7 @@ class PublicRsvpController extends Controller
                 'status' => \App\Enums\InvitationStatus::Responded,
                 'responded_at' => now(),
             ]);
+
             return $rsvp;
         });
 

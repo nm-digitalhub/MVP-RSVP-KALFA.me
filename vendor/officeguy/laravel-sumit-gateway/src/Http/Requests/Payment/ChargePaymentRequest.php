@@ -134,7 +134,10 @@ class ChargePaymentRequest extends Request implements HasBody
         protected readonly array $items = [],
         protected readonly ?string $originalTransactionId = null,
         protected readonly bool $vatIncluded = true,
-    ) {}
+        protected readonly ?string $singleUseToken = null,
+
+    ) {
+    }
 
     /**
      * Define the endpoint
@@ -176,18 +179,34 @@ class ChargePaymentRequest extends Request implements HasBody
 
             $body['VATIncluded'] = $this->vatIncluded;
         }
-        // Charge mode (simple amount)
+        // Charge mode
         else {
+
             $body['Amount'] = $this->amount;
+
+            // Required for SUMIT in some charge flows
+            $body['Items'] = [
+                [
+                    'Item' => [
+                        'Name' => 'Token authorization'
+                    ],
+                    'Quantity' => 1,
+                    'UnitPrice' => $this->amount,
+                ]
+            ];
 
             if ($this->description) {
                 $body['Description'] = $this->description;
             }
 
+            if ($this->singleUseToken) {
+                $body['SingleUseToken'] = $this->singleUseToken;
+            }
+
             if ($this->token) {
                 $body['PaymentMethod'] = [
                     'CreditCard_Token' => $this->token,
-                    'Type' => 1, // CreditCard type
+                    'Type' => 1,
                 ];
             }
 

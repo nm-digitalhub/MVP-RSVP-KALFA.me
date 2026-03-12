@@ -16,12 +16,16 @@ use App\Services\SubscriptionService;
 use App\Services\SumitPaymentGateway;
 use App\Services\UsageMeter;
 use App\Services\UsagePolicyService;
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Database\Events\MigrationsEnded;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Events\JobProcessing;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
@@ -114,11 +118,38 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->configureScramble();
+
         Event::listen(ProductEngineEvent::class, LogProductEngineEvent::class);
         Event::listen(MigrationsEnded::class, fn (): ProductIntegrityChecker => tap(app(ProductIntegrityChecker::class), fn (ProductIntegrityChecker $checker) => $checker->reportAll()));
 
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
-            return $user->is_system_admin ? true : null;
+            if (! $user->is_system_admin) {
+                return null; // Normal users — let policies decide
+            }
+
+            // System-level Spatie permissions: always granted for system admins
+            $systemAbilities = [
+                'manage-system',
+                'manage-organizations',
+                'manage-users',
+                'impersonate-users',
+                'viewPulse',
+                'viewTelescope',
+            ];
+
+            if (in_array($ability, $systemAbilities, true)) {
+                return true;
+            }
+
+            // Tenant-scoped abilities: require active impersonation session
+            if (session()->has('impersonation.original_organization_id')) {
+                return true;
+            }
+
+            // System admin without impersonation on a tenant ability: let policy decide
+            // Policy will likely deny because admin may not be an org member
+            return null;
         });
 
         \Illuminate\Support\Facades\Gate::define('viewPulse', function ($user) {
@@ -132,6 +163,53 @@ class AppServiceProvider extends ServiceProvider
         if (app()->environment('production')) {
             $this->validateSumitConfig();
         }
+    }
+
+    /**
+     * Configure Scramble API documentation.
+     * - Restricts routes to only API controllers (excludes Twilio, Telescope, Pulse, Webhook internal routes)
+     * - Adds Bearer token security scheme (Sanctum)
+     * - Resolves tags from controller class names for clean grouping
+     */
+    private function configureScramble(): void
+    {
+        Scramble::configure()
+            ->routes(function (Route $route) {
+                $uri = $route->uri();
+                // Include only /api/* routes, excluding internal/vendor routes
+                if (! str_starts_with($uri, 'api/')) {
+                    return false;
+                }
+                // Exclude Twilio integration routes (secured via secret key, not Sanctum)
+                if (str_starts_with($uri, 'api/twilio/')) {
+                    return false;
+                }
+
+                return true;
+            })
+            ->withDocumentTransformers(function (OpenApi $openApi) {
+                $openApi->secure(
+                    SecurityScheme::http('bearer')
+                );
+            });
+
+        // Resolve tags from controller class name segments
+        Scramble::resolveTagsUsing(function ($routeInfo) {
+            $action = $routeInfo->route->getAction('controller');
+            if (! $action) {
+                return ['General'];
+            }
+
+            $controller = is_string($action) ? explode('@', $action)[0] : (is_array($action) ? $action[0] : '');
+            $parts = explode('\\', $controller);
+            $className = end($parts);
+            // Remove "Controller" suffix
+            $tag = str_replace('Controller', '', (string) $className);
+            // Convert CamelCase to spaced: EventTable → Event Tables
+            $tag = (string) preg_replace('/([a-z])([A-Z])/', '$1 $2', $tag);
+
+            return [$tag ?: 'General'];
+        });
     }
 
     /**
