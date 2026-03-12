@@ -15,6 +15,12 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+    /**
+     * List events for an organization.
+     *
+     * Supports optional `?status` query filter (e.g. `Draft`, `Active`, `PendingPayment`, `Cancelled`, `Completed`).
+     * Returns a paginated result.
+     */
     public function index(Request $request, Organization $organization): JsonResponse
     {
         $this->authorize('viewAny', [Event::class, $organization->id]);
@@ -27,6 +33,11 @@ class EventController extends Controller
         return response()->json($events);
     }
 
+    /**
+     * Create a new event.
+     *
+     * Event is created in `Draft` status. Payment must be initiated to activate it.
+     */
     public function store(StoreEventRequest $request, Organization $organization): JsonResponse
     {
         $this->authorize('create', [Event::class, $organization->id]);
@@ -39,6 +50,9 @@ class EventController extends Controller
         return response()->json($event, 201);
     }
 
+    /**
+     * Get a single event with guests, tables, invitations, and billing details.
+     */
     public function show(Event $event): JsonResponse
     {
         $this->authorize('view', $event);
@@ -48,6 +62,9 @@ class EventController extends Controller
         return response()->json($event);
     }
 
+    /**
+     * Update an event's details.
+     */
     public function update(UpdateEventRequest $request, Event $event): JsonResponse
     {
         $this->authorize('update', $event);
@@ -57,6 +74,9 @@ class EventController extends Controller
         return response()->json($event);
     }
 
+    /**
+     * Soft-delete an event.
+     */
     public function destroy(Event $event): JsonResponse
     {
         $this->authorize('delete', $event);

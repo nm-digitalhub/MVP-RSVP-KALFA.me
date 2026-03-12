@@ -419,8 +419,12 @@
                                             <div data-og-runtime-error class="hidden rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-700" role="alert"></div>
 
                                             <button type="submit" data-og-submit class="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-3 font-black text-white shadow-xl shadow-brand/20 transition-all hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-60">
-                                                <x-heroicon-o-credit-card class="size-5" />
-                                                <span>{{ __('Save Payment Method') }}</span>
+                                                <svg data-og-spinner class="hidden animate-spin size-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 22 6.477 22 12h-4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.568 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                <x-heroicon-o-credit-card data-og-icon class="size-5" />
+                                                <span data-og-label>{{ __('Save Payment Method') }}</span>
                                             </button>
                                         </form>
                                     </div>
@@ -960,6 +964,38 @@
             return form.querySelector('input[name="og-token"]') || form.querySelector('input[data-og="token"]');
         };
 
+        const showLoadingState = (form) => {
+            const submitButton = form.querySelector('[data-og-submit]');
+
+            if (submitButton instanceof HTMLButtonElement) {
+                submitButton.disabled = true;
+            }
+
+            form.querySelector('[data-og-spinner]')?.classList.remove('hidden');
+            form.querySelector('[data-og-icon]')?.classList.add('hidden');
+
+            const label = form.querySelector('[data-og-label]');
+            if (label) {
+                label.textContent = @json(__('Processing...'));
+            }
+        };
+
+        const hideLoadingState = (form) => {
+            const submitButton = form.querySelector('[data-og-submit]');
+
+            if (submitButton instanceof HTMLButtonElement) {
+                submitButton.disabled = false;
+            }
+
+            form.querySelector('[data-og-spinner]')?.classList.add('hidden');
+            form.querySelector('[data-og-icon]')?.classList.remove('hidden');
+
+            const label = form.querySelector('[data-og-label]');
+            if (label) {
+                label.textContent = @json(__('Save Payment Method'));
+            }
+        };
+
         const setRuntimeError = (form, message) => {
             const errorElement = form.querySelector('[data-og-runtime-error]');
 
@@ -1035,42 +1071,37 @@
 
                 if (form.dataset.ogSubmitBound !== '1') {
                     form.addEventListener('submit', (event) => {
+                        // BindFormSubmit calls requestSubmit() after tokenization (isTrusted=false).
+                        // Token is already in the field — mark as submitting and let the browser proceed.
+                        if (!event.isTrusted) {
+                            form.dataset.ogSubmitting = '1';
+                            return;
+                        }
+
+                        // Set the flag FIRST — before any async work — to close the race window.
                         if (form.dataset.ogSubmitting === '1') {
                             event.preventDefault();
                             event.stopImmediatePropagation();
                             return;
                         }
 
+                        form.dataset.ogSubmitting = '1';
                         event.preventDefault();
                         clearRuntimeError(form);
-
-                        const submitButton = form.querySelector('[data-og-submit]');
-
-                        if (submitButton instanceof HTMLButtonElement) {
-                            submitButton.disabled = true;
-                        }
+                        showLoadingState(form);
 
                         waitForToken(form, (error) => {
                             if (error) {
+                                // Tokenization failed — reset so the user can retry.
+                                delete form.dataset.ogSubmitting;
                                 setRuntimeError(form, @json(__('SUMIT did not return a payment token. Please verify the card details and try again.')));
-
-                                if (submitButton instanceof HTMLButtonElement) {
-                                    submitButton.disabled = false;
-                                }
-
+                                hideLoadingState(form);
                                 return;
                             }
 
-                            if (form.dataset.ogSubmitting === '1') {
-                                return;
-                            }
-
-                            form.dataset.ogSubmitting = '1';
-                            
-                            // Delay slightly to ensure value is committed
-                            setTimeout(() => {
-                                HTMLFormElement.prototype.submit.call(form);
-                            }, 50);
+                            // Token received. BindFormSubmit will fire requestSubmit() which is
+                            // handled by the !event.isTrusted branch above. No manual submit here
+                            // — doing so would cause a second HTTP request to the server.
                         });
                     });
 

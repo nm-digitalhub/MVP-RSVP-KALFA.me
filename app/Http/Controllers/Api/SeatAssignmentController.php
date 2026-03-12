@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 
 class SeatAssignmentController extends Controller
 {
+    /**
+     * List all seat assignments for an event, with guest and table details.
+     */
     public function index(Event $event): JsonResponse
     {
         $this->authorize('view', $event);
@@ -22,7 +25,10 @@ class SeatAssignmentController extends Controller
     }
 
     /**
-     * Bulk update: replace or patch seat assignments for the event.
+     * Bulk upsert seat assignments for an event.
+     *
+     * Replaces or creates assignments for the given guests. Existing assignments not in the list are preserved.
+     * Returns the full updated list.
      */
     public function update(Request $request, Event $event): JsonResponse
     {

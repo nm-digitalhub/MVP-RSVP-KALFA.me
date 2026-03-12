@@ -19,8 +19,13 @@ class WebhookController extends Controller
     ) {}
 
     /**
-     * Handle gateway webhook. Idempotent: checks gateway_transaction_id, stores payload, prevents double-processing.
-     * Signature validation (when configured) runs before any DB mutation.
+     * Handle payment gateway webhook.
+     *
+     * Accepts webhook notifications from supported gateways (e.g. `sumit`).
+     * Validates HMAC signature if `BILLING_WEBHOOK_SECRET` is configured.
+     * Idempotent: duplicate notifications for already-processed payments are safely ignored.
+     *
+     * @unauthenticated
      */
     public function handle(Request $request, string $gateway): JsonResponse
     {

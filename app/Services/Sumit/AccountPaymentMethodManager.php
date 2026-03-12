@@ -7,8 +7,10 @@ namespace App\Services\Sumit;
 use App\Contracts\BillingProvider;
 use App\Models\Account;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Log;
 use OfficeGuy\LaravelSumitGateway\Http\Connectors\SumitConnector;
 use OfficeGuy\LaravelSumitGateway\Http\DTOs\CredentialsData;
+use OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\ChargePaymentRequest;
 use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyToken;
 use OfficeGuy\LaravelSumitGateway\Services\PaymentService;
 
@@ -33,46 +35,60 @@ class AccountPaymentMethodManager
         }
 
         $connector = new SumitConnector;
-        $paymentData = new \OfficeGuy\LaravelSumitGateway\Http\DTOs\PaymentData(
-            amount: 1,
-            orderId: 'AUTH-'.time().'-'.rand(100, 999),
-            singleUseToken: $singleUseToken,
-            paramJ: (string) config('officeguy.token_param', '5'),
-            description: 'Token authorization charge'
-        );
 
-        $request = new \OfficeGuy\LaravelSumitGateway\Http\Requests\Payment\CreatePaymentRequest(
-            payment: $paymentData,
+        $request = new ChargePaymentRequest(
+            customerId: $account->sumit_customer_id,
+            amount: 1,
             credentials: $this->credentials(),
+            singleUseToken: $singleUseToken,
+            description: 'Token authorization charge',
+            cancelable: true
         );
 
         $response = $connector->send($request)->json();
 
-        \Illuminate\Support\Facades\Log::info('SUMIT Tokenization Response', [
+        Log::info('SUMIT Tokenization Response', [
             'account_id' => $account->id,
-            'status' => $response['Status'] ?? 'N/A',
-            'success' => $response['Data']['Success'] ?? 'N/A',
-            'has_token' => isset($response['Data']['CardToken']) || isset($response['Data']['Token']),
+            'status' => $response['Status'] ?? null,
+            'valid_payment' => Arr::get($response, 'Data.Payment.ValidPayment'),
+            'auth_number' => Arr::get($response, 'Data.Payment.AuthNumber'),
+            'has_token' => Arr::has($response, 'Data.Payment.PaymentMethod.CreditCard_Token'),
+            'token' => Arr::get($response, 'Data.Payment.PaymentMethod.CreditCard_Token'),
             'full_response' => $response,
         ]);
 
-        $success = Arr::get($response, 'Data.Success', false);
+        $success = ($response['Status'] ?? null) === 0;
+        $validPayment = Arr::get($response, 'Data.Payment.ValidPayment', false);
 
-        if (! $success) {
+        if (! $success || ! $validPayment) {
             $message = Arr::get($response, 'UserErrorMessage')
                 ?? Arr::get($response, 'Data.ResultDescription')
-                ?? 'Failed to store payment method via transaction.';
+                ?? 'Failed to authorize payment method with SUMIT.';
 
             throw new \RuntimeException((string) $message);
         }
+
+        $cardToken = Arr::get(
+            $response,
+            'Data.Payment.PaymentMethod.CreditCard_Token'
+        );
+
+        if (! $cardToken) {
+            throw new \RuntimeException('SUMIT did not return a card token.');
+        }
+
+        $paymentMethod = Arr::get($response, 'Data.Payment.PaymentMethod', []);
+
+        $lastFour = (string) ($paymentMethod['CreditCard_LastDigits'] ?? '');
+        $expiryMonth = str_pad((string) ($paymentMethod['CreditCard_ExpirationMonth'] ?? '1'), 2, '0', STR_PAD_LEFT);
+        $expiryYear = (string) ($paymentMethod['CreditCard_ExpirationYear'] ?? date('Y'));
+        $citizenId = $paymentMethod['CreditCard_CitizenID'] ?? null;
 
         // Reset default for other tokens
         OfficeGuyToken::query()
             ->where('owner_type', $account->getMorphClass())
             ->where('owner_id', $account->getKey())
             ->update(['is_default' => false]);
-
-        $cardToken = Arr::get($response, 'Data.CardToken') ?? Arr::get($response, 'Data.Token');
 
         // Handle existing soft-deleted token to prevent "Unique violation"
         $existing = OfficeGuyToken::withTrashed()
@@ -89,8 +105,25 @@ class AccountPaymentMethodManager
             }
         }
 
-        $token = OfficeGuyToken::createFromApiResponse($account, $response);
-        $token->update(['is_default' => true]);
+        // Build the token directly from the charge response — no extra gettransaction call needed.
+        // All required fields (token, last digits, expiry, citizen ID) are returned by /billing/payments/charge/.
+        $token = OfficeGuyToken::updateOrCreate(
+            [
+                'token' => $cardToken,
+                'owner_type' => $account->getMorphClass(),
+                'owner_id' => $account->getKey(),
+            ],
+            [
+                'gateway_id' => 'officeguy',
+                'card_type' => 'card',
+                'last_four' => $lastFour,
+                'citizen_id' => $citizenId,
+                'expiry_month' => $expiryMonth,
+                'expiry_year' => $expiryYear,
+                'is_default' => true,
+                'metadata' => $paymentMethod,
+            ]
+        );
 
         return $token;
     }
@@ -158,32 +191,6 @@ class AccountPaymentMethodManager
         if ($replacement instanceof OfficeGuyToken) {
             $replacement->setAsDefault();
         }
-    }
-
-    private function createPermanentTokenFromSingleUseToken(string $singleUseToken): array
-    {
-        $connector = new SumitConnector;
-        $request = new CreateTokenRequest(
-            token: TokenData::fromSingleUseToken(
-                singleUseToken: $singleUseToken,
-                paramJ: (string) config('officeguy.token_param', '5'),
-            ),
-            credentials: $this->credentials(),
-        );
-
-        $response = $connector->send($request)->json();
-        $status = Arr::get($response, 'Status');
-        $success = Arr::get($response, 'Data.Success', false);
-
-        if ($status !== 0 || $success !== true) {
-            $message = Arr::get($response, 'UserErrorMessage')
-                ?? Arr::get($response, 'Data.ResultDescription')
-                ?? 'Failed to tokenize the payment method with SUMIT.';
-
-            throw new \RuntimeException((string) $message);
-        }
-
-        return $response;
     }
 
     private function credentials(): CredentialsData

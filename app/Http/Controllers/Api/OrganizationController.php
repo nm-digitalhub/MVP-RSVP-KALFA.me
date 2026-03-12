@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 
 class OrganizationController extends Controller
 {
+    /**
+     * Get organization details.
+     */
     public function show(Request $request, Organization $organization): JsonResponse
     {
         $this->authorize('view', $organization);
@@ -18,6 +21,9 @@ class OrganizationController extends Controller
         return response()->json($organization);
     }
 
+    /**
+     * Update organization details. Requires Owner or Admin role.
+     */
     public function update(Request $request, Organization $organization): JsonResponse
     {
         $this->authorize('update', $organization);

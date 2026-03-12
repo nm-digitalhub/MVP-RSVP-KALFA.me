@@ -19,10 +19,12 @@ class CheckoutController extends Controller
     ) {}
 
     /**
-     * Initiate one-time payment for an event. Delegates to BillingService.
-     * If token (PaymentsJS single-use) is provided: token flow → returns { status: "processing", payment_id }.
-     * Otherwise: redirect flow (redirect_url).
-     * PCI: Do not log request payload (token/card data must not appear in logs).
+     * Initiate one-time payment for an event.
+     *
+     * **Token flow** (PaymentsJS): provide `token` → returns `{ status: "processing", payment_id }`.
+     * **Redirect flow**: omit `token` → returns `{ redirect_url }` to send the user to the payment page.
+     *
+     * ⚠️ PCI: Never send raw card data. Only single-use tokens from PaymentsJS are accepted.
      */
     public function initiate(InitiateCheckoutRequest $request, Organization $organization, Event $event): JsonResponse
     {
@@ -39,6 +41,7 @@ class CheckoutController extends Controller
                     'payment_id' => $result['payment_id'],
                 ], 200);
             }
+
             return response()->json([
                 'status' => 'failed',
                 'payment_id' => $result['payment_id'] ?? null,

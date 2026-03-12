@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Livewire\System\Users;
 
 use App\Models\Event;
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\OfficeGuy\SystemBillingService;
 use App\Services\SystemAuditLogger;

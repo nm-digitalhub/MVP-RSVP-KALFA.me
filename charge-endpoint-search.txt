@@ -1,0 +1,16 @@
+vendor/officeguy/laravel-sumit-gateway/CLAUDE.md:984:| `/creditguy/vault/tokenizesingleuse` | Tokenize card data | TokenService |
+vendor/officeguy/laravel-sumit-gateway/docs/PACKAGE_COMPLETENESS_AUDIT_2025-11-30.md:388:- ✅ `/creditguy/vault/tokenizesingleuse` - Tokenize card
+vendor/officeguy/laravel-sumit-gateway/docs/API_ENDPOINTS_ANALYSIS.md:76:| `/creditguy/vault/tokenizesingleusejson/` | POST | `OfficeGuyApi::checkPublicCredentials()` | Tokenize single-use token (used for credential validation) |
+vendor/officeguy/laravel-sumit-gateway/docs/API_ENDPOINTS_ANALYSIS.md:167:| `/creditguy/vault/tokenize/` | POST | Create permanent token | 🟡 Medium |
+vendor/officeguy/laravel-sumit-gateway/docs/API_ENDPOINTS_ANALYSIS.md:168:| `/creditguy/vault/tokenizesingleuse/` | POST | Create single-use token | 🟢 Low |
+vendor/officeguy/laravel-sumit-gateway/docs/OFFICEGUY_API_ANALYSIS.md:324:    $response = self::post($request, '/creditguy/vault/tokenizesingleusejson/', $environment, false);
+vendor/officeguy/laravel-sumit-gateway/docs/OFFICEGUY_API_ANALYSIS.md:340:- קורא ל-`/creditguy/vault/tokenizesingleusejson/` - endpoint ל-tokenization
+vendor/officeguy/laravel-sumit-gateway/docs/OFFICEGUY_API_ANALYSIS.md:448:$response = OfficeGuyApi::post($request, '/creditguy/vault/tokenizesingleuse', 'www');
+vendor/officeguy/laravel-sumit-gateway/docs/OFFICEGUY_API_ANALYSIS.md:669:| `/creditguy/vault/tokenizesingleuse` | Create token (J2) | TokenService |
+vendor/officeguy/laravel-sumit-gateway/docs/OFFICEGUY_API_ANALYSIS.md:670:| `/creditguy/vault/tokenizesingleusejson/` | Validate public key | checkPublicCredentials() |
+vendor/officeguy/laravel-sumit-gateway/sumit-openapi.json:2341:    "/creditguy/vault/tokenize/": {
+vendor/officeguy/laravel-sumit-gateway/sumit-openapi.json:2422:    "/creditguy/vault/tokenizesingleuse/": {
+vendor/officeguy/laravel-sumit-gateway/sumit-openapi.json:2542:    "/creditguy/vault/tokenizesingleusejson/": {
+vendor/officeguy/laravel-sumit-gateway/src/Http/Requests/Auth/ValidatePublicCredentialsRequest.php:100:        return '/creditguy/vault/tokenizesingleusejson/';
+vendor/officeguy/laravel-sumit-gateway/src/Services/OfficeGuyApi.php:191:        $response = self::post($request, '/creditguy/vault/tokenizesingleusejson/', $environment, false);
+vendor/officeguy/laravel-sumit-gateway/woo-plugin/woo-payment-gateway-officeguy/includes/OfficeGuyAPI.php:110:        $Response = OfficeGuyAPI::Post($Request, '/creditguy/vault/tokenizesingleusejson/', $Gateway->settings['environment'], false);

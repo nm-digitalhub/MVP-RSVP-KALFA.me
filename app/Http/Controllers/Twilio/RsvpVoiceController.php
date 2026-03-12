@@ -188,7 +188,7 @@ final class RsvpVoiceController extends Controller
         }
 
         try {
-            DB::transaction(function () use ($guest, $invitation, $responseType, $attendeesCount, $notes, $request): void {
+            DB::transaction(function () use ($guest, $invitation, $event, $responseType, $attendeesCount, $notes, $request): void {
                 RsvpResponse::updateOrCreate(
                     ['guest_id' => $guest->id, 'invitation_id' => $invitation->id],
                     [
