@@ -23,6 +23,18 @@ const sharedEnv = {
 export default {
   apps: [
     {
+      name: "kalfa-reverb",
+      script: "/var/www/vhosts/kalfa.me/httpdocs/artisan",
+      args: "reverb:start --host=0.0.0.0 --port=6001",
+      cwd: "/var/www/vhosts/kalfa.me/httpdocs",
+      interpreter: "/opt/plesk/php/8.4/bin/php",
+      autorestart: true,
+      watch: false,
+      max_memory_restart: "200M",
+      env: { APP_ENV: "production" },
+      env_production: { APP_ENV: "production" },
+    },
+    {
       name: "kalfa-ai-voice",
       script: join(__dirname, "server.js"),
       cwd: __dirname,

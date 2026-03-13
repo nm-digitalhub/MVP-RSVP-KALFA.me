@@ -115,6 +115,8 @@ return array(
     'Laravel\\Breeze\\' => array($vendorDir . '/laravel/breeze/src'),
     'Laravel\\Boost\\' => array($vendorDir . '/laravel/boost/src'),
     'Larastan\\Larastan\\' => array($vendorDir . '/larastan/larastan/src'),
+    'Laragear\\WebAuthn\\' => array($vendorDir . '/laragear/webauthn/src'),
+    'Laragear\\MetaModel\\' => array($vendorDir . '/laragear/meta-model/src'),
     'Illuminate\\Support\\' => array($vendorDir . '/laravel/framework/src/Illuminate/Macroable', $vendorDir . '/laravel/framework/src/Illuminate/Collections', $vendorDir . '/laravel/framework/src/Illuminate/Conditionable', $vendorDir . '/laravel/framework/src/Illuminate/Reflection'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
     'GuzzleHttp\\UriTemplate\\' => array($vendorDir . '/guzzlehttp/uri-template/src'),

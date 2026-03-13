@@ -2,8 +2,35 @@
 
 use App\Http\Controllers\CheckoutTokenizeController;
 use App\Http\Controllers\TwilioController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+/*
+|--------------------------------------------------------------------------
+| WebAuthn / Passkey Routes
+|--------------------------------------------------------------------------
+| Login routes: no auth required (user is unauthenticated during assertion).
+| Register routes: auth required — only logged-in users may add credentials.
+*/
+
+// Assertion (login) — unauthenticated, rate-limited
+Route::controller(\App\Http\Controllers\WebAuthn\WebAuthnLoginController::class)
+    ->withoutMiddleware(VerifyCsrfToken::class)
+    ->middleware('throttle:webauthn')
+    ->group(function () {
+        Route::post('webauthn/login/options', 'options')->name('webauthn.login.options');
+        Route::post('webauthn/login', 'login')->name('webauthn.login');
+    });
+
+// Attestation (register) — auth required + rate-limited
+Route::controller(\App\Http\Controllers\WebAuthn\WebAuthnRegisterController::class)
+    ->withoutMiddleware(VerifyCsrfToken::class)
+    ->middleware(['auth', 'throttle:webauthn'])
+    ->group(function () {
+        Route::post('webauthn/register/options', 'options')->name('webauthn.register.options');
+        Route::post('webauthn/register', 'register')->name('webauthn.register');
+    });
 
 /*
 |--------------------------------------------------------------------------

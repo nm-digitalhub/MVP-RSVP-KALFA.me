@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     laravel({
-      input: ['resources/css/app.css', 'resources/js/app.js'],
+      input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/passkey-login.js'],
       refresh: true,
     }),
   ],
@@ -48,7 +48,7 @@ export default defineConfig({
   },
   optimizeDeps: {
     exclude: ['laravel-vite-plugin'],
-    include: ['flowbite', 'alpinejs', 'axios'],
+    include: ['flowbite', 'alpinejs', 'axios', '@laragear/webpass'],
   },
   assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.woff', '**/*.woff2'],
 })

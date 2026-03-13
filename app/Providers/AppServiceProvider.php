@@ -22,6 +22,7 @@ use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Console\Events\CommandStarting;
 use Illuminate\Database\Events\MigrationsEnded;
+use Illuminate\Http\Request;
 use Illuminate\Log\Events\MessageLogged;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Events\JobProcessing;
@@ -159,6 +160,7 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('rsvp_show', fn () => Limit::perMinute(60));
         RateLimiter::for('rsvp_submit', fn () => Limit::perMinute(10));
         RateLimiter::for('webhooks', fn () => Limit::perMinute(120));
+        RateLimiter::for('webauthn', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
 
         if (app()->environment('production')) {
             $this->validateSumitConfig();

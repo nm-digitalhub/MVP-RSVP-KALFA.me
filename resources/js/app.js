@@ -5,6 +5,7 @@
 import './bootstrap'
 import 'flowbite'
 
+import Webpass from '@laragear/webpass'
 import $ from 'jquery'
 window.$ = window.jQuery = $
 
@@ -17,6 +18,7 @@ import Sortable from 'sortablejs'
 import Chart from 'chart.js/auto'
 import { computePosition, flip, shift, offset } from '@floating-ui/dom'
 
+window.Webpass = Webpass
 window.Sortable = Sortable
 window.Chart = Chart
 

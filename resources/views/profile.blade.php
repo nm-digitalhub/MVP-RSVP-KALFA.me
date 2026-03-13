@@ -16,6 +16,9 @@
             @livewire('profile.update-password-form')
         </div>
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+            @livewire('profile.manage-passkeys')
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             @livewire('profile.delete-user-form')
         </div>
     </div>
