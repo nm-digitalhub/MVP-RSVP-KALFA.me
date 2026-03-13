@@ -1,0 +1,26 @@
+# Obsidian Plugins
+.obsidian/plugins/
+.obsidian/
+
+# Obsidian Cache
+.obsidian/workspace/
+.obsidian/workspace.json
+
+# Obsidian Sync
+.obsidian/sync.lock
+
+# Temporary files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Node modules (if any development files exist)
+node_modules/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Documentation build artifacts
+docudoodle_cache.json

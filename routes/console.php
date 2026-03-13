@@ -53,7 +53,7 @@ $integrityCheckConfig = config('product-engine.operations.integrity_checks', [])
 
 if (($integrityCheckConfig['enabled'] ?? true) === true) {
     $parameters = (($integrityCheckConfig['fail_on_issues'] ?? true) === true)
-        ? ['--fail-on-issues' => true]
+        ? ['--fail-on-issues']
         : [];
 
     $event = Schedule::command(CheckIntegrityCommand::class, $parameters)

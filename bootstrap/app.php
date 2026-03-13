@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class => \App\Http\Middleware\VerifyCsrfToken::class,
         ]);
         $middleware->web(append: [
+            \App\Http\Middleware\RequestId::class,
             \App\Http\Middleware\ImpersonationExpiry::class,
             \App\Http\Middleware\SpatiePermissionTeam::class,
         ]);

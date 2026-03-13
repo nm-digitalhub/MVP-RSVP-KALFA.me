@@ -17,6 +17,7 @@
         "dedoc/scramble": "^0.13.14",
         "erag/laravel-pwa": "^1.9",
         "genericmilk/docudoodle": "^2.2",
+        "laragear/webauthn": "^4.1",
         "laravel/framework": "^12.0",
         "laravel/pulse": "^1.6",
         "laravel/reverb": "^1.0",

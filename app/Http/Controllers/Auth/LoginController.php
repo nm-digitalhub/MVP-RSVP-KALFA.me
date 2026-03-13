@@ -38,6 +38,11 @@ class LoginController extends Controller
         $user->update(['last_login_at' => now()]);
         $request->session()->regenerate();
 
+        // Suggest passkey upgrade if user has no passkeys yet
+        if ($user->webAuthnCredentials()->count() === 0) {
+            session()->flash('passkey_upgrade', true);
+        }
+
         return redirect()->intended($this->redirectPath());
     }
 
