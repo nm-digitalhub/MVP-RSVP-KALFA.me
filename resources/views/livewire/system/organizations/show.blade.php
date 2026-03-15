@@ -22,7 +22,7 @@
                 </div>
             </div>
             <p class="text-sm sm:text-lg text-content-muted font-medium italic">
-                UUID: <span class="font-bold text-content">#{{ $organization->id }}</span> • {{ __('Onboarded') }} {{ $organization->created_at->format('M d, Y') }}
+                UUID: <span class="font-bold text-content">#{{ $organization->id }}</span> • {{ __('Onboarded') }} {{ $organization->created_at->format('d.m.Y') }}
             </p>
         </div>
         <div class="flex shrink-0">
@@ -96,7 +96,7 @@
         {{-- Tabs Navigation --}}
         <div class="px-6 sm:px-12 border-b border-stroke bg-surface/30 overflow-x-auto no-scrollbar">
             <nav class="flex gap-10 sm:gap-16 whitespace-nowrap" aria-label="Tabs">
-                @foreach(['team' => __('Team & Governance'), 'events' => __('Event Ecosystem'), 'admin' => __('Infrastructure Control')] as $key => $label)
+                @foreach(['team' => __('Team & Governance'), 'events' => __('Event Ecosystem'), 'billing' => __('Billing & Subscription'), 'admin' => __('Infrastructure Control')] as $key => $label)
                     <button type="button" wire:click="setTab('{{ $key }}')" class="relative py-6 sm:py-8 text-[11px] sm:text-xs font-black uppercase tracking-[0.25em] transition-all group {{ $activeTab === $key ? 'text-brand' : 'text-content-muted hover:text-content' }}">
                         {{ $label }}
                         @if($activeTab === $key)
@@ -157,7 +157,7 @@
                                     <select wire:model="directAddUserId" class="w-full rounded-2xl border-transparent bg-card py-4 px-6 text-sm font-black shadow-xl ring-1 ring-brand/10 focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all appearance-none cursor-pointer">
                                         <option value="">{{ __('Search Userbase...') }}</option>
                                         @foreach($allUsers as $u)
-                                            <option value="{{ $u->id }}">{{ $u->name }} ({{ $u->email }})</option>
+                                            <option wire:key="user-opt-{{ $u->id }}" value="{{ $u->id }}">{{ $u->name }} ({{ $u->email }})</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -228,11 +228,11 @@
                                             <div class="text-base font-black text-content group-hover:text-brand transition-colors">{{ $event->name }}</div>
                                         </td>
                                         <td class="px-8 py-6 text-sm font-bold text-content-muted">
-                                            {{ $event->event_date?->format('M d, Y') }}
+                                            {{ $event->event_date?->format('d.m.Y') }}
                                         </td>
                                         <td class="px-8 py-6 text-start">
                                             <span class="inline-flex px-3 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-widest {{ $event->status?->value === 'active' ? 'bg-success/10 text-success ring-1 ring-success/20' : 'bg-warning/10 text-warning ring-1 ring-warning/20' }}">
-                                                {{ $event->status?->value ? __($event->status->value) : __('Draft') }}
+                                                {{ $event->status?->label() ?? __('Draft') }}
                                             </span>
                                         </td>
                                         <td class="px-8 py-6 text-end">
@@ -255,6 +255,113 @@
                         </table>
                     </div>
                     <div class="mt-8 px-4">{{ $events->links() }}</div>
+                </div>
+            @endif
+
+            @if($activeTab === 'billing')
+                <div class="space-y-8 animate-in slide-in-from-left-4 duration-500">
+                    @if(session('success'))
+                        <div class="rounded-2xl bg-success/10 border border-success/20 px-6 py-4 text-sm font-medium text-success">{{ session('success') }}</div>
+                    @endif
+                    @if(session('error'))
+                        <div class="rounded-2xl bg-danger/10 border border-danger/20 px-6 py-4 text-sm font-medium text-danger">{{ session('error') }}</div>
+                    @endif
+
+                    {{-- Subscription Card --}}
+                    <div class="bg-surface rounded-3xl border border-stroke p-8 space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-black text-content tracking-tight">{{ __('Active Subscription') }}</h3>
+                            <button wire:click="syncSubscriptions" wire:loading.attr="disabled" class="flex items-center gap-2 text-xs font-bold text-brand hover:text-brand/80 transition-colors">
+                                <x-heroicon-o-arrow-path class="size-4 wire:loading:animate-spin" wire:target="syncSubscriptions" />
+                                {{ __('Sync from SUMIT') }}
+                            </button>
+                        </div>
+
+                        @if($subscription)
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+                                <div class="space-y-1">
+                                    <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Status') }}</p>
+                                    <span @class([
+                                        'inline-flex items-center px-3 py-1 rounded-full text-xs font-black',
+                                        'bg-success/10 text-success' => $subscription->isActive(),
+                                        'bg-warning/10 text-warning' => $subscription->isPending() || $subscription->isPaused(),
+                                        'bg-danger/10 text-danger' => $subscription->isCancelled() || $subscription->isFailed() || $subscription->isExpired(),
+                                    ])>{{ ucfirst($subscription->status) }}</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Plan') }}</p>
+                                    <p class="font-bold text-content">{{ $subscription->name }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Amount') }}</p>
+                                    <p class="font-bold text-content">{{ number_format((float) $subscription->amount, 2) }} {{ $subscription->currency }}</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Billing cycle') }}</p>
+                                    <p class="font-bold text-content">{{ __('Every :n month(s)', ['n' => $subscription->interval_months]) }}</p>
+                                </div>
+                                @if($subscription->next_charge_at)
+                                    <div class="space-y-1">
+                                        <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Next charge') }}</p>
+                                        <p class="font-bold text-content">{{ $subscription->next_charge_at->format('d.m.Y') }}</p>
+                                    </div>
+                                @endif
+                                @if($subscription->trial_ends_at)
+                                    <div class="space-y-1">
+                                        <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Trial ends') }}</p>
+                                        <p class="font-bold {{ $subscription->isInTrial() ? 'text-warning' : 'text-content-muted line-through' }}">{{ $subscription->trial_ends_at->format('d.m.Y') }}</p>
+                                    </div>
+                                @endif
+                                @if($subscription->last_charged_at)
+                                    <div class="space-y-1">
+                                        <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Last charged') }}</p>
+                                        <p class="font-bold text-content">{{ $subscription->last_charged_at->format('d.m.Y') }}</p>
+                                    </div>
+                                @endif
+                                <div class="space-y-1">
+                                    <p class="text-xs font-bold text-content-muted uppercase tracking-widest">{{ __('Cycles') }}</p>
+                                    <p class="font-bold text-content">{{ $subscription->completed_cycles }} / {{ $subscription->total_cycles ?? '∞' }}</p>
+                                </div>
+                            </div>
+                        @else
+                            <div class="flex flex-col items-center justify-center py-16 text-center space-y-3">
+                                <x-heroicon-o-credit-card class="size-12 text-content-muted/30" />
+                                <p class="text-content-muted font-medium">{{ __('No active subscription found.') }}</p>
+                                <p class="text-xs text-content-muted/60">{{ __('Use "Sync from SUMIT" to fetch the latest data.') }}</p>
+                            </div>
+                        @endif
+                    </div>
+
+                    {{-- Billing Actions --}}
+                    @if($subscription && ($subscription->isActive() || $subscription->isPending() || $subscription->isPaused() || $subscription->isInTrial()))
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div class="bg-surface rounded-3xl border border-stroke p-8 space-y-4">
+                                <div class="size-12 rounded-2xl bg-warning/10 flex items-center justify-center text-warning">
+                                    <x-heroicon-o-clock class="size-6" />
+                                </div>
+                                <h4 class="font-black text-content">{{ __('Extend Trial') }}</h4>
+                                <p class="text-sm text-content-muted">{{ __('Add days to the trial period.') }}</p>
+                                <div class="flex items-center gap-3">
+                                    <input type="number" wire:model.live="trialExtendDays" min="1" max="365" class="w-24 rounded-xl border border-stroke bg-card px-3 py-2 text-sm font-bold text-center focus:ring-2 focus:ring-brand/30 focus:border-brand/30" />
+                                    <span class="text-sm text-content-muted">{{ __('days') }}</span>
+                                </div>
+                                <button wire:click="requestAction('extendTrial')" class="w-full py-3 rounded-2xl bg-warning/10 text-warning font-black text-sm hover:bg-warning/20 transition-colors">
+                                    {{ __('Extend Trial') }}
+                                </button>
+                            </div>
+
+                            <div class="bg-surface rounded-3xl border border-stroke p-8 space-y-4">
+                                <div class="size-12 rounded-2xl bg-danger/10 flex items-center justify-center text-danger">
+                                    <x-heroicon-o-x-circle class="size-6" />
+                                </div>
+                                <h4 class="font-black text-content">{{ __('Cancel Subscription') }}</h4>
+                                <p class="text-sm text-content-muted">{{ __('Immediately cancel the active subscription. This action requires password confirmation.') }}</p>
+                                <button wire:click="requestAction('cancelSubscription')" class="w-full py-3 rounded-2xl bg-danger/10 text-danger font-black text-sm hover:bg-danger/20 transition-colors">
+                                    {{ __('Cancel Subscription') }}
+                                </button>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @endif
 
@@ -290,7 +397,7 @@
                         <div class="grid grid-cols-1 gap-3 max-h-[180px] overflow-y-auto no-scrollbar">
                             @foreach($members as $m)
                                 @if($m->id !== $owner?->id)
-                                    <button wire:click="requestAction('transferOwnership', {{ $m->id }})" class="flex items-center justify-between p-4 rounded-2xl bg-surface border border-transparent hover:border-brand/30 hover:bg-card transition-all group/btn">
+                                    <button wire:key="transfer-btn-{{ $m->id }}" wire:click="requestAction('transferOwnership', {{ $m->id }})" class="flex items-center justify-between p-4 rounded-2xl bg-surface border border-transparent hover:border-brand/30 hover:bg-card transition-all group/btn">
                                         <span class="text-sm font-black text-content group-hover/btn:text-brand">{{ $m->name }}</span>
                                         <x-heroicon-o-chevron-right class="size-4 text-content-muted group-hover/btn:translate-x-1 transition-transform" />
                                     </button>

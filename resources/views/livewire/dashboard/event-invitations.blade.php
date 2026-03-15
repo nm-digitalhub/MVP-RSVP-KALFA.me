@@ -43,12 +43,12 @@
                         <td class="px-4 py-2 text-sm text-gray-900">{{ $inv->guest?->name ?? __('—') }}</td>
                         <td class="px-4 py-2 text-sm text-gray-600">{{ $inv->status?->value ? __($inv->status->value) : __('—') }}</td>
                         <td class="px-4 py-2 text-sm">
-                            <a href="{{ url('rsvp/' . $inv->slug) }}" target="_blank" rel="noopener" class="text-indigo-600 hover:text-indigo-900 break-all">{{ url('rsvp/' . $inv->slug) }}</a>
+                            <a href="{{ url('rsvp/' . $inv->slug) }}" target="_blank" rel="noopener" class="text-brand hover:text-indigo-900 break-all">{{ url('rsvp/' . $inv->slug) }}</a>
                         </td>
                         <td class="px-4 py-2 text-sm">
                             @can('update', $event)
                                 @if($inv->status === \App\Enums\InvitationStatus::Pending)
-                                    <button type="button" wire:click="markSent({{ $inv->id }})" class="min-h-[44px] inline-flex items-center px-2 text-indigo-600 hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded cursor-pointer transition-colors duration-200">{{ __('Mark as sent') }}</button>
+                                    <button type="button" wire:click="markSent({{ $inv->id }})" class="min-h-[44px] inline-flex items-center px-2 text-brand hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1 rounded cursor-pointer transition-colors duration-200">{{ __('Mark as sent') }}</button>
                                 @endif
                             @endcan
                         </td>

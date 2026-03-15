@@ -64,19 +64,19 @@
             @endphp
             <div class="flex flex-wrap gap-2 px-6 py-4 border-t border-gray-100">
                 @if($addToCalendarUrl)
-                    <a href="{{ $addToCalendarUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer">
+                    <a href="{{ $addToCalendarUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 cursor-pointer">
                         <x-heroicon-o-calendar-days class="h-5 w-5 text-gray-500" />
                         <span>{{ __('Add to calendar') }}</span>
                     </a>
                 @endif
                 @foreach($eventLinks->navigationLinks($invitation->event) as $nav)
-                    <a href="{{ $nav['url'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer">
+                    <a href="{{ $nav['url'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 cursor-pointer">
                         <x-heroicon-o-map-pin class="h-5 w-5 text-gray-500" />
                         <span>{{ __($nav['label_key']) }}</span>
                     </a>
                 @endforeach
                 <div class="inline-flex" data-rsvp-share data-share-url="{{ e(url()->current()) }}" data-share-title="{{ e($invitation->event->name) }}" data-share-label="{{ e(__('Share event')) }}" data-share-copied="{{ e(__('Link copied.')) }}">
-                    <button type="button" class="rsvp-share-trigger inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer">
+                    <button type="button" class="rsvp-share-trigger inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 cursor-pointer">
                         <x-heroicon-o-share-across class="h-5 w-5 text-gray-500" />
                         <span class="rsvp-share-label">{{ __('Share event') }}</span>
                     </button>
@@ -150,7 +150,7 @@
                                 ];
                             @endphp
                             @foreach($options as $value => $label)
-                                <label class="rsvp-option-label relative flex min-h-[44px] cursor-pointer items-center justify-center rounded-lg border-2 px-4 py-3 text-sm font-medium transition-all duration-200 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 border-gray-300 bg-white text-gray-700 hover:border-gray-400 hover:bg-gray-50"
+                                <label class="rsvp-option-label relative flex min-h-[44px] cursor-pointer items-center justify-center rounded-lg border-2 px-4 py-3 text-sm font-medium transition-all duration-200 focus-within:ring-2 focus-within:ring-brand focus-within:ring-offset-2 border-gray-300 bg-white text-gray-700 hover:border-gray-400 hover:bg-gray-50"
                                     data-rsvp-label-for="{{ $value }}">
                                     <input type="radio"
                                         name="response"
@@ -162,7 +162,7 @@
                                         aria-describedby="response-{{ $value }}-label"
                                         @if($value === 'yes') checked @endif>
                                     <span id="response-{{ $value }}-label" class="relative z-10 pointer-events-none">{{ $label }}</span>
-                                    <span class="rsvp-option-dot absolute top-2 end-2 h-2 w-2 rounded-full bg-indigo-600 opacity-0 transition-opacity duration-200 pointer-events-none rtl:end-auto rtl:start-2" aria-hidden="true"></span>
+                                    <span class="rsvp-option-dot absolute top-2 end-2 h-2 w-2 rounded-full bg-brand opacity-0 transition-opacity duration-200 pointer-events-none rtl:end-auto rtl:start-2" aria-hidden="true"></span>
                                 </label>
                             @endforeach
                         </div>

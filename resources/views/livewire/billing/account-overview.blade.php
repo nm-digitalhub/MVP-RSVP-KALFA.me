@@ -11,7 +11,7 @@
                     <button
                         type="button"
                         wire:click="createAccount"
-                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-brand hover:bg-brand-hover"
                     >
                         {{ __('Create account for this organization') }}
                     </button>
@@ -59,9 +59,9 @@
                 </div>
             </dl>
             <div class="px-4 py-3 sm:px-6 border-t border-gray-200 flex gap-4">
-                <a href="{{ route('billing.entitlements') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-900">{{ __('Entitlements') }}</a>
-                <a href="{{ route('billing.usage') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-900">{{ __('Usage') }}</a>
-                <a href="{{ route('billing.intents') }}" class="text-sm font-medium text-indigo-600 hover:text-indigo-900">{{ __('Billing intents') }}</a>
+                <a href="{{ route('billing.entitlements') }}" class="text-sm font-medium text-brand hover:text-indigo-900">{{ __('Entitlements') }}</a>
+                <a href="{{ route('billing.usage') }}" class="text-sm font-medium text-brand hover:text-indigo-900">{{ __('Usage') }}</a>
+                <a href="{{ route('billing.intents') }}" class="text-sm font-medium text-brand hover:text-indigo-900">{{ __('Billing intents') }}</a>
             </div>
         </div>
     @endif

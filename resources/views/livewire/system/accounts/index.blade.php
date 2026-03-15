@@ -168,7 +168,7 @@
                                             <div class="flex items-center gap-2">
                                                 <span class="text-[10px] font-bold text-content-muted uppercase">ID: #{{ $account->id }}</span>
                                                 <span class="text-[10px] text-stroke">•</span>
-                                                <span class="text-[10px] font-bold text-content-muted uppercase">{{ $account->created_at->format('M d') }}</span>
+                                                <span class="text-[10px] font-bold text-content-muted uppercase">{{ $account->created_at->format('d.m.Y') }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -210,7 +210,7 @@
                                     @if($account->organizations->isNotEmpty())
                                         <div class="inline-flex -space-x-2 overflow-hidden">
                                             @foreach($account->organizations->take(3) as $org)
-                                                <div class="size-8 rounded-full ring-2 ring-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500" title="{{ $org->name }}">
+                                                <div wire:key="acc-org-{{ $account->id }}-{{ $org->id }}" class="size-8 rounded-full ring-2 ring-white bg-slate-100 flex items-center justify-center text-[10px] font-bold text-slate-500" title="{{ $org->name }}">
                                                     {{ substr($org->name, 0, 1) }}
                                                 </div>
                                             @endforeach

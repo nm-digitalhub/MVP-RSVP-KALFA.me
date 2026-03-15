@@ -12,4 +12,16 @@ enum EventStatus: string
     case Locked = 'locked';
     case Archived = 'archived';
     case Cancelled = 'cancelled';
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::Draft => __('Draft'),
+            self::PendingPayment => __('Pending Payment'),
+            self::Active => __('Active'),
+            self::Locked => __('Locked'),
+            self::Archived => __('Archived'),
+            self::Cancelled => __('Cancelled'),
+        };
+    }
 }

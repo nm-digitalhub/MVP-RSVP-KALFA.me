@@ -38,7 +38,7 @@
                 </div>
                 <div class="flex gap-2">
                     @can('update', $event)
-                        <a href="{{ route('dashboard.events.edit', $event) }}" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Edit') }}</a>
+                        <a href="{{ route('dashboard.events.edit', $event) }}" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Edit') }}</a>
                     @endcan
                     @can('delete', $event)
                         <form action="{{ route('dashboard.events.destroy', $event) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Delete this event?') }}');">
@@ -71,13 +71,13 @@
             @if($addToCalendarUrl || count($navLinks) > 0)
                 <div class="px-6 py-4 border-t border-gray-100 flex flex-wrap gap-2">
                     @if($addToCalendarUrl)
-                        <a href="{{ $addToCalendarUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer">
+                        <a href="{{ $addToCalendarUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 cursor-pointer">
                             <x-heroicon-o-calendar-days class="h-5 w-5 text-gray-500" />
                             <span>{{ __('Add to calendar') }}</span>
                         </a>
                     @endif
                     @foreach($navLinks as $nav)
-                        <a href="{{ $nav['url'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 cursor-pointer">
+                        <a href="{{ $nav['url'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 cursor-pointer">
                             <x-heroicon-o-map-pin class="h-5 w-5 text-gray-500" />
                             <span>{{ __($nav['label_key']) }}</span>
                         </a>
@@ -103,7 +103,7 @@
                 <p class="text-sm text-gray-600 leading-relaxed">{{ __('This event has been paid.') }}</p>
             @elseif($event->status->value === 'draft' || $event->status->value === 'pending_payment')
                 @can('initiatePayment', $event)
-                    <a href="{{ route('checkout.tokenize', [$event->organization, $event]) }}" class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Proceed to payment') }}</a>
+                    <a href="{{ route('checkout.tokenize', [$event->organization, $event]) }}" class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-brand hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Proceed to payment') }}</a>
                 @else
                     <p class="text-sm text-gray-600 leading-relaxed">{{ __('Only organization owners and admins can initiate payment.') }}</p>
                 @endcan
@@ -131,10 +131,10 @@
                 @php
                     $label = $card['count'] === 1 ? $card['label_singular'] : $card['label_plural'];
                 @endphp
-                <a href="{{ route($card['route'], $event) }}" class="group block bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:border-indigo-200 hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">
+                <a href="{{ route($card['route'], $event) }}" class="group block bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:border-indigo-200 hover:shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">
                     <div class="px-4 py-4 sm:px-6 border-b border-gray-200 flex justify-between items-center">
                         <h2 class="text-lg font-medium text-gray-900">{{ $titles[$card['key']] }}</h2>
-                        <span class="text-sm font-medium text-indigo-600 group-hover:text-indigo-700">{{ __('Manage') }}</span>
+                        <span class="text-sm font-medium text-brand group-hover:text-indigo-700">{{ __('Manage') }}</span>
                     </div>
                     <div class="p-6">
                         <p class="text-sm text-gray-600 leading-relaxed"><span class="font-semibold text-gray-900">{{ $card['count'] }}</span> {{ $label }}</p>

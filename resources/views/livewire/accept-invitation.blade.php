@@ -22,7 +22,7 @@
         <div class="space-y-6">
             <button 
                 wire:click="accept" 
-                class="group relative w-full flex items-center justify-center gap-3 py-4 px-6 bg-gray-900 text-white font-bold rounded-2xl hover:bg-indigo-600 active:scale-[0.98] transition-all duration-300 shadow-xl shadow-gray-900/20 hover:shadow-indigo-500/30 overflow-hidden cursor-pointer"
+                class="group relative w-full flex items-center justify-center gap-3 py-4 px-6 bg-gray-900 text-white font-bold rounded-2xl hover:bg-brand active:scale-[0.98] transition-all duration-300 shadow-xl shadow-gray-900/20 hover:shadow-indigo-500/30 overflow-hidden cursor-pointer"
             >
                 <span class="relative z-10">
                     @if(auth()->check())
@@ -48,7 +48,7 @@
                 <div class="text-center">
                     <p class="text-gray-500 font-medium">
                         {{ __('Already have an account?') }}
-                        <a href="{{ route('login', ['invitation' => $token]) }}" class="inline-flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-bold transition-colors">
+                        <a href="{{ route('login', ['invitation' => $token]) }}" class="inline-flex items-center gap-1 text-brand hover:text-indigo-700 font-bold transition-colors">
                             {{ __('Log in here') }}
                             <x-heroicon-o-chevron-right class="w-4 h-4" />
                         </a>

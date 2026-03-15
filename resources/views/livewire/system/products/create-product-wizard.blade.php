@@ -250,7 +250,7 @@
                                             @endif
                                         </div>
 
-                                        <button type="button" wire:click="removeEntitlement({{ $entitlement->id }})" class="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
+                                        <button type="button" wire:click="removeEntitlement({{ $entitlement->id }})" wire:confirm="{{ __('Remove this entitlement?') }}" class="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
                                             <x-heroicon-o-trash class="size-4" />
                                             <span>{{ __('Remove') }}</span>
                                         </button>
@@ -363,7 +363,7 @@
                                                 @endif
                                                 <span>{{ $limit->is_active ? __('Disable') : __('Enable') }}</span>
                                             </button>
-                                            <button type="button" wire:click="removeLimit({{ $limit->id }})" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
+                                            <button type="button" wire:click="removeLimit({{ $limit->id }})" wire:confirm="{{ __('Remove this limit?') }}" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
                                                 <x-heroicon-o-trash class="size-4" />
                                                 <span>{{ __('Remove') }}</span>
                                             </button>
@@ -455,7 +455,7 @@
                                                 @endif
                                                 <span>{{ $feature->is_enabled ? __('Disable') : __('Enable') }}</span>
                                             </button>
-                                            <button type="button" wire:click="removeFeature({{ $feature->id }})" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
+                                            <button type="button" wire:click="removeFeature({{ $feature->id }})" wire:confirm="{{ __('Remove this feature?') }}" class="inline-flex min-h-[38px] items-center justify-center gap-2 rounded-lg border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
                                                 <x-heroicon-o-trash class="size-4" />
                                                 <span>{{ __('Remove') }}</span>
                                             </button>
@@ -585,7 +585,7 @@ class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-4 flex gap-3"
                                                 </div>
                                             </div>
 
-                                            <button type="button" wire:click="removePlan({{ $plan->id }})" class="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
+                                            <button type="button" wire:click="removePlan({{ $plan->id }})" wire:confirm="{{ __('Remove this plan?') }}" class="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-xl border border-rose-200 bg-rose-50 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-rose-600 transition hover:bg-rose-100">
                                                 <x-heroicon-o-trash class="size-4" />
                                                 <span>{{ __('Remove') }}</span>
                                             </button>

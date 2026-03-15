@@ -24,11 +24,11 @@
 
         <div>
             <label for="og-ccnum" class="block text-sm font-medium text-gray-700 mb-1">מספר כרטיס *</label>
-            <input type="text" id="og-ccnum" name="og-ccnum" placeholder="•••• •••• •••• ••••" maxlength="19" inputmode="numeric" autocomplete="cc-number" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
+            <input type="text" id="og-ccnum" name="og-ccnum" placeholder="•••• •••• •••• ••••" maxlength="19" inputmode="numeric" autocomplete="cc-number" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-brand focus:ring-2 focus:ring-brand/50">
         </div>
         <div>
             <label for="og-expmonth" class="block text-sm font-medium text-gray-700 mb-1">חודש תפוגה *</label>
-            <select id="og-expmonth" name="og-expmonth" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
+            <select id="og-expmonth" name="og-expmonth" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-brand focus:ring-2 focus:ring-brand/50">
                 <option value="">חודש</option>
                 @for($i = 1; $i <= 12; $i++)
                     <option value="{{ str_pad((string)$i, 2, '0', STR_PAD_LEFT) }}">{{ str_pad((string)$i, 2, '0', STR_PAD_LEFT) }}</option>
@@ -37,7 +37,7 @@
         </div>
         <div>
             <label for="og-expyear" class="block text-sm font-medium text-gray-700 mb-1">שנת תפוגה *</label>
-            <select id="og-expyear" name="og-expyear" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
+            <select id="og-expyear" name="og-expyear" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-brand focus:ring-2 focus:ring-brand/50">
                 <option value="">שנה</option>
                 @for($i = 0; $i <= 15; $i++)
                     <option value="{{ (string)(date('Y') + $i) }}">{{ date('Y') + $i }}</option>
@@ -46,13 +46,13 @@
         </div>
         <div>
             <label for="og-ccv" class="block text-sm font-medium text-gray-700 mb-1">CVV *</label>
-            <input type="text" id="og-ccv" name="og-ccv" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50">
+            <input type="text" id="og-ccv" name="og-ccv" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc" required class="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-lg rtl:text-end focus:border-brand focus:ring-2 focus:ring-brand/50">
         </div>
 
         <div id="checkout-error" class="hidden text-sm text-red-600 mt-1" role="alert"></div>
         <div id="checkout-success" class="hidden text-sm text-green-600 mt-4"></div>
 
-        <button type="submit" id="pay-btn" class="w-full min-h-[44px] px-4 py-3 bg-indigo-600 text-white text-base font-medium rounded-lg cursor-pointer hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed">
+        <button type="submit" id="pay-btn" class="w-full min-h-[44px] px-4 py-3 bg-brand text-white text-base font-medium rounded-lg cursor-pointer hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed">
             שלם {{ number_format($plan->price_cents / 100, 2) }} ₪
         </button>
     </form>

@@ -303,3 +303,383 @@ start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
 [2026-03-13 18:46:06] production.WARNING: startAuthentication() was not called correctly. It will try to continue with the provided options, but this call should be refactored to use the expected call structure instead. See https://simplewebauthn.dev/docs/packages/browser#typeerror-cannot-read-properties-of-undefined-reading-challenge for more information. {"url":"https://kalfa.me/login","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-13T16:46:05.843Z"} 
 [2026-03-13 18:46:08] production.WARNING: [passkey] silent cancel (response) AssertionCancelled The credentials request was not completed. T@https://kalfa.me/build/assets/webpass-CDN8R-h9.js:2:15194
 c@https://kalfa.me/build/assets/webpass-CDN8R-h9.js:2:17017 {"url":"https://kalfa.me/login","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-13T16:46:07.457Z"} 
+[2026-03-15 11:50:17] production.WARNING: startAuthentication() was not called correctly. It will try to continue with the provided options, but this call should be refactored to use the expected call structure instead. See https://simplewebauthn.dev/docs/packages/browser#typeerror-cannot-read-properties-of-undefined-reading-challenge for more information. {"url":"https://kalfa.me/login","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T09:50:16.826Z"} 
+[2026-03-15 11:50:23] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T09:50:22.405Z"} 
+[2026-03-15 11:50:46] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T09:50:45.453Z"} 
+[2026-03-15 11:53:29] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T09:53:27.993Z"} 
+[2026-03-15 11:53:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T09:53:51.121Z"} 
+[2026-03-15 11:59:05] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T09:59:04.613Z"} 
+[2026-03-15 12:01:47] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:01:46.932Z"} 
+[2026-03-15 12:06:42] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:06:41.878Z"} 
+[2026-03-15 12:06:50] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:06:49.260Z"} 
+[2026-03-15 12:27:39] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:27:38.338Z"} 
+[2026-03-15 12:34:11] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:34:10.252Z"} 
+[2026-03-15 12:34:31] production.ERROR: Unhandled Promise Rejection 404 <!DOCTYPE html>
+<html lang="he" dir="rtl">
+
+<head>
+
+    <meta charset="utf-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+
+    <meta name="csrf-token" content="kDmXOUnsLpYdCU9XwaGg3NbXDJnwHm1sZbTN3YTu">
+
+    <title>דף לא נמצא - 404</title>
+
+    <link rel="preload" as="style" href="https://kalfa.me/build/assets/css/app-B1G2nfyf.css" /><link rel="modulepreload" as="script" href="https://kalfa.me/build/assets/app-CUI1R-6-.js" /><link rel="modulepreload" as="script" href="https://kalfa.me/build/assets/webpass-CDN8R-h9.js" /><link rel="stylesheet" href="https://kalfa.me/build/assets/css/app-B1G2nfyf.css" data-navigate-track="reload" /><script type="module" src="https://kalfa.me/build/assets/app-CUI1R-6-.js" data-navigate-track="reload"></script>
+    
+    <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+
+    
+<script id="browser-logger-active">
+(function() {
+    const ENDPOINT = 'https://kalfa.me/_boost/browser-logs';
+    const logQueue = [];
+    let flushTimeout = null;
+
+    console.log('🔍 Browser logger active (MCP server detected). Posting to: ' + ENDPOINT);
+
+    // Store original console methods
+    const originalConsole = {
+        log: console.log,
+        info: console.info,
+        error: console.error,
+        warn: console.warn,
+        table: console.table
+    };
+
+    // Helper to safely stringify values
+    function safeStringify(obj) {
+        const seen = new WeakSet();
+        return JSON.stringify(obj, (key, value) => {
+            if (typeof value === 'object' && value !== null) {
+                if (seen.has(value)) return '[Circular]';
+                seen.add(value);
+            }
+            if (value instanceof Error) {
+                return {
+                    name: value.name,
+                    message: value.message,
+                    stack: value.stack
+                };
+            }
+            return value;
+        });
+    }
+
+    // Batch and send logs
+    function flushLogs() {
+        if (logQueue.length === 0) return;
+
+        const batch = logQueue.splice(0, logQueue.length);
+
+        fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: JSON.stringify({ logs: batch })
+        }).catch(err => {
+            // Silently fail to avoid infinite loops
+            originalConsole.error('Failed to send logs:', err);
+        });
+    }
+
+    // Debounced flush (100ms)
+    function scheduleFlush() {
+        if (flushTimeout) clearTimeout(flushTimeout);
+        flushTimeout = setTimeout(flushLogs, 100);
+    }
+
+    // Intercept console methods
+    ['log', 'info', 'error', 'warn', 'table'].forEach(method => {
+        console[method] = function(...args) {
+            // Call original method
+            originalConsole[method].apply(console, args);
+
+            // Capture log data
+            try {
+                logQueue.push({
+                    type: method,
+                    timestamp: new Date().toISOString(),
+                    data: args.map(arg => {
+                        try {
+                            return typeof arg === 'object' ? JSON.parse(safeStringify(arg)) : arg;
+                        } catch (e) {
+                            return String(arg);
+                        }
+                    }),
+                    url: window.location.href,
+                    userAgent: navigator.userAgent
+                });
+
+                scheduleFlush();
+            } catch (e) {
+                // Fail silently
+            }
+        };
+    });
+
+    // Global error handlers for uncaught errors
+    const originalOnError = window.onerror;
+    window.onerror = function boostErrorHandler(errorMsg, url, lineNumber, colNumber, error) {
+        try {
+            logQueue.push({
+                type: 'uncaught_error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: errorMsg,
+                    filename: url,
+                    lineno: lineNumber,
+                    colno: colNumber,
+                    error: error ? {
+                        name: error.name,
+                        message: error.message,
+                        stack: error.stack
+                    } : null
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Call original handler if it exists
+        if (originalOnError && typeof originalOnError === 'function') {
+            return originalOnError(errorMsg, url, lineNumber, colNumber, error);
+        }
+
+        // Let the error continue to propagate
+        return false;
+    }
+    window.addEventListener('error', (event) => {
+        try {
+            logQueue.push({
+                type: 'window_error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: event.message,
+                    filename: event.filename,
+                    lineno: event.lineno,
+                    colno: event.colno,
+                    error: event.error ? {
+                        name: event.error.name,
+                        message: event.error.message,
+                        stack: event.error.stack
+                    } : null
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the error continue to propagate
+        return false;
+    });
+    window.addEventListener('unhandledrejection', (event) => {
+        try {
+            logQueue.push({
+                type: 'error',
+                timestamp: new Date().toISOString(),
+                data: [{
+                    message: 'Unhandled Promise Rejection',
+                    reason: event.reason instanceof Error ? {
+                        name: event.reason.name,
+                        message: event.reason.message,
+                        stack: event.reason.stack
+                    } : event.reason
+                }],
+                url: window.location.href,
+                userAgent: navigator.userAgent
+            });
+
+            scheduleFlush();
+        } catch (e) {
+            // Fail silently
+        }
+
+        // Let the rejection continue to propagate
+        return false;
+    });
+
+    // Flush on page unload
+    window.addEventListener('beforeunload', () => {
+        if (logQueue.length > 0) {
+            navigator.sendBeacon(ENDPOINT, JSON.stringify({ logs: logQueue }));
+        }
+    });
+})();
+</script>
+</head>
+
+<body class="min-h-screen bg-gray-50 antialiased text-gray-900">
+
+<div class="min-h-screen px-4 py-8 sm:py-12">
+
+    <section class="bg-white dark:bg-gray-900 min-h-screen flex items-center" aria-labelledby="error-404-heading">
+        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+            <div class="mx-auto max-w-screen-sm text-center">
+                <!-- Error Icon (reduced-motion friendly) -->
+                <div class="flex justify-center mb-8">
+                    <div class="error-404-icon relative inline-flex items-center justify-center w-28 h-28 bg-primary-100 rounded-full dark:bg-primary-900">
+                        <svg class="w-16 h-16 text-primary-600 dark:text-primary-300 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <h1 id="error-404-heading" class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent dark:from-primary-500 dark:to-primary-300 error-404-code">
+                    404
+                </h1>
+
+                <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white error-404-title">
+                    הדף לא נמצא
+                </p>
+
+                <p class="mb-8 text-lg font-light text-gray-600 dark:text-gray-400 error-404-desc">
+                    מצטערים, לא הצלחנו למצוא את הדף שחיפשת. אפשר שהדף הועבר, נמחק, או שהכתובת שגויה.
+                </p>
+
+                <!-- Primary actions: min 44px touch targets, cursor-pointer, focus-visible -->
+                <div class="flex flex-col gap-4 sm:flex-row sm:justify-center sm:gap-4 rtl:space-x-reverse mb-12 error-404-actions">
+                    <a href="https://kalfa.me" wire:navigate class="group inline-flex justify-center items-center min-h-[44px] min-w-[44px] py-3 px-6 text-base font-medium text-center text-white rounded-lg bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 focus:ring-4 focus:ring-primary-300 focus-visible:ring-4 focus-visible:ring-primary-400 dark:focus:ring-primary-900 shadow-lg hover:shadow-xl transition-colors duration-200 transition-shadow duration-200 cursor-pointer" aria-label="Back to home">
+                        <svg class="w-5 h-5 ms-2 rtl:ms-0 rtl:me-2 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        חזרה לדף הבית
+                    </a>
+                                            <a href="https://kalfa.me/dashboard" wire:navigate class="group inline-flex justify-center items-center min-h-[44px] min-w-[44px] py-3 px-6 text-base font-medium text-center text-gray-900 rounded-lg border-2 border-gray-300 hover:bg-gray-100 hover:border-gray-400 focus:ring-4 focus:ring-gray-200 focus-visible:ring-4 focus-visible:ring-gray-300 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-600 transition-colors duration-200 cursor-pointer" aria-label="לוח בקרה">
+                            <svg class="w-5 h-5 me-2 rtl:me-0 rtl:ms-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+                            </svg>
+                            לוח בקרה
+                        </a>
+                                    </div>
+
+                <!-- Quick links: Kalfa app (Dashboard, Events, Organizations) -->
+                <div class="mb-12 error-404-links">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">קישורים שימושיים</h2>
+                    <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+                        <a href="https://kalfa.me" wire:navigate class="group flex flex-col items-center p-6 bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg dark:bg-gray-800 dark:border-gray-700 dark:hover:border-primary-500 transition-shadow duration-200 cursor-pointer focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-none min-h-[120px] justify-center" aria-label="Home">
+                            <div class="p-3 bg-primary-100 rounded-lg dark:bg-primary-900 mb-3">
+                                <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                                </svg>
+                            </div>
+                            <span class="text-base font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">דף הבית</span>
+                        </a>
+                                                    <a href="https://kalfa.me/dashboard/events" wire:navigate class="group flex flex-col items-center p-6 bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg dark:bg-gray-800 dark:border-gray-700 dark:hover:border-primary-500 transition-shadow duration-200 cursor-pointer focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-none min-h-[120px] justify-center" aria-label="אירועים">
+                                <div class="p-3 bg-primary-100 rounded-lg dark:bg-primary-900 mb-3">
+                                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-base font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">אירועים</span>
+                            </a>
+                            <a href="https://kalfa.me/organizations" wire:navigate class="group flex flex-col items-center p-6 bg-white border border-gray-200 rounded-xl shadow hover:shadow-lg dark:bg-gray-800 dark:border-gray-700 dark:hover:border-primary-500 transition-shadow duration-200 cursor-pointer focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:outline-none min-h-[120px] justify-center" aria-label="ארגונים">
+                                <div class="p-3 bg-primary-100 rounded-lg dark:bg-primary-900 mb-3">
+                                    <svg class="w-8 h-8 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-base font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">ארגונים</span>
+                            </a>
+                                            </div>
+                </div>
+
+                <!-- Help text (no broken /contact link) -->
+                <div class="error-404-help">
+                    <p class="p-4 text-sm text-gray-700 dark:text-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700" role="note">
+                        <span class="font-semibold">זקוק לעזרה?</span>
+                                                    <a href="https://kalfa.me/dashboard" wire:navigate class="font-medium text-primary-600 dark:text-primary-400 underline hover:no-underline focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 rounded cursor-pointer">Go to dashboard</a>
+                                            </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        /* Respect prefers-reduced-motion (UI/UX Pro Max: reduced-motion) */
+        @media (prefers-reduced-motion: no-preference) {
+            .error-404-icon {
+                animation: error-404-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            }
+            .error-404-code { animation: error-404-fadeIn 0.8s ease-out both; }
+            .error-404-title { animation: error-404-slideUp 0.6s ease-out 0.2s both; }
+            .error-404-desc { animation: error-404-slideUp 0.6s ease-out 0.4s both; }
+            .error-404-actions { animation: error-404-slideUp 0.6s ease-out 0.6s both; }
+            .error-404-links { animation: error-404-slideUp 0.6s ease-out 0.8s both; }
+            .error-404-help { animation: error-404-slideUp 0.6s ease-out 1s both; }
+        }
+
+        @keyframes error-404-fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes error-404-slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes error-404-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+
+        *:focus-visible {
+            outline: 2px solid #6366f1;
+            outline-offset: 2px;
+        }
+    </style>
+
+</div>
+
+
+
+<!-- Livewire Scripts -->
+<script src="https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734"   data-csrf="kDmXOUnsLpYdCU9XwaGg3NbXDJnwHm1sZbTN3YTu" data-module-url="https://kalfa.me/livewire-efb4f041" data-update-uri="https://kalfa.me/livewire-efb4f041/update" data-navigate-once="true"></script>
+
+</body>
+
+</html> null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:34:30.121Z"} 
+[2026-03-15 12:44:17] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:44:16.682Z"} 
+[2026-03-15 12:51:17] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:51:16.826Z"} 
+[2026-03-15 12:51:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:51:51.977Z"} 
+[2026-03-15 12:51:53] production.WARNING: Detected multiple instances of Livewire running {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:51:51.932Z"} 
+[2026-03-15 12:51:53] production.WARNING: Detected multiple instances of Alpine running {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:51:51.932Z"} 
+[2026-03-15 12:51:53] production.DEBUG: 🔍 Browser logger active (MCP server detected). Posting to: https://kalfa.me/_boost/browser-logs {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:51:51.941Z"} 
+[2026-03-15 12:51:53] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T10:51:51.977Z"} 
+[2026-03-15 13:29:11] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:09.953Z"} 
+[2026-03-15 13:29:11] production.DEBUG: 🔍 Browser logger active (MCP server detected). Posting to: https://kalfa.me/_boost/browser-logs {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:09.886Z"} 
+[2026-03-15 13:29:11] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:09.953Z"} 
+[2026-03-15 13:29:36] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/accounts","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:35.612Z"} 
+[2026-03-15 13:29:36] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/accounts","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:35.612Z"} 
+[2026-03-15 13:29:36] production.WARNING: Detected multiple instances of Livewire running {"url":"https://kalfa.me/system/accounts","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:35.769Z"} 
+[2026-03-15 13:29:36] production.WARNING: Detected multiple instances of Alpine running {"url":"https://kalfa.me/system/accounts","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:35.769Z"} 
+[2026-03-15 13:29:36] production.WARNING: Detected multiple instances of Livewire running {"url":"https://kalfa.me/system/accounts","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:35.769Z"} 
+[2026-03-15 13:29:36] production.WARNING: Detected multiple instances of Alpine running {"url":"https://kalfa.me/system/accounts","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:35.769Z"} 
+[2026-03-15 13:29:44] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/accounts/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:29:43.047Z"} 
+[2026-03-15 13:36:41] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:36:40.719Z"} 
+[2026-03-15 13:37:17] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:37:16.699Z"} 
+[2026-03-15 13:37:17] production.WARNING: Detected multiple instances of Livewire running {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:37:16.660Z"} 
+[2026-03-15 13:37:17] production.WARNING: Detected multiple instances of Alpine running {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:37:16.660Z"} 
+[2026-03-15 13:37:17] production.DEBUG: 🔍 Browser logger active (MCP server detected). Posting to: https://kalfa.me/_boost/browser-logs {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:37:16.667Z"} 
+[2026-03-15 13:37:17] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:37:16.699Z"} 
+[2026-03-15 13:48:13] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T11:48:12.905Z"} 
+[2026-03-15 14:02:45] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T12:02:44.630Z"} 
+[2026-03-15 14:10:05] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T12:10:04.612Z"} 
+[2026-03-15 14:10:21] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T12:10:20.529Z"} 
+[2026-03-15 14:23:11] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T12:23:10.559Z"} 
+[2026-03-15 15:22:53] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T13:22:52.927Z"} 
+[2026-03-15 15:28:50] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T13:28:49.158Z"} 
+[2026-03-15 15:29:20] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T13:29:19.367Z"} 
+[2026-03-15 15:29:21] production.ERROR: Unhandled Promise Rejection Component not found: undefined {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/145.0.7632.108 Mobile/15E148 Safari/604.1","timestamp":"2026-03-15T13:29:20.440Z"} 

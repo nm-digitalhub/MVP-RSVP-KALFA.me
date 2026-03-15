@@ -58,7 +58,7 @@
                     <div class="mt-6 flex flex-wrap gap-3 text-xs font-semibold text-slate-500">
                         <span class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 shadow-sm">
                             <x-heroicon-o-calendar class="size-4 text-slate-400" />
-                            {{ __('Created :date', ['date' => $product->created_at->format('M d, Y')]) }}
+                            {{ __('Created :date', ['date' => $product->created_at->format('d.m.Y')]) }}
                         </span>
                         <span class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 shadow-sm">
                             <x-heroicon-o-clock class="size-4 text-slate-400" />
@@ -114,19 +114,6 @@
                             </div>
                             @error('slug') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
                         </div>
-
-                            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                                <div class="space-y-2">
-                                    <label for="plan-slug" class="block px-1 text-[10px] font-black uppercase tracking-[0.20em] text-slate-400">{{ __('Slug') }}</label>
-                                    <input id="plan-slug" wire:model.live.blur="planSlug" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
-                                    @error('planSlug') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
-                                </div>
-                                <div class="space-y-2">
-                                    <label for="plan-sku" class="block px-1 text-[10px] font-black uppercase tracking-[0.20em] text-slate-400">{{ __('SKU') }}</label>
-                                    <input id="plan-sku" wire:model.live.blur="planSku" type="text" class="block w-full rounded-2xl border border-transparent bg-slate-50 px-5 py-4 text-sm font-bold text-slate-900 transition-all focus:border-brand focus:bg-white focus:ring-8 focus:ring-brand/10" />
-                                    @error('planSku') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
-                                </div>
-                            </div>
 
                         <div class="space-y-2">
                             <label for="edit-category" class="block px-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Category') }}</label>
@@ -355,7 +342,7 @@
         <div class="p-4 sm:p-6 lg:p-8">
             <div class="space-y-4">
                 @forelse($entitlements as $entitlement)
-                    <livewire:system.products.entitlement-row :entitlement="$entitlement" />
+                    <livewire:system.products.entitlement-row :entitlement="$entitlement" :key="'entitlement-'.$entitlement->id" />
                 @empty
                     <div class="rounded-[1.75rem] border border-dashed border-slate-200 px-6 py-12 text-center">
                         <x-heroicon-o-gift class="mx-auto size-12 text-slate-300" />

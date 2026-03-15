@@ -81,7 +81,7 @@
                             <td class="px-4 py-2 text-sm text-gray-600">{{ $guest->group_name ?? '—' }}</td>
                             <td class="px-4 py-2 text-sm">
                                 @can('update', $guest)
-                                    <button type="button" wire:click="openEdit({{ $guest->id }})" class="min-h-[44px] inline-flex items-center px-2 text-indigo-600 hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded cursor-pointer transition-colors duration-200">{{ __('Edit') }}</button>
+                                    <button type="button" wire:click="openEdit({{ $guest->id }})" class="min-h-[44px] inline-flex items-center px-2 text-brand hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1 rounded cursor-pointer transition-colors duration-200">{{ __('Edit') }}</button>
                                 @endcan
                                 @can('delete', $guest)
                                     <button type="button" wire:click="deleteGuest({{ $guest->id }})" wire:confirm="{{ __('Delete this guest?') }}" class="min-h-[44px] inline-flex items-center px-2 text-red-600 hover:text-red-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-1 rounded cursor-pointer transition-colors duration-200">{{ __('Delete') }}</button>

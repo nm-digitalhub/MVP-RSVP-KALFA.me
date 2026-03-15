@@ -21,7 +21,7 @@ $maxWidthClasses = [
         previouslyFocused: null,
         focusFirst() {
             this.$nextTick(() => {
-                const focusableElements = this.$el.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                const focusableElements = this.$el.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex=\'-1\'])');
                 if (focusableElements.length > 0) {
                     focusableElements[0].focus();
                 }
@@ -51,7 +51,7 @@ $maxWidthClasses = [
     class="fixed inset-0 z-50 overflow-y-auto hidden"
     role="dialog"
     aria-modal="true"
-    aria-hidden="{!! $show ? 'true' : 'false' }}"
+    aria-hidden="{{ $show ? 'true' : 'false' }}"
     @if($show) aria-labelledby="modal-{{ $name }}-title" @endif
 >
     <div x-show="show" class="fixed inset-0 bg-gray-500/75 transition-opacity" x-on:click="show = false" aria-hidden="true"></div>

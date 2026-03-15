@@ -134,10 +134,10 @@
                 </div>
                 <div id="cropper-wrap" class="hidden mt-3 space-y-2">
                     <div class="flex flex-wrap items-center gap-2">
-                        <button type="button" id="cropper-zoom-out" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:bg-gray-100 touch-manipulation" aria-label="{{ __('Zoom out') }}">
+                        <button type="button" id="cropper-zoom-out" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 active:bg-gray-100 touch-manipulation" aria-label="{{ __('Zoom out') }}">
                             <span aria-hidden="true">−</span>
                         </button>
-                        <button type="button" id="cropper-zoom-in" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:bg-gray-100 touch-manipulation" aria-label="{{ __('Zoom in') }}">
+                        <button type="button" id="cropper-zoom-in" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 active:bg-gray-100 touch-manipulation" aria-label="{{ __('Zoom in') }}">
                             <span aria-hidden="true">+</span>
                         </button>
                         <span class="text-sm text-gray-500">{{ __('Drag to move, zoom or pinch. Crop 16:9.') }}</span>
@@ -151,7 +151,7 @@
             {{-- Description --}}
             <div>
                 <x-input-label for="description" :value="__('Description')" />
-                <textarea id="description" name="description" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional event description.') }}">{{ old('description') }}</textarea>
+                <textarea id="description" name="description" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional event description.') }}">{{ old('description') }}</textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-1" />
             </div>
 
@@ -165,13 +165,13 @@
                 </p>
                 <div>
                     <x-input-label for="rsvp_welcome_message" :value="__('RSVP welcome message')" />
-                    <textarea id="rsvp_welcome_message" name="rsvp_welcome_message" rows="3" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __("We'd love to see you among our guests.") }}">{{ old('rsvp_welcome_message') }}</textarea>
+                    <textarea id="rsvp_welcome_message" name="rsvp_welcome_message" rows="3" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __("We'd love to see you among our guests.") }}">{{ old('rsvp_welcome_message') }}</textarea>
                     <p class="mt-1 text-sm text-gray-500">{{ __('Shown above the response form. Leave blank to use the default.') }}</p>
                     <x-input-error :messages="$errors->get('rsvp_welcome_message')" class="mt-1" />
                 </div>
                 <div>
                     <x-input-label for="program" :value="__('Program')" />
-                    <textarea id="program" name="program" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional program or schedule.') }}">{{ old('program') }}</textarea>
+                    <textarea id="program" name="program" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional program or schedule.') }}">{{ old('program') }}</textarea>
                     <x-input-error :messages="$errors->get('program')" class="mt-1" />
                 </div>
             </fieldset>
@@ -203,7 +203,7 @@
             >
                 <a
                     href="{{ route('dashboard.events.index') }}"
-                    class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200"
+                    class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200"
                 >
                     {{ __('Cancel') }}
                 </a>

@@ -7,7 +7,7 @@
         </div>
         <div class="flex items-center gap-4 shrink-0">
             <div class="px-5 py-3 rounded-2xl bg-white border border-gray-200 shadow-sm ring-1 ring-gray-900/5 flex items-center gap-4 transition-all hover:shadow-md">
-                <div class="size-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                <div class="size-10 rounded-xl bg-indigo-50 flex items-center justify-center text-brand">
                     <x-heroicon-o-building-office class="size-6" />
                 </div>
                 <div>
@@ -29,19 +29,19 @@
                 <div class="lg:col-span-5 space-y-2">
                     <x-input-label for="filter-name" :value="__('Search Organization')" class="text-[10px] font-black text-gray-500 uppercase tracking-tighter px-1" />
                     <div class="relative group">
-                        <div class="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none transition-colors group-focus-within:text-indigo-600 text-gray-400">
+                        <div class="absolute inset-y-0 start-0 ps-4 flex items-center pointer-events-none transition-colors group-focus-within:text-brand text-gray-400">
                             <x-heroicon-o-magnifying-glass class="size-5" />
                         </div>
-                        <input id="filter-name" type="text" wire:model.live.debounce.300ms="search_name" class="block w-full ps-12 py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-bold shadow-inner" placeholder="{{ __('Name, ID or domain...') }}" />
+                        <input id="filter-name" type="text" wire:model.live.debounce.300ms="search_name" class="block w-full ps-12 py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all text-sm font-bold shadow-inner" placeholder="{{ __('Name, ID or domain...') }}" />
                     </div>
                 </div>
                 <div class="lg:col-span-3 space-y-2">
                     <x-input-label for="filter-owner" :value="__('Owner Email')" class="text-[10px] font-black text-gray-500 uppercase tracking-tighter px-1" />
-                    <input id="filter-owner" type="text" wire:model.live.debounce.300ms="search_owner_email" class="block w-full py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-bold shadow-inner" placeholder="owner@email.com" />
+                    <input id="filter-owner" type="text" wire:model.live.debounce.300ms="search_owner_email" class="block w-full py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all text-sm font-bold shadow-inner" placeholder="owner@email.com" />
                 </div>
                 <div class="lg:col-span-2 space-y-2">
                     <x-input-label for="filter-status" :value="__('Status')" class="text-[10px] font-black text-gray-500 uppercase tracking-tighter px-1" />
-                    <select id="filter-status" wire:model.live="filter_suspended" class="block w-full py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-bold shadow-inner appearance-none cursor-pointer">
+                    <select id="filter-status" wire:model.live="filter_suspended" class="block w-full py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all text-sm font-bold shadow-inner appearance-none cursor-pointer">
                         <option value="">{{ __('All Statuses') }}</option>
                         <option value="0">{{ __('Active Only') }}</option>
                         <option value="1">{{ __('Suspended') }}</option>
@@ -49,7 +49,7 @@
                 </div>
                 <div class="lg:col-span-2 space-y-2">
                     <x-input-label for="filter-activity" :value="__('Activity')" class="text-[10px] font-black text-gray-500 uppercase tracking-tighter px-1" />
-                    <select id="filter-activity" wire:model.live="filter_no_events" class="block w-full py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-sm font-bold shadow-inner appearance-none cursor-pointer">
+                    <select id="filter-activity" wire:model.live="filter_no_events" class="block w-full py-4 rounded-2xl bg-gray-50 border-transparent focus:bg-white focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all text-sm font-bold shadow-inner appearance-none cursor-pointer">
                         <option value="">{{ __('Any Activity') }}</option>
                         <option value="1">{{ __('Inactive (No Events)') }}</option>
                     </select>
@@ -80,11 +80,11 @@
                                         {{ substr($org->name, 0, 1) }}
                                     </div>
                                     <div>
-                                        <a href="{{ route('system.organizations.show', $org) }}" class="text-lg font-black text-gray-900 hover:text-indigo-600 transition-colors leading-none block mb-1 underline-offset-4 hover:underline">{{ $org->name }}</a>
+                                        <a href="{{ route('system.organizations.show', $org) }}" class="text-lg font-black text-gray-900 hover:text-brand transition-colors leading-none block mb-1 underline-offset-4 hover:underline">{{ $org->name }}</a>
                                         <div class="flex items-center gap-2">
                                             <span class="text-[10px] font-bold text-gray-400 uppercase">UID: #{{ $org->id }}</span>
                                             <span class="text-[10px] text-gray-300">•</span>
-                                            <span class="text-[10px] font-bold text-gray-400 uppercase">{{ $org->created_at->format('M Y') }}</span>
+                                            <span class="text-[10px] font-bold text-gray-400 uppercase">{{ $org->created_at->format('m.Y') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                             </td>
                             <td class="px-8 py-6 whitespace-nowrap text-end">
                                 <div class="flex items-center justify-end gap-3">
-                                    <a href="{{ route('system.organizations.show', $org) }}" class="size-10 rounded-xl bg-gray-50 text-gray-400 hover:bg-indigo-600 hover:text-white flex items-center justify-center transition-all shadow-sm active:scale-90" aria-label="{{ __('View Details') }}">
+                                    <a href="{{ route('system.organizations.show', $org) }}" class="size-10 rounded-xl bg-gray-50 text-gray-400 hover:bg-brand hover:text-white flex items-center justify-center transition-all shadow-sm active:scale-90" aria-label="{{ __('View Details') }}">
                                         <x-heroicon-o-arrow-right class="size-5" />
                                     </a>
                                     <form action="{{ route('system.impersonate', $org) }}" method="POST" class="inline">

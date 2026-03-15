@@ -4,9 +4,9 @@
         <div class="space-y-4 flex-1 min-w-0">
             <nav class="flex overflow-x-auto no-scrollbar pb-1" aria-label="Breadcrumb">
                 <ol class="flex items-center space-x-2 rtl:space-x-reverse text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 whitespace-nowrap">
-                    <li><a href="{{ route('system.dashboard') }}" class="hover:text-indigo-600 transition-colors">{{ __('System') }}</a></li>
+                    <li><a href="{{ route('system.dashboard') }}" class="hover:text-brand transition-colors">{{ __('System') }}</a></li>
                     <li><x-heroicon-m-chevron-right class="size-3 shrink-0" /></li>
-                    <li><a href="{{ route('system.accounts.index') }}" class="hover:text-indigo-600 transition-colors">{{ __('Accounts') }}</a></li>
+                    <li><a href="{{ route('system.accounts.index') }}" class="hover:text-brand transition-colors">{{ __('Accounts') }}</a></li>
                     <li><x-heroicon-m-chevron-right class="size-3 shrink-0" /></li>
                     <li class="text-slate-900 truncate" aria-current="page">{{ $account->name ?: __('Managed Account') }}</li>
                 </ol>
@@ -21,12 +21,12 @@
                 </div>
             </div>
             <p class="text-sm sm:text-lg text-slate-500 font-medium italic text-start">
-                Account ID: <span class="font-bold text-slate-700">#{{ $account->id }}</span> • {{ __('Created on') }} {{ $account->created_at->format('M d, Y') }}
+                Account ID: <span class="font-bold text-slate-700">#{{ $account->id }}</span> • {{ __('Created on') }} {{ $account->created_at->format('d.m.Y') }}
             </p>
         </div>
         <div class="flex shrink-0">
             <button wire:click="openEdit" class="group w-full inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-slate-200 text-slate-900 font-black rounded-[1.5rem] hover:bg-slate-50 shadow-xl shadow-slate-900/5 transition-all active:scale-95 cursor-pointer min-h-[60px]">
-                <x-heroicon-o-pencil-square class="size-6 text-indigo-600" />
+                <x-heroicon-o-pencil-square class="size-6 text-brand" />
                 <span class="text-lg">{{ __('Edit Profile') }}</span>
             </button>
         </div>
@@ -160,7 +160,7 @@
                                     <div class="space-y-2 sm:col-span-2">
                                         <dt class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ __('Primary Owner') }}</dt>
                                         <dd class="flex items-center gap-4 mt-2">
-                                            <div class="size-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 font-black">
+                                            <div class="size-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-brand font-black">
                                                 {{ substr($account->owner?->name ?? '?', 0, 1) }}
                                             </div>
                                             <div>
@@ -178,7 +178,7 @@
                             <h3 class="text-[10px] font-black text-indigo-900/40 uppercase tracking-[0.25em] leading-none">{{ __('Governance Summary') }}</h3>
                             <div class="space-y-6">
                                 <div class="flex items-center gap-5 group">
-                                    <div class="size-14 rounded-2xl bg-white shadow-xl shadow-slate-900/5 flex items-center justify-center text-slate-400 group-hover:text-indigo-600 transition-all duration-500 border border-white">
+                                    <div class="size-14 rounded-2xl bg-white shadow-xl shadow-slate-900/5 flex items-center justify-center text-slate-400 group-hover:text-brand transition-all duration-500 border border-white">
                                         <x-heroicon-o-shield-check class="size-7" />
                                     </div>
                                     <div>
@@ -250,7 +250,7 @@
 
                                 @if($account->owner?->email)
                                     <button type="button" wire:click="useOwnerEmailForSumitSearch" class="w-full inline-flex min-h-[56px] items-center justify-center gap-3 rounded-2xl border border-slate-100 bg-white px-6 font-black text-slate-600 transition-all hover:bg-slate-50 active:scale-95 shadow-lg shadow-slate-900/5">
-                                        <x-heroicon-o-envelope class="size-5 text-indigo-500" />
+                                        <x-heroicon-o-envelope class="size-5 text-brand" />
                                         <span>{{ __('Use Owner Email') }}</span>
                                     </button>
                                 @endif
@@ -283,7 +283,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <button type="button" wire:click="connectSumitCustomer({{ $candidate['sumit_customer_id'] }})" class="w-full py-2.5 rounded-xl bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-indigo-900/20 hover:bg-indigo-700 active:scale-95 transition-all">
+                                                    <button type="button" wire:click="connectSumitCustomer({{ $candidate['sumit_customer_id'] }})" class="w-full py-2.5 rounded-xl bg-brand text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-indigo-900/20 hover:bg-brand-hover active:scale-95 transition-all">
                                                         {{ __('Connect Identity') }}
                                                     </button>
                                                 </div>
@@ -505,7 +505,7 @@
                         <h3 class="text-xs font-black text-indigo-900 uppercase tracking-[0.2em] mb-6">{{ __('Connect Existing Tenant') }}</h3>
                         <div class="flex flex-col gap-4 md:flex-row">
                             <div class="grow">
-                                <select wire:model="attach_organization_id" class="w-full rounded-2xl border-transparent bg-white py-4 px-6 text-sm font-black shadow-xl ring-1 ring-slate-200 focus:ring-8 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all appearance-none cursor-pointer">
+                                <select wire:model="attach_organization_id" class="w-full rounded-2xl border-transparent bg-white py-4 px-6 text-sm font-black shadow-xl ring-1 ring-slate-200 focus:ring-8 focus:ring-brand/10 focus:border-brand transition-all appearance-none cursor-pointer">
                                     <option value="">{{ __('Select Unlinked Organization...') }}</option>
                                     @foreach($organizationsAvailable as $org)
                                         <option value="{{ $org->id }}">{{ $org->name }} (ID #{{ $org->id }})</option>
@@ -530,7 +530,7 @@
                         </div>
                         <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                             <div class="relative">
-                                <select wire:model="selected_product_id" class="w-full rounded-2xl border-transparent bg-slate-50 px-4 py-3 pr-10 text-xs font-black shadow-inner ring-1 ring-slate-200 focus:border-indigo-500 focus:ring-8 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer sm:min-w-[220px]">
+                                <select wire:model="selected_product_id" class="w-full rounded-2xl border-transparent bg-slate-50 px-4 py-3 pr-10 text-xs font-black shadow-inner ring-1 ring-slate-200 focus:border-brand focus:ring-8 focus:ring-brand/10 transition-all appearance-none cursor-pointer sm:min-w-[220px]">
                                     <option value="">{{ __('Select Product to Grant...') }}</option>
                                     @foreach($products as $product)
                                         <option value="{{ $product->id }}">{{ $product->name }}</option>
@@ -539,7 +539,7 @@
                             </div>
                             @if($selectedProduct && $selectedProductPlans->isNotEmpty())
                                 <div class="relative">
-                                    <select wire:model="selected_plan_id" class="w-full rounded-2xl border-transparent bg-slate-50 px-4 py-3 pr-10 text-xs font-black shadow-inner ring-1 ring-slate-200 focus:border-indigo-500 focus:ring-8 focus:ring-indigo-500/10 transition-all appearance-none cursor-pointer sm:min-w-[240px]">
+                                    <select wire:model="selected_plan_id" class="w-full rounded-2xl border-transparent bg-slate-50 px-4 py-3 pr-10 text-xs font-black shadow-inner ring-1 ring-slate-200 focus:border-brand focus:ring-8 focus:ring-brand/10 transition-all appearance-none cursor-pointer sm:min-w-[240px]">
                                         <option value="">{{ __('Select Plan to Activate...') }}</option>
                                         @foreach($selectedProductPlans as $plan)
                                             @php($primaryPrice = $plan->activePrices->first())
@@ -553,7 +553,7 @@
                                     </select>
                                 </div>
                             @endif
-                            <button wire:click="grantSelectedProduct" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl bg-indigo-600 px-6 py-3 font-black text-white shadow-lg shadow-indigo-900/20 transition-all active:scale-95 cursor-pointer whitespace-nowrap">
+                            <button wire:click="grantSelectedProduct" class="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-3 font-black text-white shadow-lg shadow-indigo-900/20 transition-all active:scale-95 cursor-pointer whitespace-nowrap">
                                 <x-heroicon-o-gift class="size-5" />
                                 {{ $selectedProduct && $selectedProductPlans->isNotEmpty() ? __('Activate Subscription') : __('Grant Complimentary Access') }}
                             </button>
@@ -628,13 +628,13 @@
                                                 <span class="px-3 py-1.5 rounded-xl bg-brand/5 text-brand text-[10px] font-black uppercase tracking-widest ring-1 ring-brand/10">{{ $e->value ?: __('Unlimited') }}</span>
                                                 @if($e->expires_at)
                                                     <span class="px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest {{ $e->expires_at->isPast() ? 'bg-rose-50 text-rose-500 ring-1 ring-rose-100' : 'bg-slate-50 text-slate-400 ring-1 ring-slate-100' }}">
-                                                        {{ $e->expires_at->format('M d, Y') }}
+                                                        {{ $e->expires_at->format('d.m.Y') }}
                                                     </span>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="flex flex-col gap-2">
-                                            <button type="button" wire:click="openEditEntitlement({{ $e->id }})" class="size-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center hover:bg-indigo-600 hover:text-white transition-all shadow-sm active:scale-90">
+                                            <button type="button" wire:click="openEditEntitlement({{ $e->id }})" class="size-10 rounded-xl bg-indigo-50 text-brand flex items-center justify-center hover:bg-brand hover:text-white transition-all shadow-sm active:scale-90">
                                                 <x-heroicon-o-pencil class="size-5" />
                                             </button>
                                             <button type="button" wire:click="deleteEntitlement({{ $e->id }})" wire:confirm="{{ __('Permanently delete this grant?') }}" class="size-10 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center hover:bg-rose-500 hover:text-white transition-all shadow-sm active:scale-90">
@@ -675,7 +675,7 @@
                                                 <td class="px-8 py-6">
                                                     @if($e->expires_at)
                                                         <span class="text-xs font-bold {{ $e->expires_at->isPast() ? 'text-rose-500' : 'text-slate-500' }}">
-                                                            {{ $e->expires_at->format('M d, Y') }}
+                                                            {{ $e->expires_at->format('d.m.Y') }}
                                                         </span>
                                                     @else
                                                         <span class="text-xs font-black text-slate-300 italic">{{ __('Perpetual') }}</span>
@@ -683,7 +683,7 @@
                                                 </td>
                                                 <td class="px-8 py-6 text-end">
                                                     <div class="flex items-center justify-end gap-3">
-                                                        <button type="button" wire:click="openEditEntitlement({{ $e->id }})" class="text-xs font-black text-indigo-600 hover:underline uppercase tracking-widest">{{ __('Modify') }}</button>
+                                                        <button type="button" wire:click="openEditEntitlement({{ $e->id }})" class="text-xs font-black text-brand hover:underline uppercase tracking-widest">{{ __('Modify') }}</button>
                                                         <button type="button" wire:click="deleteEntitlement({{ $e->id }})" wire:confirm="{{ __('Permanently delete this grant?') }}" class="text-xs font-black text-rose-500 hover:underline uppercase tracking-widest">{{ __('Revoke') }}</button>
                                                     </div>
                                                 </td>
@@ -721,7 +721,7 @@
                                         </div>
                                         <div class="text-end space-y-1">
                                             <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">{{ __('Last Event') }}</div>
-                                            <div class="text-[10px] font-black text-slate-600 tracking-tight">{{ $u->updated_at->format('M d, H:i') }}</div>
+                                            <div class="text-[10px] font-black text-slate-600 tracking-tight">{{ $u->updated_at->format('d.m H:i') }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -790,7 +790,7 @@
                                     </div>
                                     <div class="flex items-center justify-between text-start">
                                         <div class="text-[10px] font-black text-slate-400 uppercase tracking-tight">
-                                            {{ $intent->created_at->format('M d, H:i') }}
+                                            {{ $intent->created_at->format('d.m H:i') }}
                                         </div>
                                         <button type="button" wire:click="retryIntent({{ $intent->id }})" class="inline-flex items-center gap-2 text-[10px] font-black text-brand uppercase tracking-widest hover:text-brand-hover transition-colors">
                                             <x-heroicon-o-arrow-path class="size-3.5" />
