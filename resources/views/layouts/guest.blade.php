@@ -23,7 +23,7 @@
 
 </head>
 
-<body class="min-h-screen bg-gray-50 dark:bg-gray-900 antialiased text-gray-900 dark:text-gray-100 transition-colors duration-200">
+<body class="min-h-screen bg-surface antialiased text-content transition-colors duration-200">
 
 <div class="min-h-screen px-4 py-8 sm:py-12">
 
