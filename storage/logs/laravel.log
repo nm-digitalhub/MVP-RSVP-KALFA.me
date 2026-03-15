@@ -6949,3 +6949,19 @@ Stack trace:
 #10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
 #11 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): 
 ... [truncated 10198 chars]"} 
+[2026-03-15 15:57:44] production.ERROR: SQLSTATE[23505]: Unique violation: 7 ERROR:  duplicate key value violates unique constraint "organizations_slug_unique"
+DETAIL:  Key (slug)=(kalfa-test) already exists. (Connection: pgsql, Host: 127.0.0.1, Port: 5432, Database: kalfa_rsvp, SQL: insert into "organizations" ("name", "slug", "updated_at", "created_at") values (Kalfa-test, kalfa-test, 2026-03-15 15:57:44, 2026-03-15 15:57:44) returning "id") {"userId":2,"exception":"PDOException: SQLSTATE[23505]: Unique violation: 7 ERROR:  duplicate key value violates unique constraint \"organizations_slug_unique\"
+DETAIL:  Key (slug)=(kalfa-test) already exists. in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php:425
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(425): PDOStatement->execute()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\\Database\\Connection->{closure:Illuminate\\Database\\Connection::select():411}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(411): Illuminate\\Database\\Connection->run()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(398): Illuminate\\Database\\Connection->select()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Processors/PostgresProcessor.php(24): Illuminate\\Database\\Connection->selectFromWriteConnection()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4140): Illuminate\\Database\\Query\\Processors\\PostgresProcessor->processInsertGetId()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(2235): Illuminate\\Database\\Query\\Builder->insertGetId()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1436): Illuminate\\Database\\Eloquent\\Builder->__call()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Model.php(1401): Illuminate\\Database\\Eloquent\\Model->insertAndSetId()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/fra
+... [truncated 28521 chars]"} 
