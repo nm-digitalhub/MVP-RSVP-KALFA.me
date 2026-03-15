@@ -8,6 +8,8 @@ use App\Models\Account;
 use App\Services\OrganizationContext;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 /**
  * Tenant: Account overview for current organization.
@@ -47,6 +49,8 @@ final class AccountOverview extends Component
 
         $organization->update(['account_id' => $account->id]);
 
+        $this->grantOwnerPermissions($organization);
+
         return $this->redirect(route('billing.account'), navigate: true);
     }
 
@@ -59,5 +63,32 @@ final class AccountOverview extends Component
             'organization' => $organization,
             'account' => $account,
         ]);
+    }
+
+    /**
+     * Grant all tenant-level permissions to every Owner/Admin of the org,
+     * scoped to the organization's team ID.
+     */
+    private function grantOwnerPermissions(\App\Models\Organization $organization): void
+    {
+        app(PermissionRegistrar::class)->setPermissionsTeamId($organization->id);
+
+        $permissions = Permission::whereIn('name', [
+            'view-event-details',
+            'manage-event-guests',
+            'manage-event-tables',
+            'send-invitations',
+        ])->get();
+
+        $ownerRoles = [
+            \App\Enums\OrganizationUserRole::Owner->value,
+            \App\Enums\OrganizationUserRole::Admin->value,
+        ];
+
+        $organization->users()
+            ->wherePivotIn('role', $ownerRoles)
+            ->each(function (\App\Models\User $user) use ($permissions): void {
+                $user->givePermissionTo($permissions);
+            });
     }
 }
