@@ -7,6 +7,7 @@ namespace App\Livewire\Organizations;
 use App\Enums\OrganizationUserRole;
 use App\Models\Organization;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Create extends Component
@@ -26,7 +27,7 @@ class Create extends Component
 
         $organization = Organization::create([
             'name' => $this->name,
-            'slug' => \Illuminate\Support\Str::slug($this->name),
+            'slug' => $this->uniqueSlug($this->name),
         ]);
 
         auth()->user()->organizations()->attach($organization->id, [
@@ -50,5 +51,18 @@ class Create extends Component
     public function render(): View
     {
         return view('livewire.organizations.create');
+    }
+
+    private function uniqueSlug(string $name): string
+    {
+        $base = Str::slug($name);
+        $slug = $base;
+        $i = 2;
+
+        while (Organization::where('slug', $slug)->exists()) {
+            $slug = $base.'-'.$i++;
+        }
+
+        return $slug;
     }
 }
