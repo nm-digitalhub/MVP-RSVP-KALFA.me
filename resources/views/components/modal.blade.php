@@ -54,7 +54,7 @@ $maxWidthClasses = [
     aria-hidden="{{ $show ? 'true' : 'false' }}"
     @if($show) aria-labelledby="modal-{{ $name }}-title" @endif
 >
-    <div x-show="show" class="fixed inset-0 bg-gray-500/75 transition-opacity" x-on:click="show = false" aria-hidden="true"></div>
+    <div x-show="show" class="fixed inset-0 bg-black/60 transition-opacity" x-on:click="show = false" aria-hidden="true"></div>
     <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
         <div
             x-show="show"
