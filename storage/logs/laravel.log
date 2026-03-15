@@ -6849,3 +6849,57 @@ Stack trace:
 #12 /var/www/vhosts/kalfa.m
 ... [truncated 670 chars]"} 
 [2026-03-13 17:57:31] production.INFO: passkey.login {"event_version":"v1","request_id":"c27acf04-a76f-4078-81ac-e8e8e597924a","auth_method":"passkey","ip":"10.8.0.2","ua_hash":"36709a46e19405c3","flow_stage":"login.verify","outcome":"success","user_id":1,"credential_hash":"7c3861c282d8529a"} 
+[2026-03-14 02:00:04] production.INFO: SUMIT debt auto-check completed successfully  
+[2026-03-14 02:00:08] production.INFO: CRM folders auto-sync completed successfully  
+[2026-03-14 03:00:05] production.ERROR: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "sumit_customer_id" does not exist
+LINE 1: select * from "organizations" where "sumit_customer_id" is n...
+                                            ^ (Connection: pgsql, Host: 127.0.0.1, Port: 5432, Database: kalfa_rsvp, SQL: select * from "organizations" where "sumit_customer_id" is not null) {"exception":"PDOException: SQLSTATE[42703]: Undefined column: 7 ERROR:  column \"sumit_customer_id\" does not exist
+LINE 1: select * from \"organizations\" where \"sumit_customer_id\" is n...
+                                            ^ in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php:425
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(425): PDOStatement->execute()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\\Database\\Connection->{closure:Illuminate\\Database\\Connection::select():411}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(411): Illuminate\\Database\\Connection->run()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3475): Illuminate\\Database\\Connection->select()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3460): Illuminate\\Database\\Query\\Builder->runSelect()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4050): Illuminate\\Database\\Query\\Builder->{closure:Illuminate\\Database\\Query\\Builder::get():3459}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3459): Illuminate\\Database\\Query\\Builder->onceWithColumns()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(902): Illuminate\\Database\\Query\\Builder->get()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(884): Illuminate\\Database\\Eloquent\\Builder->getModels()
+#10 /var/www/vhosts/kalfa.me/httpdocs/
+... [truncated 6735 chars]"} 
+[2026-03-14 03:00:06] production.ERROR: SUMIT documents auto-sync failed  
+[2026-03-15 02:00:04] production.INFO: SUMIT debt auto-check completed successfully  
+[2026-03-15 02:00:09] production.INFO: CRM folders auto-sync completed successfully  
+[2026-03-15 03:00:04] production.ERROR: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "sumit_customer_id" does not exist
+LINE 1: select * from "organizations" where "sumit_customer_id" is n...
+                                            ^ (Connection: pgsql, Host: 127.0.0.1, Port: 5432, Database: kalfa_rsvp, SQL: select * from "organizations" where "sumit_customer_id" is not null) {"exception":"PDOException: SQLSTATE[42703]: Undefined column: 7 ERROR:  column \"sumit_customer_id\" does not exist
+LINE 1: select * from \"organizations\" where \"sumit_customer_id\" is n...
+                                            ^ in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php:425
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(425): PDOStatement->execute()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\\Database\\Connection->{closure:Illuminate\\Database\\Connection::select():411}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(411): Illuminate\\Database\\Connection->run()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3475): Illuminate\\Database\\Connection->select()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3460): Illuminate\\Database\\Query\\Builder->runSelect()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4050): Illuminate\\Database\\Query\\Builder->{closure:Illuminate\\Database\\Query\\Builder::get():3459}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3459): Illuminate\\Database\\Query\\Builder->onceWithColumns()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(902): Illuminate\\Database\\Query\\Builder->get()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(884): Illuminate\\Database\\Eloquent\\Builder->getModels()
+#10 /var/www/vhosts/kalfa.me/httpdocs/
+... [truncated 6735 chars]"} 
+[2026-03-15 03:00:06] production.ERROR: SUMIT documents auto-sync failed  
+[2026-03-15 11:32:43] production.ERROR: Command "last-error" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"last-error\" is not defined. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php:759)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(298): Symfony\\Component\\Console\\Application->find()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#5 {main}
+"} 
+test
+[2026-03-15 11:49:45] production.WARNING: passkey.login {"event_version":"v1","request_id":"2df42e0a-d52d-450a-a3d7-3abcf89503d8","auth_method":"passkey","ip":"217.154.17.185","ua_hash":"07d1d539047ef019","flow_stage":"login.verify","outcome":"fail","user_id":null,"credential_hash":"a2c07e94066be523"} 
+[2026-03-15 11:50:20] production.INFO: passkey.login {"event_version":"v1","request_id":"0a83b808-a293-4d93-91d9-fd5cb61f4cbc","auth_method":"passkey","ip":"10.8.0.2","ua_hash":"a55a5bd88d19e0a1","flow_stage":"login.verify","outcome":"success","user_id":1,"credential_hash":"7c3861c282d8529a"} 

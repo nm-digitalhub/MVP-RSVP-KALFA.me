@@ -6,6 +6,7 @@ use App\Contracts\BillingProvider;
 use App\Contracts\PaymentGatewayInterface;
 use App\Events\ProductEngineEvent;
 use App\Listeners\LogProductEngineEvent;
+use App\Listeners\StoreWebAuthnCredentialInSession;
 use App\Services\Billing\SumitBillingProvider;
 use App\Services\FeatureResolver;
 use App\Services\ProductEngineOperationsMonitor;
@@ -122,7 +123,12 @@ class AppServiceProvider extends ServiceProvider
         $this->configureScramble();
 
         Event::listen(ProductEngineEvent::class, LogProductEngineEvent::class);
+        Event::listen(\Laragear\WebAuthn\Events\CredentialAsserted::class, StoreWebAuthnCredentialInSession::class);
         Event::listen(MigrationsEnded::class, fn (): ProductIntegrityChecker => tap(app(ProductIntegrityChecker::class), fn (ProductIntegrityChecker $checker) => $checker->reportAll()));
+
+        // Billing domain events → audit log
+        Event::listen(\App\Events\Billing\SubscriptionCancelled::class, \App\Listeners\Billing\AuditBillingEvent::class);
+        Event::listen(\App\Events\Billing\TrialExtended::class, \App\Listeners\Billing\AuditBillingEvent::class);
 
         \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
             if (! $user->is_system_admin) {

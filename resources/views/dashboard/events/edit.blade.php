@@ -50,7 +50,7 @@
                         <div class="space-y-2">
                             <img src="{{ $event->getFirstMediaUrl('event-image', 'thumb') }}" alt="" class="w-full max-w-sm rounded-lg border border-gray-200 object-cover aspect-[16/9]" width="400" height="225" />
                             <label class="inline-flex min-h-[44px] cursor-pointer items-center gap-2 text-sm text-gray-700">
-                                <input type="checkbox" name="remove_image" value="1" class="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                                <input type="checkbox" name="remove_image" value="1" class="rounded border-gray-300 text-brand focus:ring-brand" />
                                 {{ __('Remove image') }}
                             </label>
                         </div>
@@ -58,7 +58,7 @@
 
                     <div class="flex flex-wrap items-center gap-3">
                         <input type="file" id="image-input" name="image" accept="image/jpeg,image/png,image/gif,image/webp" class="sr-only" aria-describedby="image-hint" />
-                        <label for="image-input" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] shrink-0 px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-medium cursor-pointer hover:bg-indigo-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors">
+                        <label for="image-input" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] shrink-0 px-4 py-2 rounded-lg bg-brand text-white text-sm font-medium cursor-pointer hover:bg-brand-hover focus:ring-2 focus:ring-brand focus:ring-offset-2 transition-colors">
                             {{ __('Choose file') }}
                         </label>
                         <span id="image-filename" class="text-sm text-gray-600 truncate min-w-0 max-w-[12rem] sm:max-w-xs" aria-live="polite"></span>
@@ -107,7 +107,7 @@
             {{-- Description --}}
             <div>
                 <x-input-label for="description" :value="__('Description')" />
-                <textarea id="description" name="description" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional event description.') }}">{{ old('description', $event->settings['description'] ?? '') }}</textarea>
+                <textarea id="description" name="description" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional event description.') }}">{{ old('description', $event->settings['description'] ?? '') }}</textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-1" />
             </div>
 
@@ -121,13 +121,13 @@
                 </p>
                 <div>
                     <x-input-label for="rsvp_welcome_message" :value="__('RSVP welcome message')" />
-                    <textarea id="rsvp_welcome_message" name="rsvp_welcome_message" rows="3" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __("We'd love to see you among our guests.") }}">{{ old('rsvp_welcome_message', $event->settings['rsvp_welcome_message'] ?? '') }}</textarea>
+                    <textarea id="rsvp_welcome_message" name="rsvp_welcome_message" rows="3" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __("We'd love to see you among our guests.") }}">{{ old('rsvp_welcome_message', $event->settings['rsvp_welcome_message'] ?? '') }}</textarea>
                     <p class="mt-1 text-sm text-gray-500">{{ __('Shown above the response form. Leave blank to use the default.') }}</p>
                     <x-input-error :messages="$errors->get('rsvp_welcome_message')" class="mt-1" />
                 </div>
                 <div>
                     <x-input-label for="program" :value="__('Program')" />
-                    <textarea id="program" name="program" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional program or schedule.') }}">{{ old('program', $event->settings['program'] ?? '') }}</textarea>
+                    <textarea id="program" name="program" rows="4" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm shadow-sm focus:border-brand focus:ring-2 focus:ring-brand/50 focus:ring-offset-0 transition-colors duration-200 rtl:text-end" placeholder="{{ __('Optional program or schedule.') }}">{{ old('program', $event->settings['program'] ?? '') }}</textarea>
                     <x-input-error :messages="$errors->get('program')" class="mt-1" />
                 </div>
             </fieldset>
@@ -153,7 +153,7 @@
 
             <div class="flex flex-wrap gap-3 pt-2">
                 <x-primary-button type="submit">{{ __('Update event') }}</x-primary-button>
-                <a href="{{ route('dashboard.events.show', $event) }}" class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">
+                <a href="{{ route('dashboard.events.show', $event) }}" class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">
                     {{ __('Cancel') }}
                 </a>
             </div>

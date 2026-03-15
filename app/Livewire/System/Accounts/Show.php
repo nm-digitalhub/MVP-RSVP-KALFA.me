@@ -60,6 +60,13 @@ final class Show extends Component
 
     #[Layout('layouts.app')]
     #[Title('Account Details')]
+    protected OfficeGuyCustomerSearchService $customerSearch;
+
+    public function boot(OfficeGuyCustomerSearchService $customerSearch): void
+    {
+        $this->customerSearch = $customerSearch;
+    }
+
     public function mount(Account $account): void
     {
         $this->account = $account;
@@ -125,7 +132,7 @@ final class Show extends Component
             return;
         }
 
-        $results = app(OfficeGuyCustomerSearchService::class)->search($searchTerm);
+        $results = $this->customerSearch->search($searchTerm);
 
         $this->sumit_customer_results = $results;
 
@@ -451,7 +458,7 @@ final class Show extends Component
             ->get();
         $selectedProduct = $products->firstWhere('id', $this->selected_product_id);
         $selectedProductPlans = $selectedProduct?->productPlans ?? collect();
-        $sumitCustomerModelLabel = app(OfficeGuyCustomerSearchService::class)->customerModelLabel();
+        $sumitCustomerModelLabel = $this->customerSearch->customerModelLabel();
         $sumitPaymentsReady = filled(config('officeguy.company_id'))
             && filled(config('officeguy.public_key'))
             && filled(config('officeguy.private_key'));

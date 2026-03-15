@@ -6,17 +6,21 @@ namespace App\Livewire\System\Organizations;
 
 use App\Enums\EventStatus;
 use App\Enums\OrganizationUserRole;
+use App\Jobs\SyncOrganizationSubscriptionsJob;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\OfficeGuy\SystemBillingService;
 use App\Services\OrganizationMemberService;
 use App\Services\SystemAuditLogger;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
+use OfficeGuy\LaravelSumitGateway\Models\Subscription;
 
 class Show extends Component
 {
@@ -34,6 +38,8 @@ class Show extends Component
 
     public string $confirmPassword = '';
 
+    public int $trialExtendDays = 7;
+
     #[Layout('layouts.app')]
     #[Title('Organization')]
     public ?int $directAddUserId = null;
@@ -42,14 +48,31 @@ class Show extends Component
 
     protected OrganizationMemberService $memberService;
 
-    public function boot(OrganizationMemberService $memberService): void
+    protected SystemBillingService $billingService;
+
+    public function boot(OrganizationMemberService $memberService, SystemBillingService $billingService): void
     {
         $this->memberService = $memberService;
+        $this->billingService = $billingService;
     }
 
     public function mount(Organization $organization): void
     {
         $this->organization = $organization;
+    }
+
+    /** Resolved fresh on every render — always reflects current subscription state. */
+    #[Computed]
+    public function subscription(): ?Subscription
+    {
+        return $this->billingService->getOrganizationSubscription($this->organization);
+    }
+
+    public function syncSubscriptions(): void
+    {
+        $this->authorize('manageBilling', $this->organization);
+        SyncOrganizationSubscriptionsJob::dispatch($this->organization, auth()->id());
+        session()->flash('success', __('Subscription sync queued. Data will update shortly.'));
     }
 
     public function setTab(string $tab): void
@@ -140,8 +163,27 @@ class Show extends Component
             'activate' => $this->activate(),
             'forceDelete' => $this->forceDelete(),
             'resetData' => $this->resetData(),
+            'cancelSubscription' => $this->executeCancelSubscription(),
+            'extendTrial' => $this->executeExtendTrial(),
             default => null,
         };
+    }
+
+    protected function executeCancelSubscription(): void
+    {
+        $this->authorize('manageBilling', $this->organization);
+        $result = $this->billingService->cancelSubscription($this->organization, auth()->id());
+        unset($this->subscription); // invalidate Computed cache
+        session()->flash($result ? 'success' : 'error', $result ? __('Subscription cancelled.') : __('No active subscription found.'));
+    }
+
+    protected function executeExtendTrial(): void
+    {
+        $this->authorize('manageBilling', $this->organization);
+        $days = max(1, (int) $this->trialExtendDays);
+        $result = $this->billingService->extendTrial($this->organization, $days, auth()->id());
+        unset($this->subscription); // invalidate Computed cache
+        session()->flash($result ? 'success' : 'error', $result ? __('Trial extended by :days day(s).', ['days' => $days]) : __('No active subscription found.'));
     }
 
     protected function executeTransferOwnership(int $userId): void
@@ -235,6 +277,7 @@ class Show extends Component
             'members' => $members,
             'events' => $events,
             'allUsers' => $allUsers,
+            'subscription' => $this->subscription,
         ]);
     }
 }

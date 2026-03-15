@@ -92,7 +92,7 @@
                 <div class="file-item flex items-center p-3 bg-white border border-gray-200 rounded-lg shadow-sm">
                     
                     <!-- File Preview/Icon -->
-                    <div class="flex-shrink-0 ms-3">
+                    <div class="shrink-0 ms-3">
                         <!-- Image Preview -->
                         <div x-show="file.isImage && file.preview" class="w-12 h-12 rounded-lg overflow-hidden bg-gray-100">
                             <img :src="file.preview" :alt="file.name" class="w-full h-full object-cover">
@@ -143,7 +143,7 @@
                     <!-- Remove Button -->
                     <button type="button" 
                             @click="removeFile(index)"
-                            class="flex-shrink-0 p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-gray-100 touch-manipulation">
+                            class="shrink-0 p-2 text-gray-400 hover:text-red-500 rounded-lg hover:bg-gray-100 touch-manipulation">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -166,7 +166,7 @@
         
         <!-- Loading Overlay -->
         <div x-show="isUploading" 
-             class="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center rounded-xl">
+             class="absolute inset-0 bg-white/90 flex items-center justify-center rounded-xl">
             <div class="text-center">
                 <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
                 <p class="text-sm text-gray-600">מעלה קבצים...</p>

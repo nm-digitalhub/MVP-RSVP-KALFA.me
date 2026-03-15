@@ -13,6 +13,7 @@ class LogoutController extends Controller
     {
         Auth::guard('web')->logout();
 
+        $request->session()->forget('webauthn.current_credential_id');
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

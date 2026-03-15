@@ -1,7 +1,7 @@
 <div>
     {{-- Back + actions bar --}}
     <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <a href="{{ route('dashboard.events.show', $event) }}" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 rounded-lg transition-colors duration-200 min-h-[44px]">
+        <a href="{{ route('dashboard.events.show', $event) }}" class="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-lg transition-colors duration-200 min-h-[44px]">
             <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
@@ -36,7 +36,7 @@
                     <x-primary-button wire:click="save" wire:loading.attr="disabled">
                         <span wire:loading.remove wire:target="save">{{ __('Save') }}</span>
                         <span wire:loading wire:target="save" class="inline-flex items-center gap-2">
-                            <svg class="animate-spin h-4 w-4" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg class="animate-spin motion-reduce:animate-none h-4 w-4" fill="none" viewBox="0 0 24 24" aria-hidden="true">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/>
                             </svg>
@@ -88,13 +88,13 @@
                     <div class="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
                         <div class="flex items-center gap-4 min-w-0">
                             @can('update', $event)
-                                <div wire:sort:handle class="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-grab active:cursor-grabbing focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 touch-none" aria-label="{{ __('Drag to reorder') }}">
+                                <div wire:sort:handle class="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 cursor-grab active:cursor-grabbing focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 touch-none" aria-label="{{ __('Drag to reorder') }}">
                                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path d="M8 6h2v2H8V6zm0 5h2v2H8v-2zm0 5h2v2H8v-2zm5-10h2v2h-2V6zm0 5h2v2h-2v-2zm0 5h2v2h-2v-2z"/>
                                     </svg>
                                 </div>
                             @endcan
-                            <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600" aria-hidden="true">
+                            <div class="shrink-0 w-12 h-12 rounded-xl bg-gray-100 flex items-center justify-center text-gray-600" aria-hidden="true">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
                                 </svg>
@@ -107,8 +107,8 @@
                             </div>
                         </div>
                         @can('update', $event)
-                            <div wire:sort:ignore class="flex items-center gap-2 flex-shrink-0">
-                                <button type="button" wire:click="openEdit({{ $t->id }})" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 py-2 text-sm font-medium text-indigo-600 hover:text-indigo-800 hover:bg-indigo-50 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">
+                            <div wire:sort:ignore class="flex items-center gap-2 shrink-0">
+                                <button type="button" wire:click="openEdit({{ $t->id }})" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 py-2 text-sm font-medium text-brand hover:text-indigo-800 hover:bg-indigo-50 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">
                                     {{ __('Edit') }}
                                 </button>
                                 <button type="button" wire:click="deleteTable({{ $t->id }})" wire:confirm="{{ __('Delete this table?') }}" class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] px-3 py-2 text-sm font-medium text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">
@@ -134,7 +134,7 @@
                     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                         @foreach($tables as $t)
                             <div wire:key="chart-table-{{ $t->id }}" class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 text-center transition-shadow duration-200 hover:shadow-md">
-                                <div class="w-12 h-12 mx-auto rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 mb-2" aria-hidden="true">
+                                <div class="w-12 h-12 mx-auto rounded-lg bg-indigo-50 border border-indigo-100 flex items-center justify-center text-brand mb-2" aria-hidden="true">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
                                     </svg>

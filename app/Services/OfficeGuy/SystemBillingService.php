@@ -4,7 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\OfficeGuy;
 
+use App\Events\Billing\SubscriptionCancelled as SubscriptionCancelledEvent;
+use App\Events\Billing\TrialExtended as TrialExtendedEvent;
 use App\Models\Organization;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Event;
 use OfficeGuy\LaravelSumitGateway\Models\Subscription;
 use OfficeGuy\LaravelSumitGateway\Services\SubscriptionService;
 
@@ -15,22 +20,38 @@ use OfficeGuy\LaravelSumitGateway\Services\SubscriptionService;
  */
 class SystemBillingService
 {
+    /** Cache TTL in seconds for subscription lookups — avoids repeated DB hits on re-renders. */
+    private const SUBSCRIPTION_CACHE_TTL = 60;
+
     /**
-     * Get subscription for an organization.
+     * Get active subscription for an organization.
+     * Cached for 60s — call {@see forgetSubscriptionCache()} after any mutation.
      */
     public function getOrganizationSubscription(Organization $organization): ?Subscription
     {
-        return Subscription::where('subscriber_type', $organization->getMorphClass())
-            ->where('subscriber_id', $organization->id)
-            ->where('status', Subscription::STATUS_ACTIVE)
-            ->latest()
-            ->first();
+        return Cache::remember(
+            "org:{$organization->id}:subscription",
+            self::SUBSCRIPTION_CACHE_TTL,
+            fn () => Subscription::where('subscriber_type', $organization->getMorphClass())
+                ->where('subscriber_id', $organization->id)
+                ->where('status', Subscription::STATUS_ACTIVE)
+                ->latest()
+                ->first()
+        );
+    }
+
+    /** Invalidate the cached subscription entry for an organization after a mutation. */
+    public function forgetSubscriptionCache(Organization $organization): void
+    {
+        Cache::forget("org:{$organization->id}:subscription");
     }
 
     /**
      * Cancel subscription for an organization.
+     *
+     * @param  int|null  $actorId  User ID of the admin performing the cancellation (for audit log).
      */
-    public function cancelSubscription(Organization $organization): bool
+    public function cancelSubscription(Organization $organization, ?int $actorId = null): bool
     {
         $subscription = $this->getOrganizationSubscription($organization);
 
@@ -40,6 +61,8 @@ class SystemBillingService
 
         try {
             SubscriptionService::cancel($subscription, 'Cancelled via System Admin');
+            $this->forgetSubscriptionCache($organization);
+            Event::dispatch(new SubscriptionCancelledEvent($organization, $actorId));
 
             return true;
         } catch (\Exception $e) {
@@ -49,8 +72,10 @@ class SystemBillingService
 
     /**
      * Extend trial for an organization by given days.
+     *
+     * @param  int|null  $actorId  User ID of the admin performing the extension (for audit log).
      */
-    public function extendTrial(Organization $organization, int $days): bool
+    public function extendTrial(Organization $organization, int $days, ?int $actorId = null): bool
     {
         $subscription = $this->getOrganizationSubscription($organization);
 
@@ -59,8 +84,14 @@ class SystemBillingService
         }
 
         $subscription->trial_ends_at = ($subscription->trial_ends_at ?? now())->addDays($days);
+        $result = $subscription->save();
 
-        return $subscription->save();
+        if ($result) {
+            $this->forgetSubscriptionCache($organization);
+            Event::dispatch(new TrialExtendedEvent($organization, $days, $actorId));
+        }
+
+        return $result;
     }
 
     /**
@@ -95,29 +126,36 @@ class SystemBillingService
     }
 
     /**
-     * Monthly recurring revenue. Aggregate from active subscriptions.
+     * Monthly recurring revenue in ILS from active subscriptions.
+     * Filters by currency ILS to avoid mixed-currency sum errors.
      */
     public function getMRR(): float
     {
         return (float) Subscription::where('status', Subscription::STATUS_ACTIVE)
+            ->where('currency', 'ILS')
             ->sum('amount');
     }
 
     /**
-     * Churn rate (0–1). Rough estimate based on cancellations in the last 30 days.
+     * Churn rate (0–1).
+     * Formula: cancelled_in_last_30d / active_at_start_of_period
+     * where active_at_start_of_period = current_active + cancelled_in_last_30d.
      */
     public function getChurnRate(): float
     {
-        $activeCount = Subscription::where('status', Subscription::STATUS_ACTIVE)->count();
         $cancelledLast30Days = Subscription::where('status', Subscription::STATUS_CANCELLED)
             ->where('cancelled_at', '>=', now()->subDays(30))
             ->count();
 
-        if ($activeCount === 0) {
-            return $cancelledLast30Days > 0 ? 1.0 : 0.0;
+        if ($cancelledLast30Days === 0) {
+            return 0.0;
         }
 
-        return (float) ($cancelledLast30Days / ($activeCount + $cancelledLast30Days));
+        $activeNow = Subscription::where('status', Subscription::STATUS_ACTIVE)->count();
+        // active_at_start = those still active + those that cancelled during the period
+        $activeAtStart = $activeNow + $cancelledLast30Days;
+
+        return $activeAtStart > 0 ? (float) ($cancelledLast30Days / $activeAtStart) : 1.0;
     }
 
     /**
@@ -130,12 +168,13 @@ class SystemBillingService
 
     /**
      * Count or list of active subscriptions.
+     *
+     * @return Collection<int, Subscription>
      */
-    public function getActiveSubscriptions(): array
+    public function getActiveSubscriptions(): Collection
     {
         return Subscription::where('status', Subscription::STATUS_ACTIVE)
             ->with('subscriber')
-            ->get()
-            ->toArray();
+            ->get();
     }
 }

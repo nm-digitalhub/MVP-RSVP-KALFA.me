@@ -15,7 +15,7 @@
                 <p class="mt-1 text-lg font-semibold text-gray-900">
                     @if($upcomingEvent ?? null)
                         {{ $upcomingEvent->name }}
-                        <span class="block text-sm font-normal text-gray-500">{{ $upcomingEvent->event_date?->format('M j, Y') }}</span>
+                        <span class="block text-sm font-normal text-gray-500">{{ $upcomingEvent->event_date?->format('d.m.Y') }}</span>
                     @else
                         <span class="text-gray-500">{{ __('None scheduled') }}</span>
                     @endif
@@ -36,7 +36,7 @@
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
             <div class="px-4 py-4 sm:px-6 border-b border-gray-200 flex justify-between items-center">
                 <h2 class="text-lg font-medium text-gray-900">{{ __('Events') }}</h2>
-                <a href="{{ route('dashboard.events.create') }}" class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Create event') }}</a>
+                <a href="{{ route('dashboard.events.create') }}" class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-brand hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Create event') }}</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
@@ -53,7 +53,7 @@
                             @forelse($events as $event)
                                 <tr wire:key="event-{{ $event->id }}">
                                     <td class="px-4 py-3 text-sm text-gray-900">{{ $event->name }}</td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">{{ $event->event_date?->format('Y-m-d') }}</td>
+                                    <td class="px-4 py-3 text-sm text-gray-600">{{ $event->event_date?->format('d.m.Y') }}</td>
                                     <td class="px-4 py-3">
                                         <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
                                             @switch($event->status->value ?? '')
@@ -65,12 +65,12 @@
                                                 @case('cancelled') bg-red-100 text-red-800 @break
                                                 @default bg-gray-100 text-gray-800
                                             @endswitch">
-                                            {{ $event->status->value ?? __('—') }}
+                                            {{ $event->status?->label() ?? __('—') }}
                                         </span>
                                     </td>
                                     <td class="px-4 py-3 text-sm text-gray-600">{{ $event->guests_count ?? 0 }}</td>
                                     <td class="px-4 py-3 text-sm">
-                                        <a href="{{ route('dashboard.events.show', [$organization, $event]) }}" class="inline-flex items-center min-h-[44px] text-indigo-600 hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-1 rounded transition-colors duration-200 cursor-pointer">{{ __('View') }}</a>
+                                        <a href="{{ route('dashboard.events.show', [$organization, $event]) }}" class="inline-flex items-center min-h-[44px] text-brand hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1 rounded transition-colors duration-200 cursor-pointer">{{ __('View') }}</a>
                                     </td>
                                 </tr>
                             @empty

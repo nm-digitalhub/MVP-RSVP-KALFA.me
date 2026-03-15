@@ -16,7 +16,7 @@
     "
     x-on:click="toggle()"
     :aria-label="isDark ? '{{ __('Switch to light mode') }}' : '{{ __('Switch to dark mode') }}'"
-    class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-lg text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 transition-colors duration-200 {{ $class }}"
+    class="inline-flex items-center justify-center min-h-[44px] min-w-[44px] p-2 rounded-lg text-content-muted hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:ring-offset-2 transition-colors duration-200 {{ $class }}"
 >
     {{-- Sun icon for dark mode (click to switch to light) --}}
     <x-heroicon-o-sun x-show="isDark" x-cloak class="w-5 h-5" aria-hidden="true" />

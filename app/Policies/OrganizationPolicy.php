@@ -25,6 +25,18 @@ class OrganizationPolicy
         return $this->isOwnerOrAdmin($user, $organization);
     }
 
+    /**
+     * System admins and org owners/admins may manage billing (cancel, extend trial, sync).
+     */
+    public function manageBilling(User $user, Organization $organization): bool
+    {
+        if ($user->is_system_admin) {
+            return true;
+        }
+
+        return $this->isOwnerOrAdmin($user, $organization);
+    }
+
     public function manageMembers(User $user, Organization $organization): bool
     {
         return $this->isOwnerOrAdmin($user, $organization);

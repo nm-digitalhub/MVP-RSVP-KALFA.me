@@ -25,10 +25,16 @@ final class EntitlementsIndex extends Component
 
     public ?string $expires_at = null;
 
-    public function mount(OrganizationContext $context): mixed
+    protected OrganizationContext $context;
+
+    public function boot(OrganizationContext $context): void
     {
-        $organization = $context->current();
-        if ($organization === null) {
+        $this->context = $context;
+    }
+
+    public function mount(): mixed
+    {
+        if ($this->context->current() === null) {
             return $this->redirect(route('organizations.index'), navigate: true);
         }
 
@@ -118,14 +124,12 @@ final class EntitlementsIndex extends Component
 
     private function getAccount(): ?\App\Models\Account
     {
-        $organization = app(OrganizationContext::class)->current();
-
-        return $organization?->account;
+        return $this->context->current()?->account;
     }
 
-    public function render(OrganizationContext $context): View
+    public function render(): View
     {
-        $organization = $context->current();
+        $organization = $this->context->current();
         $account = $organization?->account;
         $entitlements = $account
             ? $account->entitlements()->orderBy('feature_key')->get()

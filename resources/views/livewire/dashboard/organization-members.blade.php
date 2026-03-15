@@ -48,7 +48,7 @@
                         </div>
                         <div>
                             <x-input-label for="invite-role" :value="__('Role')" class="text-sm font-semibold text-gray-700" />
-                            <select id="invite-role" wire:model="role" class="mt-2 block w-full rounded-xl border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                            <select id="invite-role" wire:model="role" class="mt-2 block w-full rounded-xl border-gray-300 shadow-sm focus:border-brand focus:ring-4 focus:ring-brand/10 transition-all">
                                 <option value="member">{{ __('Member') }}</option>
                                 <option value="admin">{{ __('Admin') }}</option>
                             </select>
@@ -103,7 +103,7 @@
                                         @else
                                             <select 
                                                 wire:change="updateRole({{ $member->id }}, $event.target.value)"
-                                                class="text-sm rounded-xl border-gray-200 py-1.5 pe-10 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all font-medium text-gray-700"
+                                                class="text-sm rounded-xl border-gray-200 py-1.5 pe-10 focus:ring-4 focus:ring-brand/10 focus:border-brand transition-all font-medium text-gray-700"
                                             >
                                                 <option value="member" @selected($member->pivot->role->value === 'member')>{{ __('Member') }}</option>
                                                 <option value="admin" @selected($member->pivot->role->value === 'admin')>{{ __('Admin') }}</option>

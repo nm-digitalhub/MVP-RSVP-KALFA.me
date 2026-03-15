@@ -106,7 +106,7 @@
                                             <x-heroicon-o-cog-6-tooth class="size-4 shrink-0 text-gray-400" />
                                             {{ __('Settings') }}
                                         </a>
-                                        <a href="{{ route('dashboard.team') }}" wire:navigate class="px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg flex items-center gap-2">
+                                        <a href="{{ route('dashboard.team') }}" wire:navigate class="px-4 py-2 text-sm font-medium text-brand hover:bg-brand/5 dark:hover:bg-brand/10 rounded-lg flex items-center gap-2">
                                             <x-heroicon-o-users class="size-4 shrink-0" />
                                             {{ __('Team Management') }}
                                         </a>
@@ -178,8 +178,8 @@
 
                         {{-- User Menu --}}
                         <div x-data="{ open: false }" @click.away="open = false" class="relative ms-4 ps-4 border-s border-gray-200 dark:border-gray-800">
-                            <button @click="open = !open" class="flex items-center gap-3 group focus:outline-none transition-all active:scale-95">
-                                <div class="size-10 rounded-xl bg-gradient-to-br from-brand to-indigo-600 flex items-center justify-center text-white font-black shadow-md shadow-brand/20 group-hover:shadow-lg transition-all">
+                            <button @click="open = !open" class="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/50 focus-visible:rounded-lg transition-all active:scale-95">
+                                <div class="size-10 rounded-xl bg-gradient-to-br from-brand to-brand-hover flex items-center justify-center text-white font-black shadow-md shadow-brand/20 group-hover:shadow-lg transition-all">
                                     {{ substr(auth()->user()->name, 0, 1) }}
                                 </div>
                                 <div class="hidden xl:block text-start leading-none pe-2">
@@ -306,10 +306,10 @@
                     <p class="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">{{ __('Organization Workspace') }}</p>
                     <div class="space-y-4">
                         @if($currentOrg)
-                            <div class="mx-2 p-4 bg-indigo-50 dark:bg-indigo-950/20 rounded-2xl border border-indigo-100 dark:border-indigo-900/50">
-                                <p class="text-[9px] font-black text-indigo-600/60 uppercase tracking-widest mb-1">{{ __('Active Space') }}</p>
-                                <p class="font-black text-indigo-900 dark:text-indigo-200 mb-3 truncate">{{ $currentOrg->name }}</p>
-                                <a href="{{ route('dashboard.organization-settings.edit') }}" wire:navigate class="flex items-center gap-2 text-xs font-black text-indigo-600">
+                            <div class="mx-2 p-4 bg-brand/5 dark:bg-brand/10 rounded-2xl border border-brand/10">
+                                <p class="text-[9px] font-black text-brand/50 uppercase tracking-widest mb-1">{{ __('Active Space') }}</p>
+                                <p class="font-black text-content mb-3 truncate">{{ $currentOrg->name }}</p>
+                                <a href="{{ route('dashboard.organization-settings.edit') }}" wire:navigate class="flex items-center gap-2 text-xs font-black text-brand">
                                     <x-heroicon-o-cog class="size-4" />
                                     {{ __('Config Environment') }}
                                 </a>

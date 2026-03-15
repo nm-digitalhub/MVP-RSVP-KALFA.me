@@ -146,7 +146,7 @@
                         {{ __('All') }}
                     </button>
                     @foreach($categories as $category => $count)
-                        <button wire:click="setFilterCategory('{{ $category }}')" class="shrink-0 px-3 py-1.5 rounded-lg border {{ $filterCategory === $category ? 'bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-white border-slate-200 text-slate-600' }} hover:{{ $filterCategory === $category ? 'bg-indigo-200' : 'bg-slate-50' }} transition-all cursor-pointer text-[10px] font-black uppercase tracking-wider">
+                        <button wire:key="cat-filter-{{ $category }}" wire:click="setFilterCategory('{{ $category }}')" class="shrink-0 px-3 py-1.5 rounded-lg border {{ $filterCategory === $category ? 'bg-indigo-100 text-indigo-700 border-indigo-200' : 'bg-white border-slate-200 text-slate-600' }} hover:{{ $filterCategory === $category ? 'bg-indigo-200' : 'bg-slate-50' }} transition-all cursor-pointer text-[10px] font-black uppercase tracking-wider">
                             {{ $category }}
                         </button>
                     @endforeach
@@ -158,7 +158,7 @@
     {{-- Products Grid - Cards View --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         @forelse($products as $product)
-            <livewire:system.products.product-card :product="$product" />
+            <livewire:system.products.product-card :product="$product" :key="'product-card-'.$product->id" />
         @empty
             <div class="col-span-full py-16 text-center">
                 <div class="inline-flex flex-col items-center gap-4">

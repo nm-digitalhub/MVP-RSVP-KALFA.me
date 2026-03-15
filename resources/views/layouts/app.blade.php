@@ -27,7 +27,12 @@
 
 </head>
 
-<body class="min-h-screen bg-gray-50 dark:bg-gray-900 antialiased text-gray-900 dark:text-gray-100 transition-colors duration-200">
+<body class="min-h-screen bg-surface antialiased text-content transition-colors duration-200">
+
+{{-- Skip to main content (accessibility) --}}
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:start-4 focus:z-[100] focus:px-4 focus:py-2 focus:rounded-lg focus:bg-brand focus:text-white focus:text-sm focus:font-semibold focus:shadow-lg">
+    {{ __('Skip to main content') }}
+</a>
 
 <div class="min-h-screen">
 
@@ -40,7 +45,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-2"
-            class="bg-indigo-600 text-white"
+            class="bg-brand text-white"
         >
             <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between gap-4 flex-wrap">
                 <div class="flex items-center gap-3">
@@ -53,11 +58,11 @@
                     <button
                         id="banner-passkey-btn"
                         type="button"
-                        class="text-sm font-semibold bg-white text-indigo-700 px-3 py-1 rounded-md hover:bg-indigo-50 transition-colors disabled:opacity-60"
+                        class="text-sm font-semibold bg-white text-brand px-3 py-1 rounded-md hover:bg-brand/5 transition-colors disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
                     >
                         צור מפתח זיהוי עכשיו
                     </button>
-                    <button @click="show = false" type="button" class="text-indigo-200 hover:text-white" title="סגור">
+                    <button @click="show = false" type="button" class="text-brand-light hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded" title="סגור">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                         </svg>
@@ -106,6 +111,7 @@
     @endisset
 
     <main
+        id="main-content"
         role="main"
         class="{{ $containerWidth ?? 'max-w-7xl' }} mx-auto px-4 py-8 sm:px-6 lg:px-8"
     >

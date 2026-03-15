@@ -48,9 +48,9 @@
                     <li wire:key="org-{{ $org->id }}" class="border-b border-gray-100 last:border-0 pb-2 last:pb-0">
                         <div class="flex justify-between items-start">
                             <div>
-                                <a href="{{ route('system.organizations.show', $org) }}" class="text-indigo-600 font-medium hover:text-indigo-900">{{ $org->name }}</a>
+                                <a href="{{ route('system.organizations.show', $org) }}" class="text-brand font-medium hover:text-indigo-900">{{ $org->name }}</a>
                                 <span class="text-gray-500 text-xs">({{ is_object($org->pivot->role) ? $org->pivot->role->value : $org->pivot->role }})</span>
-                                <button wire:click="syncOrganization({{ $org->id }})" wire:loading.attr="disabled" class="ml-2 text-gray-400 hover:text-indigo-600" title="{{ __('Sync from SUMIT') }}">
+                                <button wire:click="syncOrganization({{ $org->id }})" wire:loading.attr="disabled" class="ml-2 text-gray-400 hover:text-brand" title="{{ __('Sync from SUMIT') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                     </svg>
@@ -94,7 +94,7 @@
                 @if($user->is_system_admin)
                     <button type="button" wire:click="requestAction('demoteSystemAdmin')" class="rounded-md bg-amber-600 px-3 py-2 text-sm font-medium text-white hover:bg-amber-700">{{ __('Demote system admin') }}</button>
                 @else
-                    <button type="button" wire:click="requestAction('promoteToSystemAdmin')" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-medium text-white hover:bg-indigo-700">{{ __('Promote to system admin') }}</button>
+                    <button type="button" wire:click="requestAction('promoteToSystemAdmin')" class="rounded-md bg-brand px-3 py-2 text-sm font-medium text-white hover:bg-brand-hover">{{ __('Promote to system admin') }}</button>
                 @endif
             @endif
             @if(! ($user->is_disabled ?? false))
@@ -119,7 +119,7 @@
                 </div>
                 <div class="mt-6 flex justify-end gap-2">
                     <button type="button" wire:click="cancelConfirm" class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">{{ __('Cancel') }}</button>
-                    <button type="button" wire:click="confirmAndExecute" class="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700">{{ __('Confirm') }}</button>
+                    <button type="button" wire:click="confirmAndExecute" class="rounded-md bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">{{ __('Confirm') }}</button>
                 </div>
             </div>
         </div>

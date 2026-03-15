@@ -61,6 +61,13 @@ async function attemptAssertion(btn, errorEl, opts = {}) {
         errorEl.textContent = error ?? failedMsg
         errorEl.classList.remove('hidden')
     } catch (e) {
+        // Session expired → server returns 419. Reload to obtain a fresh CSRF token
+        // so the next login attempt works without requiring a manual page refresh.
+        if (e?.response?.status === 419) {
+            window.location.reload()
+            return false
+        }
+
         if (isSilentCancel(e)) {
             console.warn('[passkey] silent cancel', { name: e.name, message: e.message })
         } else {
