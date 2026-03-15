@@ -176,3 +176,8 @@ Route::get('checkout/status/{payment}', [\App\Http\Controllers\CheckoutStatusCon
 
 // Authentication
 require __DIR__.'/auth.php';
+
+// Legal pages (stub — replace with real content views when ready)
+Route::get('terms', fn () => view('legal.terms'))->name('terms');
+Route::get('privacy', fn () => view('legal.privacy'))->name('privacy');
+Route::get('refund-policy', fn () => view('legal.refund-policy'))->name('refund.policy');
