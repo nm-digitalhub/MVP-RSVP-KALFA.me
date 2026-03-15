@@ -9,7 +9,7 @@
 <div class="text-center py-12 px-4">
     {{-- Optional icon --}}
     @if($icon)
-        <div class="mx-auto h-16 w-16 text-gray-400 dark:text-gray-500 mb-4">
+        <div class="mx-auto h-16 w-16 text-content-muted mb-4">
             {{ $icon }}
         </div>
     @else
@@ -22,11 +22,11 @@
     @endif
 
     {{-- Title --}}
-    <h3 class="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">{{ $title }}</h3>
+    <h3 class="text-lg font-medium text-content mb-2">{{ $title }}</h3>
 
     {{-- Optional description --}}
     @if($description)
-        <p class="text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-6">{{ $description }}</p>
+        <p class="text-sm text-content-muted max-w-md mx-auto mb-6">{{ $description }}</p>
     @endif
 
     {{-- Optional action button --}}

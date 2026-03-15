@@ -6903,3 +6903,34 @@ Stack trace:
 test
 [2026-03-15 11:49:45] production.WARNING: passkey.login {"event_version":"v1","request_id":"2df42e0a-d52d-450a-a3d7-3abcf89503d8","auth_method":"passkey","ip":"217.154.17.185","ua_hash":"07d1d539047ef019","flow_stage":"login.verify","outcome":"fail","user_id":null,"credential_hash":"a2c07e94066be523"} 
 [2026-03-15 11:50:20] production.INFO: passkey.login {"event_version":"v1","request_id":"0a83b808-a293-4d93-91d9-fd5cb61f4cbc","auth_method":"passkey","ip":"10.8.0.2","ua_hash":"a55a5bd88d19e0a1","flow_stage":"login.verify","outcome":"success","user_id":1,"credential_hash":"7c3861c282d8529a"} 
+[2026-03-15 15:34:26] production.ERROR: Route [terms] not defined. (View: /var/www/vhosts/kalfa.me/httpdocs/resources/views/auth/register.blade.php) {"exception":"Symfony\\Component\\Routing\\Exception\\RouteNotFoundException: Route [terms] not defined. in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/UrlGenerator.php:528
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(870): Illuminate\\Routing\\UrlGenerator->route()
+#1 /var/www/vhosts/kalfa.me/httpdocs/storage/framework/views/812d7dd02d9c34aa3743d16469796807.php(215): route()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('...')
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::{closure:Illuminate\\Filesystem\\Filesystem::getRequire():120}()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(57): Illuminate\\Filesystem\\Filesystem->getRequire()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(22): Illuminate\\View\\Engines\\PhpEngine->evaluatePath()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(76): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->evaluatePath()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/ExtendBlade/ExtendedCompilerEngine.php(10): Illuminate\\View\\Engines\\CompilerEngine->get()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(208): Livewire\\Mechanisms\\ExtendBlade\\ExtendedCompilerEngine->get()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(191): Illuminate\\View\\View->getContents()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/View/View.php(160): Illuminate\\View\\View->renderContents()
+#11 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Http/Response.php(7
+... [truncated 23724 chars]"} 
+[2026-03-15 15:35:31] production.ERROR: The "--no-pager" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--no-pager\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(155): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 

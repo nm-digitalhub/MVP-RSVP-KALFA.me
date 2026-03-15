@@ -19,5 +19,5 @@ $heightClass = $height ? "h-{$height}" : '';
 @endphp
 
 <template x-for="i in {{ $count }}">
-    <div class="animate-pulse bg-gray-200 dark:bg-gray-700 {{ $typeClasses }} {{ $widthClass }} {{ $heightClass }} {{ $class }}" aria-hidden="true"></div>
+    <div class="animate-pulse motion-reduce:animate-none bg-stroke {{ $typeClasses }} {{ $widthClass }} {{ $heightClass }} {{ $class }}" aria-hidden="true"></div>
 </template>
