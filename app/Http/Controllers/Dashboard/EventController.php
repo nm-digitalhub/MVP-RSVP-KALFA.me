@@ -11,6 +11,7 @@ use App\Http\Requests\Dashboard\UpdateEventRequest;
 use App\Models\Event;
 use App\Services\EventLinks;
 use App\Services\OrganizationContext;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -29,7 +30,13 @@ class EventController extends Controller
         if ($organization === null) {
             return redirect()->route('organizations.index');
         }
-        $this->authorize('create', [Event::class, $organization->id]);
+
+        try {
+            $this->authorize('create', [Event::class, $organization->id]);
+        } catch (AuthorizationException) {
+            return redirect()->route('billing.account')
+                ->with('warning', __('billing.event_creation_requires_account'));
+        }
 
         return view('dashboard.events.create', [
             'organization' => $organization,
@@ -42,7 +49,13 @@ class EventController extends Controller
         if ($organization === null) {
             return redirect()->route('organizations.index');
         }
-        $this->authorize('create', [Event::class, $organization->id]);
+
+        try {
+            $this->authorize('create', [Event::class, $organization->id]);
+        } catch (AuthorizationException) {
+            return redirect()->route('billing.account')
+                ->with('warning', __('billing.event_creation_requires_account'));
+        }
 
         $validated = $request->validated();
         $settings = [];

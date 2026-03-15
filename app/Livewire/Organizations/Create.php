@@ -7,8 +7,12 @@ namespace App\Livewire\Organizations;
 use App\Enums\OrganizationUserRole;
 use App\Models\Organization;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Livewire\Component;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\PermissionRegistrar;
 
 class Create extends Component
 {
@@ -37,10 +41,12 @@ class Create extends Component
         auth()->user()->update(['current_organization_id' => $organization->id]);
         app(\App\Services\OrganizationContext::class)->set($organization);
 
+        $this->grantOwnerPermissions($organization->id);
+
         try {
-            \Illuminate\Support\Facades\Mail::to(auth()->user()->email)->send(new \App\Mail\WelcomeOrganizer($organization, auth()->user()));
+            Mail::to(auth()->user()->email)->send(new \App\Mail\WelcomeOrganizer($organization, auth()->user()));
         } catch (\Throwable $e) {
-            \Illuminate\Support\Facades\Log::error('Failed to send welcome email', ['error' => $e->getMessage()]);
+            Log::error('Failed to send welcome email', ['error' => $e->getMessage()]);
         }
 
         session()->flash('status', __('Organization created.'));
@@ -64,5 +70,23 @@ class Create extends Component
         }
 
         return $slug;
+    }
+
+    /** Grant all tenant-level permissions to the org Owner, scoped to this team. */
+    private function grantOwnerPermissions(int $organizationId): void
+    {
+        app(PermissionRegistrar::class)->setPermissionsTeamId($organizationId);
+
+        $permissions = Permission::whereIn('name', [
+            'view-event-details',
+            'manage-event-guests',
+            'manage-event-tables',
+            'send-invitations',
+        ])->get();
+
+        auth()->user()->givePermissionTo($permissions);
+
+        // Reset to current org context
+        app(PermissionRegistrar::class)->setPermissionsTeamId($organizationId);
     }
 }
