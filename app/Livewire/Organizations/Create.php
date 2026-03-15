@@ -20,7 +20,7 @@ class Create extends Component
         ];
     }
 
-    public function save(): mixed
+    public function save(): void
     {
         $this->validate();
 
@@ -42,8 +42,9 @@ class Create extends Component
             \Illuminate\Support\Facades\Log::error('Failed to send welcome email', ['error' => $e->getMessage()]);
         }
 
-        return $this->redirect(route('dashboard'), navigate: true)
-            ->with('status', __('Organization created.'));
+        session()->flash('status', __('Organization created.'));
+
+        $this->redirect(route('dashboard'), navigate: true);
     }
 
     public function render(): View

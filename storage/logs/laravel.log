@@ -6934,3 +6934,18 @@ Stack trace:
 #11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
 #12 {main}
 "} 
+[2026-03-15 15:56:14] production.ERROR: Call to a member function with() on null {"userId":2,"exception":"Error: Call to a member function with() on null in /var/www/vhosts/kalfa.me/httpdocs/app/Livewire/Organizations/Create.php:46
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): App\\Livewire\\Organizations\\Create->save()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/Util.php(43): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(96): Illuminate\\Container\\Util::unwrapIfClosure()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Wrapped.php(23): Illuminate\\Container\\BoundMethod::call()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(660): Livewire\\Wrapped->__call()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleComponents/HandleComponents.php(239): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->callMethods()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/LivewireManager.php(131): Livewire\\Mechanisms\\HandleComponents\\HandleComponents->update()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/livewire/livewire/src/Mechanisms/HandleRequests/HandleRequests.php(190): Livewire\\LivewireManager->update()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/ControllerDispatcher.php(46): Livewire\\Mechanisms\\HandleRequests\\HandleRequests->handleUpdate()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(265): Illuminate\\Routing\\ControllerDispatcher->dispatch()
+#11 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Routing/Route.php(211): 
+... [truncated 10198 chars]"} 
