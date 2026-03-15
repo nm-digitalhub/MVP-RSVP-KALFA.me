@@ -2,7 +2,8 @@
 
 **תאריך:** מרץ 2026  
 **גרסת Laravel:** 12 / PHP 8.4  
-**Commits:** `32311744` → `31a3f0da` → `e4638f23`
+**Commits:** `32311744` → `31a3f0da` → `e4638f23`  
+**סקירה טכנית:** ראו [`BILLING_PERMISSION_GATE-Review.md`](./BILLING_PERMISSION_GATE-Review.md)
 
 ---
 
@@ -19,7 +20,8 @@
 9. [PermissionSyncService](#permissionsyncservice)
 10. [שגיאות נפוצות ופתרונות](#שגיאות-נפוצות-ופתרונות)
 11. [בדיקות ואימות](#בדיקות-ואימות)
-12. [תרשים שלם](#תרשים-שלם)
+12. [שיפורים מומלצים (מהסקירה)](#שיפורים-מומלצים)
+13. [תרשים שלם](#תרשים-שלם)
 
 ---
 
@@ -434,7 +436,129 @@ $user->revokePermissionTo(['view-event-details','manage-event-guests','manage-ev
 
 ---
 
-## תרשים שלם
+## שיפורים מומלצים
+
+> נקודות אלו עלו בסקירה טכנית (ראו `BILLING_PERMISSION_GATE-Review.md`) ומהוות עבודה עתידית, לא חובה לשחרור הנוכחי.
+
+---
+
+### 1. Observer — Guard מפני null + debounce בעתיד
+
+כרגע `AccountProductObserver` קורא לסנכרון ישירות. בסביבות עם batch updates (שינוי מרובה של AccountProducts בלולאה), ייתכן שהסנכרון יופעל מספר פעמים.
+
+**Guard מינימלי מומלץ (כבר קיים):**
+```php
+if ($accountProduct->account?->exists) {
+    $this->sync->syncForAccount($accountProduct->account);
+}
+```
+
+**לכשמספר הארגונים לחשבון יגדל:** שקול להפוך את `syncForAccount()` ל-Job מוגבל ב-queue עם unique job key.
+
+---
+
+### 2. `hasActivePaidOrGranted()` — שתי שאילתות בכל קריאה
+
+הפונקציה מריצה שתי שאילתות (`activeAccountProducts`, `payments`). אם `EventPolicy::create()` נקרא בכל render של Livewire, עלול להיות עומס.
+
+**פתרון מומלץ:** cache קצר לפי `account_id`:
+
+```php
+public function hasActivePaidOrGranted(Account $account): bool
+{
+    return cache()->remember(
+        "billing.gate.{$account->id}",
+        now()->addSeconds(60),
+        fn () => $this->computeGate($account),
+    );
+}
+
+private function computeGate(Account $account): bool
+{
+    // ... לוגיקה קיימת ...
+}
+```
+
+> **חשוב:** לנקות את ה-cache בעת `syncForAccount()`:
+> ```php
+> cache()->forget("billing.gate.{$account->id}");
+> ```
+
+---
+
+### 3. `ROLE_PERMISSION_MAP` — הרחבה עתידית
+
+כרגע Owner ו-Admin מקבלים את **אותן** הרשאות. אם בעתיד יתווספו roles כמו `EventManager` או `Staff` עם subset של הרשאות, כדאי להחליף את הרשימה הקשיחה ב-map:
+
+```php
+// עתידי — לא בקוד הנוכחי
+private const ROLE_PERMISSION_MAP = [
+    OrganizationUserRole::Owner->value => self::TENANT_PERMISSIONS,
+    OrganizationUserRole::Admin->value => self::TENANT_PERMISSIONS,
+    // OrganizationUserRole::EventManager->value => ['view-event-details', 'manage-event-guests'],
+];
+```
+
+כך ניתן להרחיב ללא שינוי לוגיקה.
+
+---
+
+### 4. משתמש שמצטרף לארגון אחרי שמוצר כבר פעיל ⚠️
+
+**בעיה:** ה-Observer מופעל רק בשינוי `AccountProduct`. משתמש חדש שמצטרף לארגון לאחר שהמוצר כבר פעיל **לא מקבל הרשאות אוטומטית**.
+
+**פתרון מומלץ:** Observer על `OrganizationUser`:
+
+```php
+// app/Observers/OrganizationUserObserver.php
+final class OrganizationUserObserver
+{
+    public function __construct(
+        private readonly PermissionSyncService $sync,
+    ) {}
+
+    public function created(OrganizationUser $organizationUser): void
+    {
+        $account = $organizationUser->organization->account;
+        if ($account) {
+            $this->sync->syncForAccount($account);
+        }
+    }
+
+    public function updated(OrganizationUser $organizationUser): void
+    {
+        // שינוי role — ייתכן שצריך לעדכן הרשאות
+        if ($organizationUser->wasChanged('role')) {
+            $account = $organizationUser->organization->account;
+            if ($account) {
+                $this->sync->syncForAccount($account);
+            }
+        }
+    }
+}
+```
+
+**רישום:**
+```php
+// AppServiceProvider::boot()
+OrganizationUser::observe(OrganizationUserObserver::class);
+```
+
+**עד שיוטמע:** ניתן להריץ re-sync ידני דרך System Admin panel.
+
+---
+
+### 5. אבטחה — ההפרדה בין pivot role ל-Spatie היא כוונתית
+
+> מציטוט הסקירה: *"ההחלטה להפריד בין Policy שמסתמך על pivot roles (לפני תשלום) לבין Policy שמסתמך על Spatie permissions (אחרי תשלום) היא בחירה נכונה. היא מונעת bootstrap deadlock שבו משתמש לא יכול ליצור חשבון כי עדיין אין לו permissions."*
+
+זהו עיצוב מכוון ויש לשמור עליו:
+- `OrganizationPolicy::update` ← **pivot role** (עובד לפני תשלום)
+- `EventPolicy::create` ← **Spatie** (נדרש מוצר פעיל)
+
+---
+
+
 
 ```
                     ┌─────────────────────┐
