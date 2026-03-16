@@ -20,10 +20,16 @@ Deployment, CI/CD, monitoring, and infrastructure-as-code documentation.
 
 ## Quick Links
 
-- [[Architecture/APIs/]] - API Documentation
-- [[Architecture/Services/]] - Service Documentation
-- [[Architecture/Database/]] - Database Documentation
-- [[Architecture/Infrastructure/]] - Infrastructure Documentation
+- [[Architecture/Overview|System Overview]] - Full architecture overview
+- [[Architecture/APIs/REST-API|REST API Reference]] - All endpoints
+- [[Architecture/Database/Schema|Database Schema]] - Tables & relationships
+- [[Architecture/Services/BillingService|BillingService]] - Payment flow
+- [[Architecture/Services/FeatureResolver|FeatureResolver]] - Product Engine & entitlements
+- [[Architecture/Services/OrganizationContext|OrganizationContext]] - Multi-tenancy
+- [[Architecture/Services/Notifications|Notifications]] - WhatsApp, Voice, SMS
+- [[Architecture/Permissions|Permissions System]] - Roles & authorization
+- [[Architecture/Infrastructure|Infrastructure]] - Deployment & dev setup
+- [[Architecture/ADRs/]] - Architecture Decision Records
 
 ---
 
@@ -31,7 +37,7 @@ Deployment, CI/CD, monitoring, and infrastructure-as-code documentation.
 
 Architecture Decision Records (ADRs) are tracked in this vault with the tag `#adr`.
 
-See [[<% tp.date.now("YYYY-MM-DD") %>]] for latest decisions.
+ADR files live in `Architecture/ADRs/` using the format `ADR-YYYYMMDD-short-identifier`.
 
 ---
 
