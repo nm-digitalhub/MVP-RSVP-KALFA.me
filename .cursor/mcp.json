@@ -9,15 +9,24 @@
         },
         "tailwindcss-server": {
             "command": "npx",
-            "args": ["-y", "tailwindcss-mcp-server"]
+            "args": [
+                "-y",
+                "tailwindcss-mcp-server"
+            ]
         },
         "mediaProcessor": {
             "command": "npx",
-            "args": ["-y", "create-mcp-server@latest"]
+            "args": [
+                "-y",
+                "create-mcp-server@latest"
+            ]
         },
         "mcp-copy-web-ui": {
             "command": "npx",
-            "args": ["-y", "mcp-copy-web-ui"]
+            "args": [
+                "-y",
+                "mcp-copy-web-ui"
+            ]
         }
     }
 }
