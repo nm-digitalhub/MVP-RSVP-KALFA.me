@@ -1,23 +1,21 @@
 <x-layouts.guest>
     <x-slot:title>אימות אימייל</x-slot:title>
 
-<div class="min-h-screen flex items-center justify-center bg-surface py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
-        <div>
-            <div class="mx-auto h-12 w-auto flex justify-center">
-                <a href="{{ route('home') }}" class="text-2xl font-bold text-brand">
-                    NM-DigitalHUB
-                </a>
-            </div>
-            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+<div class="auth-screen">
+    <div class="auth-shell">
+        <div class="auth-card">
+        <div class="auth-card-header">
+            <div class="auth-kicker">אימות בעלות</div>
+            <x-auth-logo />
+            <h2 class="auth-title">
                 אימות כתובת אימייל
             </h2>
-            <p class="mt-2 text-center text-sm text-gray-600">
+            <p class="auth-subtitle">
                 שלחנו קישור אימות לכתובת האימייל שלך. לחץ על הקישור כדי לאמת את החשבון.
             </p>
         </div>
 
-        <div class="bg-white shadow-sm rounded-lg p-6">
+        <div class="auth-note-panel">
             <div class="text-center">
                 <svg class="mx-auto h-12 w-12 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
@@ -38,7 +36,7 @@
         </div>
 
         @if(session('status') == 'verification-link-sent')
-            <div class="rounded-md bg-green-50 p-4">
+            <div class="auth-status auth-status-success">
                 <div class="flex">
                     <div class="shrink-0">
                         <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -59,7 +57,7 @@
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
                 <button type="submit" 
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-brand hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand">
+                        class="auth-primary-button">
                     שלח קישור אימות שוב
                 </button>
             </form>
@@ -68,13 +66,13 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" 
-                        class="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand">
+                        class="auth-secondary-button">
                     התנתק ונסה שוב
                 </button>
             </form>
         </div>
 
-        <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+        <div class="auth-status auth-status-info">
             <div class="flex">
                 <div class="shrink-0">
                     <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -95,6 +93,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </div>

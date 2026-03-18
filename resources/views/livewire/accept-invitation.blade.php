@@ -1,7 +1,9 @@
 <div class="min-h-screen flex flex-col sm:justify-center items-center p-4 sm:p-6 bg-gradient-to-br from-indigo-50 via-white to-purple-50">
     <div class="w-full sm:max-w-lg mt-6 px-8 py-10 bg-white/80 backdrop-blur-xl shadow-2xl shadow-indigo-900/10 overflow-hidden rounded-3xl border border-white/50 animate-in fade-in zoom-in-95 duration-700">
         <div class="text-center mb-10">
-            <div class="relative inline-flex mb-6">
+            <x-auth-logo />
+
+            <div class="relative inline-flex mt-6 mb-6">
                 <div class="absolute inset-0 bg-indigo-200 rounded-full blur-2xl opacity-50 animate-pulse"></div>
                 <div class="relative inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-indigo-600 to-purple-700 text-white shadow-xl rotate-3 hover:rotate-0 transition-transform duration-300">
                     <x-heroicon-o-user-group class="w-10 h-10" />
@@ -58,9 +60,11 @@
         </div>
 
         <div class="mt-10 pt-8 border-t border-gray-100 text-center">
-            <p class="text-xs text-gray-400 font-medium uppercase tracking-widest">
-                {{ __('Powered by') }} {{ config('app.name') }}
-            </p>
+            <div class="flex items-center justify-center gap-3 text-xs font-medium uppercase tracking-widest text-gray-400">
+                <span>{{ __('Powered by') }}</span>
+                <x-kalfa-app-icon class="h-7 w-7" alt="" />
+                <span>{{ config('app.name') }}</span>
+            </div>
         </div>
     </div>
 </div>

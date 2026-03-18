@@ -1,0 +1,294 @@
+================================================================================
+                    BILLING AUDIT - QUICK REFERENCE
+================================================================================
+
+QUESTION 1: How is "account active/paid" determined?
+────────────────────────────────────────────────────────────────────────────
+
+Answer: By checking if Account has any ACTIVE products OR subscriptions.
+
+Key Methods:
+  • Account->activeAccountProducts() (lines 111-119 of Account.php)
+  • Account->activeSubscriptions() (lines 141-149 of Account.php)
+
+These check:
+  • Status = 'active' (enum AccountSubscriptionStatus/AccountProductStatus)
+  • Not expired (expires_at > now())
+
+Critical Finding: Account model has NO is_active/status field!
+  Only activeAccountProducts() and activeSubscriptions() queries determine status.
+
+For Account #2: NEITHER exists → Account is INACTIVE/UNPAID
+
+
+QUESTION 2: Is there access gate/middleware enforcing payment?
+────────────────────────────────────────────────────────────────────────────
+
+Answer: PARTIALLY and INCONSISTENTLY.
+
+What EXISTS ✅:
+  1. EventPolicy.create() - checks 'manage-event-guests' Spatie permission
+  2. PermissionSyncService - syncs permissions only if products exist
+  3. AccountProductObserver - fires when product status changes
+  4. EnsureOrganizationSelected - ensures user in org
+
+What's MISSING ❌:
+  1. EnsureAccountActive MIDDLEWARE - DOES NOT EXIST
+  2. No middleware checking account->activeAccountProducts()->exists()
+  3. No gate in bootstrap/app.php for billing
+  4. No route middleware protecting /dashboard routes
+
+Gate Registration: bootstrap/app.php (lines 137-164)
+  • Only defines system admin gates
+  • No account/billing gates defined
+
+Middleware Aliases: bootstrap/app.php (lines 17-21)
+  • ensure.organization ✅
+  • system.admin ✅
+  • Missing: ensure.account_active ❌
+
+
+QUESTION 3: What trial logic exists?
+────────────────────────────────────────────────────────────────────────────
+
+Trial Creation:
+  File: app/Services/SubscriptionService.php (lines 24-51)
+  Method: startTrial()
+  
+  Creates: AccountSubscription with status='trial', trial_ends_at timestamp
+  Dispatches: ProductEngineEvent 'subscription.trial_started'
+
+Trial Schema:
+  Column: account_subscriptions.trial_ends_at (timestamp nullable)
+  In database: CAPTURED ✅ but NOT ENFORCED ❌
+
+Trial Enforcement: MISSING ❌
+  • No check if trial_ends_at < now()
+  • No middleware validating trial expiry
+  • No cron/job auto-expiring trials
+  • activeSubscriptions() includes status='trial' (so features work forever)
+
+
+QUESTION 4: Why can Account #2 access without paying?
+────────────────────────────────────────────────────────────────────────────
+
+Account #2 Data:
+  • ID: 2
+  • Name: Kalfa-test
+  • Type: organization
+  • Owner: admin@nm-digitalhub.com
+  • account_subscriptions: 0 rows
+  • account_products: 0 rows
+  • payments: 0 rows
+  • Entitlements: 0 rows
+
+Why It CAN'T Create Events ✅ (CORRECT):
+  1. No products granted → Observer never fires
+  2. PermissionSyncService never called → Permissions never synced
+  3. User has NO 'manage-event-guests' Spatie permission
+  4. EventPolicy.create() check fails
+  5. Redirected to billing page with warning
+
+Why It CAN View Dashboard ⚠️ (PROBLEM):
+  1. EnsureOrganizationSelected middleware only checks: user in org?
+  2. It does NOT check: account has active products?
+  3. User CAN access /dashboard, /organizations, etc
+  4. Just CAN'T create events (policy blocks)
+
+Summary:
+  • Event CREATION is properly blocked ✅
+  • Dashboard ACCESS is not blocked ❌
+  • Trial EXPIRY is not enforced ❌
+
+
+================================================================================
+                         ENFORCEMENT MECHANISMS
+================================================================================
+
+EXIST & WORKING ✅:
+────────────────────
+
+1. Account.activeAccountProducts() & activeSubscriptions() methods
+   Status: WORKING
+   Files: app/Models/Account.php (lines 111-119, 141-149)
+   Purpose: Query active products/subscriptions
+
+2. PermissionSyncService.hasActivePaidOrGranted()
+   Status: WORKING (but incomplete wiring)
+   Files: app/Services/PermissionSyncService.php (lines 35-69)
+   Purpose: Checks if account qualifies for permissions
+   Trigger: Only when AccountProduct changes
+
+3. AccountProductObserver
+   Status: WORKING
+   Files: app/Observers/AccountProductObserver.php
+   Purpose: Auto-syncs Spatie permissions when products change
+   Called: On product create/update/delete
+
+4. EventPolicy.create()
+   Status: WORKING
+   Files: app/Policies/EventPolicy.php (lines 23-27)
+   Purpose: Checks 'manage-event-guests' Spatie permission
+   Result: Event creation blocked if permission not granted
+
+5. EventController.create() - exception handling
+   Status: WORKING
+   Files: app/Http/Controllers/Dashboard/EventController.php (lines 34-39)
+   Purpose: Catches AuthorizationException, redirects to billing
+   Message: "billing.event_creation_requires_account"
+
+6. Spatie Permission Team Scoping
+   Status: WORKING
+   Files: app/Http/Middleware/SpatiePermissionTeam.php
+   Purpose: Sets permission context per organization
+
+
+MISSING OR NOT ENFORCED ❌:
+───────────────────────────
+
+1. Middleware to Check Active Account
+   Status: MISSING
+   Should be: app/Http/Middleware/EnsureAccountActive.php
+   Purpose: Block access if account has NO active products/subscriptions
+   Applied to: All organization-scoped routes
+
+2. Trial Expiry Enforcement
+   Status: MISSING
+   Column exists: account_subscriptions.trial_ends_at ✅
+   Check implemented: NO ❌
+   Where should be: FeatureResolver.php or middleware
+
+3. Account Status Field
+   Status: MISSING (optional)
+   Would store: active|suspended|trial_expired|cancelled
+   Current: Inferred from related records (inefficient)
+
+4. Trial Auto-Expiry Cron
+   Status: MISSING
+   Should: Mark trials with trial_ends_at < now() as expired
+   Currently: Trials never transition automatically
+
+5. API Billing Gate
+   Status: MISSING
+   Routes: routes/api.php (lines 23-65)
+   Current: Only 'auth:sanctum', no billing check
+   Should: Same EnsureAccountActive as web routes
+
+6. Account Suspension Gate
+   Status: PARTIALLY PRESENT
+   Flag exists: Organization.is_suspended ✅ (line 26, web.php line 42)
+   But no account-level suspension capability
+
+
+================================================================================
+                      KEY CODE LOCATIONS - SUMMARY
+================================================================================
+
+MODELS:
+  Account.php (154-214) ............. grantProduct() - grants products to account
+  Account.php (241-267) ............. startTrial() / subscribeToPlan()
+  AccountSubscription.php (76-94) ... activate() / cancel() / suspend() / renew()
+  AccountProduct.php (69-77) ........ Active scope query
+
+ENUMS:
+  AccountSubscriptionStatus.php ..... Trial, Active, PastDue, Cancelled
+  AccountProductStatus.php .......... Active, Suspended, Revoked
+  EntitlementType.php ............... Boolean, Number, Text, Enum
+
+SERVICES:
+  PermissionSyncService.php (35-69) . hasActivePaidOrGranted() - THE KEY CHECK
+  SubscriptionService.php (24-51) ... startTrial() - creates trial
+  FeatureResolver.php (148-208) .... resolveUncached() - resolves features (includes trials)
+  FeatureResolver.php (240-252) .... planLimitValue() - returns trial limits
+
+OBSERVERS:
+  AccountProductObserver.php ........ created/updated/deleted() - syncs permissions
+  AppServiceProvider.php (127) ...... Registers observer
+
+ACCESS CONTROL:
+  bootstrap/app.php (16-30) ......... Middleware registration (NO BILLING GATE)
+  routes/web.php (89-124) ........... Organization routes (NO BILLING CHECK)
+  routes/api.php (23-65) ............ API routes (NO BILLING CHECK)
+  EventPolicy.php (23-27) ........... create() - checks Spatie permission
+  EventController.php (27-44) ....... create() - catches auth exception
+  EnsureOrganizationSelected.php .... Only checks org selection, NOT billing
+  
+MISSING:
+  EnsureAccountActive.php ........... DOES NOT EXIST (NEEDS CREATION)
+
+MIGRATIONS:
+  2026_03_03_141925 ................ accounts table (no status field)
+  2026_03_09_120003 ................ account_subscriptions (has trial_ends_at)
+  2026_03_09_110914 ................ account_products (has granted_by)
+
+
+================================================================================
+                        THE GAP: INTENDED vs ACTUAL
+================================================================================
+
+INTENDED ARCHITECTURE:
+  User creates org → Starts trial OR pays → Gets products → 
+  Observer syncs → Gets permissions → Can create events → 
+  Trial expires → Product revoked → Observer syncs → Permissions revoked → 
+  Access denied
+
+ACTUAL IMPLEMENTATION:
+  User creates org ✅ → Can view dashboard (middleware doesn't check billing)
+  Starts trial ✅ → Features work (no expiry check)
+  Trial expires ⏰ → Features STILL work (trial_ends_at not validated)
+  Admin grants product ✅ → Observer fires ✅ → Permissions synced ✅
+  Try to create event ✅ → EventPolicy checks → Blocked if no permission ✅
+  Product revoked ✅ → Observer fires ✅ → Permissions revoked ✅
+
+MISSING ENFORCEMENT LAYER:
+  ❌ Middleware to gate dashboard access on account status
+  ❌ Validation of trial_ends_at anywhere
+  ❌ Automatic trial expiry job
+
+RESULT:
+  Event creation properly gated ✅ (because EventPolicy checks Spatie permission)
+  Dashboard access NOT gated ❌ (middleware doesn't check account status)
+  Trials never expire ❌ (no enforcement of trial_ends_at)
+
+
+================================================================================
+                            QUICK FIXES NEEDED
+================================================================================
+
+🔴 CRITICAL (Do First):
+
+1. Create app/Http/Middleware/EnsureAccountActive.php
+   Check: $account->activeAccountProducts()->exists() || 
+          $account->activeSubscriptions()->exists()
+   Apply to: organization-scoped routes in routes/web.php
+
+2. Add Trial Expiry Check
+   Where: FeatureResolver.php::planLimitValue() or new middleware
+   Check: if (trial_ends_at < now()) return null/deny
+
+3. Create Cron Job for Trial Expiry
+   Task: Mark subscriptions with trial_ends_at < now() as expired
+   Frequency: Daily
+
+
+⚠️ HIGH (Do Soon):
+
+4. Apply Same Check to API Routes
+   File: routes/api.php
+   Add: EnsureAccountActive to protected endpoints
+
+5. Create Account Suspension Middleware
+   Check: $account->is_suspended or $organization->is_suspended
+
+
+🟡 MEDIUM (Nice to Have):
+
+6. Add Account.status Field
+   Migration: add status enum('active','suspended','expired')
+   Update: Observer to auto-set status
+
+7. Audit Logging
+   Log: Permission grants/revokes for debugging
+
+
+================================================================================

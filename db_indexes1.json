@@ -1,0 +1,44 @@
+{
+    "indexes": [
+        {
+            "indexname": "account_credit_transactions_pkey",
+            "indexdef": "CREATE UNIQUE INDEX account_credit_transactions_pkey ON public.account_credit_transactions USING btree (id)"
+        },
+        {
+            "indexname": "account_credit_transactions_reference_type_reference_id_index",
+            "indexdef": "CREATE INDEX account_credit_transactions_reference_type_reference_id_index ON public.account_credit_transactions USING btree (reference_type, reference_id)"
+        },
+        {
+            "indexname": "acct_credit_tx_account_created_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_account_created_idx ON public.account_credit_transactions USING btree (account_id, created_at)"
+        },
+        {
+            "indexname": "acct_credit_tx_account_id_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_account_id_idx ON public.account_credit_transactions USING btree (account_id, id)"
+        },
+        {
+            "indexname": "acct_credit_tx_expiry_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_expiry_idx ON public.account_credit_transactions USING btree (account_id, expiry_at) WHERE (expiry_at IS NOT NULL)"
+        },
+        {
+            "indexname": "acct_credit_tx_account_type_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_account_type_idx ON public.account_credit_transactions USING btree (account_id, type)"
+        },
+        {
+            "indexname": "acct_credit_tx_account_currency_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_account_currency_idx ON public.account_credit_transactions USING btree (account_id, currency)"
+        },
+        {
+            "indexname": "acct_credit_tx_account_currency_type_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_account_currency_type_idx ON public.account_credit_transactions USING btree (account_id, currency, type)"
+        },
+        {
+            "indexname": "acct_credit_tx_type_expiry_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_type_expiry_idx ON public.account_credit_transactions USING btree (type, expiry_at)"
+        },
+        {
+            "indexname": "acct_credit_tx_reference_idx",
+            "indexdef": "CREATE INDEX acct_credit_tx_reference_idx ON public.account_credit_transactions USING btree (reference_type, reference_id)"
+        }
+    ]
+}

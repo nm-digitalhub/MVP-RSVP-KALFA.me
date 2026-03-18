@@ -49,6 +49,7 @@
         >
             <div class="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex items-center justify-between gap-4 flex-wrap">
                 <div class="flex items-center gap-3">
+                    <x-kalfa-app-icon class="h-8 w-8 rounded-xl bg-white/10 p-1.5 ring-1 ring-white/10" alt="" />
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
                     </svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c3-icon-title" viewBox="0 0 44 44" width="44" height="44">
+  <title id="c3-icon-title">Kalfa</title>
+  <!-- Center table -->
+  <circle cx="22" cy="22" r="7" fill="#6C4CF1"/>
+  <!-- 6 seats at radius 14 from center -->
+  <!-- top: 22, 8 -->
+  <circle cx="22" cy="8" r="4" fill="#A594F9"/>
+  <!-- top-right: 34, 15 -->
+  <circle cx="34" cy="15" r="4" fill="#A594F9"/>
+  <!-- bottom-right: 34, 29 -->
+  <circle cx="34" cy="29" r="4" fill="#A594F9"/>
+  <!-- bottom: 22, 36 -->
+  <circle cx="22" cy="36" r="4" fill="#A594F9"/>
+  <!-- bottom-left: 10, 29 -->
+  <circle cx="10" cy="29" r="4" fill="#A594F9"/>
+  <!-- top-left: 10, 15 -->
+  <circle cx="10" cy="15" r="4" fill="#A594F9"/>
+  <!-- Connecting lines (subtle) -->
+  <circle cx="22" cy="22" r="13.5" fill="none" stroke="#E9E5FF" stroke-width="1" stroke-dasharray="2,3"/>
+</svg>

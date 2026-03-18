@@ -1,6 +1,16 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
     <div class="bg-white/95 rounded-2xl shadow-xl shadow-gray-900/5 border border-gray-200/70 overflow-hidden backdrop-blur-sm">
     <div class="p-8">
+        <div class="mb-8 flex items-center gap-4">
+            <div class="flex size-14 items-center justify-center rounded-3xl bg-brand/5 ring-1 ring-brand/10">
+                <x-kalfa-app-icon class="h-9 w-9" alt="" />
+            </div>
+            <div>
+                <h1 class="text-2xl font-black tracking-tight text-content">{{ __('Create organization') }}</h1>
+                <p class="text-sm text-content-muted">{{ __('Set up a new workspace under the :app brand.', ['app' => config('app.name')]) }}</p>
+            </div>
+        </div>
+
         <form wire:submit="save" class="space-y-6">
             <div>
                 <x-input-label for="org-name" :value="__('Organization name')" class="text-sm font-semibold text-gray-700" />

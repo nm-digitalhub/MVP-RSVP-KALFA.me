@@ -1,11 +1,12 @@
 <x-layouts.app>
     <x-slot:title>שינוי סיסמה</x-slot:title>
 
-<div class="min-h-screen flex items-center justify-center bg-surface py-12 px-4 sm:px-6 lg:px-8" dir="rtl">
-    <div class="max-w-md w-full space-y-8">
+<div class="auth-screen px-4" dir="rtl">
+    <div class="auth-shell">
+        <div class="auth-card">
         <div>
             @if($forceChange)
-                <div class="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div class="auth-status auth-status-warning mb-6">
                     <div class="flex">
                         <div class="shrink-0">
                             <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
@@ -27,26 +28,27 @@
                 </div>
             @endif
 
-            <div class="text-center">
-                <img class="mx-auto h-12 w-auto" src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}">
-                <h2 class="mt-6 text-3xl font-bold text-gray-900">
+            <div class="auth-card-header">
+                <div class="auth-kicker">{{ $forceChange ? 'נדרש עדכון' : 'אבטחת חשבון' }}</div>
+                <x-auth-logo />
+                <h2 class="auth-title">
                     שינוי סיסמה
                 </h2>
                 @if(!$forceChange)
-                    <p class="mt-2 text-sm text-gray-600">
+                    <p class="auth-subtitle">
                         הזן את הסיסמה הנוכחית והסיסמה החדשה
                     </p>
                 @endif
             </div>
         </div>
 
-        <form class="mt-8 space-y-6" action="{{ route('password.update') }}" method="POST" id="password-change-form">
+        <form class="auth-form" action="{{ route('password.update') }}" method="POST" id="password-change-form">
             @csrf
             
-            <div class="space-y-4">
+            <div class="auth-form-section">
                 <!-- Current Password -->
                 <div>
-                    <label for="current_password" class="block text-sm font-medium text-gray-700">
+                    <label for="current_password" class="auth-label">
                         סיסמה נוכחית
                     </label>
                     <div class="mt-1 relative">
@@ -55,7 +57,7 @@
                                type="password" 
                                autocomplete="current-password" 
                                required 
-                               class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                               class="auth-input pe-12"
                                placeholder="הזן סיסמה נוכחית">
                         <button type="button" class="absolute inset-y-0 left-0 pe-3 flex items-center" onclick="togglePassword('current_password')">
                             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +73,7 @@
 
                 <!-- New Password -->
                 <div>
-                    <label for="new_password" class="block text-sm font-medium text-gray-700">
+                    <label for="new_password" class="auth-label">
                         סיסמה חדשה
                     </label>
                     <div class="mt-1 relative">
@@ -80,7 +82,7 @@
                                type="password" 
                                autocomplete="new-password" 
                                required 
-                               class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                               class="auth-input pe-12"
                                placeholder="הזן סיסמה חדשה">
                         <button type="button" class="absolute inset-y-0 left-0 pe-3 flex items-center" onclick="togglePassword('new_password')">
                             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,7 +111,7 @@
 
                 <!-- Confirm New Password -->
                 <div>
-                    <label for="new_password_confirmation" class="block text-sm font-medium text-gray-700">
+                    <label for="new_password_confirmation" class="auth-label">
                         אימות סיסמה חדשה
                     </label>
                     <div class="mt-1 relative">
@@ -118,7 +120,7 @@
                                type="password" 
                                autocomplete="new-password" 
                                required 
-                               class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                               class="auth-input pe-12"
                                placeholder="הזן שוב את הסיסמה החדשה">
                         <button type="button" class="absolute inset-y-0 left-0 pe-3 flex items-center" onclick="togglePassword('new_password_confirmation')">
                             <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -134,7 +136,7 @@
             </div>
 
             <!-- Password Requirements -->
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div class="auth-status auth-status-info">
                 <h4 class="text-sm font-medium text-blue-800 mb-2">דרישות סיסמה:</h4>
                 <ul class="text-xs text-blue-700 space-y-1">
                     <li>• לפחות {{ config('security.passwords.strength.min_length', 8) }} תווים</li>
@@ -156,10 +158,10 @@
 
             <div>
                 <button type="submit" 
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                        class="auth-primary-button group relative disabled:opacity-50 disabled:cursor-not-allowed"
                         id="submit-button">
                     <span class="absolute right-0 inset-y-0 flex items-center pe-3">
-                        <svg class="h-5 w-5 text-blue-500 group-hover:text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                        <svg class="h-5 w-5 text-white/70 transition group-hover:text-white" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
                         </svg>
                     </span>
@@ -168,13 +170,14 @@
             </div>
 
             @if(!$forceChange)
-                <div class="text-center">
-                    <a href="{{ route('dashboard') }}" class="text-sm text-blue-600 hover:text-blue-500">
+                <div class="auth-inline-links">
+                    <a href="{{ route('dashboard') }}" class="auth-link text-sm">
                         חזור לדשבורד
                     </a>
                 </div>
             @endif
         </form>
+        </div>
     </div>
 </div>
 

@@ -803,7 +803,7 @@ final class Show extends Component
             'filterButtonClasses' => $filterButtonClasses,
             'limits' => $this->product->limits,
             'features' => $this->product->features,
-            'productPlans' => $this->product->productPlans,
+            'productPlans' => $this->product->productPlans()->with('prices')->get(),
             'recentAssignments' => $this->product->accountProducts,
             'recentUsageRecords' => $recentUsageRecords,
             'commercialInsights' => [

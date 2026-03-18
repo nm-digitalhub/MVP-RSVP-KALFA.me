@@ -36,13 +36,8 @@
         <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16 sm:h-20">
                 {{-- Brand Logo --}}
-                <a href="{{ url('/') }}" wire:navigate class="group flex items-center gap-2.5 transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-lg py-1">
-                    <div class="size-9 bg-brand rounded-xl flex items-center justify-center shadow-lg shadow-brand/20 group-hover:rotate-6 transition-transform">
-                        <span class="text-white font-black text-xl leading-none">{{ substr($appName, 0, 1) }}</span>
-                    </div>
-                    <span class="text-xl font-black tracking-tight text-gray-900 dark:text-gray-100 group-hover:text-brand transition-colors">
-                        {{ $appName }}
-                    </span>
+                <a href="{{ url('/') }}" wire:navigate class="group flex items-center gap-3 transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded-lg py-1">
+                    <x-kalfa-wordmark class="transition duration-300 ease-out group-hover:opacity-95" />
                 </a>
 
                 {{-- Desktop Navigation --}}
@@ -246,8 +241,7 @@
         
         <div class="p-6 border-b border-gray-100 dark:border-gray-900 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="size-10 bg-brand rounded-xl flex items-center justify-center text-white font-black">{{ substr($appName, 0, 1) }}</div>
-                <span class="font-black text-gray-900 dark:text-white tracking-tight">{{ $appName }}</span>
+                <x-kalfa-wordmark class="justify-start" />
             </div>
             <button @click="mobileMenuOpen = false" class="size-10 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-400 flex items-center justify-center active:scale-90 transition-all">
                 <x-heroicon-o-x-mark class="size-6" />

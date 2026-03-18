@@ -25,6 +25,12 @@
 
 <body class="min-h-screen bg-surface antialiased text-content transition-colors duration-200">
 
+<div class="auth-ambient" aria-hidden="true">
+    <div class="auth-orb auth-orb-primary"></div>
+    <div class="auth-orb auth-orb-secondary"></div>
+    <div class="auth-orb auth-orb-accent"></div>
+</div>
+
 <div class="min-h-screen px-4 py-8 sm:py-12">
 
     {{ $slot }}
