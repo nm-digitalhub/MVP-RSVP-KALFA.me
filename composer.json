@@ -27,6 +27,7 @@
         "lorisleiva/laravel-actions": "^2.9",
         "mallardduck/blade-boxicons": "^2.5",
         "marvinlabs/laravel-luhn": "^1.0",
+        "nativephp/mobile": "^3.0",
         "officeguy/laravel-sumit-gateway": "v5.0.0-rc1",
         "pusher/pusher-php-server": "^7.2",
         "saade/blade-iconsax": "^1.2",

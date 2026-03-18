@@ -1,5 +1,17 @@
 <div>
     @if($organization)
+        <div class="mb-8 flex flex-col gap-4 rounded-[2rem] border border-gray-200/70 bg-white/95 p-6 shadow-lg shadow-gray-900/5 backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
+            <div class="flex items-center gap-4">
+                <div class="flex size-14 items-center justify-center rounded-3xl bg-brand/5 ring-1 ring-brand/10">
+                    <x-kalfa-app-icon class="h-9 w-9" alt="" />
+                </div>
+                <div class="space-y-2">
+                    <x-kalfa-wordmark class="justify-start" />
+                    <p class="text-sm text-gray-500">{{ __('Your event workspace for :organization.', ['organization' => $organization->name]) }}</p>
+                </div>
+            </div>
+        </div>
+
         {{-- SaaS metric cards --}}
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
@@ -75,12 +87,25 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-4 py-8 text-center text-sm text-gray-500">{{ __('No events yet.') }}</td>
+                                    <td colspan="5" class="px-4 py-10 text-center text-sm text-gray-500">
+                                        <x-kalfa-app-icon class="mx-auto mb-3 h-10 w-10 opacity-60" alt="" />
+                                        <span class="block">{{ __('No events yet.') }}</span>
+                                    </td>
                                 </tr>
                             @endforelse
                         </tbody>
                 </table>
             </div>
         </div>
-        @endif
+    @else
+        <div class="rounded-[2rem] border border-gray-200/70 bg-white/95 p-8 text-center shadow-lg shadow-gray-900/5 backdrop-blur-sm">
+            <x-kalfa-wordmark class="mb-5" />
+            <p class="mx-auto max-w-2xl text-sm leading-6 text-gray-500">{{ __('Choose or create an organization to start managing events, guests, and invitations in one place.') }}</p>
+            <div class="mt-6">
+                <a href="{{ route('organizations.index') }}" wire:navigate class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white shadow-lg shadow-brand/20 transition-all hover:bg-brand-hover">
+                    {{ __('Go to organizations') }}
+                </a>
+            </div>
+        </div>
+    @endif
 </div>

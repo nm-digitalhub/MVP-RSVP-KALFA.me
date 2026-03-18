@@ -1,9 +1,20 @@
 <div>
     @if($organization === null)
-        <p class="text-gray-500">{{ __('No organization selected.') }}</p>
+        <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+            <x-kalfa-app-icon class="mx-auto mb-4 h-12 w-12 opacity-80" alt="" />
+            <p class="text-gray-500">{{ __('No organization selected.') }}</p>
+        </div>
     @elseif($account === null)
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-            <h2 class="text-lg font-medium text-gray-900">{{ __('Account') }}</h2>
+            <div class="flex items-center gap-3">
+                <div class="flex size-12 items-center justify-center rounded-2xl bg-brand/5 ring-1 ring-brand/10">
+                    <x-kalfa-app-icon class="h-7 w-7" alt="" />
+                </div>
+                <div>
+                    <h2 class="text-lg font-medium text-gray-900">{{ __('Account') }}</h2>
+                    <p class="text-sm text-gray-500">{{ config('app.name') }}</p>
+                </div>
+            </div>
             <p class="mt-2 text-sm text-gray-600">{{ __('No account is attached to this organization.') }}</p>
             <p class="mt-1 text-sm text-gray-500">{{ __('Organization') }}: {{ $organization->name }}</p>
             @can('update', $organization)
@@ -21,8 +32,15 @@
     @else
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div class="px-4 py-4 sm:px-6 border-b border-gray-200">
-                <h2 class="text-lg font-medium text-gray-900">{{ __('Account overview') }}</h2>
-                <p class="mt-1 text-sm text-gray-500">{{ __('Organization') }}: {{ $organization->name }}</p>
+                <div class="flex items-center gap-3">
+                    <div class="flex size-12 items-center justify-center rounded-2xl bg-brand/5 ring-1 ring-brand/10">
+                        <x-kalfa-app-icon class="h-7 w-7" alt="" />
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900">{{ __('Account overview') }}</h2>
+                        <p class="mt-1 text-sm text-gray-500">{{ __('Organization') }}: {{ $organization->name }}</p>
+                    </div>
+                </div>
             </div>
             <dl class="divide-y divide-gray-200">
                 <div class="px-4 py-3 sm:px-6 sm:grid sm:grid-cols-3 sm:gap-4">

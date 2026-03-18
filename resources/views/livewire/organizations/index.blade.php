@@ -1,4 +1,16 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16" role="main" aria-label="{{ __('Organization management') }}">
+    <div class="mb-8 flex flex-col gap-4 rounded-[2rem] border border-gray-200/70 bg-white/90 p-6 shadow-lg shadow-gray-900/5 backdrop-blur-sm sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-center gap-4">
+            <div class="flex size-14 items-center justify-center rounded-3xl bg-brand/5 ring-1 ring-brand/10">
+                <x-kalfa-app-icon class="h-9 w-9" alt="" />
+            </div>
+            <div class="space-y-2">
+                <x-kalfa-wordmark class="justify-start" />
+                <p class="text-sm text-content-muted">{{ __('Manage your workspaces, switch context quickly, and keep your event operations organized.') }}</p>
+            </div>
+        </div>
+    </div>
+
     @if(session('error'))
         <div class="p-4 rounded-xl bg-red-50/90 border border-red-200/60 text-red-700 text-sm" role="alert">
             <div class="flex items-start gap-2">
@@ -69,10 +81,8 @@
                     </li>
                 @empty
                     <li class="py-10 text-center text-sm text-gray-500 rounded-xl border-2 border-dashed border-gray-300 bg-gray-50/30" role="status">
-                        <div class="space-y-2">
-                            <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 13h6m-3 0v-6m0 0l-9 9m-4-4h-10"/>
-                            </svg>
+                        <div class="space-y-3">
+                            <x-kalfa-app-icon class="mx-auto h-12 w-12 opacity-70" alt="" />
                             <p class="text-base font-medium text-gray-700">{{ __('No organizations yet.') }}</p>
                             <a href="{{ route('organizations.create') }}" class="inline-flex items-center justify-center gap-1 min-h-[44px] px-4 py-2.5 text-brand hover:text-indigo-800 font-medium rounded-lg transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2" aria-label="{{ __('Create one') }}">
                                 {{ __('Create one') }}

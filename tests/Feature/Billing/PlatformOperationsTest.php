@@ -25,6 +25,8 @@ class PlatformOperationsTest extends TestCase
 
     public function test_billing_provider_binding_resolves_sumit_provider(): void
     {
+        // Re-bind the real provider (TestCase setUp overrides with StubBillingProvider)
+        $this->app->bind(BillingProvider::class, SumitBillingProvider::class);
         $this->app->forgetInstance(BillingProvider::class);
         $this->assertInstanceOf(SumitBillingProvider::class, app(BillingProvider::class));
     }

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c3-v-title" viewBox="0 0 110 92" width="110" height="92">
+  <title id="c3-v-title">Kalfa</title>
+  <!-- Table icon centered (44×44 at x=33) -->
+  <circle cx="55" cy="22" r="7" fill="#6C4CF1"/>
+  <circle cx="55" cy="8" r="4" fill="#A594F9"/>
+  <circle cx="67" cy="15" r="4" fill="#A594F9"/>
+  <circle cx="67" cy="29" r="4" fill="#A594F9"/>
+  <circle cx="55" cy="36" r="4" fill="#A594F9"/>
+  <circle cx="43" cy="29" r="4" fill="#A594F9"/>
+  <circle cx="43" cy="15" r="4" fill="#A594F9"/>
+  <circle cx="55" cy="22" r="13.5" fill="none" stroke="#E9E5FF" stroke-width="1" stroke-dasharray="2,3"/>
+  <!-- Wordmark centered -->
+  <text x="55" y="82" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="-0.5" fill="#18181B">kalfa</text>
+</svg>

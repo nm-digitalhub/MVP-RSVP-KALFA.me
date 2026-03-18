@@ -170,11 +170,11 @@
             <div class="mt-3 text-3xl font-black tracking-tight text-slate-900">{{ $overview['plans'] }}</div>
         </div>
         <div class="rounded-3xl border border-stroke bg-card p-5 shadow-lg shadow-slate-900/5">
-            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Assignments') }}</div>
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Assignments & Activation') }}</div>
             <div class="mt-3 text-3xl font-black tracking-tight text-slate-900">{{ $overview['assignments'] }}</div>
         </div>
         <div class="rounded-3xl border border-stroke bg-card p-5 shadow-lg shadow-slate-900/5">
-            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Recent Usage') }}</div>
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Recent Metered Activity') }}</div>
             <div class="mt-3 text-3xl font-black tracking-tight text-slate-900">{{ $overview['usage_records'] }}</div>
         </div>
     </section>
@@ -244,6 +244,42 @@
                 </div>
             </div>
         </section>
+
+    @foreach($productPlans->filter(fn($p) => data_get($p->metadata, 'commercial') !== null) as $commercialPlan)
+        @php
+            $planPrice = $commercialPlan->prices->first();
+            $includedQty = (int) data_get($commercialPlan->metadata, 'commercial.included_quantity', 0);
+            $overageMinor = (int) data_get($commercialPlan->metadata, 'commercial.overage_amount_minor', 0);
+            $overageUnit = data_get($commercialPlan->metadata, 'commercial.overage_unit', '');
+            $revenuePerCall = ($planPrice && $includedQty > 0)
+                ? number_format($planPrice->amount / $includedQty / 100, 3)
+                : '—';
+        @endphp
+        <section class="rounded-[2rem] border border-white/60 bg-card/90 p-5 shadow-xl shadow-slate-900/5 backdrop-blur sm:p-6">
+            <div class="mb-5">
+                <p class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">{{ __('Unit Economics Snapshot') }}</p>
+                <h2 class="mt-2 text-xl font-black text-slate-900">{{ $commercialPlan->name }}</h2>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+                <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                    <div class="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">{{ __('Included Capacity') }}</div>
+                    <div class="mt-2 text-2xl font-black text-slate-900">{{ $includedQty ?: '—' }}</div>
+                    <div class="mt-1 text-xs font-semibold text-slate-500">{{ data_get($commercialPlan->metadata, 'commercial.included_unit', '') }}</div>
+                </div>
+                <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                    <div class="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">{{ __('Overage Rate') }}</div>
+                    <div class="mt-2 text-2xl font-black text-slate-900">{{ $overageMinor > 0 ? number_format($overageMinor / 100, 2) : '—' }}</div>
+                    <div class="mt-1 text-xs font-semibold text-slate-500">{{ $overageUnit ? __('per :unit', ['unit' => $overageUnit]) : '' }}</div>
+                </div>
+                <div class="rounded-[1.5rem] border border-slate-200 bg-slate-50 p-4">
+                    <div class="text-[10px] font-black uppercase tracking-[0.18em] text-slate-400">{{ __('Revenue / Included Call') }}</div>
+                    <div class="mt-2 text-2xl font-black text-slate-900">{{ $revenuePerCall }}</div>
+                    <div class="mt-1 text-xs font-semibold text-slate-500">{{ $planPrice?->currency }}</div>
+                </div>
+            </div>
+        </section>
+    @endforeach
+
     @endif
 
     {{-- Product Tree --}}

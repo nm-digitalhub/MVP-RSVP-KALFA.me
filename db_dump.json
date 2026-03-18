@@ -1,0 +1,138 @@
+{
+    "accounts": [
+        {
+            "column_name": "credit_balance_agorot",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": "0"
+        },
+        {
+            "column_name": "created_at",
+            "data_type": "timestamp without time zone",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "updated_at",
+            "data_type": "timestamp without time zone",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "id",
+            "data_type": "bigint",
+            "is_nullable": "NO",
+            "column_default": "nextval('accounts_id_seq'::regclass)"
+        },
+        {
+            "column_name": "owner_user_id",
+            "data_type": "bigint",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "sumit_customer_id",
+            "data_type": "bigint",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "type",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+        },
+        {
+            "column_name": "name",
+            "data_type": "character varying",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "twilio_subaccount_sid",
+            "data_type": "character varying",
+            "is_nullable": "YES",
+            "column_default": null
+        }
+    ],
+    "account_credit_transactions": [
+        {
+            "column_name": "id",
+            "data_type": "bigint",
+            "is_nullable": "NO",
+            "column_default": "nextval('account_credit_transactions_id_seq'::regclass)"
+        },
+        {
+            "column_name": "account_id",
+            "data_type": "bigint",
+            "is_nullable": "NO",
+            "column_default": null
+        },
+        {
+            "column_name": "balance_after_agorot",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": null
+        },
+        {
+            "column_name": "reference_id",
+            "data_type": "bigint",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "expiry_at",
+            "data_type": "timestamp without time zone",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "actor_id",
+            "data_type": "bigint",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "created_at",
+            "data_type": "timestamp without time zone",
+            "is_nullable": "NO",
+            "column_default": "CURRENT_TIMESTAMP"
+        },
+        {
+            "column_name": "amount_agorot",
+            "data_type": "integer",
+            "is_nullable": "NO",
+            "column_default": null
+        },
+        {
+            "column_name": "type",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+        },
+        {
+            "column_name": "source",
+            "data_type": "character varying",
+            "is_nullable": "NO",
+            "column_default": null
+        },
+        {
+            "column_name": "description",
+            "data_type": "character varying",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "reference_type",
+            "data_type": "character varying",
+            "is_nullable": "YES",
+            "column_default": null
+        },
+        {
+            "column_name": "currency",
+            "data_type": "character",
+            "is_nullable": "NO",
+            "column_default": "'ILS'::bpchar"
+        }
+    ]
+}

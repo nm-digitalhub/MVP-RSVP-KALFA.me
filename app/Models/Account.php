@@ -12,6 +12,7 @@ use App\Services\SubscriptionManager;
 use App\Services\SubscriptionService;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -27,13 +28,14 @@ use OfficeGuy\LaravelSumitGateway\Support\Traits\HasSumitCustomerTrait;
  */
 class Account extends Model implements HasSumitCustomer
 {
-    use HasSumitCustomerTrait;
+    use HasFactory, HasSumitCustomerTrait;
 
     protected $fillable = [
         'type',
         'name',
         'owner_user_id',
         'sumit_customer_id',
+        'credit_balance_agorot',
     ];
 
     protected function casts(): array

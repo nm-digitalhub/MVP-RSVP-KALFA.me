@@ -47,11 +47,7 @@ class AuthenticationTest extends TestCase
 
     public function test_dashboard_can_be_rendered_when_authenticated(): void
     {
-        $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->get('/dashboard');
-
-        $response->assertOk();
+        $this->actingAsTenant()->get('/dashboard')->assertOk();
     }
 
     public function test_users_can_logout(): void

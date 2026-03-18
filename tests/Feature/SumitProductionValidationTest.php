@@ -7,7 +7,6 @@ namespace Tests\Feature;
 use App\Enums\EventBillingStatus;
 use App\Enums\EventStatus;
 use App\Enums\PaymentStatus;
-use App\Models\BillingWebhookEvent;
 use App\Models\Event;
 use App\Models\EventBilling;
 use App\Models\Organization;
@@ -27,19 +26,14 @@ class SumitProductionValidationTest extends TestCase
 {
     use RefreshDatabase;
 
-    public static function setUpBeforeClass(): void
-    {
-        parent::setUpBeforeClass();
-        $app = require dirname(__DIR__, 2) . '/bootstrap/app.php';
-        $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
-        if (config('database.default') === 'sqlite') {
-            self::markTestSkipped('SumitProductionValidationTest requires PostgreSQL (set DB_CONNECTION=pgsql and DB_DATABASE for testing).');
-        }
-    }
-
     protected function setUp(): void
     {
         parent::setUp();
+
+        if (config('database.default') === 'sqlite') {
+            $this->markTestSkipped('SumitProductionValidationTest requires PostgreSQL (set DB_CONNECTION=pgsql and DB_DATABASE for testing).');
+        }
+
         $this->seedPlan();
     }
 
@@ -61,7 +55,7 @@ class SumitProductionValidationTest extends TestCase
     {
         return Organization::create(array_merge([
             'name' => 'Test Org',
-            'slug' => 'test-org-' . uniqid(),
+            'slug' => 'test-org-'.uniqid(),
             'billing_email' => null,
         ], $overrides));
     }
@@ -71,7 +65,7 @@ class SumitProductionValidationTest extends TestCase
         return Event::create(array_merge([
             'organization_id' => $org->id,
             'name' => 'Test Event',
-            'slug' => 'test-event-' . uniqid(),
+            'slug' => 'test-event-'.uniqid(),
             'event_date' => null,
             'venue_name' => null,
             'settings' => null,
@@ -187,15 +181,14 @@ class SumitProductionValidationTest extends TestCase
      */
     public function test_gateway_timeout_rolls_back_transaction_event_stays_draft(): void
     {
-        $gateway = new class implements \App\Contracts\PaymentGatewayInterface {
+        $gateway = new class implements \App\Contracts\PaymentGatewayInterface
+        {
             public function createOneTimePayment(int $organizationId, int $amount, array $metadata = []): array
             {
                 throw new \RuntimeException('Gateway timeout');
             }
 
-            public function handleWebhook(array $payload, string $signature): void
-            {
-            }
+            public function handleWebhook(array $payload, string $signature): void {}
         };
         $this->app->instance(\App\Contracts\PaymentGatewayInterface::class, $gateway);
 

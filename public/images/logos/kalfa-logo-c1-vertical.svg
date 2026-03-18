@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="c1-v-title" viewBox="0 0 110 92" width="110" height="92">
+  <title id="c1-v-title">Kalfa</title>
+  <defs>
+    <linearGradient id="c1v-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#A594F9"/>
+      <stop offset="100%" stop-color="#5A3DE0"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon centered -->
+  <g transform="translate(33, 0)">
+    <rect x="2" y="8" width="40" height="28" rx="3" fill="url(#c1v-grad)"/>
+    <path d="M2,8 L22,23 L42,8" fill="none" stroke="#C4B5FD" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M2,36 L16,25" fill="none" stroke="#C4B5FD" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M42,36 L28,25" fill="none" stroke="#C4B5FD" stroke-width="1.2" stroke-linecap="round"/>
+    <rect x="27" y="11" width="12" height="12" rx="2" fill="#F59E0B"/>
+    <line x1="30" y1="13.5" x2="30" y2="20.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="30" y1="17" x2="36" y2="13.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="30" y1="17" x2="36" y2="20.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+  <!-- Wordmark centered -->
+  <text x="55" y="82" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" font-weight="700" letter-spacing="-0.5" fill="#18181B">kalfa</text>
+</svg>
