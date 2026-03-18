@@ -183,6 +183,7 @@ return array(
     'App\\Policies\\OrganizationPolicy' => $baseDir . '/app/Policies/OrganizationPolicy.php',
     'App\\Policies\\PaymentPolicy' => $baseDir . '/app/Policies/PaymentPolicy.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
+    'App\\Providers\\NativeServiceProvider' => $baseDir . '/app/Providers/NativeServiceProvider.php',
     'App\\Providers\\SystemSettingsServiceProvider' => $baseDir . '/app/Providers/SystemSettingsServiceProvider.php',
     'App\\Providers\\TelescopeServiceProvider' => $baseDir . '/app/Providers/TelescopeServiceProvider.php',
     'App\\Services\\BillingService' => $baseDir . '/app/Services/BillingService.php',

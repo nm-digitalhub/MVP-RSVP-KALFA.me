@@ -1197,6 +1197,7 @@ class ComposerStaticInitcb83028486eabf5424b2ab1e42d40bd1
         'App\\Policies\\OrganizationPolicy' => __DIR__ . '/../..' . '/app/Policies/OrganizationPolicy.php',
         'App\\Policies\\PaymentPolicy' => __DIR__ . '/../..' . '/app/Policies/PaymentPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Providers\\NativeServiceProvider' => __DIR__ . '/../..' . '/app/Providers/NativeServiceProvider.php',
         'App\\Providers\\SystemSettingsServiceProvider' => __DIR__ . '/../..' . '/app/Providers/SystemSettingsServiceProvider.php',
         'App\\Providers\\TelescopeServiceProvider' => __DIR__ . '/../..' . '/app/Providers/TelescopeServiceProvider.php',
         'App\\Services\\BillingService' => __DIR__ . '/../..' . '/app/Services/BillingService.php',
