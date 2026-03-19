@@ -48,6 +48,7 @@ class MobileEntryRouteTest extends TestCase
             ->assertSee('"status_url":"\/mobile\/session"', false)
             ->assertSee('"store_url":"\/mobile\/session"', false)
             ->assertSee('"destroy_url":"\/mobile\/session"', false)
+            ->assertSee('"access_token_key":"kalfa.mobile.access_token"', false)
             ->assertSee('"base_url":"https:\/\/kalfa.me"', false)
             ->assertSee('"login_url":"https:\/\/kalfa.me\/api\/mobile\/auth\/login"', false)
             ->assertSee('"bootstrap_url":"https:\/\/kalfa.me\/api\/bootstrap"', false)

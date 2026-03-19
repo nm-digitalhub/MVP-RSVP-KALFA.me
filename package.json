@@ -46,6 +46,9 @@
     "version": "1.0.1",
     "description": "",
     "main": "app.js",
+    "imports": {
+        "#nativephp": "./vendor/nativephp/mobile/resources/dist/native.js"
+    },
     "directories": {
         "doc": "docs",
         "test": "tests"

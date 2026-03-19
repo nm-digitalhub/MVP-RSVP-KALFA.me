@@ -21,7 +21,7 @@ class MobileSecureStorageSessionController extends Controller
         return response()->json([
             'available' => $available,
             'has_token' => $hasToken,
-            'state' => $hasToken ? 'authenticated' : 'unauthenticated',
+            'state' => $hasToken ? 'credential_stored' : 'unauthenticated',
         ]);
     }
 
@@ -43,6 +43,7 @@ class MobileSecureStorageSessionController extends Controller
             'message' => 'Mobile token stored securely.',
             'available' => true,
             'has_token' => true,
+            'state' => 'credential_stored',
         ]);
     }
 
@@ -64,6 +65,7 @@ class MobileSecureStorageSessionController extends Controller
             'message' => 'Mobile token removed from secure storage.',
             'available' => true,
             'has_token' => false,
+            'state' => 'unauthenticated',
         ]);
     }
 }

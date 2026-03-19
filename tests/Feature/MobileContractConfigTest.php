@@ -32,6 +32,11 @@ class MobileContractConfigTest extends TestCase
         ], config('mobile.api.endpoints'));
     }
 
+    public function test_mobile_contract_keeps_the_secure_storage_access_token_key_explicit(): void
+    {
+        $this->assertSame('kalfa.mobile.access_token', config('mobile.secure_storage.access_token_key'));
+    }
+
     public function test_mobile_contract_limits_local_cache_to_read_only_entities(): void
     {
         $this->assertSame('read-only', config('mobile.cache.mode'));

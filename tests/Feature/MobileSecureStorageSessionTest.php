@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class MobileSecureStorageSessionTest extends TestCase
 {
-    public function test_mobile_secure_storage_status_reports_when_a_token_is_available(): void
+    public function test_mobile_secure_storage_status_reports_a_stored_credential_without_claiming_authenticated_state(): void
     {
         $this->mock(MobileSecureTokenStore::class, function (MockInterface $mock): void {
             $mock->shouldReceive('isAvailable')->once()->andReturn(true);
@@ -22,8 +22,9 @@ class MobileSecureStorageSessionTest extends TestCase
             ->assertJson([
                 'available' => true,
                 'has_token' => true,
-                'state' => 'authenticated',
-            ]);
+                'state' => 'credential_stored',
+            ])
+            ->assertJsonMissingPath('access_token');
     }
 
     public function test_mobile_secure_storage_status_reports_when_secure_storage_is_unavailable(): void
@@ -56,6 +57,7 @@ class MobileSecureStorageSessionTest extends TestCase
                 'message' => 'Mobile token stored securely.',
                 'available' => true,
                 'has_token' => true,
+                'state' => 'credential_stored',
             ]);
     }
 
@@ -94,6 +96,7 @@ class MobileSecureStorageSessionTest extends TestCase
                 'message' => 'Mobile token removed from secure storage.',
                 'available' => true,
                 'has_token' => false,
+                'state' => 'unauthenticated',
             ]);
     }
 }
