@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\EventTableController;
 use App\Http\Controllers\Api\GuestController;
 use App\Http\Controllers\Api\GuestImportController;
 use App\Http\Controllers\Api\InvitationController;
+use App\Http\Controllers\Api\MobileAuthController;
+use App\Http\Controllers\Api\MobileBootstrapController;
 use App\Http\Controllers\Api\OrganizationController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PublicRsvpController;
@@ -20,7 +22,18 @@ use Illuminate\Support\Facades\Route;
 | Multi-tenant via organization_id. Auth required except public RSVP.
 */
 
+Route::post('mobile/auth/login', [MobileAuthController::class, 'login'])->name('mobile.auth.login');
+
 Route::middleware('auth:sanctum')->group(function () {
+    Route::middleware('abilities:mobile:base')->group(function () {
+        Route::post('mobile/auth/logout', [MobileAuthController::class, 'logout'])->name('mobile.auth.logout');
+        Route::post('mobile/auth/logout/others', [MobileAuthController::class, 'logoutOtherDevices'])->name('mobile.auth.logout.others');
+    });
+
+    Route::middleware('abilities:mobile:read')
+        ->get('bootstrap', [MobileBootstrapController::class, 'show'])
+        ->name('mobile.bootstrap');
+
     Route::get('organizations/{organization}', [OrganizationController::class, 'show'])->name('organizations.show');
     Route::patch('organizations/{organization}', [OrganizationController::class, 'update'])->name('organizations.update');
 

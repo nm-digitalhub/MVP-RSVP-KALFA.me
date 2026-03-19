@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Session\TokenMismatchException;
+use Laravel\Sanctum\Http\Middleware\CheckAbilities;
+use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,6 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
+            'abilities' => CheckAbilities::class,
+            'ability' => CheckForAnyAbility::class,
             'ensure.organization' => \App\Http\Middleware\EnsureOrganizationSelected::class,
             'system.admin' => \App\Http\Middleware\EnsureSystemAdmin::class,
             'require.impersonation' => \App\Http\Middleware\RequireImpersonationForSystemAdmin::class,
@@ -40,4 +44,5 @@ return Application::configure(basePath: dirname(__DIR__))
             return redirect()->route('login')
                 ->with('status', __('Your session expired. Please log in again.'));
         });
+
     })->create();
