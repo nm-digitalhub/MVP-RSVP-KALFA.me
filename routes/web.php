@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CheckoutTokenizeController;
+use App\Http\Controllers\Mobile\MobileSecureStorageSessionController;
 use App\Http\Controllers\TwilioController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Auth;
@@ -63,6 +64,16 @@ Route::match(['get', 'post'], '/mvp-rsvp/webhook/callcomes', [TwilioController::
 Route::get('/', function () {
     return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login');
 })->name('home');
+
+Route::get('/mobile', function () {
+    return view('mobile.shell');
+})->name('mobile.entry');
+
+Route::controller(MobileSecureStorageSessionController::class)->prefix('mobile/session')->group(function () {
+    Route::get('/', 'show')->name('mobile.session.status');
+    Route::put('/', 'store')->name('mobile.session.store');
+    Route::delete('/', 'destroy')->name('mobile.session.destroy');
+});
 
 // Checkout tokenization (event payment)
 Route::middleware(['auth'])->group(function () {

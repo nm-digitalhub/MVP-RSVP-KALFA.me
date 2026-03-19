@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'version' => env('NATIVEPHP_APP_VERSION', '1.0.0'),
+    'version' => env('NATIVEPHP_APP_VERSION', env('APP_ENV', 'production') === 'local' ? 'DEBUG' : '1.0.0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'deeplink_scheme' => env('NATIVEPHP_DEEPLINK_SCHEME'),
+    'deeplink_scheme' => env('NATIVEPHP_DEEPLINK_SCHEME', 'kalfa'),
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +65,10 @@ return [
     |
     */
 
-    'deeplink_host' => env('NATIVEPHP_DEEPLINK_HOST'),
+    'deeplink_host' => env(
+        'NATIVEPHP_DEEPLINK_HOST',
+        parse_url((string) env('APP_URL', 'https://kalfa.me'), PHP_URL_HOST) ?: 'kalfa.me'
+    ),
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +81,7 @@ return [
     |
     */
 
-    'start_url' => env('NATIVEPHP_START_URL', '/'),
+    'start_url' => env('NATIVEPHP_START_URL', '/mobile'),
 
     /*
     |--------------------------------------------------------------------------
@@ -109,6 +112,9 @@ return [
         'GITHUB_*',
         'DO_SPACES_*',
         '*_SECRET',
+        'APP_STORE_API_KEY',
+        'APP_STORE_API_KEY_ID',
+        'APP_STORE_API_ISSUER_ID',
         'DB_PASSWORD',
         'DB_USERNAME',
     ],
@@ -125,9 +131,11 @@ return [
     */
 
     'cleanup_exclude_files' => [
+        'credentials',
         'storage/framework/sessions',
         'storage/framework/cache',
         'storage/framework/testing',
+        'storage/logs/browser.log',
         'storage/logs/laravel.log',
     ],
 
@@ -200,7 +208,7 @@ return [
         'ws_port' => env('NATIVEPHP_WS_PORT', 8081),
 
         // Service name advertised on the network
-        'service_name' => env('NATIVEPHP_SERVICE_NAME', 'NativePHP Server'),
+        'service_name' => env('NATIVEPHP_SERVICE_NAME', env('APP_NAME', 'Kalfa')),
 
         // Service type for mDNS advertisement
         'service_type' => '_http._tcp',
@@ -299,7 +307,18 @@ return [
     */
 
     'permissions' => [
-        //
+        'biometric' => false,
+        'camera' => false,
+        'location' => false,
+        'microphone' => false,
+        'microphone_background' => false,
+        'network_state' => true,
+        'nfc' => false,
+        'push_notifications' => false,
+        'scanner' => false,
+        'storage_read' => false,
+        'storage_write' => false,
+        'vibrate' => false,
     ],
 
     /*

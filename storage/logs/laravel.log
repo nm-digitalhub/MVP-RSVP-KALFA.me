@@ -51,3 +51,227 @@ Stack trace:
 #6 /Users/kalfanetanelmevorach/Documents/GitHub/MVP-RSVP-KALFA.me/vendor/laravel/framework/src/Illuminate/Database/Connection.php(1295): Illuminate\\Database\\Connection->getPdo()
 #7 /Users/kalfanetanelmevorach/Documents/GitHub/MVP-RSVP-KALFA.me/vendor/laravel/framework/src/Illuminate/Database/Connection.php(525): Illuminate\\Database\\Connection
 ... [truncated 10608 chars]"} 
+[2026-03-19 01:05:32] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-19 01:05:40] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-19 01:05:48] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-19 02:00:03] production.INFO: SUMIT debt auto-check completed successfully  
+[2026-03-19 02:00:09] production.INFO: CRM folders auto-sync completed successfully  
+[2026-03-19 02:09:33] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"trial_ends_at":null}} 
+[2026-03-19 02:09:33] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"trial_ends_at":null}} 
+[2026-03-19 02:09:33] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:33] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:33] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"billing_provider":"stub"}} 
+[2026-03-19 02:09:33] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"billing_provider":"stub"}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:34] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1}} 
+[2026-03-19 02:09:35] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":120,"usage_record_id":1}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":120,"usage_record_id":1}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":30,"usage_record_id":2}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":30,"usage_record_id":2}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":50,"usage_record_id":3}} 
+[2026-03-19 02:09:36] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":50,"usage_record_id":3}} 
+[2026-03-19 02:09:37] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:37] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:37] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:37] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:08:40+02:00"}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:08:40+02:00"}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:08:40+02:00"}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:08:40+02:00"}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:09:40] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:09:41] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":2,"subscription_id":null,"payload":{"product_id":2,"account_product_id":1}} 
+[2026-03-19 02:09:41] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":2,"subscription_id":null,"payload":{"product_id":2,"account_product_id":1}} 
+[2026-03-19 02:09:42] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:42] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:42] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:42] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:43] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:43] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:44] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:44] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:09:57] testing.INFO: ExpireAccountCreditsJob completed {"expired":1,"skipped":0} 
+[2026-03-19 02:09:57] testing.INFO: ExpireAccountCreditsJob completed {"expired":1,"skipped":0} 
+[2026-03-19 02:09:57] testing.INFO: ExpireAccountCreditsJob completed {"expired":0,"skipped":0} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:09:15+02:00"}} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:09:15+02:00"}} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:09:15+02:00"}} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:09:15+02:00"}} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"stub"}} 
+[2026-03-19 02:10:15] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"stub"}} 
+[2026-03-19 02:10:16] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:10:16] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:10:16] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:09:16+02:00"}} 
+[2026-03-19 02:10:16] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:09:16+02:00"}} 
+[2026-03-19 02:10:34] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:10:34] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:10:34] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:10:34] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:10:34] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:10:34] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:10:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:10:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:10:39] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:10:39] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:49] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"trial_ends_at":null}} 
+[2026-03-19 02:21:49] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"trial_ends_at":null}} 
+[2026-03-19 02:21:49] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:49] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:49] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"billing_provider":"stub"}} 
+[2026-03-19 02:21:49] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"billing_provider":"stub"}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:50] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1}} 
+[2026-03-19 02:21:51] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":120,"usage_record_id":1}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":120,"usage_record_id":1}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":30,"usage_record_id":2}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":30,"usage_record_id":2}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":50,"usage_record_id":3}} 
+[2026-03-19 02:21:52] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":50,"usage_record_id":3}} 
+[2026-03-19 02:21:53] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:53] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:53] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:53] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:20:56+02:00"}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:20:56+02:00"}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:20:56+02:00"}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:20:56+02:00"}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:21:56] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:21:57] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":2,"subscription_id":null,"payload":{"product_id":2,"account_product_id":1}} 
+[2026-03-19 02:21:57] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":2,"subscription_id":null,"payload":{"product_id":2,"account_product_id":1}} 
+[2026-03-19 02:21:58] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:58] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:58] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:58] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:59] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:59] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:59] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:21:59] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:22:13] testing.INFO: ExpireAccountCreditsJob completed {"expired":1,"skipped":0} 
+[2026-03-19 02:22:14] testing.INFO: ExpireAccountCreditsJob completed {"expired":1,"skipped":0} 
+[2026-03-19 02:22:14] testing.INFO: ExpireAccountCreditsJob completed {"expired":0,"skipped":0} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:21:36+02:00"}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:21:36+02:00"}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:21:36+02:00"}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T02:21:36+02:00"}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"stub"}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"stub"}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:22:36] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 02:22:37] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:21:37+02:00"}} 
+[2026-03-19 02:22:37] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T02:21:37+02:00"}} 
+[2026-03-19 02:22:53] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:22:53] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:22:53] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:22:53] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:22:53] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:22:53] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 02:22:55] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:22:55] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 02:22:57] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 02:22:57] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
