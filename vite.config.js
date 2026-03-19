@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     laravel({
-      input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/passkey-login.js'],
+      input: ['resources/css/app.css', 'resources/js/app.js', 'resources/js/mobile-shell.js', 'resources/js/passkey-login.js'],
       refresh: true,
     }),
   ],

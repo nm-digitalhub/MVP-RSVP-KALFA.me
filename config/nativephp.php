@@ -112,11 +112,15 @@ return [
         'GITHUB_*',
         'DO_SPACES_*',
         '*_SECRET',
+        'DB_*',
+        'REDIS_*',
+        'QUEUE_*',
+        'BROADCAST_CONNECTION',
+        'REVERB_*',
+        'PUSHER_*',
         'APP_STORE_API_KEY',
         'APP_STORE_API_KEY_ID',
         'APP_STORE_API_ISSUER_ID',
-        'DB_PASSWORD',
-        'DB_USERNAME',
     ],
 
     /*

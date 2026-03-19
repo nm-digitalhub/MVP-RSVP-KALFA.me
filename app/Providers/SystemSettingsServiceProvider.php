@@ -7,16 +7,21 @@ namespace App\Providers;
 use App\Settings\GeminiSettings;
 use App\Settings\SumitSettings;
 use App\Settings\TwilioSettings;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class SystemSettingsServiceProvider extends ServiceProvider
 {
-    public function boot(SumitSettings $sumit, TwilioSettings $twilio, GeminiSettings $gemini): void
+    public function boot(): void
     {
-        if (! Schema::hasTable('settings')) {
+        if ($this->shouldSkipForMobileShell() || ! Schema::hasTable('settings')) {
             return;
         }
+
+        $sumit = app(SumitSettings::class);
+        $twilio = app(TwilioSettings::class);
+        $gemini = app(GeminiSettings::class);
 
         if ($sumit->is_active) {
             config([
@@ -46,5 +51,17 @@ class SystemSettingsServiceProvider extends ServiceProvider
                 'services.gemini.model' => $gemini->model ?: config('services.gemini.model'),
             ]);
         }
+    }
+
+    protected function shouldSkipForMobileShell(): bool
+    {
+        if ($this->app->runningInConsole() || ! $this->app->bound('request')) {
+            return false;
+        }
+
+        /** @var Request $request */
+        $request = $this->app->make('request');
+
+        return $request->is('mobile') || $request->is('mobile/session') || $request->is('mobile/session/*');
     }
 }

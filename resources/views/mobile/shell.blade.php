@@ -1,10 +1,20 @@
 @php
+    $remoteApiBaseUrl = (string) config('mobile.api.base_url', 'https://kalfa.me');
+    $remoteApiEndpoints = config('mobile.api.endpoints', []);
+
     $stateConfig = [
         'initial' => 'unauthenticated',
+        'api' => [
+            'base_url' => $remoteApiBaseUrl,
+            'login_url' => $remoteApiBaseUrl.($remoteApiEndpoints['login'] ?? '/api/mobile/auth/login'),
+            'logout_url' => $remoteApiBaseUrl.($remoteApiEndpoints['logout'] ?? '/api/mobile/auth/logout'),
+            'logout_others_url' => $remoteApiBaseUrl.($remoteApiEndpoints['logout_others'] ?? '/api/mobile/auth/logout/others'),
+            'bootstrap_url' => $remoteApiBaseUrl.($remoteApiEndpoints['bootstrap'] ?? '/api/bootstrap'),
+        ],
         'session' => [
-            'status_url' => route('mobile.session.status'),
-            'store_url' => route('mobile.session.store'),
-            'destroy_url' => route('mobile.session.destroy'),
+            'status_url' => route('mobile.session.status', [], false),
+            'store_url' => route('mobile.session.store', [], false),
+            'destroy_url' => route('mobile.session.destroy', [], false),
         ],
         'states' => [
             'unauthenticated' => [
@@ -61,7 +71,7 @@
     ];
 @endphp
 
-<x-layouts.guest>
+<x-layouts.mobile-shell>
     <x-slot:title>Kalfa Mobile</x-slot:title>
 
     <section
@@ -162,11 +172,15 @@
                             </div>
                             <div class="flex items-start justify-between gap-4">
                                 <dt class="font-medium text-slate-500">Login API</dt>
-                                <dd class="font-mono text-slate-900">/api/mobile/auth/login</dd>
+                                <dd class="font-mono text-slate-900" x-text="api.login_url"></dd>
                             </div>
                             <div class="flex items-start justify-between gap-4">
                                 <dt class="font-medium text-slate-500">Bootstrap API</dt>
-                                <dd class="font-mono text-slate-900">/api/bootstrap</dd>
+                                <dd class="font-mono text-slate-900" x-text="api.bootstrap_url"></dd>
+                            </div>
+                            <div class="flex items-start justify-between gap-4">
+                                <dt class="font-medium text-slate-500">Local session</dt>
+                                <dd class="font-mono text-slate-900" x-text="session.status_url"></dd>
                             </div>
                             <div class="flex items-start justify-between gap-4">
                                 <dt class="font-medium text-slate-500">Offline mode</dt>
@@ -225,6 +239,7 @@
                     const config = JSON.parse(configElement.textContent);
 
                     this.state = config.initial;
+                    this.api = config.api;
                     this.states = config.states;
                     this.session = config.session;
 
@@ -240,13 +255,18 @@
                 },
 
                 async hydrateSecureTokenState() {
-                    if (! window.axios || ! this.session?.status_url) {
+                    if (! window.fetch || ! this.session?.status_url) {
                         return;
                     }
 
                     try {
-                        const response = await window.axios.get(this.session.status_url);
-                        const payload = response.data ?? {};
+                        const response = await window.fetch(this.session.status_url, {
+                            headers: {
+                                Accept: 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                        });
+                        const payload = await response.json();
 
                         this.storage.available = Boolean(payload.available);
                         this.storage.hasToken = Boolean(payload.has_token);
@@ -276,8 +296,9 @@
                     checked: false,
                 },
 
+                api: {},
                 session: {},
             }));
         });
     </script>
-</x-layouts.guest>
+</x-layouts.mobile-shell>

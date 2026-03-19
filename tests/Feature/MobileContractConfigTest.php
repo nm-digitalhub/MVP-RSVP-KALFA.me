@@ -21,6 +21,17 @@ class MobileContractConfigTest extends TestCase
         ], config('mobile.bootstrap.payload'));
     }
 
+    public function test_mobile_contract_exposes_an_explicit_remote_api_base_url_and_paths(): void
+    {
+        $this->assertSame('https://kalfa.me', config('mobile.api.base_url'));
+        $this->assertSame([
+            'login' => '/api/mobile/auth/login',
+            'logout' => '/api/mobile/auth/logout',
+            'logout_others' => '/api/mobile/auth/logout/others',
+            'bootstrap' => '/api/bootstrap',
+        ], config('mobile.api.endpoints'));
+    }
+
     public function test_mobile_contract_limits_local_cache_to_read_only_entities(): void
     {
         $this->assertSame('read-only', config('mobile.cache.mode'));
