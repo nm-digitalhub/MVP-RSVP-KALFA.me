@@ -122,7 +122,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->configureScramble();
+        if (! $this->isIsolatedMobileShellRequest()) {
+            $this->configureScramble();
+        }
 
         AccountProduct::observe(AccountProductObserver::class);
 
@@ -172,9 +174,21 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('webhooks', fn () => Limit::perMinute(120));
         RateLimiter::for('webauthn', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
 
-        if (app()->environment('production')) {
+        if (app()->environment('production') && ! $this->isIsolatedMobileShellRequest()) {
             $this->validateSumitConfig();
         }
+    }
+
+    protected function isIsolatedMobileShellRequest(): bool
+    {
+        if ($this->app->runningInConsole() || ! $this->app->bound('request')) {
+            return false;
+        }
+
+        /** @var Request $request */
+        $request = $this->app->make('request');
+
+        return $request->is('mobile') || $request->is('mobile/session') || $request->is('mobile/session/*');
     }
 
     /**

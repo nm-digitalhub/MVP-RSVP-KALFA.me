@@ -275,3 +275,157 @@ Stack trace:
 [2026-03-19 02:22:55] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
 [2026-03-19 02:22:57] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
 [2026-03-19 02:22:57] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 03:00:04] production.ERROR: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "sumit_customer_id" does not exist
+LINE 1: select * from "organizations" where "sumit_customer_id" is n...
+                                            ^ (Connection: pgsql, Host: 127.0.0.1, Port: 5432, Database: kalfa_rsvp, SQL: select * from "organizations" where "sumit_customer_id" is not null) {"exception":"PDOException: SQLSTATE[42703]: Undefined column: 7 ERROR:  column \"sumit_customer_id\" does not exist
+LINE 1: select * from \"organizations\" where \"sumit_customer_id\" is n...
+                                            ^ in /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php:425
+Stack trace:
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(425): PDOStatement->execute()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(827): Illuminate\\Database\\Connection->{closure:Illuminate\\Database\\Connection::select():411}()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(794): Illuminate\\Database\\Connection->runQueryCallback()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Connection.php(411): Illuminate\\Database\\Connection->run()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3475): Illuminate\\Database\\Connection->select()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3460): Illuminate\\Database\\Query\\Builder->runSelect()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(4050): Illuminate\\Database\\Query\\Builder->{closure:Illuminate\\Database\\Query\\Builder::get():3459}()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Query/Builder.php(3459): Illuminate\\Database\\Query\\Builder->onceWithColumns()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(902): Illuminate\\Database\\Query\\Builder->get()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php(884): Illuminate\\Database\\Eloquent\\Builder->getModels()
+#10 /var/www/vhosts/kalfa.me/httpdocs/
+... [truncated 6735 chars]"} 
+[2026-03-19 03:00:06] production.ERROR: SUMIT documents auto-sync failed  
+[2026-03-19 05:25:15] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-19 05:25:21] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-19 05:25:31] production.ERROR: The "--columns" option does not exist. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\RuntimeException(code: 0): The \"--columns\" option does not exist. at /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php:226)
+[stacktrace]
+#0 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(153): Symfony\\Component\\Console\\Input\\ArgvInput->addLongOption()
+#1 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(88): Symfony\\Component\\Console\\Input\\ArgvInput->parseLongOption()
+#2 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/ArgvInput.php(77): Symfony\\Component\\Console\\Input\\ArgvInput->parseToken()
+#3 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Input/Input.php(53): Symfony\\Component\\Console\\Input\\ArgvInput->parse()
+#4 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Command/Command.php(295): Symfony\\Component\\Console\\Input\\Input->bind()
+#5 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Console/Command.php(180): Symfony\\Component\\Console\\Command\\Command->run()
+#6 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(1117): Illuminate\\Console\\Command->run()
+#7 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(356): Symfony\\Component\\Console\\Application->doRunCommand()
+#8 /var/www/vhosts/kalfa.me/httpdocs/vendor/symfony/console/Application.php(195): Symfony\\Component\\Console\\Application->doRun()
+#9 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Symfony\\Component\\Console\\Application->run()
+#10 /var/www/vhosts/kalfa.me/httpdocs/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle()
+#11 /var/www/vhosts/kalfa.me/httpdocs/artisan(16): Illuminate\\Foundation\\Application->handleCommand()
+#12 {main}
+"} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"trial_ends_at":null}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"trial_ends_at":null}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"billing_provider":"stub"}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":2,"billing_provider":"stub"}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:13] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:14] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:14] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:14] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:14] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:14] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:14] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":120,"usage_record_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":120,"usage_record_id":1}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":30,"usage_record_id":2}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":30,"usage_record_id":2}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":50,"usage_record_id":3}} 
+[2026-03-19 05:33:15] testing.INFO: Product Engine event {"action":"usage.recorded","account_id":1,"product_id":1,"subscription_id":1,"payload":{"metric_key":"voice_minutes","quantity":50,"usage_record_id":3}} 
+[2026-03-19 05:33:16] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:16] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:17] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:17] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T05:32:19+02:00"}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T05:32:19+02:00"}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T05:32:19+02:00"}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T05:32:19+02:00"}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 05:33:19] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 05:33:20] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":2,"subscription_id":null,"payload":{"product_id":2,"account_product_id":1}} 
+[2026-03-19 05:33:20] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":2,"subscription_id":null,"payload":{"product_id":2,"account_product_id":1}} 
+[2026-03-19 05:33:21] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:21] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:22] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:22] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:22] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:22] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:23] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:23] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:33:36] testing.INFO: ExpireAccountCreditsJob completed {"expired":1,"skipped":0} 
+[2026-03-19 05:33:36] testing.INFO: ExpireAccountCreditsJob completed {"expired":1,"skipped":0} 
+[2026-03-19 05:33:36] testing.INFO: ExpireAccountCreditsJob completed {"expired":0,"skipped":0} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T05:33:03+02:00"}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T05:33:03+02:00"}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T05:33:03+02:00"}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2,"trial_ends_at":"2026-03-19T05:33:03+02:00"}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"stub"}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"stub"}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 05:34:03] testing.INFO: Product Engine event {"action":"subscription.cancelled","account_id":1,"product_id":2,"subscription_id":2,"payload":{"product_plan_id":2}} 
+[2026-03-19 05:34:04] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T05:33:04+02:00"}} 
+[2026-03-19 05:34:04] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":"2026-03-19T05:33:04+02:00"}} 
+[2026-03-19 05:34:21] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:34:21] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:34:21] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:34:21] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:34:21] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:34:21] testing.INFO: Product Engine event {"action":"subscription.activated","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"billing_provider":"sumit"}} 
+[2026-03-19 05:34:22] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:34:22] testing.INFO: Product Engine event {"action":"subscription.trial_started","account_id":1,"product_id":1,"subscription_id":1,"payload":{"product_plan_id":1,"trial_ends_at":null}} 
+[2026-03-19 05:34:25] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 
+[2026-03-19 05:34:25] testing.INFO: Product Engine event {"action":"product.granted","account_id":1,"product_id":1,"subscription_id":null,"payload":{"product_id":1,"account_product_id":1}} 

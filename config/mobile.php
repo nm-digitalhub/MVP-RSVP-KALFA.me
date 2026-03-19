@@ -2,6 +2,16 @@
 
 return [
 
+    'api' => [
+        'base_url' => rtrim((string) env('VITE_MOBILE_API_BASE_URL', 'https://kalfa.me'), '/'),
+        'endpoints' => [
+            'login' => '/api/mobile/auth/login',
+            'logout' => '/api/mobile/auth/logout',
+            'logout_others' => '/api/mobile/auth/logout/others',
+            'bootstrap' => '/api/bootstrap',
+        ],
+    ],
+
     'bootstrap' => [
         'endpoint' => '/api/bootstrap',
         'payload' => [
