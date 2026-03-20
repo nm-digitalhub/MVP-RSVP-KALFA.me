@@ -139,7 +139,7 @@ final class RsvpVoiceController extends Controller
 
     private function twimlResponse(string $twiml): Response
     {
-        return response($twiml, 200)
+        return response($twiml)
             ->header('Content-Type', 'text/xml; charset=UTF-8')
             ->header('Content-Length', (string) strlen($twiml));
     }
@@ -248,7 +248,7 @@ final class RsvpVoiceController extends Controller
         $invitation = Invitation::find($invitationId);
 
         if (! $guest || ! $event || ! $invitation || $digits === null || $digits === '') {
-            return response($this->errorTwiML(), 200)->header('Content-Type', 'text/xml');
+            return response($this->errorTwiML())->header('Content-Type', 'text/xml');
         }
 
         $responseType = match ($digits) {
@@ -258,7 +258,7 @@ final class RsvpVoiceController extends Controller
         };
 
         if (! $responseType) {
-            return response('<?xml version="1.0" encoding="UTF-8"?><Response><Say language="he-IL" voice="Google.he-IL-Standard-A">בחירה לא תקינה. להתראות.</Say></Response>', 200)->header('Content-Type', 'text/xml');
+            return response('<?xml version="1.0" encoding="UTF-8"?><Response><Say language="he-IL" voice="Google.he-IL-Standard-A">בחירה לא תקינה. להתראות.</Say></Response>')->header('Content-Type', 'text/xml');
         }
 
         DB::transaction(function () use ($guest, $invitation, $responseType) {
@@ -288,7 +288,7 @@ final class RsvpVoiceController extends Controller
 
         $twiml = '<?xml version="1.0" encoding="UTF-8"?><Response><Say language="he-IL" voice="Google.he-IL-Standard-A">'.htmlspecialchars($confirmMsg).'</Say></Response>';
 
-        return response($twiml, 200)->header('Content-Type', 'text/xml');
+        return response($twiml)->header('Content-Type', 'text/xml');
     }
 
     private function sendSmsConfirmation(Guest $guest, ?Event $event, RsvpResponseType $responseType): void

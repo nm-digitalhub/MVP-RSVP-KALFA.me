@@ -17,7 +17,7 @@ class TwilioController extends Controller
     </Dial>
 </Response>';
 
-        return response($twiml, 200)
+        return response($twiml)
             ->header('Content-Type', 'text/xml');
     }
 }
