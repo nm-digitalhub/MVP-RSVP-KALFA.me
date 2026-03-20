@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Mobile\StoreMobileSessionTokenRequest;
 use App\Services\MobileSecureTokenStore;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class MobileSecureStorageSessionController extends Controller
 {
@@ -18,6 +19,11 @@ class MobileSecureStorageSessionController extends Controller
         $available = $this->tokenStore->isAvailable();
         $hasToken = $available && $this->tokenStore->hasToken();
 
+        Log::debug('[NativePHP/Session] show', [
+            'available' => $available,
+            'has_token' => $hasToken,
+        ]);
+
         return response()->json([
             'available' => $available,
             'has_token' => $hasToken,
@@ -27,13 +33,23 @@ class MobileSecureStorageSessionController extends Controller
 
     public function store(StoreMobileSessionTokenRequest $request): JsonResponse
     {
-        if (! $this->tokenStore->isAvailable()) {
+        $available = $this->tokenStore->isAvailable();
+        Log::debug('[NativePHP/Session] store: attempt', ['available' => $available]);
+
+        if (! $available) {
+            Log::warning('[NativePHP/Session] store: bridge unavailable → 409');
+
             return response()->json([
                 'message' => 'Secure storage is unavailable.',
             ], 409);
         }
 
-        if (! $this->tokenStore->putToken($request->validated('access_token'))) {
+        $stored = $this->tokenStore->putToken($request->validated('access_token'));
+        Log::debug('[NativePHP/Session] store: putToken result', ['stored' => $stored]);
+
+        if (! $stored) {
+            Log::warning('[NativePHP/Session] store: putToken returned false → 500');
+
             return response()->json([
                 'message' => 'Unable to store mobile token securely.',
             ], 500);
@@ -49,13 +65,23 @@ class MobileSecureStorageSessionController extends Controller
 
     public function destroy(): JsonResponse
     {
-        if (! $this->tokenStore->isAvailable()) {
+        $available = $this->tokenStore->isAvailable();
+        Log::debug('[NativePHP/Session] destroy: attempt', ['available' => $available]);
+
+        if (! $available) {
+            Log::warning('[NativePHP/Session] destroy: bridge unavailable → 409');
+
             return response()->json([
                 'message' => 'Secure storage is unavailable.',
             ], 409);
         }
 
-        if (! $this->tokenStore->deleteToken()) {
+        $deleted = $this->tokenStore->deleteToken();
+        Log::debug('[NativePHP/Session] destroy: deleteToken result', ['deleted' => $deleted]);
+
+        if (! $deleted) {
+            Log::warning('[NativePHP/Session] destroy: deleteToken returned false → 500');
+
             return response()->json([
                 'message' => 'Unable to clear secure mobile token.',
             ], 500);

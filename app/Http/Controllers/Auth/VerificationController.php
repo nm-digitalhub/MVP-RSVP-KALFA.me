@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -20,8 +22,6 @@ class VerificationController extends Controller
 
     public function send(Request $request): RedirectResponse
     {
-        $request->validate([]);
-
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(route('dashboard'));
         }

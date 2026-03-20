@@ -1,0 +1,61 @@
+{
+    "namespace": "SecureStorage",
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "bridge_functions": [
+        {
+            "name": "SecureStorage.Get",
+            "android": "com.kalfa.plugins.secure_storage.SecureStorageFunctions.Get",
+            "ios": "SecureStorageFunctions.Get",
+            "description": "Retrieve a value from secure storage by key"
+        },
+        {
+            "name": "SecureStorage.Set",
+            "android": "com.kalfa.plugins.secure_storage.SecureStorageFunctions.Set",
+            "ios": "SecureStorageFunctions.Set",
+            "description": "Store a value in secure storage"
+        },
+        {
+            "name": "SecureStorage.Delete",
+            "android": "com.kalfa.plugins.secure_storage.SecureStorageFunctions.Delete",
+            "ios": "SecureStorageFunctions.Delete",
+            "description": "Delete a value from secure storage by key"
+        }
+    ],
+    "android": {
+        "min_version": 33,
+        "permissions": [],
+        "repositories": [],
+        "dependencies": {
+            "implementation": [
+                "androidx.security:security-crypto:1.0.0"
+            ]
+        },
+        "activities": [],
+        "services": [],
+        "receivers": [],
+        "providers": []
+    },
+    "ios": {
+        "min_version": "18.2",
+        "permissions": [],
+        "repositories": [],
+        "dependencies": {
+            "swift_packages": [],
+            "pods": []
+        }
+    },
+    "assets": {
+        "android": [],
+        "ios": []
+    },
+    "secrets": [],
+    "events": [
+        "Kalfa\\SecureStorage\\Events\\SecureStorageCompleted"
+    ],
+    "hooks": {
+        "copy_assets": "nativephp:kalfa-secure-storage:copy-assets"
+    }
+}

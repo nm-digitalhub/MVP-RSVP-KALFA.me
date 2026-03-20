@@ -4,7 +4,10 @@ namespace App\Providers;
 
 use App\Contracts\BillingProvider;
 use App\Contracts\PaymentGatewayInterface;
+use App\Events\Billing\SubscriptionCancelled;
+use App\Events\Billing\TrialExtended;
 use App\Events\ProductEngineEvent;
+use App\Listeners\Billing\AuditBillingEvent;
 use App\Listeners\LogProductEngineEvent;
 use App\Listeners\StoreWebAuthnCredentialInSession;
 use App\Models\AccountProduct;
@@ -31,8 +34,11 @@ use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Laragear\WebAuthn\Events\CredentialAsserted;
 use Laravel\Pail\Handler as PailHandler;
 use Twilio\Rest\Client as TwilioClient;
 
@@ -61,7 +67,7 @@ class AppServiceProvider extends ServiceProvider
             $apiSecret = config('services.twilio.api_secret');
             $token = config('services.twilio.token');
 
-            \Illuminate\Support\Facades\Log::info('Twilio Initialization', [
+            Log::info('Twilio Initialization', [
                 'sid' => $sid,
                 'has_api_key' => ! empty($apiKey),
                 'has_api_secret' => ! empty($apiSecret),
@@ -129,14 +135,21 @@ class AppServiceProvider extends ServiceProvider
         AccountProduct::observe(AccountProductObserver::class);
 
         Event::listen(ProductEngineEvent::class, LogProductEngineEvent::class);
-        Event::listen(\Laragear\WebAuthn\Events\CredentialAsserted::class, StoreWebAuthnCredentialInSession::class);
-        Event::listen(MigrationsEnded::class, fn (): ProductIntegrityChecker => tap(app(ProductIntegrityChecker::class), fn (ProductIntegrityChecker $checker) => $checker->reportAll()));
+        Event::listen(CredentialAsserted::class, StoreWebAuthnCredentialInSession::class);
+        // Do not run integrity checks during NativePHP deferred init (migrate --force fires
+        // MigrationsEnded against local SQLite; ProductIntegrityChecker is a server-side concern).
+        Event::listen(MigrationsEnded::class, function (): void {
+            if (config('nativephp-internal.running', false)) {
+                return;
+            }
+            tap(app(ProductIntegrityChecker::class), fn (ProductIntegrityChecker $checker) => $checker->reportAll());
+        });
 
         // Billing domain events → audit log
-        Event::listen(\App\Events\Billing\SubscriptionCancelled::class, \App\Listeners\Billing\AuditBillingEvent::class);
-        Event::listen(\App\Events\Billing\TrialExtended::class, \App\Listeners\Billing\AuditBillingEvent::class);
+        Event::listen(SubscriptionCancelled::class, AuditBillingEvent::class);
+        Event::listen(TrialExtended::class, AuditBillingEvent::class);
 
-        \Illuminate\Support\Facades\Gate::before(function ($user, $ability) {
+        Gate::before(function ($user, $ability) {
             if (! $user->is_system_admin) {
                 return null; // Normal users — let policies decide
             }
@@ -165,7 +178,7 @@ class AppServiceProvider extends ServiceProvider
             return null;
         });
 
-        \Illuminate\Support\Facades\Gate::define('viewPulse', function ($user) {
+        Gate::define('viewPulse', function ($user) {
             return $user->is_system_admin === true;
         });
 
@@ -173,6 +186,9 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('rsvp_submit', fn () => Limit::perMinute(10));
         RateLimiter::for('webhooks', fn () => Limit::perMinute(120));
         RateLimiter::for('webauthn', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
+        RateLimiter::for('mobile_session', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
+        RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
+        RateLimiter::for('mobile_auth', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
 
         if (app()->environment('production') && ! $this->isIsolatedMobileShellRequest()) {
             $this->validateSumitConfig();
@@ -181,6 +197,11 @@ class AppServiceProvider extends ServiceProvider
 
     protected function isIsolatedMobileShellRequest(): bool
     {
+        // NativePHP mobile runtime — always isolated (Artisan commands run in console context).
+        if (config('nativephp-internal.running', false)) {
+            return true;
+        }
+
         if ($this->app->runningInConsole() || ! $this->app->bound('request')) {
             return false;
         }

@@ -38,6 +38,7 @@
         "lodash": "^4.17.23",
         "obsidian": "^1.12.3",
         "obsidian-mcp-server": "^2.0.7",
+        "skillfish": "^1.0.30",
         "sortablejs": "^1.15.7",
         "tailwind-merge": "^3.5.0",
         "ws": "^8.19.0"
