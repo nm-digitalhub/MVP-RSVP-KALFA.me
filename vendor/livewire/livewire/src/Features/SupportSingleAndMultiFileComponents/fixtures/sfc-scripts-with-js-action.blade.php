@@ -6,8 +6,8 @@ new class extends \Livewire\Component {
 ?>
 
 <div>
-    <div dusk="foo" wire:text="$wire.$js.getFoo"></div>
-    <button wire:click="$wire.$js.setFoo('baz')" dusk="set-foo">Set Foo</button>
+    <div dusk="foo" wire:text="$js.getFoo"></div>
+    <button wire:click="$js.setFoo('baz')" dusk="set-foo">Set Foo</button>
 </div>
 
 <script>

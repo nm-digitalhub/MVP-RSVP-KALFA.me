@@ -6,6 +6,38 @@ All notable changes to `laravel-settings` will be documented in this file
 
 - Make `spatie/data-transfer-object` dependency optional. (#160)
 
+## 3.7.1 - 2026-03-16
+
+### What's Changed
+
+* Add type hint to up method and use config for table name by @bernhardh in https://github.com/spatie/laravel-settings/pull/355
+* Allow phpdocumentor/type-resolver v2 for Laravel 12 compatibility by @milorojas in https://github.com/spatie/laravel-settings/pull/354
+
+**Full Changelog**: https://github.com/spatie/laravel-settings/compare/3.7.0...3.7.1
+
+## 3.7.0 - 2026-02-09
+
+### What's new
+
+- Add support for Laravel's memoized cache driver (`Cache::memo()`, requires Laravel 12.9+)
+
+When enabled, settings cache values are stored in memory during a single request, preventing repeated cache store hits.
+
+#### Configuration
+
+```php
+// config/settings.php
+'cache' => [
+    'enabled' => true,
+    'memo' => true, // or env('SETTINGS_CACHE_MEMO', false)
+],
+
+
+```
+Per-repository configuration is also supported.
+
+Backwards compatible — on Laravel versions without `Cache::memo()`, the option is silently ignored.
+
 ## 3.5.1 - 2025-12-03
 
 ### What's Changed

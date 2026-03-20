@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
@@ -16,18 +18,12 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse
     {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (! Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
-            throw ValidationException::withMessages(['email' => __('auth.failed')]);
-        }
+        $request->authenticate();
 
         $user = Auth::user();
+
         if ($user->is_disabled ?? false) {
             Auth::logout();
             $request->session()->invalidate();
@@ -38,7 +34,6 @@ class LoginController extends Controller
         $user->update(['last_login_at' => now()]);
         $request->session()->regenerate();
 
-        // Suggest passkey upgrade if user has no passkeys yet
         if ($user->webAuthnCredentials()->count() === 0) {
             session()->flash('passkey_upgrade', true);
         }

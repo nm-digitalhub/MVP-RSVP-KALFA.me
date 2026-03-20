@@ -1,8 +1,16 @@
 <?php
 
+use App\Http\Middleware\EnsureOrganizationSelected;
+use App\Http\Middleware\EnsureSystemAdmin;
+use App\Http\Middleware\ImpersonationExpiry;
+use App\Http\Middleware\RequestId;
+use App\Http\Middleware\RequireImpersonationForSystemAdmin;
+use App\Http\Middleware\SpatiePermissionTeam;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Session\TokenMismatchException;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
@@ -16,20 +24,23 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Trust reverse proxy (Nginx) headers for correct HTTPS/scheme detection
+        $middleware->trustProxies(at: '*');
+
         $middleware->alias([
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
-            'ensure.organization' => \App\Http\Middleware\EnsureOrganizationSelected::class,
-            'system.admin' => \App\Http\Middleware\EnsureSystemAdmin::class,
-            'require.impersonation' => \App\Http\Middleware\RequireImpersonationForSystemAdmin::class,
+            'ensure.organization' => EnsureOrganizationSelected::class,
+            'system.admin' => EnsureSystemAdmin::class,
+            'require.impersonation' => RequireImpersonationForSystemAdmin::class,
         ]);
         $middleware->web(replace: [
-            \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class => \App\Http\Middleware\VerifyCsrfToken::class,
+            ValidateCsrfToken::class => VerifyCsrfToken::class,
         ]);
         $middleware->web(append: [
-            \App\Http\Middleware\RequestId::class,
-            \App\Http\Middleware\ImpersonationExpiry::class,
-            \App\Http\Middleware\SpatiePermissionTeam::class,
+            RequestId::class,
+            ImpersonationExpiry::class,
+            SpatiePermissionTeam::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

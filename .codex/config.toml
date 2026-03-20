@@ -1,4 +1,4 @@
 [mcp_servers.laravel-boost]
 command = "php"
 args = ["artisan", "boost:mcp"]
-cwd = "/Users/kalfanetanelmevorach/Documents/GitHub/MVP-RSVP-KALFA.me"
+cwd = "/var/www/vhosts/kalfa.me/httpdocs"

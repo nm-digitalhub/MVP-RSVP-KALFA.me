@@ -13,6 +13,9 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\PublicRsvpController;
 use App\Http\Controllers\Api\SeatAssignmentController;
 use App\Http\Controllers\Api\WebhookController;
+use App\Http\Controllers\Twilio\CallingController;
+use App\Http\Controllers\Twilio\RsvpVoiceController;
+use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 | Multi-tenant via organization_id. Auth required except public RSVP.
 */
 
-Route::post('mobile/auth/login', [MobileAuthController::class, 'login'])->name('mobile.auth.login');
+Route::post('mobile/auth/login', [MobileAuthController::class, 'login'])->middleware('throttle:mobile_auth')->name('mobile.auth.login');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('abilities:mobile:base')->group(function () {
@@ -40,7 +43,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('organizations/{organization}/events', [EventController::class, 'index'])->name('events.index');
     Route::post('organizations/{organization}/events', [EventController::class, 'store'])->name('events.store');
     Route::get('organizations/{organization}/events/{event}', [EventController::class, 'show'])->name('events.show');
-    Route::put('organizations/{organization}/events/{event}', [EventController::class, 'update'])->name('events.update');
     Route::patch('organizations/{organization}/events/{event}', [EventController::class, 'update'])->name('events.patch');
     Route::delete('organizations/{organization}/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
@@ -79,8 +81,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 // Twilio/Node.js integration endpoints (secured via secret key in controller)
 Route::prefix('twilio')->group(function () {
-    Route::post('/rsvp/process', [\App\Http\Controllers\Twilio\RsvpVoiceController::class, 'process'])->name('api.twilio.rsvp.process');
-    Route::post('/calling/log', [\App\Http\Controllers\Twilio\CallingController::class, 'appendLog'])->name('api.twilio.calling.log.append');
+    Route::post('/rsvp/process', [RsvpVoiceController::class, 'process'])->name('api.twilio.rsvp.process');
+    Route::post('/calling/log', [CallingController::class, 'appendLog'])->name('api.twilio.calling.log.append');
 });
 
 Route::middleware('throttle:rsvp_show')->get('rsvp/{slug}', [PublicRsvpController::class, 'showBySlug'])->name('api.rsvp.show');
@@ -94,4 +96,4 @@ Route::get('webhooks/{gateway}', fn (string $gateway) => response()->json([
 Route::post('webhooks/{gateway}', [WebhookController::class, 'handle'])
     ->middleware('throttle:webhooks')
     ->name('webhooks.handle')
-    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class);
+    ->withoutMiddleware(VerifyCsrfToken::class);

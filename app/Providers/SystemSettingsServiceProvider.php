@@ -55,6 +55,14 @@ class SystemSettingsServiceProvider extends ServiceProvider
 
     protected function shouldSkipForMobileShell(): bool
     {
+        // Always skip when running inside the NativePHP mobile runtime.
+        // Artisan commands (migrate --force, view:clear, storage:link) fired during
+        // NativePHP deferred init run in console context where the settings table
+        // and records may not yet exist in the local SQLite database.
+        if (config('nativephp-internal.running', false)) {
+            return true;
+        }
+
         if ($this->app->runningInConsole() || ! $this->app->bound('request')) {
             return false;
         }

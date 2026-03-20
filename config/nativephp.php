@@ -72,6 +72,26 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Native Assets
+    |--------------------------------------------------------------------------
+    |
+    | Register custom native functions and classes for iOS (Swift) and
+    | Android (Kotlin). These files will be automatically compiled and
+    | made available to your PHP application through nativephp_call().
+    |
+    */
+
+    'assets' => [
+        'android' => [
+            'resources/android/src/SecureStorageFunctions.kt',
+        ],
+        'ios' => [
+            'resources/ios/Sources/SecureStorageFunctions.swift',
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Start URL
     |--------------------------------------------------------------------------
     |

@@ -115,12 +115,12 @@ class ChargeSubscriptionRequest extends Request implements HasBody
         ];
 
         // Optional document description
-        if ($this->documentDescription !== null) {
+        if ($this->documentDescription) {
             $body['DocumentDescription'] = $this->documentDescription;
         }
 
         // Optional external reference (for tracking)
-        if ($this->externalReference !== null) {
+        if ($this->externalReference) {
             $body['ExternalReference'] = $this->externalReference;
         }
 

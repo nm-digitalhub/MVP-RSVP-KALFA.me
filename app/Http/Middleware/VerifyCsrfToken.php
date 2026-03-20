@@ -17,5 +17,7 @@ class VerifyCsrfToken extends Middleware
         'officeguy/webhook/*',
         'mvp-rsvp/webhook/*',
         'twilio/*',
+        'mobile/session',
+        'mobile/session/*',
     ];
 }

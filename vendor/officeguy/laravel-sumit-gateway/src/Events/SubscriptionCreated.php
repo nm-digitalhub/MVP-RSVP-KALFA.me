@@ -9,7 +9,6 @@ use OfficeGuy\LaravelSumitGateway\Models\Subscription;
 class SubscriptionCreated
 {
     public function __construct(
-        public Subscription $subscription,
-        public array $response = []
+        public Subscription $subscription
     ) {}
 }

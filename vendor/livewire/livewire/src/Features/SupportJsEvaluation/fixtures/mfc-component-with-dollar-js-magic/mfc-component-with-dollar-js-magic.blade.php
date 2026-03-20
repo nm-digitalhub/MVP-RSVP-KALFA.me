@@ -1,3 +1,3 @@
 <div>
-    <button wire:click="$wire.$js.test" dusk="test">Test</button>
+    <button wire:click="$js.test" dusk="test">Test</button>
 </div>

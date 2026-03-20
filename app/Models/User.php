@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Enums\OrganizationUserRole;
+use Database\Factories\UserFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laragear\WebAuthn\Contracts\WebAuthnAuthenticatable;
@@ -11,9 +14,9 @@ use Laragear\WebAuthn\WebAuthnAuthentication;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements WebAuthnAuthenticatable
+class User extends Authenticatable implements MustVerifyEmail, WebAuthnAuthenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasApiTokens, HasFactory, HasRoles, Notifiable, WebAuthnAuthentication;
 
     /**
@@ -62,19 +65,19 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
     /**
      * Organizations where this user is owner (for system admin display).
      */
-    public function ownedOrganizations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function ownedOrganizations(): BelongsToMany
     {
         return $this->belongsToMany(Organization::class, 'organization_users')
             ->using(OrganizationUser::class)
             ->withPivot('role')
             ->withTimestamps()
-            ->wherePivot('role', \App\Enums\OrganizationUserRole::Owner->value);
+            ->wherePivot('role', OrganizationUserRole::Owner->value);
     }
 
     /**
      * Organizations the user belongs to (Event SaaS multi-tenant).
      */
-    public function organizations(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function organizations(): BelongsToMany
     {
         return $this->belongsToMany(Organization::class, 'organization_users')
             ->using(OrganizationUser::class)

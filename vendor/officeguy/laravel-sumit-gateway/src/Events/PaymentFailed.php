@@ -7,10 +7,8 @@ namespace OfficeGuy\LaravelSumitGateway\Events;
 class PaymentFailed
 {
     public function __construct(
-        public string|int $orderId,
+        public string | int $orderId,
         public ?array $response,
-        public string $message,
-        public ?array $payment = null,
-        public mixed $payable = null
+        public string $message
     ) {}
 }

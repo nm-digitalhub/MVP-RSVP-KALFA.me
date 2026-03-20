@@ -83,6 +83,26 @@ class MobileSecureStorageSessionTest extends TestCase
             ]);
     }
 
+    public function test_mobile_secure_storage_store_route_is_exempt_from_csrf_for_the_native_shell(): void
+    {
+        $this->withMiddleware();
+
+        $this->mock(MobileSecureTokenStore::class, function (MockInterface $mock): void {
+            $mock->shouldReceive('isAvailable')->once()->andReturn(true);
+            $mock->shouldReceive('putToken')->once()->with('plain-text-mobile-token')->andReturn(true);
+        });
+
+        $this->putJson(route('mobile.session.store'), [
+            'access_token' => 'plain-text-mobile-token',
+        ])->assertOk()
+            ->assertJson([
+                'message' => 'Mobile token stored securely.',
+                'available' => true,
+                'has_token' => true,
+                'state' => 'credential_stored',
+            ]);
+    }
+
     public function test_mobile_secure_storage_can_delete_a_stored_token(): void
     {
         $this->mock(MobileSecureTokenStore::class, function (MockInterface $mock): void {

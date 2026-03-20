@@ -15,8 +15,8 @@ class PaymentFailedNotification extends Notification
      * Create a new notification instance.
      */
     public function __construct(
-        public readonly string|int $orderId,
-        public readonly ?array $payment,
+        public readonly string | int $orderId,
+        public readonly array $payment,
         public readonly array $response,
         public readonly ?object $payable = null
     ) {}
@@ -38,8 +38,6 @@ class PaymentFailedNotification extends Notification
      */
     public function toDatabase(object $notifiable): array
     {
-        $payment = $this->payment ?? [];
-
         $errorMessage = $this->response['error_message']
             ?? $this->response['UserErrorMessage']
             ?? __('officeguy::notifications.payment_failed.unknown_error');
@@ -47,7 +45,7 @@ class PaymentFailedNotification extends Notification
         return [
             'title' => __('officeguy::notifications.payment_failed.title'),
             'message' => __('officeguy::notifications.payment_failed.message', [
-                'amount' => number_format($payment['amount'] ?? 0, 2),
+                'amount' => number_format($this->payment['amount'] ?? 0, 2),
                 'order_id' => $this->orderId,
                 'error' => $errorMessage,
             ]),
@@ -55,8 +53,8 @@ class PaymentFailedNotification extends Notification
             'icon_color' => 'danger',
             'data' => [
                 'order_id' => $this->orderId,
-                'amount' => $payment['amount'] ?? 0,
-                'currency' => $payment['currency'] ?? 'ILS',
+                'amount' => $this->payment['amount'] ?? 0,
+                'currency' => $this->payment['currency'] ?? 'ILS',
                 'error_message' => $errorMessage,
                 'response' => $this->response,
             ],

@@ -401,7 +401,14 @@
                 },
 
                 async hydrateSecureTokenState() {
+                    console.debug('[NativePHP/Mobile] hydrateSecureTokenState: start', {
+                        fetch_available: !! window.fetch,
+                        status_url: this.session?.status_url ?? null,
+                        NativePHPMobile_secureStorage: !! window.NativePHPMobile?.secureStorage?.get,
+                    });
+
                     if (! window.fetch || ! this.session?.status_url) {
+                        console.warn('[NativePHP/Mobile] hydrateSecureTokenState: missing fetch or status_url — skipping hydration');
                         this.storage.checked = true;
                         return;
                     }
@@ -416,6 +423,13 @@
 
                         const payload = await this.parseJson(response);
 
+                        console.debug('[NativePHP/Mobile] hydrateSecureTokenState: status response', {
+                            status: response.status,
+                            ok: response.ok,
+                            available: payload?.available,
+                            has_token: payload?.has_token,
+                        });
+
                         if (! response.ok) {
                             throw new Error('Unable to inspect secure storage status.');
                         }
@@ -429,6 +443,7 @@
                             await this.restoreStoredSession(true);
                         }
                     } catch (error) {
+                        console.warn('[NativePHP/Mobile] hydrateSecureTokenState: error', error?.message);
                         this.storage.available = false;
                         this.storage.hasToken = false;
                         this.storage.checked = true;
@@ -532,6 +547,13 @@
                 },
 
                 async bootstrapWithToken(token, silent = false) {
+                    console.debug('[NativePHP/Mobile] bootstrapWithToken: entry', {
+                        bootstrap_url: this.api?.bootstrap_url ?? null,
+                        token_length: typeof token === 'string' ? token.length : 0,
+                        silent,
+                        state_before: this.state,
+                    });
+
                     this.feedback.loading = true;
                     this.feedback.stage = 'bootstrap';
                     this.state = 'syncing';
@@ -543,21 +565,31 @@
 
                         const payload = await this.parseJson(response);
 
+                        console.debug('[NativePHP/Mobile] bootstrapWithToken: response', {
+                            status: response.status,
+                            ok: response.ok,
+                            has_user: !! payload?.user,
+                            has_organization: !! payload?.organization,
+                        });
+
                         if (response.ok) {
                             this.bootstrap = payload;
                             this.feedback.error = null;
                             this.feedback.validation = {};
                             this.state = 'authenticated';
+                            console.debug('[NativePHP/Mobile] bootstrapWithToken: → authenticated');
 
                             return;
                         }
 
                         if (response.status === 401 || response.status === 403) {
+                            console.warn('[NativePHP/Mobile] bootstrapWithToken: token revoked by server', { status: response.status });
                             await this.handleRevokedState(this.extractMessage(payload, 'השרת דחה את ה־credential.'));
 
                             return;
                         }
 
+                        console.warn('[NativePHP/Mobile] bootstrapWithToken: non-ok non-revoke → unauthenticated', { status: response.status });
                         this.bootstrap = null;
                         this.state = 'unauthenticated';
 
@@ -565,6 +597,7 @@
                             this.feedback.error = this.extractMessage(payload, 'לא ניתן היה להשלים bootstrap מול השרת.');
                         }
                     } catch (error) {
+                        console.warn('[NativePHP/Mobile] bootstrapWithToken: network/parse error → unauthenticated', { error: error?.message });
                         this.bootstrap = null;
                         this.state = 'unauthenticated';
 
@@ -578,7 +611,15 @@
                 },
 
                 async persistSecureCredential(token) {
+                    console.debug('[NativePHP/Mobile] persistSecureCredential: entry', {
+                        store_url: this.session?.store_url ?? null,
+                        fetch_available: !! window.fetch,
+                        token_length: typeof token === 'string' ? token.length : 0,
+                    });
+
                     if (! this.session?.store_url || ! window.fetch) {
+                        console.warn('[NativePHP/Mobile] persistSecureCredential: missing store_url or fetch — failed before request');
+
                         return false;
                     }
 
@@ -591,7 +632,21 @@
 
                         const payload = await this.parseJson(response);
 
+                        console.debug('[NativePHP/Mobile] persistSecureCredential: response', {
+                            status: response.status,
+                            ok: response.ok,
+                            available: payload?.available,
+                            has_token: payload?.has_token,
+                            state: payload?.state ?? null,
+                            message: payload?.message ?? null,
+                        });
+
                         if (! response.ok) {
+                            console.warn('[NativePHP/Mobile] persistSecureCredential: non-ok response — credential NOT stored', {
+                                status: response.status,
+                                message: payload?.message ?? null,
+                            });
+
                             return false;
                         }
 
@@ -601,6 +656,8 @@
 
                         return true;
                     } catch (error) {
+                        console.warn('[NativePHP/Mobile] persistSecureCredential: request error', { error: error?.message });
+
                         return false;
                     }
                 },
@@ -618,26 +675,46 @@
                 },
 
                 async handleRevokedState(message) {
+                    console.warn('[NativePHP/Mobile] handleRevokedState: server rejected credential', {
+                        message,
+                        state_before: this.state,
+                        has_bootstrap: !! this.bootstrap,
+                    });
+
                     await this.deleteStoredCredential();
                     this.bootstrap = null;
                     this.feedback.validation = {};
                     this.feedback.error = message;
                     this.state = 'revoked';
+                    console.debug('[NativePHP/Mobile] handleRevokedState: → revoked (local credential cleared)');
                 },
 
                 async deleteStoredCredential() {
+                    console.debug('[NativePHP/Mobile] deleteStoredCredential: entry', {
+                        destroy_url: this.session?.destroy_url ?? null,
+                        fetch_available: !! window.fetch,
+                        NativePHPMobile_secureStorage: !! window.NativePHPMobile?.secureStorage,
+                    });
+
                     if (! this.session?.destroy_url || ! window.fetch) {
+                        console.warn('[NativePHP/Mobile] deleteStoredCredential: missing destroy_url or fetch — local flag cleared only');
                         this.storage.hasToken = false;
 
                         return false;
                     }
 
                     try {
-                        await window.fetch(this.session.destroy_url, {
+                        const response = await window.fetch(this.session.destroy_url, {
                             method: 'DELETE',
                             headers: this.localJsonHeaders(),
                         });
+
+                        console.debug('[NativePHP/Mobile] deleteStoredCredential: response', {
+                            status: response?.status,
+                            ok: response?.ok,
+                        });
                     } catch (error) {
+                        console.warn('[NativePHP/Mobile] deleteStoredCredential: request error (continuing with local clear)', { error: error?.message });
                     }
 
                     this.storage.hasToken = false;
@@ -646,23 +723,49 @@
                 },
 
                 async readStoredCredential() {
+                    console.debug('[NativePHP/Mobile] readStoredCredential: entry', {
+                        storage_available: this.storage?.available,
+                        access_token_key: this.session?.access_token_key ?? null,
+                        NativePHPMobile_exists: !! window.NativePHPMobile,
+                        secureStorage_exists: !! window.NativePHPMobile?.secureStorage,
+                        get_fn_exists: !! window.NativePHPMobile?.secureStorage?.get,
+                    });
+
                     if (! this.storage.available || ! this.session?.access_token_key) {
+                        console.warn('[NativePHP/Mobile] readStoredCredential: precondition failed before bridge call', {
+                            storage_available: this.storage?.available,
+                            has_key: !! this.session?.access_token_key,
+                        });
+
                         return null;
                     }
 
                     if (! window.NativePHPMobile?.secureStorage?.get) {
+                        console.warn('[NativePHP/Mobile] readStoredCredential: NativePHPMobile.secureStorage.get not found — bridge not ready');
+
                         return null;
                     }
 
                     try {
                         const result = await window.NativePHPMobile.secureStorage.get(this.session.access_token_key);
 
+                        console.debug('[NativePHP/Mobile] readStoredCredential: bridge result', {
+                            result_type: typeof result,
+                            has_value_key: result !== null && result !== undefined && 'value' in Object(result),
+                            value_type: typeof result?.value,
+                            value_length: typeof result?.value === 'string' ? result.value.length : 0,
+                        });
+
                         if (typeof result?.value !== 'string' || result.value.length === 0) {
+                            console.warn('[NativePHP/Mobile] readStoredCredential: bridge returned empty/null — credential not found');
+
                             return null;
                         }
 
                         return result.value;
                     } catch (error) {
+                        console.warn('[NativePHP/Mobile] readStoredCredential: bridge call threw', { error: error?.message });
+
                         return null;
                     }
                 },

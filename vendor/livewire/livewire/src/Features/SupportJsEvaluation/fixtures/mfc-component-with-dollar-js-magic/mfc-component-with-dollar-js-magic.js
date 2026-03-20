@@ -1,3 +1,3 @@
-$wire.$js.test = () => {
+$js('test', () => {
     window.test = 'through dollar js'
-}
+})
