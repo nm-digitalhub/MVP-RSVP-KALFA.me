@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\Plan;
@@ -18,7 +19,7 @@ class CheckoutTokenizeController extends Controller
 {
     public function __invoke(Request $request, Organization $organization, Event $event): View
     {
-        $this->authorize('initiatePayment', $event);
+        Gate::authorize('initiatePayment', $event);
 
         $plan = Plan::where('type', 'per_event')->firstOrFail();
         $token = $request->user()->createToken('checkout-tokenize')->plainTextToken;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\InitiateCheckoutRequest;
 use App\Models\Event;
@@ -28,7 +29,7 @@ class CheckoutController extends Controller
      */
     public function initiate(InitiateCheckoutRequest $request, Organization $organization, Event $event): JsonResponse
     {
-        $this->authorize('initiatePayment', $event);
+        Gate::authorize('initiatePayment', $event);
 
         $plan = Plan::findOrFail($request->validated('plan_id'));
         $token = $request->validated('token');

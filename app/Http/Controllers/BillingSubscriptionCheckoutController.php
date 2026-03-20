@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use App\Models\ProductPlan;
 use App\Services\OrganizationContext;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class BillingSubscriptionCheckoutController extends Controller
     {
         $organization = $context->current();
         abort_if($organization === null, 403);
-        $this->authorize('update', $organization);
+        Gate::authorize('update', $organization);
 
         $productPlan = ProductPlan::with(['activePrices', 'product'])
             ->where('is_active', true)

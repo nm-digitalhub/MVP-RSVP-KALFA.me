@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Api\UpdateEventTableRequest;
 use App\Http\Requests\Api\StoreEventTableRequest;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,7 @@ class EventTableController extends Controller
      */
     public function index(Event $event): JsonResponse
     {
-        $this->authorize('view', $event);
+        Gate::authorize('view', $event);
 
         $tables = $event->eventTables()->orderBy('sort_order')->get();
 
@@ -30,7 +31,7 @@ class EventTableController extends Controller
      */
     public function store(StoreEventTableRequest $request, Event $event): JsonResponse
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         $validated = $request->validated();
 
@@ -44,7 +45,7 @@ class EventTableController extends Controller
      */
     public function show(EventTable $eventTable): JsonResponse
     {
-        $this->authorize('view', $eventTable->event);
+        Gate::authorize('view', $eventTable->event);
 
         return response()->json($eventTable);
     }
@@ -54,7 +55,7 @@ class EventTableController extends Controller
      */
     public function update(UpdateEventTableRequest $request, EventTable $eventTable): JsonResponse
     {
-        $this->authorize('update', $eventTable->event);
+        Gate::authorize('update', $eventTable->event);
 
         $validated = $request->validated();
 
@@ -68,7 +69,7 @@ class EventTableController extends Controller
      */
     public function destroy(EventTable $eventTable): JsonResponse
     {
-        $this->authorize('update', $eventTable->event);
+        Gate::authorize('update', $eventTable->event);
 
         $eventTable->delete();
 
