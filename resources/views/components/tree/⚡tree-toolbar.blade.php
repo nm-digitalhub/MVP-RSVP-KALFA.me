@@ -1,4 +1,4 @@
-<?php
+@php
 
 use Livewire\Component;
 
@@ -12,8 +12,8 @@ new class extends Component
         
         // כרגע רק נרענן/נסיים כדי להראות פעולת שרת אופציונלית
     }
-};
-?>
+}
+@endphp
 
 <div class="mb-6 flex flex-wrap items-center gap-2" x-data="{ settingsOpen: false }">
     

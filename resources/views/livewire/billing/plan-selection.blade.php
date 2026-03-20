@@ -15,12 +15,12 @@
     </div>
 
     {{-- Flash --}}
-    @if(session('success'))
+    @session('success')
         <div class="flex items-start gap-3 rounded-2xl border border-green-200 bg-green-50 px-5 py-4 text-sm text-green-800">
             <x-heroicon-o-check-circle class="size-5 shrink-0 mt-0.5 text-green-600" />
-            <span>{{ session('success') }}</span>
+            <span>{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
     {{-- Plan Cards --}}
     @if($plans->isEmpty())

@@ -1,4 +1,4 @@
-<?php
+@php
 
 use Livewire\Component;
 
@@ -10,8 +10,8 @@ new class extends Component
     {
         $this->initExpanded = $initExpanded;
     }
-};
-?>
+}
+@endphp
 
 <div
     x-data

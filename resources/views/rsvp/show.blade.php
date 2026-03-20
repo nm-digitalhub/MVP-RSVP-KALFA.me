@@ -3,11 +3,11 @@
 
 <div class="min-h-screen bg-gray-50 py-8 px-4 sm:py-12 sm:px-6 flex items-start sm:items-center justify-center">
     <article class="w-full max-w-2xl" aria-labelledby="rsvp-heading">
-        @if(session('success'))
+        @session('success')
             <div class="mb-6 rounded-lg bg-green-50 p-4 text-sm text-green-800 ring-1 ring-green-200" role="status" aria-live="polite">
                 {{ __('Thank you! Your response has been saved.') }}
             </div>
-        @endif
+        @endsession
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             @if($invitation->event->imageUrl)

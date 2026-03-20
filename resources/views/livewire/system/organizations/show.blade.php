@@ -260,12 +260,12 @@
 
             @if($activeTab === 'billing')
                 <div class="space-y-8 animate-in slide-in-from-left-4 duration-500">
-                    @if(session('success'))
-                        <div class="rounded-2xl bg-success/10 border border-success/20 px-6 py-4 text-sm font-medium text-success">{{ session('success') }}</div>
-                    @endif
-                    @if(session('error'))
-                        <div class="rounded-2xl bg-danger/10 border border-danger/20 px-6 py-4 text-sm font-medium text-danger">{{ session('error') }}</div>
-                    @endif
+                    @session('success')
+                        <div class="rounded-2xl bg-success/10 border border-success/20 px-6 py-4 text-sm font-medium text-success">{{ $value }}</div>
+                    @endsession
+                    @session('error')
+                        <div class="rounded-2xl bg-danger/10 border border-danger/20 px-6 py-4 text-sm font-medium text-danger">{{ $value }}</div>
+                    @endsession
 
                     {{-- Subscription Card --}}
                     <div class="bg-surface rounded-3xl border border-stroke p-8 space-y-6">

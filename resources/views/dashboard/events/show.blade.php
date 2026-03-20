@@ -8,9 +8,9 @@
         />
     </x-slot:header>
 
-    @if(session('success'))
-        <div class="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-800 ring-1 ring-green-200" role="status" aria-live="polite">{{ session('success') }}</div>
-    @endif
+    @session('success')
+        <div class="mb-4 rounded-lg bg-green-50 p-4 text-sm text-green-800 ring-1 ring-green-200" role="status" aria-live="polite">{{ $value }}</div>
+    @endsession
 
     <div class="space-y-6">
         @if($event->imageUrl)

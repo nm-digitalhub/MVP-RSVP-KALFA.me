@@ -4,9 +4,9 @@
 <div class="min-h-screen bg-gray-50 py-12 px-4">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            @if(session('success'))
-                <div class="mb-4 rounded-md bg-green-50 p-4 text-sm text-green-800">{{ session('success') }}</div>
-            @endif
+            @session('success')
+                <div class="mb-4 rounded-md bg-green-50 p-4 text-sm text-green-800">{{ $value }}</div>
+            @endsession
             <h1 class="text-2xl font-semibold text-gray-900">{{ $organization->name }}</h1>
             <p class="mt-1 text-sm text-gray-500">{{ __('Dashboard') }}</p>
         </div>

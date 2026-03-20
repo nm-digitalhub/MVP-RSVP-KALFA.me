@@ -12,11 +12,11 @@
     <title>רכישת תוכנית — {{ config('app.name') }}</title>
     @vite(['resources/css/app.css'])
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-    @if(app()->environment('local', 'staging'))
+    @env(['local', 'staging'])
         <script src="https://app.sumit.co.il/scripts/payments.js" crossorigin="anonymous"></script>
     @else
         <script src="https://app.sumit.co.il/scripts/payments.js"></script>
-    @endif
+    @endenv
 </head>
 <body class="font-sans bg-surface min-h-screen flex items-start justify-center py-12 px-4">
 

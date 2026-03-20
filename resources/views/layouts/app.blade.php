@@ -10,9 +10,9 @@
 
     <meta name="color-scheme" content="light dark">
 
-    @if(session()->has('theme'))
-        <script>document.documentElement.setAttribute('data-theme', '{{ session('theme') }}');</script>
-    @endif
+    @session('theme')
+        <script>document.documentElement.setAttribute('data-theme', '{{ $value }}');</script>
+    @endsession
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -38,7 +38,7 @@
 
     <x-dynamic-navbar location="header" />
 
-    @if(session('passkey_upgrade'))
+    @session('passkey_upgrade')
         <div
             x-data="{ show: true }"
             x-show="show"
@@ -101,7 +101,7 @@
                 });
             });
         </script>
-    @endif
+    @endsession
 
     @isset($header)
         <div class="bg-white border-b border-gray-200">

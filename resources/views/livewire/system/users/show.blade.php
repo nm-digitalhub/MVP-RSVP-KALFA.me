@@ -15,11 +15,11 @@
         </div>
     </div>
 
-    @if (session()->has('success'))
+    @session('success')
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-            <span class="block sm:inline">{{ session('success') }}</span>
+            <span class="block sm:inline">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">

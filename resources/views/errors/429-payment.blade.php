@@ -49,7 +49,7 @@
 
                 <!-- Flowbite Accordion for Different Security Types -->
                 <div class="space-y-4 text-end">
-                    @if(isset($type))
+                    @isset($type)
                         @if($type === 'payment_security')
                             <!-- Payment Security Badge -->
                             <div class="flex items-start p-4 bg-orange-50 border border-orange-200 rounded-lg dark:bg-gray-700 dark:border-orange-500">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         @endif
-                    @endif
+                    @endisset
 
                     <!-- Security Confirmed Badge -->
                     <div class="flex items-start p-4 bg-green-50 border border-green-200 rounded-lg dark:bg-gray-700 dark:border-green-500">

@@ -27,17 +27,17 @@
                 class="group relative w-full flex items-center justify-center gap-3 py-4 px-6 bg-gray-900 text-white font-bold rounded-2xl hover:bg-brand active:scale-[0.98] transition-all duration-300 shadow-xl shadow-gray-900/20 hover:shadow-indigo-500/30 overflow-hidden cursor-pointer"
             >
                 <span class="relative z-10">
-                    @if(auth()->check())
+                    @auth
                         {{ __('Accept Invitation & Enter') }}
                     @else
                         {{ __('Create Account & Join') }}
-                    @endif
+                    @endauth
                 </span>
                 <x-heroicon-o-arrow-right class="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                 <div class="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
 
-            @if(!auth()->check())
+            @guest
                 <div class="relative">
                     <div class="absolute inset-0 flex items-center" aria-hidden="true">
                         <div class="w-full border-t border-gray-100"></div>
@@ -56,7 +56,7 @@
                         </a>
                     </p>
                 </div>
-            @endif
+            @endguest
         </div>
 
         <div class="mt-10 pt-8 border-t border-gray-100 text-center">

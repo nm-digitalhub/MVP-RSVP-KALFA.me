@@ -11,26 +11,26 @@
         </div>
     </div>
 
-    @if(session('error'))
+    @session('error')
         <div class="p-4 rounded-xl bg-red-50/90 border border-red-200/60 text-red-700 text-sm" role="alert">
             <div class="flex items-start gap-2">
                 <svg class="w-5 h-5 shrink-0 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 0L7 9m5 5v0M12 9v2m0 0L5 9m5 5v0"/>
                 </svg>
-                <span>{{ session('error') }}</span>
+                <span>{{ $value }}</span>
             </div>
         </div>
-    @endif
-    @if(session('success'))
+    @endsession
+    @session('success')
         <div class="p-4 rounded-xl bg-green-50/90 border border-green-200/60 text-green-800 text-sm" role="alert">
             <div class="flex items-start gap-2">
                 <svg class="w-5 h-5 shrink-0 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
-                <span>{{ session('success') }}</span>
+                <span>{{ $value }}</span>
             </div>
         </div>
-    @endif
+    @endsession
 
     @if($currentOrg = auth()->user()->currentOrganization)
         <div class="flex justify-between items-center p-4 bg-gradient-to-r from-indigo-50 to-white rounded-xl border border-indigo-100/50 shadow-sm" role="status" aria-live="polite">
