@@ -24,23 +24,23 @@ class ImpersonationExpiry
             return $next($request);
         }
 
-        if (! Session::has('impersonation.original_organization_id') || ! Session::has('impersonation.started_at')) {
+        if (! $request->session()->has('impersonation.original_organization_id') || ! $request->session()->has('impersonation.started_at')) {
             return $next($request);
         }
 
-        $startedAt = (int) Session::get('impersonation.started_at');
+        $startedAt = (int) $request->session()->get('impersonation.started_at');
         if (! $startedAt || (now()->timestamp - $startedAt) <= self::MAX_MINUTES * 60) {
             return $next($request);
         }
 
         $user = $request->user();
-        $originalOrgId = Session::pull('impersonation.original_organization_id');
-        Session::forget(['impersonation.started_at', 'impersonation.original_admin_id']);
+        $originalOrgId = $request->session()->pull('impersonation.original_organization_id');
+        $request->session()->forget(['impersonation.started_at', 'impersonation.original_admin_id']);
         $user->update(['current_organization_id' => $originalOrgId]);
         if ($originalOrgId !== null) {
-            Session::put('active_organization_id', $originalOrgId);
+            $request->session()->put('active_organization_id', $originalOrgId);
         } else {
-            Session::forget('active_organization_id');
+            $request->session()->forget('active_organization_id');
         }
 
         \App\Services\SystemAuditLogger::log(

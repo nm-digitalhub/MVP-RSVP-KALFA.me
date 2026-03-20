@@ -36,9 +36,9 @@ class SystemImpersonationExitController extends Controller
 
         $user->update(['current_organization_id' => $originalOrgId]);
         if ($originalOrgId !== null) {
-            Session::put('active_organization_id', $originalOrgId);
+            $request->session()->put('active_organization_id', $originalOrgId);
         } else {
-            Session::forget('active_organization_id');
+            $request->session()->forget('active_organization_id');
         }
 
         return redirect()->route('system.dashboard');

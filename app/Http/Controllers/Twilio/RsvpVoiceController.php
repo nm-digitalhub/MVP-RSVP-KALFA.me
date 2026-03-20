@@ -268,7 +268,7 @@ final class RsvpVoiceController extends Controller
                     'response' => $responseType,
                     'attendees_count' => $responseType === RsvpResponseType::Yes ? 1 : 0,
                     'message' => 'Twilio voice RSVP (DTMF)',
-                    'ip' => request()->ip(),
+                    'ip' => $request->ip(),
                     'user_agent' => 'Twilio-Voice',
                 ]
             );

@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
 
 class OrganizationSwitchController extends Controller
 {
-    public function __invoke(Organization $organization): RedirectResponse
+    public function __invoke(Request $request, Organization $organization): RedirectResponse
     {
         abort_unless(
-            auth()->user()->organizations->contains($organization),
+            $request->user()->organizations->contains($organization),
             403
         );
 
-        auth()->user()->update([
+        $request->user()->update([
             'current_organization_id' => $organization->id,
         ]);
 
