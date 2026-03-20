@@ -10,8 +10,6 @@ use App\Events\ProductEngineEvent;
 use App\Listeners\Billing\AuditBillingEvent;
 use App\Listeners\LogProductEngineEvent;
 use App\Listeners\StoreWebAuthnCredentialInSession;
-use App\Models\AccountProduct;
-use App\Observers\AccountProductObserver;
 use App\Services\Billing\SumitBillingProvider;
 use App\Services\FeatureResolver;
 use App\Services\ProductEngineOperationsMonitor;
@@ -131,8 +129,6 @@ class AppServiceProvider extends ServiceProvider
         if (! $this->isIsolatedMobileShellRequest()) {
             $this->configureScramble();
         }
-
-        AccountProduct::observe(AccountProductObserver::class);
 
         Event::listen(ProductEngineEvent::class, LogProductEngineEvent::class);
         Event::listen(CredentialAsserted::class, StoreWebAuthnCredentialInSession::class);

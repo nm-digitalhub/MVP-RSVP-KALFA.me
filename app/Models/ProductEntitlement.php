@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use App\Enums\EntitlementType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -54,12 +55,14 @@ class ProductEntitlement extends Model
         return $this->hasMany(AccountEntitlement::class, 'product_entitlement_id');
     }
 
-    public function scopeActive(Builder $query): Builder
+    #[Scope]
+    protected function active(Builder $query): Builder
     {
         return $query->where('is_active', true);
     }
 
-    public function scopeByType(Builder $query, EntitlementType $type): Builder
+    #[Scope]
+    protected function byType(Builder $query, EntitlementType $type): Builder
     {
         return $query->where('type', $type);
     }

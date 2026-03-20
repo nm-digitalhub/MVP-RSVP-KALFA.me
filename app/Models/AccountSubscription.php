@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use App\Enums\AccountSubscriptionStatus;
 use App\Services\FeatureResolver;
 use App\Services\SubscriptionService;
@@ -63,7 +64,8 @@ class AccountSubscription extends Model
         return $this->belongsTo(ProductPlan::class);
     }
 
-    public function scopeActive(Builder $query): Builder
+    #[Scope]
+    protected function active(Builder $query): Builder
     {
         return $query
             ->where('status', AccountSubscriptionStatus::Active->value)
