@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\UpdateSeatAssignmentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\SeatAssignment;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class SeatAssignmentController extends Controller
 {
@@ -30,16 +30,11 @@ class SeatAssignmentController extends Controller
      * Replaces or creates assignments for the given guests. Existing assignments not in the list are preserved.
      * Returns the full updated list.
      */
-    public function update(Request $request, Event $event): JsonResponse
+    public function update(UpdateSeatAssignmentRequest $request, Event $event): JsonResponse
     {
         $this->authorize('update', $event);
 
-        $validated = $request->validate([
-            'assignments' => ['required', 'array'],
-            'assignments.*.guest_id' => ['required', 'exists:guests,id'],
-            'assignments.*.event_table_id' => ['required', 'exists:event_tables,id'],
-            'assignments.*.seat_number' => ['nullable', 'string', 'max:50'],
-        ]);
+        $validated = $request->validated();
 
         foreach ($validated['assignments'] as $item) {
             SeatAssignment::updateOrCreate(

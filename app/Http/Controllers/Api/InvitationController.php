@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\StoreInvitationRequest;
 use App\Enums\InvitationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
@@ -32,13 +33,11 @@ class InvitationController extends Controller
      *
      * Optionally link to a guest via `guest_id`. Generates a unique RSVP slug automatically.
      */
-    public function store(Request $request, Event $event): JsonResponse
+    public function store(StoreInvitationRequest $request, Event $event): JsonResponse
     {
         $this->authorize('update', $event);
 
-        $validated = $request->validate([
-            'guest_id' => ['nullable', 'exists:guests,id'],
-        ]);
+        $validated = $request->validated();
 
         $invitation = $event->invitations()->create([
             'guest_id' => $validated['guest_id'] ?? null,
