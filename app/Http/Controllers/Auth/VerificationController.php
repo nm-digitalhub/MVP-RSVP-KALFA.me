@@ -28,6 +28,6 @@ class VerificationController extends Controller
 
         $request->user()->sendEmailVerificationNotification();
 
-        return back()->with('status', 'verification-link-sent');
+        return redirect()->back()->with('status', 'verification-link-sent');
     }
 }
