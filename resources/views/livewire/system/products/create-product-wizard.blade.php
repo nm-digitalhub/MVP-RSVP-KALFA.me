@@ -13,12 +13,12 @@
         @endif
     </div>
 
-    @if (session('success'))
+    @session('success')
         <div class="mb-6 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-4 text-sm text-emerald-800" role="alert">
             <x-heroicon-o-check-circle class="mt-0.5 size-5 shrink-0 text-emerald-600" />
-            <span class="font-semibold">{{ session('success') }}</span>
+            <span class="font-semibold">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
     <div class="mb-10 overflow-hidden rounded-[2rem] border border-white/70 bg-card/90 p-6 shadow-2xl shadow-slate-900/10 backdrop-blur xl:p-8">
         <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">

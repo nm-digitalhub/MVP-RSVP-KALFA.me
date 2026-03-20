@@ -26,12 +26,12 @@
         </div>
     </div>
 
-    @if(session('success'))
+    @session('success')
         <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-800 text-sm flex items-center gap-3 backdrop-blur-sm animate-in fade-in slide-in-from-top-4" role="alert">
             <x-heroicon-o-check-circle class="size-5 text-emerald-600" />
-            <span class="font-medium text-start">{{ session('success') }}</span>
+            <span class="font-medium text-start">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
     {{-- Stats Overview - Compact cards --}}
     <div class="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">

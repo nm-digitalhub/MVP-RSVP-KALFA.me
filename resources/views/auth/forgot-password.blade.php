@@ -29,7 +29,7 @@
                 @enderror
             </div>
 
-            @if(session('status'))
+            @session('status')
                 <div class="auth-status auth-status-success">
                     <div class="flex">
                         <div class="shrink-0">
@@ -39,12 +39,12 @@
                         </div>
                         <div class="me-3">
                             <p class="text-sm text-green-800">
-                                {{ session('status') }}
+                                {{ $value }}
                             </p>
                         </div>
                     </div>
                 </div>
-            @endif
+            @endsession
 
             <div>
                 <button type="submit" 

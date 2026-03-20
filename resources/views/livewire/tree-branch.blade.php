@@ -1,4 +1,4 @@
-<?php
+@php
 
 use Livewire\Component;
 
@@ -23,8 +23,8 @@ new class extends Component
 
     // כאן תוכל להוסיף פונקציות Livewire עתידיות, למשל:
     // public function loadMore() { ... }
-};
-?>
+}
+@endphp
 
 <li
     x-data="{ open: {{ $defaultOpen ? 'true' : 'false' }} }"

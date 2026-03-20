@@ -32,19 +32,19 @@
         </div>
     </div>
 
-    @if(session('success'))
+    @session('success')
         <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/60 text-emerald-800 text-sm flex items-center gap-3 backdrop-blur-sm animate-in fade-in slide-in-from-top-4" role="alert">
             <x-heroicon-o-check-circle class="size-5 text-emerald-600" />
-            <span class="font-medium text-start">{{ session('success') }}</span>
+            <span class="font-medium text-start">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
-    @if(session('error'))
+    @session('error')
         <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200/60 text-rose-800 text-sm flex items-center gap-3 backdrop-blur-sm animate-in fade-in slide-in-from-top-4" role="alert">
             <x-heroicon-o-exclamation-circle class="size-5 text-rose-600" />
-            <span class="font-medium text-start">{{ session('error') }}</span>
+            <span class="font-medium text-start">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
     {{-- Scoreboard Grid --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-start">

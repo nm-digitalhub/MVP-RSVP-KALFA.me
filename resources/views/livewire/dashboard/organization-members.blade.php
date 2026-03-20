@@ -13,23 +13,23 @@
         </div>
     </div>
 
-    @if(session('success'))
+    @session('success')
         <div class="mb-8 p-4 rounded-2xl bg-green-50/90 border border-green-200/60 text-green-800 text-sm flex items-center gap-3 backdrop-blur-sm" role="alert">
             <div class="shrink-0 w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
                 <x-heroicon-o-check-circle class="w-5 h-5 text-green-600" />
             </div>
-            <span class="font-medium">{{ session('success') }}</span>
+            <span class="font-medium">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
-    @if(session('error'))
+    @session('error')
         <div class="mb-8 p-4 rounded-2xl bg-red-50/90 border border-red-200/60 text-red-800 text-sm flex items-center gap-3 backdrop-blur-sm" role="alert">
             <div class="shrink-0 w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
                 <x-heroicon-o-exclamation-circle class="w-5 h-5 text-red-600" />
             </div>
-            <span class="font-medium">{{ session('error') }}</span>
+            <span class="font-medium">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-8 items-start">
         {{-- Invite Form Card --}}

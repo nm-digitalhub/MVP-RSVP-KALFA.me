@@ -14,11 +14,11 @@
     </div>
 
     {{-- Flash --}}
-    @if (session('success'))
+    @session('success')
         <div class="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-sm font-semibold text-emerald-700">
-            {{ session('success') }}
+            {{ $value }}
         </div>
-    @endif
+    @endsession
 
     {{-- Form card --}}
     <div class="rounded-3xl border border-stroke/80 bg-card p-6 shadow-xl xl:p-8">

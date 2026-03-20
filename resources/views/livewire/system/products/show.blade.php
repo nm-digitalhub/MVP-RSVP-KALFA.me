@@ -9,12 +9,12 @@
         </ol>
     </nav>
 
-    @if(session('success'))
+    @session('success')
         <div class="flex items-center gap-3 rounded-2xl border border-emerald-200/60 bg-emerald-50 p-4 text-sm text-emerald-800" role="alert">
             <x-heroicon-o-check-circle class="size-5 text-emerald-600" />
-            <span class="font-semibold">{{ session('success') }}</span>
+            <span class="font-semibold">{{ $value }}</span>
         </div>
-    @endif
+    @endsession
 
     <section class="overflow-hidden rounded-[2rem] border border-white/60 bg-card/90 shadow-2xl shadow-slate-900/10 backdrop-blur-2xl">
         <div class="bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.15),_transparent_35%),radial-gradient(circle_at_top_right,_rgba(16,185,129,0.12),_transparent_30%)] p-5 sm:p-8 lg:p-10">

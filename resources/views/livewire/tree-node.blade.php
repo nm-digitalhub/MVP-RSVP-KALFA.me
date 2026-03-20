@@ -1,4 +1,4 @@
-<?php
+@php
 
 use Livewire\Component;
 
@@ -94,7 +94,7 @@ public function requestToggle(): void
         $this->isActive = $isActive;
     }
 }
-?>
+@endphp
 
 @php
     $statusColor = match($status) {

@@ -68,13 +68,13 @@
                 @enderror
             </div>
 
-            @if(session('status'))
+            @session('status')
                 <div class="auth-status auth-status-success">
                     <div class="text-sm text-green-700">
-                        {{ session('status') }}
+                        {{ $value }}
                     </div>
                 </div>
-            @endif
+            @endsession
 
             <div class="flex items-center justify-between gap-4 flex-wrap">
                 <div class="flex items-center">
