@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class ProductEntitlement extends Model
 {
-    protected $table = 'product_entitlements';
 
     protected $fillable = [
         'product_id',
