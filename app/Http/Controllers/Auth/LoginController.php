@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -22,7 +23,7 @@ class LoginController extends Controller
     {
         $request->authenticate();
 
-        $user = Auth::user();
+        $user = $request->user();
 
         if ($user->is_disabled ?? false) {
             Auth::logout();
@@ -35,7 +36,7 @@ class LoginController extends Controller
         $request->session()->regenerate();
 
         if ($user->webAuthnCredentials()->count() === 0) {
-            session()->flash('passkey_upgrade', true);
+            $request->session()->flash('passkey_upgrade', true);
         }
 
         return redirect()->intended($this->redirectPath());

@@ -24,7 +24,7 @@ class SystemImpersonationController extends Controller
         $request->session()->put('impersonation.started_at', now()->timestamp);
 
         $user->update(['current_organization_id' => $organization->id]);
-        Session::put('active_organization_id', $organization->id);
+        $request->session()->put('active_organization_id', $organization->id);
 
         SystemAuditLogger::log(
             actor: $user,

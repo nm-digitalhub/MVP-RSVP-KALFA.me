@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\System;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\System\Accounts\StoreAccountPaymentMethodRequest;
 use App\Models\Account;
@@ -22,7 +23,7 @@ final class AccountPaymentMethodController extends Controller
         try {
             $token = $paymentMethodManager->storeSingleUseToken($account, $request->validated('og-token'));
 
-            SystemAuditLogger::log(auth()->user(), 'account.payment_method_added', $account, [
+            SystemAuditLogger::log($request->user(), 'account.payment_method_added', $account, [
                 'officeguy_token_id' => $token->id,
                 'last_four' => $token->last_four,
                 'card_type' => $token->card_type,
@@ -39,7 +40,7 @@ final class AccountPaymentMethodController extends Controller
         }
     }
 
-    public function setDefault(
+    public function setDefault(Request $request, 
         Account $account,
         OfficeGuyToken $paymentMethod,
         AccountPaymentMethodManager $paymentMethodManager,
@@ -47,7 +48,7 @@ final class AccountPaymentMethodController extends Controller
         try {
             $paymentMethodManager->setDefault($account, $paymentMethod);
 
-            SystemAuditLogger::log(auth()->user(), 'account.payment_method_default_updated', $account, [
+            SystemAuditLogger::log($request->user(), 'account.payment_method_default_updated', $account, [
                 'officeguy_token_id' => $paymentMethod->id,
                 'last_four' => $paymentMethod->last_four,
             ]);
@@ -62,7 +63,7 @@ final class AccountPaymentMethodController extends Controller
         }
     }
 
-    public function destroy(
+    public function destroy(Request $request, 
         Account $account,
         OfficeGuyToken $paymentMethod,
         AccountPaymentMethodManager $paymentMethodManager,
@@ -70,7 +71,7 @@ final class AccountPaymentMethodController extends Controller
         try {
             $paymentMethodManager->delete($account, $paymentMethod);
 
-            SystemAuditLogger::log(auth()->user(), 'account.payment_method_deleted', $account, [
+            SystemAuditLogger::log($request->user(), 'account.payment_method_deleted', $account, [
                 'officeguy_token_id' => $paymentMethod->id,
                 'last_four' => $paymentMethod->last_four,
             ]);

@@ -11,9 +11,9 @@ use Illuminate\View\View;
 
 class VerificationController extends Controller
 {
-    public function notice(): View|RedirectResponse
+    public function notice(Request $request): View|RedirectResponse
     {
-        if (request()->user()->hasVerifiedEmail()) {
+        if ($request->user()->hasVerifiedEmail()) {
             return redirect()->intended(route('dashboard'));
         }
 

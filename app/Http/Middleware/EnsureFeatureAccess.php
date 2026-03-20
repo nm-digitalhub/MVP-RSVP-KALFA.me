@@ -36,7 +36,7 @@ class EnsureFeatureAccess
         }
 
         // Impersonating admins bypass the feature gate for the org they are in.
-        if (session()->has('impersonation.original_organization_id')) {
+        if ($request->session()->has('impersonation.original_organization_id')) {
             return $next($request);
         }
 

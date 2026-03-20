@@ -39,7 +39,7 @@ class EnsureAccountActive
         }
 
         // Admin impersonating an org bypasses billing gate.
-        if (session()->has('impersonation.original_organization_id')) {
+        if ($request->session()->has('impersonation.original_organization_id')) {
             return $next($request);
         }
 
