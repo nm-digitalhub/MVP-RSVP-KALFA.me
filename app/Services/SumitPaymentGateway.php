@@ -131,6 +131,7 @@ final class SumitPaymentGateway implements PaymentGatewayInterface
         $transactionId = $payload['PaymentID'] ?? $payload['TransactionID'] ?? $payload['ID'] ?? $payload['id'] ?? $payload['gateway_transaction_id'] ?? null;
         if ($transactionId === null) {
             Log::warning('SumitPaymentGateway::handleWebhook missing transaction id', ['payload_keys' => array_keys($payload)]);
+
             return;
         }
 
@@ -142,6 +143,7 @@ final class SumitPaymentGateway implements PaymentGatewayInterface
 
         if ($payment === null) {
             Log::warning('SumitPaymentGateway::handleWebhook no matching payment', ['transaction_id' => $transactionId]);
+
             return;
         }
 
@@ -169,6 +171,7 @@ final class SumitPaymentGateway implements PaymentGatewayInterface
         }
         if (isset($payload['status'])) {
             $s = strtolower((string) $payload['status']);
+
             return in_array($s, ['succeeded', 'success', 'completed', 'paid'], true);
         }
         $payment = $payload['Payment'] ?? $payload['payment'] ?? null;

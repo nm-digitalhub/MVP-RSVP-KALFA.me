@@ -9,7 +9,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
-use Livewire\Attributes\On;
 
 class ProductTree extends Component
 {
