@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

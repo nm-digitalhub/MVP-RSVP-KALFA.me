@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Services\SystemAuditLogger;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class SystemImpersonationExitController extends Controller
 {

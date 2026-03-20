@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Gate;
 use App\Enums\EventStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreEventRequest;
@@ -13,6 +12,7 @@ use App\Models\Event;
 use App\Models\Organization;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {

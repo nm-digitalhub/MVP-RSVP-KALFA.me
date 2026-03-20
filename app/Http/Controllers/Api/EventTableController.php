@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\Api\UpdateEventTableRequest;
-use App\Http\Requests\Api\StoreEventTableRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\StoreEventTableRequest;
+use App\Http\Requests\Api\UpdateEventTableRequest;
 use App\Models\Event;
 use App\Models\EventTable;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 
 class EventTableController extends Controller
 {

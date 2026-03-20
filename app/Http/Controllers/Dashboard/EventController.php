@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Support\Facades\Gate;
 use App\Enums\EventStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\StoreEventRequest;
@@ -14,6 +13,7 @@ use App\Services\EventLinks;
 use App\Services\OrganizationContext;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

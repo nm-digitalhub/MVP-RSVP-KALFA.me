@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Organization;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class OrganizationSwitchController extends Controller
 {

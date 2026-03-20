@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Gate;
-use App\Http\Requests\Api\UpdateGuestRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreGuestRequest;
+use App\Http\Requests\Api\UpdateGuestRequest;
 use App\Models\Event;
 use App\Models\Guest;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Gate;
 
 class GuestController extends Controller
 {

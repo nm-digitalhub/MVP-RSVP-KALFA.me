@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests\Auth\StoreConfirmPasswordRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\StoreConfirmPasswordRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\System;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\System\Accounts\StoreAccountPaymentMethodRequest;
 use App\Models\Account;
 use App\Services\Sumit\AccountPaymentMethodManager;
 use App\Services\SystemAuditLogger;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyToken;
 
 final class AccountPaymentMethodController extends Controller
@@ -40,7 +40,7 @@ final class AccountPaymentMethodController extends Controller
         }
     }
 
-    public function setDefault(Request $request, 
+    public function setDefault(Request $request,
         Account $account,
         OfficeGuyToken $paymentMethod,
         AccountPaymentMethodManager $paymentMethodManager,
@@ -63,7 +63,7 @@ final class AccountPaymentMethodController extends Controller
         }
     }
 
-    public function destroy(Request $request, 
+    public function destroy(Request $request,
         Account $account,
         OfficeGuyToken $paymentMethod,
         AccountPaymentMethodManager $paymentMethodManager,
