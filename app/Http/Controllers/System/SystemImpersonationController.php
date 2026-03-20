@@ -7,7 +7,6 @@ use App\Models\Organization;
 use App\Services\SystemAuditLogger;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class SystemImpersonationController extends Controller
 {

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Scope;
-use App\Observers\AccountProductObserver;
-use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Enums\AccountProductStatus;
+use App\Observers\AccountProductObserver;
 use App\Services\FeatureResolver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

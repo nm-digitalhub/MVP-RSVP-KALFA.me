@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BillingWebhookEvent extends Model
 {
-
     protected $fillable = [
         'source',
         'event_type',

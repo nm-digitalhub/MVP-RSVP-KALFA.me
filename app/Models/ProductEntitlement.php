@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Attributes\Scope;
 use App\Enums\EntitlementType;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class ProductEntitlement extends Model
 {
-
     protected $fillable = [
         'product_id',
         'feature_key',

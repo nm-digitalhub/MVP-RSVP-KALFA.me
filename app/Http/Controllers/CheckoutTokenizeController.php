@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Gate;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\Plan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 /**

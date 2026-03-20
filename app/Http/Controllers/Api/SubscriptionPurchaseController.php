@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Support\Facades\Gate;
 use App\Enums\AccountSubscriptionStatus;
 use App\Enums\CouponTargetType;
 use App\Http\Controllers\Controller;
@@ -17,6 +16,7 @@ use App\Services\SubscriptionService;
 use App\Services\Sumit\AccountPaymentMethodManager;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 
 /**
