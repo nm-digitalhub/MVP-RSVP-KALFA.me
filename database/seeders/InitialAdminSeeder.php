@@ -21,6 +21,7 @@ class InitialAdminSeeder extends Seeder
                 ['Email'],
                 User::query()->pluck('email')->map(fn ($email) => [$email])->toArray()
             );
+
             return;
         }
 
@@ -35,6 +36,6 @@ class InitialAdminSeeder extends Seeder
 
         $this->command->info('Initial admin user created.');
         $this->command->warn('Login: admin@kalfa.me');
-        $this->command->warn('Password (change immediately after first login): ' . $password);
+        $this->command->warn('Password (change immediately after first login): '.$password);
     }
 }

@@ -51,14 +51,14 @@ final class BillingService
             ]);
 
             $result = $this->gateway->createOneTimePayment(
-            $event->organization_id,
-            $plan->price_cents,
-            [
-                'event_id' => $event->id,
-                'event_billing_id' => $eventBilling->id,
-                'payment_id' => $payment->id,
-            ]
-        );
+                $event->organization_id,
+                $plan->price_cents,
+                [
+                    'event_id' => $event->id,
+                    'event_billing_id' => $eventBilling->id,
+                    'payment_id' => $payment->id,
+                ]
+            );
 
             $payment->update([
                 'gateway_transaction_id' => $result['transaction_id'] ?? null,
@@ -121,6 +121,7 @@ final class BillingService
                     'gateway_response' => ['success' => true, 'transaction_id' => $result['transaction_id'] ?? null],
                     'status' => PaymentStatus::Processing,
                 ]);
+
                 return [
                     'status' => 'processing',
                     'payment_id' => $payment->id,
@@ -132,6 +133,7 @@ final class BillingService
                 'gateway_response' => ['success' => false, 'message' => $result['message'] ?? null],
                 'status' => PaymentStatus::Failed,
             ]);
+
             return [
                 'status' => 'failed',
                 'payment_id' => $payment->id,

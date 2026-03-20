@@ -114,7 +114,7 @@ final class EventBillingPayable implements Payable
 
     public function getOrderKey(): ?string
     {
-        return 'eb_' . $this->eventBilling->id . '_' . substr(md5((string) $this->eventBilling->updated_at?->timestamp), 0, 8);
+        return 'eb_'.$this->eventBilling->id.'_'.substr(md5((string) $this->eventBilling->updated_at?->timestamp), 0, 8);
     }
 
     public function getPayableType(): PayableType

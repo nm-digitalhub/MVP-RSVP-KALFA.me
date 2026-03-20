@@ -19,7 +19,7 @@ class CheckoutWorkflowSeeder extends Seeder
     {
         $user = User::where('email', 'test@example.com')->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->command->warn('Test user not found. Creating test user first...');
             $user = User::factory()->create([
                 'name' => 'Test User',
@@ -69,6 +69,6 @@ class CheckoutWorkflowSeeder extends Seeder
             ]);
         }
 
-        $this->command->info('Created ' . count($products) . ' cart items for test user');
+        $this->command->info('Created '.count($products).' cart items for test user');
     }
 }
