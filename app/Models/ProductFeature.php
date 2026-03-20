@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,7 +38,8 @@ class ProductFeature extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function scopeEnabled(Builder $query): Builder
+    #[Scope]
+    protected function enabled(Builder $query): Builder
     {
         return $query->where('is_enabled', true);
     }

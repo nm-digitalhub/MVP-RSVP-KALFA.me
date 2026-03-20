@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use App\Enums\ProductStatus;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -86,17 +87,20 @@ class Product extends Model
         return $this->hasMany(UsageRecord::class, 'product_id');
     }
 
-    public function scopeActive(Builder $query): Builder
+    #[Scope]
+    protected function active(Builder $query): Builder
     {
         return $query->where('status', ProductStatus::Active);
     }
 
-    public function scopeDraft(Builder $query): Builder
+    #[Scope]
+    protected function draft(Builder $query): Builder
     {
         return $query->where('status', ProductStatus::Draft);
     }
 
-    public function scopeByCategory(Builder $query, ?string $category): Builder
+    #[Scope]
+    protected function byCategory(Builder $query, ?string $category): Builder
     {
         if ($category === null) {
             return $query;

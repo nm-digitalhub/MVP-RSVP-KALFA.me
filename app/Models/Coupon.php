@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use App\Enums\CouponDiscountType;
 use App\Enums\CouponTargetType;
 use Illuminate\Database\Eloquent\Builder;
@@ -60,7 +61,8 @@ final class Coupon extends Model
     }
 
     /** Scope to only active, non-expired coupons. */
-    public function scopeActive(Builder $query): void
+    #[Scope]
+    protected function active(Builder $query): void
     {
         $query->where('is_active', true)
             ->where(function (Builder $q): void {

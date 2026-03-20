@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use App\Observers\AccountProductObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use App\Enums\AccountProductStatus;
 use App\Services\FeatureResolver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy([AccountProductObserver::class])]
 class AccountProduct extends Model
 {
     protected $fillable = [
@@ -66,7 +70,8 @@ class AccountProduct extends Model
         return $this->belongsTo(User::class, 'granted_by');
     }
 
-    public function scopeActive(Builder $query): Builder
+    #[Scope]
+    protected function active(Builder $query): Builder
     {
         return $query
             ->where('status', AccountProductStatus::Active->value)
