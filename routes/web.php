@@ -90,9 +90,7 @@ Route::get('/', function () {
     return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login');
 })->name('home');
 
-Route::get('/mobile', function () {
-    return view('mobile.shell');
-})->name('mobile.entry');
+Route::view('/mobile', 'mobile.shell')->name('mobile.entry');
 
 Route::controller(MobileSecureStorageSessionController::class)->prefix('mobile/session')->middleware(['throttle:mobile_session'])->group(function () {
     Route::get('/', 'show')->name('mobile.session.status');
