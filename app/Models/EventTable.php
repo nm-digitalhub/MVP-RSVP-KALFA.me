@@ -13,8 +13,6 @@ class EventTable extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'event_tables';
-
     protected $fillable = [
         'event_id',
         'name',

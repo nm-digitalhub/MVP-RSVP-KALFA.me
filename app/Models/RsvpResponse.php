@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RsvpResponse extends Model
 {
-    protected $table = 'rsvp_responses';
 
     protected $fillable = [
         'invitation_id',
