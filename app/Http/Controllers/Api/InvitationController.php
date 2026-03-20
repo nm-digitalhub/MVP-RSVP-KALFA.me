@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Api\StoreInvitationRequest;
 use App\Enums\InvitationStatus;
 use App\Http\Controllers\Controller;
@@ -21,7 +22,7 @@ class InvitationController extends Controller
      */
     public function index(Event $event): JsonResponse
     {
-        $this->authorize('view', $event);
+        Gate::authorize('view', $event);
 
         $invitations = $event->invitations()->with('guest')->get();
 
@@ -35,7 +36,7 @@ class InvitationController extends Controller
      */
     public function store(StoreInvitationRequest $request, Event $event): JsonResponse
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         $validated = $request->validated();
 
@@ -56,7 +57,7 @@ class InvitationController extends Controller
      */
     public function send(Request $request, Event $event, Invitation $invitation, WhatsAppRsvpService $whatsAppRsvp): JsonResponse
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         if ($invitation->event_id !== $event->id) {
             abort(404);

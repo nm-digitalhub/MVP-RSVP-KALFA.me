@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Api\UpdateSeatAssignmentRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
@@ -17,7 +18,7 @@ class SeatAssignmentController extends Controller
      */
     public function index(Event $event): JsonResponse
     {
-        $this->authorize('view', $event);
+        Gate::authorize('view', $event);
 
         $assignments = $event->seatAssignments()->with(['guest', 'eventTable'])->get();
 
@@ -32,7 +33,7 @@ class SeatAssignmentController extends Controller
      */
     public function update(UpdateSeatAssignmentRequest $request, Event $event): JsonResponse
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         $validated = $request->validated();
 

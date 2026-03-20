@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dashboard;
 
+use Illuminate\Support\Facades\Gate;
 use App\Enums\EventStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\StoreEventRequest;
@@ -32,7 +33,7 @@ class EventController extends Controller
         }
 
         try {
-            $this->authorize('create', [Event::class, $organization->id]);
+            Gate::authorize('create', [Event::class, $organization->id]);
         } catch (AuthorizationException) {
             return redirect()->route('billing.account')
                 ->with('warning', __('billing.event_creation_requires_account'));
@@ -51,7 +52,7 @@ class EventController extends Controller
         }
 
         try {
-            $this->authorize('create', [Event::class, $organization->id]);
+            Gate::authorize('create', [Event::class, $organization->id]);
         } catch (AuthorizationException) {
             return redirect()->route('billing.account')
                 ->with('warning', __('billing.event_creation_requires_account'));
@@ -109,7 +110,7 @@ class EventController extends Controller
 
     public function show(Event $event): View
     {
-        $this->authorize('view', $event);
+        Gate::authorize('view', $event);
 
         $event->load(['guests', 'eventTables', 'invitations', 'eventBilling', 'organization', 'seatAssignments']);
 
@@ -121,7 +122,7 @@ class EventController extends Controller
 
     public function edit(Event $event): View
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         return view('dashboard.events.edit', [
             'event' => $event,
@@ -130,7 +131,7 @@ class EventController extends Controller
 
     public function update(UpdateEventRequest $request, Event $event): RedirectResponse
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         $validated = $request->validated();
         $settings = $event->settings ?? [];
@@ -178,7 +179,7 @@ class EventController extends Controller
 
     public function destroy(Event $event): RedirectResponse
     {
-        $this->authorize('delete', $event);
+        Gate::authorize('delete', $event);
 
         $event->delete();
 

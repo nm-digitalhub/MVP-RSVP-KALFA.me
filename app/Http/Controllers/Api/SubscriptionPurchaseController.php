@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Gate;
 use App\Enums\AccountSubscriptionStatus;
 use App\Enums\CouponTargetType;
 use App\Http\Controllers\Controller;
@@ -41,7 +42,7 @@ final class SubscriptionPurchaseController extends Controller
             return response()->json(['success' => false, 'message' => 'No active organization.'], 403);
         }
 
-        $this->authorize('update', $organization);
+        Gate::authorize('update', $organization);
 
         $plan = ProductPlan::with(['activePrices', 'product'])
             ->where('is_active', true)

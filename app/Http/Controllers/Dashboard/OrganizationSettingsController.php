@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dashboard;
 
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\Dashboard\UpdateOrganizationSettingRequest;
 use App\Http\Controllers\Controller;
 use App\Services\OrganizationContext;
@@ -22,7 +23,7 @@ class OrganizationSettingsController extends Controller
         if ($organization === null) {
             return redirect()->route('organizations.index');
         }
-        $this->authorize('update', $organization);
+        Gate::authorize('update', $organization);
 
         return view('dashboard.organizations.edit', [
             'organization' => $organization,
@@ -35,7 +36,7 @@ class OrganizationSettingsController extends Controller
         if ($organization === null) {
             return redirect()->route('organizations.index');
         }
-        $this->authorize('update', $organization);
+        Gate::authorize('update', $organization);
 
         $validated = $request->validated();
 

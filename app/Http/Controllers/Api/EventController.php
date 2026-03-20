@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Support\Facades\Gate;
 use App\Enums\EventStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreEventRequest;
@@ -23,7 +24,7 @@ class EventController extends Controller
      */
     public function index(Request $request, Organization $organization): JsonResponse
     {
-        $this->authorize('viewAny', [Event::class, $organization->id]);
+        Gate::authorize('viewAny', [Event::class, $organization->id]);
 
         $events = Event::where('organization_id', $organization->id)
             ->when($request->query('status'), fn ($q, $v) => $q->where('status', $v))
@@ -40,7 +41,7 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request, Organization $organization): JsonResponse
     {
-        $this->authorize('create', [Event::class, $organization->id]);
+        Gate::authorize('create', [Event::class, $organization->id]);
 
         $event = Event::create(array_merge($request->validated(), [
             'organization_id' => $organization->id,
@@ -55,7 +56,7 @@ class EventController extends Controller
      */
     public function show(Event $event): JsonResponse
     {
-        $this->authorize('view', $event);
+        Gate::authorize('view', $event);
 
         $event->load(['guests', 'eventTables', 'invitations', 'eventBilling']);
 
@@ -67,7 +68,7 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event): JsonResponse
     {
-        $this->authorize('update', $event);
+        Gate::authorize('update', $event);
 
         $event->update($request->validated());
 
@@ -79,7 +80,7 @@ class EventController extends Controller
      */
     public function destroy(Event $event): JsonResponse
     {
-        $this->authorize('delete', $event);
+        Gate::authorize('delete', $event);
 
         $event->delete();
 
