@@ -11,7 +11,7 @@ class UpdateSeatAssignmentRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'assignments' => ['required', 'array'], 'assignments.*.guest_id' => ['required', 'exists:guests,id'], 'assignments.*.event_table_id' => ['required', 'exists:event_tables,id'], 'assignments.*.seat_number' => ['nullable', 'string', 'max:50'],
