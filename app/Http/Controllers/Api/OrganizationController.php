@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\UpdateOrganizationRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use Illuminate\Http\JsonResponse;
@@ -24,15 +25,11 @@ class OrganizationController extends Controller
     /**
      * Update organization details. Requires Owner or Admin role.
      */
-    public function update(Request $request, Organization $organization): JsonResponse
+    public function update(UpdateOrganizationRequest $request, Organization $organization): JsonResponse
     {
         $this->authorize('update', $organization);
 
-        $validated = $request->validate([
-            'name' => ['sometimes', 'string', 'max:255'],
-            'billing_email' => ['nullable', 'email'],
-            'settings' => ['nullable', 'array'],
-        ]);
+        $validated = $request->validated();
 
         $organization->update($validated);
 

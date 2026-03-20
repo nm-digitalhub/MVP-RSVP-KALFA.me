@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\CouponValidationRequest;
 use App\Enums\CouponTargetType;
 use App\Http\Controllers\Controller;
 use App\Services\CouponService;
 use App\Services\OrganizationContext;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use InvalidArgumentException;
 
 /**
@@ -25,13 +25,8 @@ final class CouponValidationController extends Controller
         private readonly OrganizationContext $context,
     ) {}
 
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(CouponValidationRequest $request): JsonResponse
     {
-        $request->validate([
-            'code' => ['required', 'string', 'max:64'],
-            'plan_id' => ['nullable', 'integer', 'exists:product_plans,id'],
-            'amount_minor' => ['required', 'integer', 'min:0'], // charge amount in agorot
-        ]);
 
         $organization = $this->context->current();
 

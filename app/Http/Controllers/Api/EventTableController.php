@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\UpdateEventTableRequest;
+use App\Http\Requests\Api\StoreEventTableRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\EventTable;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class EventTableController extends Controller
 {
@@ -27,15 +28,11 @@ class EventTableController extends Controller
     /**
      * Create a new seating table/area for an event.
      */
-    public function store(Request $request, Event $event): JsonResponse
+    public function store(StoreEventTableRequest $request, Event $event): JsonResponse
     {
         $this->authorize('update', $event);
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'capacity' => ['nullable', 'integer', 'min:0'],
-            'sort_order' => ['nullable', 'integer', 'min:0'],
-        ]);
+        $validated = $request->validated();
 
         $table = $event->eventTables()->create($validated);
 
@@ -55,15 +52,11 @@ class EventTableController extends Controller
     /**
      * Update a seating table's name, capacity, or sort order.
      */
-    public function update(Request $request, EventTable $eventTable): JsonResponse
+    public function update(UpdateEventTableRequest $request, EventTable $eventTable): JsonResponse
     {
         $this->authorize('update', $eventTable->event);
 
-        $validated = $request->validate([
-            'name' => ['sometimes', 'string', 'max:255'],
-            'capacity' => ['nullable', 'integer', 'min:0'],
-            'sort_order' => ['nullable', 'integer', 'min:0'],
-        ]);
+        $validated = $request->validated();
 
         $eventTable->update($validated);
 

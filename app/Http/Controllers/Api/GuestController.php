@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Api\UpdateGuestRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreGuestRequest;
 use App\Models\Event;
 use App\Models\Guest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class GuestController extends Controller
 {
@@ -50,18 +50,11 @@ class GuestController extends Controller
     /**
      * Update a guest. All fields are optional (PATCH semantics).
      */
-    public function update(Request $request, Guest $guest): JsonResponse
+    public function update(UpdateGuestRequest $request, Guest $guest): JsonResponse
     {
         $this->authorize('update', $guest);
 
-        $validated = $request->validate([
-            'name' => ['sometimes', 'string', 'max:255'],
-            'email' => ['nullable', 'email'],
-            'phone' => ['nullable', 'string', 'max:50'],
-            'group_name' => ['nullable', 'string', 'max:255'],
-            'notes' => ['nullable', 'string'],
-            'sort_order' => ['nullable', 'integer', 'min:0'],
-        ]);
+        $validated = $request->validated();
 
         $guest->update($validated);
 

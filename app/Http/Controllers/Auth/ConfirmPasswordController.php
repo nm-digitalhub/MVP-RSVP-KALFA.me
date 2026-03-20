@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\Auth\StoreConfirmPasswordRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ConfirmPasswordController extends Controller
@@ -16,9 +16,8 @@ class ConfirmPasswordController extends Controller
         return view('auth.confirm-password');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreConfirmPasswordRequest $request): RedirectResponse
     {
-        $request->validate(['password' => ['required', 'current_password']]);
 
         $request->session()->passwordConfirmed();
 

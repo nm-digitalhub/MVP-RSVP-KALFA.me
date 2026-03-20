@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\Dashboard\UpdateOrganizationSettingRequest;
 use App\Http\Controllers\Controller;
 use App\Services\OrganizationContext;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class OrganizationSettingsController extends Controller
@@ -29,7 +29,7 @@ class OrganizationSettingsController extends Controller
         ]);
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(UpdateOrganizationSettingRequest $request): RedirectResponse
     {
         $organization = $this->context->current();
         if ($organization === null) {
@@ -37,10 +37,7 @@ class OrganizationSettingsController extends Controller
         }
         $this->authorize('update', $organization);
 
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'billing_email' => ['nullable', 'email'],
-        ]);
+        $validated = $request->validated();
 
         $organization->update($validated);
 
