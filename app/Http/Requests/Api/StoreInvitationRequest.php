@@ -11,7 +11,7 @@ class StoreInvitationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'guest_id' => ['nullable', 'exists:guests,id'],

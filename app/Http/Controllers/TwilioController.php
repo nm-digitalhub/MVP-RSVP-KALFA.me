@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 
 class TwilioController extends Controller
 {
-    public function callComes(Request $request)
+    public function callComes(Request $request): Response
     {
         $sipUser = 'MVP-RSVP-KALFA';
 
