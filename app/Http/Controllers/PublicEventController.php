@@ -17,6 +17,10 @@ class PublicEventController extends Controller
     {
         $event = Event::where('slug', $slug)->firstOrFail();
 
+        if ($event->ensureAccessibleStatus()) {
+            $event->refresh();
+        }
+
         if ($event->status !== EventStatus::Active) {
             abort(404, 'Event not available.');
         }

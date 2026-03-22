@@ -1,18 +1,18 @@
 <x-mail::message>
-# {{ __('Hello!') }}
+# שלום!
 
-{{ __('You have been invited to join the organization **:organization** as an **:role**.', ['organization' => $invitation->organization->name, 'role' => $invitation->role->value]) }}
+הוזמנת להצטרף לארגון **{{ $invitation->organization->name }}** בתפקיד **{{ $invitation->role->value }}**.
 
-{{ __('Click the button below to accept the invitation and join the team.') }}
+לחץ על הכפתור למטה כדי לקבל את ההזמנה ולהצטרף לצוות.
 
 <x-mail::button :url="$acceptUrl">
-{{ __('Accept Invitation') }}
+קבל הזמנה
 </x-mail::button>
 
-{{ __('This invitation will expire on :date.', ['date' => $invitation->expires_at->format('Y-m-d H:i')]) }}
+ההזמנה הזו תפוג בתאריך {{ $invitation->expires_at->format('Y-m-d H:i') }}.
 
-{{ __('If you did not expect this invitation, you can safely ignore this email.') }}
+אם לא ציפית להזמנה הזו, ניתן להתעלם ממנה בבטחה.
 
-{{ __('Thanks,') }}<br>
+תודה,<br>
 {{ config('app.name') }}
 </x-mail::message>

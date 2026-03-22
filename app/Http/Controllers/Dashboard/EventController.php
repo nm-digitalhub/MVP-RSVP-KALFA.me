@@ -11,7 +11,6 @@ use App\Http\Requests\Dashboard\UpdateEventRequest;
 use App\Models\Event;
 use App\Services\EventLinks;
 use App\Services\OrganizationContext;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -32,12 +31,7 @@ class EventController extends Controller
             return redirect()->route('organizations.index');
         }
 
-        try {
-            Gate::authorize('create', [Event::class, $organization->id]);
-        } catch (AuthorizationException) {
-            return redirect()->route('billing.account')
-                ->with('warning', __('billing.event_creation_requires_account'));
-        }
+        Gate::authorize('create', [Event::class, $organization->id]);
 
         return view('dashboard.events.create', [
             'organization' => $organization,
@@ -51,12 +45,7 @@ class EventController extends Controller
             return redirect()->route('organizations.index');
         }
 
-        try {
-            Gate::authorize('create', [Event::class, $organization->id]);
-        } catch (AuthorizationException) {
-            return redirect()->route('billing.account')
-                ->with('warning', __('billing.event_creation_requires_account'));
-        }
+        Gate::authorize('create', [Event::class, $organization->id]);
 
         $validated = $request->validated();
         $settings = [];
@@ -88,11 +77,11 @@ class EventController extends Controller
         $event = Event::create([
             'organization_id' => $organization->id,
             'name' => $validated['name'],
-            'slug' => $validated['slug'],
+            'slug' => Event::generateUniqueSlug($organization->id, $validated['name']),
             'event_date' => isset($validated['event_date']) ? $validated['event_date'] : null,
             'venue_name' => $validated['venue_name'] ?? null,
             'settings' => $settings,
-            'status' => EventStatus::Draft,
+            'status' => $organization->account?->hasBillingAccess() ? EventStatus::Active : EventStatus::Draft,
         ]);
 
         if ($request->filled('cropped_image')) {
@@ -112,7 +101,11 @@ class EventController extends Controller
     {
         Gate::authorize('view', $event);
 
-        $event->load(['guests', 'eventTables', 'invitations', 'eventBilling', 'organization', 'seatAssignments']);
+        if ($event->ensureAccessibleStatus()) {
+            $event->refresh();
+        }
+
+        $event->load(['guests', 'eventTables', 'invitations', 'eventBilling', 'organization.account', 'seatAssignments']);
 
         return view('dashboard.events.show', [
             'event' => $event,

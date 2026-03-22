@@ -101,6 +101,8 @@
             <h2 id="payment-heading" class="text-lg font-medium text-gray-900 mb-3">{{ __('Payment') }}</h2>
             @if($event->eventBilling && $event->eventBilling->status?->value === 'paid')
                 <p class="text-sm text-gray-600 leading-relaxed">{{ __('This event has been paid.') }}</p>
+            @elseif(! $event->requiresPerEventPayment())
+                <p class="text-sm text-gray-600 leading-relaxed">{{ __('This event is covered by your active plan.') }}</p>
             @elseif($event->status->value === 'draft' || $event->status->value === 'pending_payment')
                 @can('initiatePayment', $event)
                     <a href="{{ route('checkout.tokenize', [$event->organization, $event]) }}" class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-brand hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Proceed to payment') }}</a>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Services\OrganizationMemberService;
 use Closure;
 use Illuminate\Http\Request;
 use Spatie\Permission\PermissionRegistrar;
@@ -16,6 +17,14 @@ class SpatiePermissionTeam
         if ($user = $request->user()) {
             if ($orgId = $user->current_organization_id) {
                 app(PermissionRegistrar::class)->setPermissionsTeamId($orgId);
+
+                $organization = $user->organizations()
+                    ->where('organizations.id', $orgId)
+                    ->first();
+
+                if ($organization !== null) {
+                    app(OrganizationMemberService::class)->ensureSpatieRole($organization, $user);
+                }
             }
         }
 

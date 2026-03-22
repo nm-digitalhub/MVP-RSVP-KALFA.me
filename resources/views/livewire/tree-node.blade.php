@@ -220,6 +220,14 @@ new class extends Component
             </div>
 
             <div class="hidden items-center rounded-xl border border-slate-200/90 bg-slate-50/90 p-1 shadow-xs md:flex md:opacity-0 md:transition-all md:group-hover:opacity-100 md:group-focus-within:opacity-100">
+                @if ($type === 'plan')
+                    <button type="button" wire:click="$dispatch('tree:open-add-price', { planId: {{ $nodeId }} })" class="inline-flex min-h-8 min-w-8 items-center justify-center rounded-lg text-brand transition hover:bg-white hover:text-brand">
+                        <x-heroicon-o-currency-dollar class="size-4" />
+                    </button>
+
+                    <span class="h-5 w-px bg-slate-200"></span>
+                @endif
+
                 <button type="button" wire:click="requestEdit" class="inline-flex min-h-8 min-w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-white hover:text-slate-700">
                     <x-heroicon-o-pencil class="size-4" />
                 </button>
@@ -243,7 +251,14 @@ new class extends Component
                 </summary>
 
                 <div class="pt-3">
-                    <div class="grid grid-cols-3 gap-2">
+                    <div class="grid grid-cols-{{ $type === 'plan' ? 4 : 3 }} gap-2">
+                        @if ($type === 'plan')
+                            <button type="button" wire:click="$dispatch('tree:open-add-price', { planId: {{ $nodeId }} })" class="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-md border border-brand/20 bg-brand/5 px-2.5 py-2 text-xs font-medium text-brand">
+                                <x-heroicon-o-currency-dollar class="size-4" />
+                                <span>{{ __('Price') }}</span>
+                            </button>
+                        @endif
+
                         <button type="button" wire:click="requestEdit" class="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-md border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-700">
                             <x-heroicon-o-pencil class="size-4" />
                             <span>{{ __('Edit') }}</span>

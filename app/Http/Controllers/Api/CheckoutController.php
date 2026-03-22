@@ -31,6 +31,12 @@ class CheckoutController extends Controller
     {
         Gate::authorize('initiatePayment', $event);
 
+        if (! $event->requiresPerEventPayment()) {
+            return response()->json([
+                'message' => __('This event is already covered by your active plan.'),
+            ], 409);
+        }
+
         $plan = Plan::findOrFail($request->validated('plan_id'));
         $token = $request->validated('token');
 

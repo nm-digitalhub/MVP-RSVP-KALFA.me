@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\EnsureAccountActive;
 use App\Http\Middleware\EnsureOrganizationSelected;
 use App\Http\Middleware\EnsureSystemAdmin;
 use App\Http\Middleware\ImpersonationExpiry;
@@ -30,6 +31,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'abilities' => CheckAbilities::class,
             'ability' => CheckForAnyAbility::class,
+            'ensure.account_active' => EnsureAccountActive::class,
             'ensure.organization' => EnsureOrganizationSelected::class,
             'system.admin' => EnsureSystemAdmin::class,
             'require.impersonation' => RequireImpersonationForSystemAdmin::class,

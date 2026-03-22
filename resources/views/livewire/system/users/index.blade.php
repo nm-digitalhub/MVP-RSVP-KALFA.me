@@ -3,11 +3,11 @@
         <form wire:submit.prevent class="flex flex-wrap items-end gap-3">
             <div>
                 <label class="block text-xs font-medium text-gray-500">{{ __('Search') }}</label>
-                <input type="text" wire:model.live.debounce.300ms="search" class="mt-1 block rounded-md border border-gray-300 px-2 py-1.5 text-sm" placeholder="{{ __('Name or email') }}" />
+                <input type="text" wire:model.live.debounce.300ms="search" class="input-base mt-1 w-full sm:min-w-[14rem] sm:w-auto" placeholder="{{ __('Name or email') }}" />
             </div>
             <div>
                 <label class="block text-xs font-medium text-gray-500">{{ __('System admin') }}</label>
-                <select wire:model.live="filter_system_admin" class="mt-1 block rounded-md border border-gray-300 px-2 py-1.5 text-sm">
+                <select wire:model.live="filter_system_admin" class="input-base mt-1 w-full sm:min-w-[10rem] sm:w-auto">
                     <option value="">{{ __('Any') }}</option>
                     <option value="1">{{ __('Yes') }}</option>
                     <option value="0">{{ __('No') }}</option>
@@ -15,14 +15,14 @@
             </div>
             <div>
                 <label class="block text-xs font-medium text-gray-500">{{ __('No organization') }}</label>
-                <select wire:model.live="filter_no_organization" class="mt-1 block rounded-md border border-gray-300 px-2 py-1.5 text-sm">
+                <select wire:model.live="filter_no_organization" class="input-base mt-1 w-full sm:min-w-[10rem] sm:w-auto">
                     <option value="">{{ __('Any') }}</option>
                     <option value="1">{{ __('Yes') }}</option>
                 </select>
             </div>
             <div>
                 <label class="block text-xs font-medium text-gray-500">{{ __('Recent') }}</label>
-                <select wire:model.live="filter_recent" class="mt-1 block rounded-md border border-gray-300 px-2 py-1.5 text-sm">
+                <select wire:model.live="filter_recent" class="input-base mt-1 w-full sm:min-w-[10rem] sm:w-auto">
                     <option value="">{{ __('Any') }}</option>
                     <option value="7">{{ __('Last 7 days') }}</option>
                     <option value="30">{{ __('Last 30 days') }}</option>
@@ -30,7 +30,7 @@
             </div>
             <div>
                 <label class="block text-xs font-medium text-gray-500">{{ __('Disabled') }}</label>
-                <select wire:model.live="filter_suspended" class="mt-1 block rounded-md border border-gray-300 px-2 py-1.5 text-sm">
+                <select wire:model.live="filter_suspended" class="input-base mt-1 w-full sm:min-w-[10rem] sm:w-auto">
                     <option value="">{{ __('Any') }}</option>
                     <option value="1">{{ __('Yes') }}</option>
                     <option value="0">{{ __('No') }}</option>

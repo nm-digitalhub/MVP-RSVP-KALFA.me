@@ -1,108 +1,161 @@
 <div>
     @if($organization)
-        <div class="mb-8 flex flex-col gap-4 rounded-[2rem] border border-gray-200/70 bg-white/95 p-6 shadow-lg shadow-gray-900/5 backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
+        {{-- Organization Header --}}
+        <div class="card card-elevated mb-8 p-6 lg:flex-row lg:items-center lg:justify-between">
             <div class="flex items-center gap-4">
-                <div class="flex size-14 items-center justify-center rounded-3xl bg-brand/5 ring-1 ring-brand/10">
+                <div class="flex size-14 items-center justify-center rounded-2xl bg-brand/5 ring-1 ring-brand/10 transition-all duration-200 hover:bg-brand/10">
                     <x-kalfa-app-icon class="h-9 w-9" alt="" />
                 </div>
                 <div class="space-y-2">
                     <x-kalfa-wordmark class="justify-start" />
-                    <p class="text-sm text-gray-500">{{ __('Your event workspace for :organization.', ['organization' => $organization->name]) }}</p>
+                    <p class="text-sm text-content-muted">{{ __('Your event workspace for :organization.', ['organization' => $organization->name]) }}</p>
                 </div>
             </div>
         </div>
 
         {{-- SaaS metric cards --}}
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">{{ __('Total Events') }}</p>
-                <p class="mt-1 text-2xl font-semibold text-gray-900">{{ $totalEvents ?? 0 }}</p>
-            </div>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">{{ __('Total Guests') }}</p>
-                <p class="mt-1 text-2xl font-semibold text-gray-900">{{ $totalGuests ?? 0 }}</p>
-            </div>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">{{ __('Upcoming Event') }}</p>
-                <p class="mt-1 text-lg font-semibold text-gray-900">
-                    @if($upcomingEvent ?? null)
-                        {{ $upcomingEvent->name }}
-                        <span class="block text-sm font-normal text-gray-500">{{ $upcomingEvent->event_date?->format('d.m.Y') }}</span>
-                    @else
-                        <span class="text-gray-500">{{ __('None scheduled') }}</span>
-                    @endif
-                </p>
-            </div>
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">{{ __('Organization') }}</p>
-                <p class="mt-1">
-                    @if($organizationStatusBadge ?? null)
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">{{ __('Active') }}</span>
-                    @else
-                        <span class="text-gray-500">—</span>
-                    @endif
-                </p>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <x-metric-card
+                :title="__('Total Events')"
+                :value="$totalEvents ?? 0"
+            >
+                <x-slot:icon>
+                    <x-kalfa-app-icon class="h-6 w-6 text-brand" />
+                </x-slot:icon>
+            </x-metric-card>
+
+            <x-metric-card
+                :title="__('Total Guests')"
+                :value="$totalGuests ?? 0"
+            >
+                <x-slot:icon>
+                    <svg class="h-6 w-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                </x-slot:icon>
+            </x-metric-card>
+
+            <x-metric-card
+                :title="__('Upcoming Event')"
+                :value="$upcomingEvent?->name ?? __('None scheduled')"
+                :change="$upcomingEvent?->event_date?->format('d.m.Y')"
+                trend="neutral"
+            >
+                <x-slot:icon>
+                    <svg class="h-6 w-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                </x-slot:icon>
+            </x-metric-card>
+
+            <x-metric-card
+                :title="__('Organization')"
+                :value="__('Active')"
+            >
+                <x-slot:icon>
+                    <svg class="h-6 w-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                </x-slot:icon>
+            </x-metric-card>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-            <div class="px-4 py-4 sm:px-6 border-b border-gray-200 flex justify-between items-center">
-                <h2 class="text-lg font-medium text-gray-900">{{ __('Events') }}</h2>
-                <a href="{{ route('dashboard.events.create') }}" class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-brand hover:bg-brand-hover focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 transition-colors duration-200 cursor-pointer">{{ __('Create event') }}</a>
+        {{-- Events Table --}}
+        <div class="card overflow-hidden">
+            <div class="border-b border-stroke px-6 py-4 flex justify-between items-center">
+                <h2 class="text-lg font-semibold text-content">{{ __('Events') }}</h2>
+                <a href="{{ route('dashboard.events.create') }}" class="btn btn-primary focus-ring">
+                    <x-heroicon-o-plus class="h-5 w-5" />
+                    <span>{{ __('Create event') }}</span>
+                </a>
             </div>
+
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Title') }}</th>
-                                <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Date') }}</th>
-                                <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Event status') }}</th>
-                                <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Guests count') }}</th>
-                                <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                <table class="min-w-full divide-y divide-stroke">
+                    <thead class="bg-surface">
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                                {{ __('Title') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                                {{ __('Date') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                                {{ __('Event status') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                                {{ __('Guests count') }}
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                                {{ __('Actions') }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-card divide-y divide-stroke">
+                        @forelse($events as $event)
+                            <tr wire:key="event-{{ $event->id }}" class="data-table-row">
+                                <td class="px-6 py-4 text-sm font-medium text-content">
+                                    {{ $event->name }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-content-muted">
+                                    {{ $event->event_date?->format('d.m.Y') }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="badge
+                                        @switch($event->status->value ?? '')
+                                            @case('draft') badge-neutral @break
+                                            @case('pending_payment') badge-warning @break
+                                            @case('active') badge-success @break
+                                            @case('locked') badge-info @break
+                                            @case('archived') badge-neutral @break
+                                            @case('cancelled') badge-danger @break
+                                            @default badge-neutral
+                                        @endswitch">
+                                        {{ $event->status?->label() ?? __('—') }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm text-content-muted">
+                                    {{ $event->guests_count ?? 0 }}
+                                </td>
+                                <td class="px-6 py-4 text-sm">
+                                    <a href="{{ route('dashboard.events.show', [$organization, $event]) }}"
+                                       class="interactive font-medium text-brand hover:text-brand-hover focus-ring rounded px-2 py-1">
+                                        {{ __('View') }}
+                                    </a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse($events as $event)
-                                <tr wire:key="event-{{ $event->id }}">
-                                    <td class="px-4 py-3 text-sm text-gray-900">{{ $event->name }}</td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">{{ $event->event_date?->format('d.m.Y') }}</td>
-                                    <td class="px-4 py-3">
-                                        <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
-                                            @switch($event->status->value ?? '')
-                                                @case('draft') bg-gray-100 text-gray-800 @break
-                                                @case('pending_payment') bg-amber-100 text-amber-800 @break
-                                                @case('active') bg-green-100 text-green-800 @break
-                                                @case('locked') bg-blue-100 text-blue-800 @break
-                                                @case('archived') bg-gray-100 text-gray-600 @break
-                                                @case('cancelled') bg-red-100 text-red-800 @break
-                                                @default bg-gray-100 text-gray-800
-                                            @endswitch">
-                                            {{ $event->status?->label() ?? __('—') }}
-                                        </span>
-                                    </td>
-                                    <td class="px-4 py-3 text-sm text-gray-600">{{ $event->guests_count ?? 0 }}</td>
-                                    <td class="px-4 py-3 text-sm">
-                                        <a href="{{ route('dashboard.events.show', [$organization, $event]) }}" class="inline-flex items-center min-h-[44px] text-brand hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1 rounded transition-colors duration-200 cursor-pointer">{{ __('View') }}</a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="5" class="px-4 py-10 text-center text-sm text-gray-500">
-                                        <x-kalfa-app-icon class="mx-auto mb-3 h-10 w-10 opacity-60" alt="" />
-                                        <span class="block">{{ __('No events yet.') }}</span>
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="px-6 py-12 text-center">
+                                    <div class="flex flex-col items-center justify-center space-y-4">
+                                        <div class="flex size-16 items-center justify-center rounded-2xl bg-surface/50">
+                                            <x-kalfa-app-icon class="h-10 w-10 opacity-40" alt="" />
+                                        </div>
+                                        <div class="space-y-1">
+                                            <p class="text-sm font-medium text-content">{{ __('No events yet.') }}</p>
+                                            <p class="text-xs text-content-muted">{{ __('Get started by creating your first event.') }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
             </div>
         </div>
     @else
-        <div class="rounded-[2rem] border border-gray-200/70 bg-white/95 p-8 text-center shadow-lg shadow-gray-900/5 backdrop-blur-sm">
+        {{-- No Organization State --}}
+        <div class="card card-elevated max-w-2xl mx-auto p-10 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="flex size-20 items-center justify-center rounded-3xl bg-brand/5 ring-1 ring-brand/10">
+                    <x-kalfa-app-icon class="h-12 w-12 text-brand" alt="" />
+                </div>
+            </div>
+
             <x-kalfa-wordmark class="mb-5" />
-            <p class="mx-auto max-w-2xl text-sm leading-6 text-gray-500">{{ __('Choose or create an organization to start managing events, guests, and invitations in one place.') }}</p>
-            <div class="mt-6">
-                <a href="{{ route('organizations.index') }}" wire:navigate class="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white shadow-lg shadow-brand/20 transition-all hover:bg-brand-hover">
+
+            <p class="mx-auto text-sm leading-6 text-content-muted max-w-md">
+                {{ __('Choose or create an organization to start managing events, guests, and invitations in one place.') }}
+            </p>
+
+            <div class="mt-8">
+                <a href="{{ route('organizations.index') }}"
+                   wire:navigate
+                   class="btn btn-primary focus-ring inline-flex min-h-[48px] px-8">
                     {{ __('Go to organizations') }}
                 </a>
             </div>

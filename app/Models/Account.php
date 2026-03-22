@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Enums\AccountProductStatus;
+use App\Enums\AccountSubscriptionStatus;
 use App\Enums\EntitlementType;
 use App\Events\ProductEngineEvent;
 use App\Services\FeatureResolver;
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use OfficeGuy\LaravelSumitGateway\Contracts\HasSumitCustomer;
 use OfficeGuy\LaravelSumitGateway\Models\OfficeGuyToken;
@@ -143,11 +145,36 @@ class Account extends Model implements HasSumitCustomer
     public function activeSubscriptions(): HasMany
     {
         return $this->subscriptions()
-            ->where('status', \App\Enums\AccountSubscriptionStatus::Active->value)
+            ->where('status', AccountSubscriptionStatus::Active->value)
             ->where(function (Builder $query): void {
                 $query->whereNull('ends_at')
                     ->orWhere('ends_at', '>', now());
             });
+    }
+
+    /**
+     * Check if account has billing access (active product, subscription, or trial).
+     * Cached for 60 seconds for performance.
+     */
+    public function hasBillingAccess(): bool
+    {
+        return Cache::remember("account:{$this->id}:billing_access", 60, function (): bool {
+            return $this->activeAccountProducts()->exists()
+                || $this->activeSubscriptions()->exists()
+                || $this->subscriptions()
+                    ->where('status', AccountSubscriptionStatus::Trial->value)
+                    ->where('trial_ends_at', '>', now())
+                    ->exists();
+        });
+    }
+
+    /**
+     * Invalidate the billing access cache.
+     * Call this after granting products, activating subscriptions, or modifying trials.
+     */
+    public function invalidateBillingAccessCache(): void
+    {
+        Cache::forget("account:{$this->id}:billing_access");
     }
 
     /**
@@ -211,6 +238,8 @@ class Account extends Model implements HasSumitCustomer
                 ],
             );
 
+            $this->invalidateBillingAccessCache();
+
             return $assignment->fresh(['product']);
         });
     }
@@ -259,13 +288,17 @@ class Account extends Model implements HasSumitCustomer
         ?CarbonInterface $startedAt = null,
         array $metadata = [],
     ): AccountSubscription {
-        return app(SubscriptionService::class)->startTrial(
+        $subscription = app(SubscriptionService::class)->startTrial(
             $this,
             $plan,
             $trialEndsAt,
             $startedAt,
             $metadata,
         );
+
+        $this->invalidateBillingAccessCache();
+
+        return $subscription;
     }
 
     private function inferEntitlementType(string $featureKey, mixed $value): EntitlementType

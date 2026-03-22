@@ -123,6 +123,8 @@
 
 @stack('scripts')
 
+<tallstackui:script />
+
 {{-- Register PWA service worker --}}
 @RegisterServiceWorkerScript
 

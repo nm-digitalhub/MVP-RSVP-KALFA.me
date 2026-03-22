@@ -16,14 +16,38 @@ class VerifyEmailController extends Controller
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
-        if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        $user = $request->user();
+
+        if ($user->hasVerifiedEmail()) {
+            return $this->redirectAfterVerification($user);
         }
 
-        if ($request->user()->markEmailAsVerified()) {
-            event(new Verified($request->user()));
+        if ($user->markEmailAsVerified()) {
+            event(new Verified($user));
         }
 
-        return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        return $this->redirectAfterVerification($user);
+    }
+
+    /**
+     * Determine where to redirect after email verification.
+     * Handles multi-tenant organization selection flow.
+     */
+    protected function redirectAfterVerification($user): RedirectResponse
+    {
+        $orgsCount = $user->organizations()->count();
+
+        // No organizations yet → create one first
+        if ($orgsCount === 0) {
+            return redirect()->route('organizations.create')->with('status', __('Email verified! Please create an organization to continue.'));
+        }
+
+        // Has organizations but none selected → select one
+        if ($user->current_organization_id === null) {
+            return redirect()->route('organizations.index')->with('status', __('Email verified! Please select an organization to continue.'));
+        }
+
+        // Has selected organization → go to dashboard
+        return redirect()->route('dashboard')->with('verified', '1');
     }
 }

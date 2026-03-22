@@ -7,9 +7,9 @@
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
             <h3 class="text-sm font-medium text-gray-900 mb-2">{{ __('Create invitation') }}</h3>
             <form wire:submit="createInvitation" class="flex flex-wrap items-end gap-3">
-                <div class="min-w-[200px]">
+                <div class="w-full sm:min-w-[200px] sm:flex-1">
                     <x-input-label for="create_guest" :value="__('Link to guest (optional)')" />
-                    <select id="create_guest" wire:model="createForGuestId" class="mt-1 block w-full rounded-md border border-gray-300 px-2 py-1.5 text-sm">
+                    <select id="create_guest" wire:model="createForGuestId" class="input-base mt-1">
                         <option value="">{{ __('— No guest —') }}</option>
                         @foreach($guestsWithoutInvitation as $g)
                             <option wire:key="guest-{{ $g->id }}" value="{{ $g->id }}">{{ $g->name }}</option>
@@ -22,9 +22,14 @@
     @endcan
 
     @if($event->status !== \App\Enums\EventStatus::Active)
-        <p class="mb-4 text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3" role="status">
-            {{ __('The RSVP link will be available once the event is active (after payment is completed).') }}
-        </p>
+        <div class="mb-4">
+            <x-ts-alert
+                color="amber"
+                light
+                icon="exclamation-circle"
+                text="{{ __('The RSVP link will be available once the event is active.') }}"
+            />
+        </div>
     @endif
 
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">

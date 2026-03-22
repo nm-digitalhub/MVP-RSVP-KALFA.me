@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillingSubscriptionCheckoutController;
 use App\Http\Controllers\CheckoutStatusController;
 use App\Http\Controllers\CheckoutTokenizeController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -22,12 +23,14 @@ use App\Http\Controllers\TwilioController;
 use App\Http\Controllers\WebAuthn\WebAuthnLoginController;
 use App\Http\Controllers\WebAuthn\WebAuthnRegisterController;
 use App\Livewire\AcceptInvitation;
+use App\Livewire\Billing\PlanSelection;
 use App\Livewire\Dashboard\OrganizationMembers;
 use App\Livewire\System\Accounts\CreateAccountWizard;
 use App\Livewire\System\Dashboard;
 use App\Livewire\System\Organizations\Show;
 use App\Livewire\System\Products\CreateProductWizard;
 use App\Livewire\System\Settings\Index;
+use App\Livewire\System\TrialReminders;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -110,6 +113,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', fn () => view('pages.dashboard'))->name('dashboard');
     Route::get('/organizations', fn () => view('pages.organizations.index'))->name('organizations.index');
     Route::get('/organizations/create', fn () => view('pages.organizations.create'))->name('organizations.create');
+    Route::get('/select-plan', PlanSelection::class)->name('select-plan');
+    Route::get('/billing/checkout/{plan}', BillingSubscriptionCheckoutController::class)->name('billing.checkout');
     Route::middleware('ensure.organization')->group(function () {
         Route::get('/organization/settings', [OrganizationSettingsController::class, 'edit'])->name('dashboard.organization-settings.edit');
         Route::put('/organization/settings', [OrganizationSettingsController::class, 'update'])->name('dashboard.organization-settings.update');
@@ -121,40 +126,43 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Organization-scoped routes (require active organization)
     Route::middleware('ensure.organization')->group(function () {
-        Route::livewire('team', OrganizationMembers::class)->name('dashboard.team');
-        Route::get('dashboard/events', [DashboardController::class, 'index'])->name('dashboard.events.index');
-        Route::get('dashboard/events/create', [EventController::class, 'create'])->name('dashboard.events.create');
-        Route::post('dashboard/events', [EventController::class, 'store'])->name('dashboard.events.store');
-        Route::get('dashboard/events/{event}', [EventController::class, 'show'])
-            ->name('dashboard.events.show')
-            ->scopeBindings();
-        Route::get('dashboard/events/{event}/edit', [EventController::class, 'edit'])
-            ->name('dashboard.events.edit')
-            ->scopeBindings();
-        Route::put('dashboard/events/{event}', [EventController::class, 'update'])
-            ->name('dashboard.events.update')
-            ->scopeBindings();
-        Route::delete('dashboard/events/{event}', [EventController::class, 'destroy'])
-            ->name('dashboard.events.destroy')
-            ->scopeBindings();
-        Route::get('dashboard/events/{event}/guests', [EventGuestsController::class, 'index'])
-            ->name('dashboard.events.guests.index')
-            ->scopeBindings();
-        Route::get('dashboard/events/{event}/tables', [EventTablesController::class, 'index'])
-            ->name('dashboard.events.tables.index')
-            ->scopeBindings();
-        Route::get('dashboard/events/{event}/invitations', [EventInvitationsController::class, 'index'])
-            ->name('dashboard.events.invitations.index')
-            ->scopeBindings();
-        Route::get('dashboard/events/{event}/seat-assignments', [EventSeatAssignmentsController::class, 'index'])
-            ->name('dashboard.events.seat-assignments.index')
-            ->scopeBindings();
-
-        // Billing & Entitlements (tenant, org-scoped)
+        // Billing & Entitlements pages (no billing check required - users need to see their billing status)
         Route::get('billing', fn () => view('pages.billing.account'))->name('billing.account');
         Route::get('billing/entitlements', fn () => view('pages.billing.entitlements'))->name('billing.entitlements');
         Route::get('billing/usage', fn () => view('pages.billing.usage'))->name('billing.usage');
         Route::get('billing/intents', fn () => view('pages.billing.intents'))->name('billing.intents');
+
+        // Protected routes require active billing (product, subscription, or trial)
+        Route::middleware('ensure.account_active')->group(function () {
+            Route::livewire('team', OrganizationMembers::class)->name('dashboard.team');
+            Route::get('dashboard/events', [DashboardController::class, 'index'])->name('dashboard.events.index');
+            Route::get('dashboard/events/create', [EventController::class, 'create'])->name('dashboard.events.create');
+            Route::post('dashboard/events', [EventController::class, 'store'])->name('dashboard.events.store');
+            Route::get('dashboard/events/{event}', [EventController::class, 'show'])
+                ->name('dashboard.events.show')
+                ->scopeBindings();
+            Route::get('dashboard/events/{event}/edit', [EventController::class, 'edit'])
+                ->name('dashboard.events.edit')
+                ->scopeBindings();
+            Route::put('dashboard/events/{event}', [EventController::class, 'update'])
+                ->name('dashboard.events.update')
+                ->scopeBindings();
+            Route::delete('dashboard/events/{event}', [EventController::class, 'destroy'])
+                ->name('dashboard.events.destroy')
+                ->scopeBindings();
+            Route::get('dashboard/events/{event}/guests', [EventGuestsController::class, 'index'])
+                ->name('dashboard.events.guests.index')
+                ->scopeBindings();
+            Route::get('dashboard/events/{event}/tables', [EventTablesController::class, 'index'])
+                ->name('dashboard.events.tables.index')
+                ->scopeBindings();
+            Route::get('dashboard/events/{event}/invitations', [EventInvitationsController::class, 'index'])
+                ->name('dashboard.events.invitations.index')
+                ->scopeBindings();
+            Route::get('dashboard/events/{event}/seat-assignments', [EventSeatAssignmentsController::class, 'index'])
+                ->name('dashboard.events.seat-assignments.index')
+                ->scopeBindings();
+        });
     });
 });
 
@@ -184,6 +192,9 @@ Route::prefix('system')
         Route::livewire('/products', App\Livewire\System\Products\Index::class)->name('system.products.index');
         Route::livewire('/products/create', CreateProductWizard::class)->name('system.products.create');
         Route::livewire('/products/{product}', App\Livewire\System\Products\Show::class)->name('system.products.show')->scopeBindings();
+
+        // Trial Management
+        Route::livewire('/trial-reminders', TrialReminders::class)->name('system.trial-reminders');
 
         Route::post('/impersonate/{organization}', [SystemImpersonationController::class, '__invoke'])
             ->name('system.impersonate')

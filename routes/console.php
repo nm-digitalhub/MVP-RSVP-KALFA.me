@@ -1,5 +1,6 @@
 <?php
 
+use App\Console\Commands\CheckTrialExpiryAndSendReminders;
 use App\Console\Commands\ProductEngine\CheckIntegrityCommand;
 use App\Console\Commands\ProductEngine\ProcessTrialExpirationsCommand;
 use App\Services\ProductEngineOperationsMonitor;
@@ -64,3 +65,9 @@ if (($integrityCheckConfig['enabled'] ?? true) === true) {
     $attachMonitoringHooks($event, 'integrity_checks');
     $applyFrequency($event, $integrityCheckConfig);
 }
+
+// Trial reminder emails - send daily at 9 AM
+Schedule::command(CheckTrialExpiryAndSendReminders::class)
+    ->description('Send trial expiry reminder emails')
+    ->dailyAt('09:00')
+    ->withoutOverlapping();

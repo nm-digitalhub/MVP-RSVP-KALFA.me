@@ -127,7 +127,7 @@
         icon="heroicon-o-credit-card"
         :default-open="true"
         :add-label="__('Add Plan')"
-        add-action="requestAddPlan"
+        add-action="tree:open-add-plan"
         tone="brand"
         :context-label="__('Commercial')"
     >
@@ -214,7 +214,7 @@
         icon="heroicon-o-adjustments-horizontal"
         :default-open="true"
         :add-label="__('Add Limit')"
-        add-action="requestAddLimit"
+        add-action="tree:open-add-limit"
         tone="sky"
         :context-label="__('Constraint')"
     >
@@ -254,7 +254,7 @@
         icon="heroicon-o-sparkles"
         :default-open="true"
         :add-label="__('Add Feature')"
-        add-action="requestAddFeature"
+        add-action="tree:open-add-feature"
         tone="emerald"
         :context-label="__('Capability')"
     >

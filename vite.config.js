@@ -23,7 +23,7 @@ export default defineConfig({
   build: {
     sourcemap: false,
     minify: 'esbuild',
-    cssMinify: true,
+    cssMinify: 'lightningcss',
     cssCodeSplit: true,
     target: 'es2020',
     outDir: 'public/build',

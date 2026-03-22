@@ -37,7 +37,7 @@ class EventController extends Controller
     /**
      * Create a new event.
      *
-     * Event is created in `Draft` status. Payment must be initiated to activate it.
+     * Event is activated immediately when the organization already has billing access.
      */
     public function store(StoreEventRequest $request, Organization $organization): JsonResponse
     {
@@ -45,7 +45,7 @@ class EventController extends Controller
 
         $event = Event::create(array_merge($request->validated(), [
             'organization_id' => $organization->id,
-            'status' => EventStatus::Draft,
+            'status' => $organization->account?->hasBillingAccess() ? EventStatus::Active : EventStatus::Draft,
         ]));
 
         return response()->json($event, 201);
@@ -58,7 +58,11 @@ class EventController extends Controller
     {
         Gate::authorize('view', $event);
 
-        $event->load(['guests', 'eventTables', 'invitations', 'eventBilling']);
+        if ($event->ensureAccessibleStatus()) {
+            $event->refresh();
+        }
+
+        $event->load(['guests', 'eventTables', 'invitations', 'eventBilling', 'organization.account']);
 
         return response()->json($event);
     }

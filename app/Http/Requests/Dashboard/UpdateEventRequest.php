@@ -21,7 +21,6 @@ class UpdateEventRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string', 'max:255'],
-            'slug' => ['sometimes', 'string', 'max:255'],
             'event_date' => ['nullable', 'date'],
             'venue_name' => ['nullable', 'string', 'max:255'],
             'venue_address' => ['nullable', 'string', 'max:500'],

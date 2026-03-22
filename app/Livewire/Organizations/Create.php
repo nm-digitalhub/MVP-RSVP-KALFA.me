@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\Livewire\Organizations;
 
 use App\Enums\OrganizationUserRole;
+use App\Mail\WelcomeOrganizer;
 use App\Models\Organization;
+use App\Services\OrganizationContext;
+use App\Services\OrganizationMemberService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +26,7 @@ class Create extends Component
         ];
     }
 
-    public function save(): void
+    public function save(OrganizationMemberService $memberService): void
     {
         $this->validate();
 
@@ -32,22 +35,21 @@ class Create extends Component
             'slug' => $this->uniqueSlug($this->name),
         ]);
 
-        auth()->user()->organizations()->attach($organization->id, [
-            'role' => OrganizationUserRole::Owner,
-        ]);
+        $memberService->addMember($organization, auth()->user(), OrganizationUserRole::Owner);
 
         auth()->user()->update(['current_organization_id' => $organization->id]);
-        app(\App\Services\OrganizationContext::class)->set($organization);
+        app(OrganizationContext::class)->set($organization);
 
         try {
-            Mail::to(auth()->user()->email)->send(new \App\Mail\WelcomeOrganizer($organization, auth()->user()));
+            Mail::to(auth()->user()->email)->send(new WelcomeOrganizer($organization, auth()->user()));
         } catch (\Throwable $e) {
             Log::error('Failed to send welcome email', ['error' => $e->getMessage()]);
         }
 
         session()->flash('status', __('Organization created.'));
 
-        $this->redirect(route('dashboard'), navigate: true);
+        // Redirect to plan selection instead of dashboard
+        $this->redirect(route('select-plan'), navigate: true);
     }
 
     public function render(): View
