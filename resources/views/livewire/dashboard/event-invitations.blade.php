@@ -8,13 +8,18 @@
             <h3 class="text-sm font-medium text-gray-900 mb-2">{{ __('Create invitation') }}</h3>
             <form wire:submit="createInvitation" class="flex flex-wrap items-end gap-3">
                 <div class="w-full sm:min-w-[200px] sm:flex-1">
-                    <x-input-label for="create_guest" :value="__('Link to guest (optional)')" />
-                    <select id="create_guest" wire:model="createForGuestId" class="input-base mt-1">
-                        <option value="">{{ __('— No guest —') }}</option>
+                    <x-ts-select.native
+                        id="create_guest"
+                        wire:model="createForGuestId"
+                        label="{{ __('Link to guest (optional)') }}"
+                        :placeholder="__('— No guest —')"
+                        class="mt-1"
+                    >
+                        {{-- Options rendered without placeholder to allow TSUI placeholder --}}
                         @foreach($guestsWithoutInvitation as $g)
                             <option wire:key="guest-{{ $g->id }}" value="{{ $g->id }}">{{ $g->name }}</option>
                         @endforeach
-                    </select>
+                    </x-ts-select.native>
                 </div>
                 <x-primary-button type="submit">{{ __('Create') }}</x-primary-button>
             </form>
