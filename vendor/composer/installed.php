@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '990db80a62861d6cd8b58772d37fa364e57c0bee',
+        'reference' => '8fec4039c1c8578a6fa5faaa5be6163e0e87e46e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -614,8 +614,8 @@
             ),
         ),
         'kalfa/secure-storage' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
+            'pretty_version' => 'dev-shift-169390',
+            'version' => 'dev-shift-169390',
             'reference' => '637e160c05ba14fd4b9b4c89fd997c2cb27a3d68',
             'type' => 'nativephp-plugin',
             'install_path' => __DIR__ . '/../kalfa/secure-storage',
@@ -685,7 +685,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '990db80a62861d6cd8b58772d37fa364e57c0bee',
+            'reference' => '8fec4039c1c8578a6fa5faaa5be6163e0e87e46e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1643,6 +1643,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'spatie/mjml-php' => array(
+            'pretty_version' => '1.2.6',
+            'version' => '1.2.6.0',
+            'reference' => '8bf9e5966beb9521510a0af29d94bfffaa1f3dbd',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/mjml-php',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'spatie/once' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -1957,6 +1966,15 @@
             'install_path' => __DIR__ . '/../symfony/yaml',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'tallstackui/tallstackui' => array(
+            'pretty_version' => 'v2.15.2',
+            'version' => '2.15.2.0',
+            'reference' => '77e2f4f3716e860a3a85000be63e9102e0c93b02',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../tallstackui/tallstackui',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'thecodingmachine/safe' => array(
             'pretty_version' => 'v3.4.0',

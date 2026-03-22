@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\EventStatus;
+use App\Enums\InvitationStatus;
 use App\Http\Requests\Api\StoreRsvpResponseRequest;
 use App\Models\Invitation;
 use App\Models\RsvpResponse;
@@ -22,7 +24,11 @@ class PublicRsvpViewController extends Controller
     {
         $invitation = Invitation::where('slug', $slug)->with(['event', 'guest'])->firstOrFail();
 
-        if ($invitation->event->status !== \App\Enums\EventStatus::Active) {
+        if ($invitation->event->ensureAccessibleStatus()) {
+            $invitation->event->refresh();
+        }
+
+        if ($invitation->event->status !== EventStatus::Active) {
             return response()->view('rsvp.event-not-available', [], 404);
         }
 
@@ -36,7 +42,11 @@ class PublicRsvpViewController extends Controller
     {
         $invitation = Invitation::where('slug', $slug)->with('event')->firstOrFail();
 
-        if ($invitation->event->status !== \App\Enums\EventStatus::Active) {
+        if ($invitation->event->ensureAccessibleStatus()) {
+            $invitation->event->refresh();
+        }
+
+        if ($invitation->event->status !== EventStatus::Active) {
             return response()->view('rsvp.event-not-available', [], 404);
         }
 
@@ -54,7 +64,7 @@ class PublicRsvpViewController extends Controller
                 ])
             );
             $invitation->update([
-                'status' => \App\Enums\InvitationStatus::Responded,
+                'status' => InvitationStatus::Responded,
                 'responded_at' => now(),
             ]);
         });

@@ -1,0 +1,123 @@
+{
+  "project_id": "8fd43cb4-6a6e-42b9-a9c6-b8ae57bc8645",
+  "user_message": "תגיב בעברית",
+  "vision": "אנו נבצע סריקה מקיפה וניתוח של הפרויקט על ידי חקירת המבנה, ניתוח הקוד, בדיקות אבטחה והערכת חוויית משתמש.",
+  "epic_breakdown": [
+    "חקירת מבנה הפרויקט",
+    "ניתוח קוד Backend",
+    "ניתוח קוד Frontend",
+    "בדיקות אבטחה",
+    "הערכת חוויית משתמש",
+    "סיכום והמלצות"
+  ],
+  "tasks": [
+    {
+      "id": "task_001",
+      "role": "researcher",
+      "goal": "חקור ונתח את מבנה הפרויקט הכולל, זהה את הטכנולוגיות העיקריות, המטרה של המערכת, והארכיטקטורה הכללית",
+      "constraints": [
+        "אל תשנה קוד, רק דווח ממצאים",
+        "התמקד בקבצי תצורה ומבנה ספריות"
+      ],
+      "depends_on": [],
+      "context_from": [],
+      "files_scope": ["README.md", "package.json", "requirements.txt", "pyproject.toml", "setup.py", "docker-compose.yml", ".env.example"],
+      "acceptance_criteria": [
+        "דוח מחקר מפורט בעברית",
+        "זיהוי טכנולוגיות עיקריות",
+        "הבנת מטרת הפרויקט"
+      ],
+      "required_artifacts": ["research"]
+    },
+    {
+      "id": "task_002",
+      "role": "backend_developer",
+      "goal": "נתח את קוד ה-Backend (Python, FastAPI, או טכנולוגיות אחרות) וזהה מבנה קוד, תבניות עיצוב, ואזורים הדורשים שיפור",
+      "constraints": [
+        "אל תשנה קוד, רק נתח ודווח",
+        "התמקד בקבצי Python ו-API"
+      ],
+      "depends_on": ["task_001"],
+      "context_from": ["task_001"],
+      "files_scope": ["src/**/*.py", "api/**/*.py", "backend/**/*.py", "*.py"],
+      "acceptance_criteria": [
+        "ניתוח מפורט של קוד ה-Backend",
+        "זיהוי תבניות עיצוב",
+        "המלצות לשיפור"
+      ],
+      "required_artifacts": ["file_manifest"]
+    },
+    {
+      "id": "task_003",
+      "role": "frontend_developer",
+      "goal": "נתח את קוד ה-Frontend (React, TypeScript, או טכנולוגיות אחרות) וזהה מבנה רכיבים, ניהול מצב, ואזורים הדורשים שיפור",
+      "constraints": [
+        "אל תשנה קוד, רק נתח ודווח",
+        "התמקד בקבצי React/TypeScript/JS"
+      ],
+      "depends_on": ["task_001"],
+      "context_from": ["task_001"],
+      "files_scope": ["src/**/*.tsx", "src/**/*.ts", "src/**/*.jsx", "src/**/*.js", "frontend/**/*"],
+      "acceptance_criteria": [
+        "ניתוח מפורט של קוד ה-Frontend",
+        "זיהוי מבנה רכיבים",
+        "המלצות לשיפור"
+      ],
+      "required_artifacts": ["file_manifest"]
+    },
+    {
+      "id": "task_004",
+      "role": "security_auditor",
+      "goal": "בצע ביקורת אבטחה מקיפה של הקוד כדי לזהות פגיעויות אבטחה אפשריות כולל חשיפת סודות, הזרקות קוד, ובעיות תצורה",
+      "constraints": [
+        "אל תשנה קוד, רק דווח ממצאים",
+        "בדוק קבצי תצורה וקוד רגיש"
+      ],
+      "depends_on": ["task_002", "task_003"],
+      "context_from": ["task_002", "task_003"],
+      "files_scope": ["**/.env*", "**/secrets*", "**/config*", ".claude/**/*"],
+      "acceptance_criteria": [
+        "דוח אבטחה מפורט בעברית",
+        "דירוג חומרת פגיעויות",
+        "המלצות לתיקון"
+      ],
+      "required_artifacts": ["security_report"]
+    },
+    {
+      "id": "task_005",
+      "role": "ux_critic",
+      "goal": "הערך את חוויית המשתמש של המערכת כולל ממשק משתמש, נגישות, שימושיות, והתאמה לעקרונות UX מודרניים",
+      "constraints": [
+        "אל תשנה קוד, רק דווח ממצאים",
+        "התמקד בממשק וחוויית משתמש"
+      ],
+      "depends_on": ["task_001", "task_003"],
+      "context_from": ["task_001", "task_003"],
+      "files_scope": ["src/components/**/*", "public/**/*", "*.html", "*.css"],
+      "acceptance_criteria": [
+        "דוח UX מפורט בעברית",
+        "זיהוי בעיות נגישות",
+        "המלצות לשיפור"
+      ],
+      "required_artifacts": ["research"]
+    },
+    {
+      "id": "task_006",
+      "role": "reviewer",
+      "goal": "סכם את כל הממצאים מהסריקה המקיפה וספק המלצות מעשיות לשיפור הפרויקט, כולל עדיפויות ותוכנית פעולה",
+      "constraints": [
+        "אל תשנה קוד, רק דווח ממצאים",
+        "ספק המלצות מעשיות וממוקדות"
+      ],
+      "depends_on": ["task_001", "task_002", "task_003", "task_004", "task_005"],
+      "context_from": ["task_001", "task_002", "task_003", "task_004", "task_005"],
+      "files_scope": [],
+      "acceptance_criteria": [
+        "דוח סיכום מקיף בעברית",
+        "המלצות ממוקדות ומעשיות",
+        "תוכנית פעולה עם עדיפויות"
+      ],
+      "required_artifacts": ["review_report"]
+    }
+  ]
+}

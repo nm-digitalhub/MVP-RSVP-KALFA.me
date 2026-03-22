@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
@@ -18,6 +20,7 @@ class AuthenticationTest extends TestCase
         $response->assertSee('התחברות', false);
         $response->assertSee('email', false);
         $response->assertSee('password', false);
+        $response->assertSee('/tallstackui/script/', false);
     }
 
     public function test_users_can_authenticate_using_the_login_screen(): void
@@ -47,7 +50,10 @@ class AuthenticationTest extends TestCase
 
     public function test_dashboard_can_be_rendered_when_authenticated(): void
     {
-        $this->actingAsTenant()->get('/dashboard')->assertOk();
+        $this->actingAsTenant()
+            ->get('/dashboard')
+            ->assertOk()
+            ->assertSee('/tallstackui/script/', false);
     }
 
     public function test_users_can_logout(): void

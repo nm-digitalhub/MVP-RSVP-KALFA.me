@@ -42,6 +42,8 @@
 {{-- Livewire scripts --}}
 @livewireScripts
 
+<tallstackui:script />
+
 </body>
 
 </html>

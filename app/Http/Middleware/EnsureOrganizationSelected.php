@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Impersonation expiry is handled globally by ImpersonationExpiry middleware.
  * - 0 organizations → redirect to organization creation.
  * - ≥1 organizations and no current org in DB → redirect to organization selection.
+ * Billing access is checked later by EnsureAccountActive on protected routes.
  */
 class EnsureOrganizationSelected
 {
@@ -25,8 +26,8 @@ class EnsureOrganizationSelected
         $user = $request->user();
         $orgs = $user->organizations()->count();
 
-        // Allow organization list/create/switch without redirect
-        if ($request->routeIs('organizations.*')) {
+        // Allow organization list/create/switch/plan-selection without redirect
+        if ($request->routeIs('organizations.*') || $request->routeIs('select-plan')) {
             return $next($request);
         }
 

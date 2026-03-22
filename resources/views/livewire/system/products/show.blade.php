@@ -391,6 +391,72 @@
         </section>
     @endif
 
+    @if($showPriceForm)
+        <section class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm" data-audit-section="price-editor">
+            <div class="border-b border-slate-200 bg-slate-50 px-4 py-4 sm:px-6 sm:py-5">
+                <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Pricing') }}</p>
+                <h2 class="mt-1.5 text-lg font-semibold text-slate-900">{{ $editingPriceId ? __('Edit Price') : __('Add Price') }}</h2>
+                <p class="mt-1.5 text-sm text-slate-500">{{ __('Configure pricing tiers and billing cycles for a plan.') }}</p>
+            </div>
+
+            <div class="p-4 sm:p-6">
+                <form wire:submit.prevent="savePrice" class="grid gap-4 sm:grid-cols-2">
+                    <div class="space-y-2">
+                        <label for="price-plan" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Plan') }}</label>
+                        <select id="price-plan" wire:model.live="pricePlanId" class="block w-full cursor-pointer rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" {{ $editingPriceId ? 'disabled' : '' }}>
+                            @foreach($productPlans as $plan)
+                                <option value="{{ $plan->id }}">{{ $plan->name }} ({{ $plan->slug }})</option>
+                            @endforeach
+                        </select>
+                        @error('pricePlanId') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="price-currency" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Currency') }}</label>
+                        <input id="price-currency" wire:model.live.blur="priceCurrency" type="text" maxlength="3" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" />
+                        @error('priceCurrency') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="price-amount" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Amount (Minor Units)') }}</label>
+                        <input id="price-amount" wire:model.live.blur="priceAmount" type="number" min="0" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" />
+                        @error('priceAmount') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
+                        <p class="text-[10px] text-slate-500">{{ __('Enter amount in minor units (cents for USD). For example, enter 9900 for $99.00.') }}</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="price-cycle" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Billing Cycle') }}</label>
+                        <select id="price-cycle" wire:model.live="priceBillingCycle" class="block w-full cursor-pointer rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10">
+                            @foreach(\App\Enums\ProductPriceBillingCycle::cases() as $cycle)
+                                <option value="{{ $cycle->value }}">{{ $cycle->label() }}</option>
+                            @endforeach
+                        </select>
+                        @error('priceBillingCycle') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="price-status" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Status') }}</label>
+                        <select id="price-status" wire:model.live="priceIsActive" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10">
+                            <option value="1">{{ __('Active') }}</option>
+                            <option value="0">{{ __('Inactive') }}</option>
+                        </select>
+                    </div>
+
+                    <div class="flex flex-col gap-3 pt-2 sm:col-span-2 sm:flex-row">
+                        <button type="submit" class="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-3 font-semibold text-white transition hover:bg-brand-hover data-loading:pointer-events-none data-loading:opacity-60">
+                            <x-heroicon-o-check class="size-5" />
+                            <span>{{ $editingPriceId ? __('Save Price') : __('Create Price') }}</span>
+                        </button>
+                        <button type="button" wire:click="cancelPriceEdit" class="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-600 transition hover:bg-slate-50">
+                            <x-heroicon-o-x-mark class="size-5" />
+                            <span>{{ __('Cancel') }}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    @endif
+
     @if($showAddLimitForm)
         <section class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm" data-audit-section="limit-editor">
             <div class="border-b border-slate-200 bg-slate-50 px-4 py-4 sm:px-6 sm:py-5">
@@ -591,6 +657,66 @@
                         <label for="new-desc" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Description') }}</label>
                         <textarea id="new-desc" wire:model.live.blur="newDescription" rows="3" class="block w-full rounded-2xl border border-transparent bg-white px-5 py-4 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-8 focus:ring-brand/10" placeholder="{{ __('Explain what this grant does in the domain model.') }}"></textarea>
                         @error('newDescription') <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="space-y-2 sm:col-span-2">
+                        <div class="flex items-center justify-between">
+                            <label class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Constraints') }}</label>
+                            <button
+                                type="button"
+                                wire:click="addConstraintRow"
+                                class="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2 py-1 text-xs font-medium text-slate-600 transition hover:bg-slate-50"
+                            >
+                                <x-heroicon-o-plus class="size-3" />
+                                <span>{{ __('Add Constraint') }}</span>
+                            </button>
+                        </div>
+
+                        <div class="space-y-2">
+                            @foreach(array_keys($this->newConstraints) as $index)
+                                <div class="flex gap-2 items-start">
+                                    <div class="flex-1 space-y-2">
+                                        <input
+                                            type="text"
+                                            wire:model.live.blur="newConstraints.{{ $index }}.key"
+                                            placeholder="{{ __('Key (e.g., max_events)') }}"
+                                            class="w-full rounded-xl border border-transparent bg-white px-4 py-3 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-4 focus:ring-brand/10"
+                                        />
+                                        <div class="flex gap-2">
+                                            <input
+                                                type="text"
+                                                wire:model.live.blur="newConstraints.{{ $index }}.value"
+                                                placeholder="{{ __('Value') }}"
+                                                class="flex-1 rounded-xl border border-transparent bg-white px-4 py-3 text-sm font-bold text-slate-900 shadow-sm transition-all focus:border-brand focus:ring-4 focus:ring-brand/10"
+                                            />
+                                            <select
+                                                wire:model.live="newConstraints.{{ $index }}.type"
+                                                class="w-32 rounded-xl border border-transparent bg-white px-3 py-3 text-xs font-bold text-slate-700 shadow-sm transition-all focus:border-brand focus:ring-2 focus:ring-brand/10"
+                                            >
+                                                <option value="string">{{ __('String') }}</option>
+                                                <option value="number">{{ __('Number') }}</option>
+                                                <option value="boolean">{{ __('Boolean') }}</option>
+                                                <option value="json">{{ __('JSON') }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        wire:click="removeConstraintRow({{ $index }})"
+                                        class="mt-2 inline-flex size-9 items-center justify-center rounded-lg border border-rose-200 bg-rose-50 text-rose-600 transition hover:bg-rose-100 sm:mt-0"
+                                    >
+                                        <x-heroicon-o-trash class="size-4" />
+                                    </button>
+                                </div>
+                                @error("newConstraints.{$index}.key") <p class="px-1 text-xs font-bold text-rose-500">{{ $message }}</p> @enderror
+                            @endforeach
+
+                            @if(empty($this->newConstraints))
+                                <div class="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-3 text-center text-sm text-slate-400">
+                                    {{ __('No constraints defined. Click "Add Constraint" to add one.') }}
+                                </div>
+                            @endif
+                        </div>
                     </div>
 
                     <div class="flex flex-col gap-3 pt-2 sm:col-span-2 sm:flex-row">

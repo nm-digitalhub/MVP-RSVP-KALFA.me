@@ -17,4 +17,5 @@
 
 תודה,<br>
 צוות {{ config('app.name') }}
+
 </x-mail::message>

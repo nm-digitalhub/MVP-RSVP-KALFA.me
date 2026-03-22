@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Organization;
 use App\Models\Plan;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -17,9 +18,14 @@ use Illuminate\View\View;
  */
 class CheckoutTokenizeController extends Controller
 {
-    public function __invoke(Request $request, Organization $organization, Event $event): View
+    public function __invoke(Request $request, Organization $organization, Event $event): View|RedirectResponse
     {
         Gate::authorize('initiatePayment', $event);
+
+        if (! $event->requiresPerEventPayment()) {
+            return redirect()->route('dashboard.events.show', $event)
+                ->with('success', __('This event is already covered by your active plan.'));
+        }
 
         $plan = Plan::where('type', 'per_event')->firstOrFail();
         $token = $request->user()->createToken('checkout-tokenize')->plainTextToken;

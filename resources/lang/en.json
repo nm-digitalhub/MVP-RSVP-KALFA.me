@@ -132,6 +132,8 @@
     "Seat assignments": "Seat assignments",
     "Manage": "Manage",
     "Proceed to payment": "Proceed to payment",
+    "This event is already covered by your active plan.": "This event is already covered by your active plan.",
+    "This event is covered by your active plan.": "This event is covered by your active plan.",
     "guest": "guest",
     "guests": "guests",
     "table": "table",
@@ -254,7 +256,7 @@
     "Event not available": "Event not available",
     "This RSVP link is not active yet. The event may still be in preparation or payment has not been completed.": "This RSVP link is not active yet. The event may still be in preparation or payment has not been completed.",
     "Please try again later or contact the organizer.": "Please try again later or contact the organizer.",
-    "The RSVP link will be available once the event is active (after payment is completed).": "The RSVP link will be available once the event is active (after payment is completed).",
+    "The RSVP link will be available once the event is active.": "The RSVP link will be available once the event is active.",
     "Set to active": "Set to active",
     "Thank you! Your response has been saved.": "Thank you! Your response has been saved.",
     "Choose attending, not attending, or maybe.": "Choose attending, not attending, or maybe.",
@@ -309,5 +311,14 @@
     "Please review before creating.": "Please review before creating.",
     "Attach organization": "Attach organization",
     "Create account": "Create account",
-    "Processing...": "Processing..."
+    "Processing...": "Processing...",
+    "Start Free Trial": "Start Free Trial",
+    "Starting...": "Starting...",
+    "You're about to start a 14-day free trial of the :plan plan. No credit card required.": "You're about to start a 14-day free trial of the :plan plan. No credit card required.",
+    "Confirm Trial": "Confirm Trial",
+    "Included in your trial:": "Included in your trial:",
+    "Full access to all features in the :plan plan for 14 days.": "Full access to all features in the :plan plan for 14 days.",
+    "Trial ends :date.": "Trial ends :date.",
+    "Your account does not have an active plan. Please choose a plan to continue.": "Your account does not have an active plan. Please choose a plan to continue.",
+    "Your organization is not linked to an account. Please contact support.": "Your organization is not linked to an account. Please contact support."
 }

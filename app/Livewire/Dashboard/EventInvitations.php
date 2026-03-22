@@ -19,7 +19,9 @@ final class EventInvitations extends Component
 
     public function mount(Event $event): void
     {
-        $this->event = $event;
+        $event->ensureAccessibleStatus();
+
+        $this->event = $event->fresh();
     }
 
     #[On('echo-private:event.{event.id},RsvpReceived')]

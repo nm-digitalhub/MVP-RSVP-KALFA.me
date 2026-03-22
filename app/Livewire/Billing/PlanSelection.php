@@ -34,6 +34,13 @@ final class PlanSelection extends Component
             return $this->redirect(route('dashboard'), navigate: true);
         }
 
+        // Check if organization already has an active subscription
+        $hasActiveSubscription = $organization->account?->activeSubscriptions()->exists() ?? false;
+
+        if ($hasActiveSubscription) {
+            return $this->redirect(route('dashboard'), navigate: true);
+        }
+
         return null;
     }
 

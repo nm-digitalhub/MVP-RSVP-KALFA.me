@@ -24,7 +24,7 @@
 
     {{-- Logo --}}
     <div class="text-center">
-        <a href="{{ route('billing.plans') }}" class="inline-block">
+        <a href="{{ route('select-plan') }}" class="inline-block">
             <img src="{{ asset('logo.svg') }}" alt="{{ config('app.name') }}" class="h-9 w-auto mx-auto"
                  onerror="this.onerror=null;this.src='{{ asset('logo.png') }}'">
         </a>
@@ -133,14 +133,14 @@
                 {{-- Coupon code --}}
                 <div class="rounded-xl border border-stroke bg-surface/50 p-4 space-y-3">
                     <p class="text-xs font-bold text-content-muted uppercase tracking-wider">קוד קופון (אופציונלי)</p>
-                    <div class="flex gap-2">
+                    <div class="flex flex-col gap-2 sm:flex-row">
                         <input type="text" id="coupon-input"
                                placeholder="הזן קוד קופון"
                                maxlength="64"
                                dir="ltr"
-                               class="flex-1 min-h-[40px] px-3 py-2 border border-stroke rounded-xl bg-card text-content placeholder-content-muted focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/25 transition font-mono uppercase tracking-widest text-sm">
+                               class="input-base flex-1 font-mono uppercase tracking-widest">
                         <button type="button" id="coupon-btn"
-                                class="min-h-[40px] px-4 py-2 rounded-xl border border-brand text-brand text-sm font-bold hover:bg-brand hover:text-white transition-colors disabled:opacity-50">
+                                class="min-h-[48px] px-4 py-3 rounded-xl border border-brand text-brand text-sm font-bold hover:bg-brand hover:text-white transition-colors disabled:opacity-50">
                             <span id="coupon-btn-text">אמת</span>
                             <span id="coupon-btn-loading" style="display:none">…</span>
                         </button>
@@ -180,7 +180,7 @@
 
     {{-- Back link --}}
     <div class="text-center">
-        <a href="{{ route('billing.plans') }}" class="text-sm text-content-muted hover:text-brand transition-colors font-medium">
+        <a href="{{ route('select-plan') }}" class="text-sm text-content-muted hover:text-brand transition-colors font-medium">
             ← חזור לבחירת תוכנית
         </a>
     </div>
@@ -420,5 +420,6 @@
     });
 })();
 </script>
+<tallstackui:script />
 </body>
 </html>

@@ -112,7 +112,7 @@
                 <h3 class="text-lg font-semibold text-gray-900">{{ __('Confirm password') }}</h3>
                 <p class="mt-1 text-sm text-gray-600">{{ __('Enter your password to confirm this action.') }}</p>
                 <div class="mt-4">
-                    <input type="password" wire:model="confirmPassword" class="mt-1 block w-full rounded-md border border-gray-300 shadow-sm px-3 py-2" placeholder="{{ __('Password') }}" autofocus />
+                    <input type="password" wire:model="confirmPassword" class="input-base mt-1" placeholder="{{ __('Password') }}" autofocus />
                     @error('confirmPassword')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror

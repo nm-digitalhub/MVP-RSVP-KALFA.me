@@ -5,34 +5,33 @@ declare(strict_types=1);
 namespace App\Mail;
 
 use App\Models\OrganizationInvitation;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
 
-class OrganizationInvitationMail extends Mailable
+class OrganizationInvitationMail extends MjmlMailable
 {
-    use Queueable, SerializesModels;
-
     public function __construct(
         public OrganizationInvitation $invitation
-    ) {}
-
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: __('You have been invited to join :organization', ['organization' => $this->invitation->organization->name]),
-        );
+    ) {
+        $this->subject(__('You have been invited to join :organization', ['organization' => $this->invitation->organization->name]));
     }
 
-    public function content(): Content
+    public function mjmlView(): string
     {
-        return new Content(
-            markdown: 'emails.organization-invitation',
-            with: [
-                'acceptUrl' => route('invitations.accept', ['token' => $this->invitation->token]),
-            ],
-        );
+        return 'emails.organization-invitation.mjml';
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function mjmlData(): array
+    {
+        return [
+            'invitation' => $this->invitation,
+            'acceptUrl' => route('invitations.accept', ['token' => $this->invitation->token]),
+        ];
+    }
+
+    protected function mailLanguage(): string
+    {
+        return 'he';
     }
 }

@@ -30,9 +30,12 @@ class DashboardController extends Controller
         }
 
         $events = $organization->events()
+            ->with(['organization.account', 'eventBilling'])
             ->withCount('guests')
             ->orderByDesc('event_date')
             ->get();
+
+        $events->each->ensureAccessibleStatus();
 
         return view('dashboard.index', [
             'organization' => $organization,

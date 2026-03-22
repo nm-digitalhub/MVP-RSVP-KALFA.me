@@ -1,0 +1,14 @@
+{
+  "project_id": "httpdocs-96c44f",
+  "architecture_summary": "Complete the user's request: Please review the existing composer.json\n  and summarize the project stack in\n  Hebrew.. Agents involved: backend_developer, reviewer. Tasks: 2, Successful: 0/1.",
+  "tech_stack": {},
+  "key_decisions": [],
+  "known_issues": [
+    "No JSON output and low work score (0.00). Signals: ['text_fallback_write_detection', 'NO_WRITES(execution_agent)']"
+  ],
+  "api_surface": [],
+  "db_tables": [],
+  "file_map": {},
+  "last_updated_by": "task_001",
+  "cumulative_cost_usd": 0.0
+}

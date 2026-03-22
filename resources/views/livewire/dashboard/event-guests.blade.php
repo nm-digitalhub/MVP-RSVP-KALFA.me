@@ -1,6 +1,6 @@
 <div>
     <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-        <a href="{{ route('dashboard.events.show', $event) }}" class="text-sm text-gray-500 hover:text-gray-700">&larr; {{ __('Back to event') }}</a>
+        <a href="{{ route('dashboard.events.show', $event) }}" class="inline-flex min-h-[44px] items-center rounded-lg px-2 text-sm font-medium text-gray-500 transition-colors duration-200 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2">&larr; {{ __('Back to event') }}</a>
         @can('update', $event)
             @if(!$showForm)
                 <div class="flex gap-2">
@@ -15,27 +15,19 @@
             <h3 class="text-lg font-medium text-gray-900 mb-4">{{ $editingId ? __('Edit guest') : __('Add guest') }}</h3>
             <div class="space-y-3 max-w-md">
                 <div>
-                    <x-input-label for="guest_name" :value="__('Name')" />
-                    <x-text-input id="guest_name" wire:model="name" class="mt-1 block w-full" />
-                    <x-input-error :messages="$errors->get('name')" class="mt-1" />
+                    <x-ts-input id="guest_name" wire:model="name" label="{{ __('Name') }}" />
                 </div>
                 <div>
-                    <x-input-label for="guest_email" :value="__('Email')" />
-                    <x-text-input id="guest_email" type="email" wire:model="email" class="mt-1 block w-full" />
-                    <x-input-error :messages="$errors->get('email')" class="mt-1" />
+                    <x-ts-input id="guest_email" type="email" wire:model="email" label="{{ __('Email') }}" />
                 </div>
                 <div>
-                    <x-input-label for="guest_phone" :value="__('Phone')" />
-                    <x-text-input id="guest_phone" wire:model="phone" class="mt-1 block w-full" />
-                    <x-input-error :messages="$errors->get('phone')" class="mt-1" />
+                    <x-ts-input id="guest_phone" wire:model="phone" label="{{ __('Phone') }}" />
                 </div>
                 <div>
-                    <x-input-label for="guest_group" :value="__('Group name')" />
-                    <x-text-input id="guest_group" wire:model="group_name" class="mt-1 block w-full" />
+                    <x-ts-input id="guest_group" wire:model="group_name" label="{{ __('Group name') }}" />
                 </div>
                 <div>
-                    <x-input-label for="guest_notes" :value="__('Notes')" />
-                    <x-textarea id="guest_notes" wire:model="notes" class="mt-1 block w-full" rows="2" />
+                    <x-ts-textarea id="guest_notes" wire:model="notes" rows="2" label="{{ __('Notes') }}" />
                 </div>
                 <div class="flex gap-2">
                     <x-primary-button wire:click="save">{{ __('Save') }}</x-primary-button>
@@ -51,8 +43,12 @@
             <h3 class="text-sm font-medium text-gray-900 mb-2">{{ __('Import from CSV') }}</h3>
             <p class="text-sm text-gray-500 mb-2">{{ __('CSV columns: name (or שם), email, phone, notes') }}</p>
             <form wire:submit="import" class="flex flex-wrap items-end gap-3">
-                <div>
-                    <input type="file" wire:model="importFile" accept=".csv,.txt" class="block text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" />
+                <div class="w-full sm:max-w-md">
+                    <label for="guest-import-file" class="mb-2 block text-sm font-medium text-gray-700">{{ __('CSV file') }}</label>
+                    <input id="guest-import-file" type="file" wire:model="importFile" accept=".csv,.txt" class="input-base block w-full text-sm text-gray-500 file:me-4 file:rounded-lg file:border-0 file:bg-brand/10 file:px-4 file:py-2.5 file:text-sm file:font-medium file:text-brand hover:file:bg-brand/15" />
+                    <div wire:loading wire:target="importFile" class="mt-2">
+                        <x-ts-alert color="primary" light text="{{ __('Uploading...') }}" />
+                    </div>
                     <x-input-error :messages="$errors->get('importFile')" class="mt-1" />
                 </div>
                 <x-primary-button type="submit">{{ __('Import') }}</x-primary-button>

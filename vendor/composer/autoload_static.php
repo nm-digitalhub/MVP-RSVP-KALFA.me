@@ -121,9 +121,9 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         '91892b814db86b8442ad76273bb7aec5' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Reflection/helpers.php',
         '493c6aea52f6009bab023b26c21a386a' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/functions.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
-        '40275907c8566c390185147049ef6e5d' => __DIR__ . '/..' . '/livewire/livewire/src/helpers.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'f641c05521a842027754f9adafba3d7e' => __DIR__ . '/..' . '/erag/laravel-pwa/src/Pwahelpers.php',
@@ -132,40 +132,42 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
+        '030160ce14a3debe0ac41ceb45c60d5e' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/helpers.php',
         '6f63623309b417353d909e0e864f4beb' => __DIR__ . '/../..' . '/app/Support/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'v' => 
+        'v' =>
         array (
             'voku\\' => 5,
         ),
-        'p' => 
+        'p' =>
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'i' => 
+        'i' =>
         array (
             'iamcal\\' => 7,
         ),
-        'Z' => 
+        'Z' =>
         array (
             'ZipStream\\' => 10,
         ),
-        'W' => 
+        'W' =>
         array (
             'Workerman\\' => 10,
             'Whoops\\' => 7,
         ),
-        'T' => 
+        'T' =>
         array (
             'Twilio\\' => 7,
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Themesberg\\FlowbiteBladeIcons\\' => 30,
             'Tests\\' => 6,
             'Termwind\\' => 9,
+            'TallStackUi\\' => 12,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Uuid\\' => 22,
             'Symfony\\Polyfill\\Php85\\' => 23,
@@ -200,6 +202,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'Svg\\' => 4,
             'Spatie\\TemporaryDirectory\\' => 26,
             'Spatie\\Permission\\' => 18,
+            'Spatie\\Mjml\\' => 12,
             'Spatie\\MediaLibrary\\' => 20,
             'Spatie\\LaravelSettings\\' => 23,
             'Spatie\\LaravelPackageTools\\' => 27,
@@ -210,7 +213,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'Sabberworm\\CSS\\' => 15,
             'Saade\\BladeIconsax\\' => 19,
         ),
-        'R' => 
+        'R' =>
         array (
             'React\\Stream\\' => 13,
             'React\\Socket\\' => 13,
@@ -224,7 +227,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' => 
+        'P' =>
         array (
             'Pusher\\' => 7,
             'Psy\\' => 4,
@@ -240,17 +243,17 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'ParagonIE\\Sodium\\' => 17,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
-        'O' => 
+        'O' =>
         array (
             'OfficeGuy\\LaravelSumitGateway\\' => 30,
         ),
-        'N' => 
+        'N' =>
         array (
             'NunoMaduro\\Collision\\' => 21,
             'Nette\\' => 6,
             'Native\\Mobile\\' => 14,
         ),
-        'M' => 
+        'M' =>
         array (
             'Monolog\\' => 8,
             'Mockery\\' => 8,
@@ -258,7 +261,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'MarvinLabs\\Luhn\\' => 16,
             'MallardDuck\\BladeBoxicons\\' => 26,
         ),
-        'L' => 
+        'L' =>
         array (
             'Lorisleiva\\Lody\\' => 16,
             'Lorisleiva\\Actions\\' => 19,
@@ -289,16 +292,16 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'Laragear\\WebAuthn\\' => 18,
             'Laragear\\MetaModel\\' => 19,
         ),
-        'K' => 
+        'K' =>
         array (
             'Kalfa\\SecureStorage\\' => 20,
         ),
-        'I' => 
+        'I' =>
         array (
             'Illuminate\\Support\\' => 19,
             'Illuminate\\' => 11,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\UriTemplate\\' => 23,
             'GuzzleHttp\\Psr7\\' => 16,
@@ -306,20 +309,20 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'GuzzleHttp\\' => 11,
             'GrahamCampbell\\ResultType\\' => 26,
         ),
-        'F' => 
+        'F' =>
         array (
             'Fruitcake\\Cors\\' => 15,
             'FontLib\\' => 8,
             'Faker\\' => 6,
         ),
-        'E' => 
+        'E' =>
         array (
             'Evenement\\' => 10,
             'EragLaravelPwa\\' => 15,
             'Endroid\\QrCode\\' => 15,
             'Egulias\\EmailValidator\\' => 23,
         ),
-        'D' => 
+        'D' =>
         array (
             'Dotenv\\' => 7,
             'Dompdf\\' => 7,
@@ -337,7 +340,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'Daikazu\\Robotstxt\\' => 18,
             'DASPRiD\\Enum\\' => 13,
         ),
-        'C' => 
+        'C' =>
         array (
             'Cron\\' => 5,
             'Composer\\Semver\\' => 16,
@@ -349,7 +352,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
         ),
-        'B' => 
+        'B' =>
         array (
             'Brick\\Math\\' => 11,
             'BladeUI\\Icons\\' => 14,
@@ -358,659 +361,667 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
             'Barryvdh\\DomPDF\\' => 16,
             'BaconQrCode\\' => 12,
         ),
-        'A' => 
+        'A' =>
         array (
             'App\\' => 4,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\' => 
+        'voku\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
-        'phpDocumentor\\Reflection\\' => 
+        'phpDocumentor\\Reflection\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
         ),
-        'iamcal\\' => 
+        'iamcal\\' =>
         array (
             0 => __DIR__ . '/..' . '/iamcal/sql-parser/src',
         ),
-        'ZipStream\\' => 
+        'ZipStream\\' =>
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
-        'Workerman\\' => 
+        'Workerman\\' =>
         array (
             0 => __DIR__ . '/..' . '/workerman/workerman',
         ),
-        'Whoops\\' => 
+        'Whoops\\' =>
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
-        'Twilio\\' => 
+        'Twilio\\' =>
         array (
             0 => __DIR__ . '/..' . '/twilio/sdk/src/Twilio',
         ),
-        'TijsVerkoyen\\CssToInlineStyles\\' => 
+        'TijsVerkoyen\\CssToInlineStyles\\' =>
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
-        'Themesberg\\FlowbiteBladeIcons\\' => 
+        'Themesberg\\FlowbiteBladeIcons\\' =>
         array (
             0 => __DIR__ . '/..' . '/themesberg/flowbite-blade-icons/src',
         ),
-        'Tests\\' => 
+        'Tests\\' =>
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'Termwind\\' => 
+        'Termwind\\' =>
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/termwind/src',
         ),
-        'Symfony\\Polyfill\\Uuid\\' => 
+        'TallStackUi\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/tallstackui/tallstackui/src',
+        ),
+        'Symfony\\Polyfill\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-uuid',
         ),
-        'Symfony\\Polyfill\\Php85\\' => 
+        'Symfony\\Polyfill\\Php85\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php85',
         ),
-        'Symfony\\Polyfill\\Php84\\' => 
+        'Symfony\\Polyfill\\Php84\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php84',
         ),
-        'Symfony\\Polyfill\\Php83\\' => 
+        'Symfony\\Polyfill\\Php83\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php83',
         ),
-        'Symfony\\Polyfill\\Php80\\' => 
+        'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
-        'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
+        'Symfony\\Polyfill\\Intl\\Grapheme\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
         ),
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'Symfony\\Polyfill\\Ctype\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Contracts\\Translation\\' => 
+        'Symfony\\Contracts\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
-        'Symfony\\Contracts\\Service\\' => 
+        'Symfony\\Contracts\\Service\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
-        'Symfony\\Contracts\\EventDispatcher\\' => 
+        'Symfony\\Contracts\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
         ),
-        'Symfony\\Component\\Yaml\\' => 
+        'Symfony\\Component\\Yaml\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
         ),
-        'Symfony\\Component\\VarDumper\\' => 
+        'Symfony\\Component\\VarDumper\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
-        'Symfony\\Component\\Uid\\' => 
+        'Symfony\\Component\\Uid\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/uid',
         ),
-        'Symfony\\Component\\Translation\\' => 
+        'Symfony\\Component\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'Symfony\\Component\\String\\' => 
+        'Symfony\\Component\\String\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
         ),
-        'Symfony\\Component\\Routing\\' => 
+        'Symfony\\Component\\Routing\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
         ),
-        'Symfony\\Component\\Process\\' => 
+        'Symfony\\Component\\Process\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
         ),
-        'Symfony\\Component\\Mime\\' => 
+        'Symfony\\Component\\Mime\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
-        'Symfony\\Component\\Mailer\\' => 
+        'Symfony\\Component\\Mailer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/mailer',
         ),
-        'Symfony\\Component\\HttpKernel\\' => 
+        'Symfony\\Component\\HttpKernel\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-kernel',
         ),
-        'Symfony\\Component\\HttpFoundation\\' => 
+        'Symfony\\Component\\HttpFoundation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
-        'Symfony\\Component\\Finder\\' => 
+        'Symfony\\Component\\Finder\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
-        'Symfony\\Component\\EventDispatcher\\' => 
+        'Symfony\\Component\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
-        'Symfony\\Component\\ErrorHandler\\' => 
+        'Symfony\\Component\\ErrorHandler\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/error-handler',
         ),
-        'Symfony\\Component\\CssSelector\\' => 
+        'Symfony\\Component\\CssSelector\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
         ),
-        'Symfony\\Component\\Console\\' => 
+        'Symfony\\Component\\Console\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Symfony\\Component\\Clock\\' => 
+        'Symfony\\Component\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/clock',
         ),
-        'Svg\\' => 
+        'Svg\\' =>
         array (
             0 => __DIR__ . '/..' . '/dompdf/php-svg-lib/src/Svg',
         ),
-        'Spatie\\TemporaryDirectory\\' => 
+        'Spatie\\TemporaryDirectory\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/temporary-directory/src',
         ),
-        'Spatie\\Permission\\' => 
+        'Spatie\\Permission\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-permission/src',
         ),
-        'Spatie\\MediaLibrary\\' => 
+        'Spatie\\Mjml\\' =>
+        array (
+            0 => __DIR__ . '/..' . '/spatie/mjml-php/src',
+        ),
+        'Spatie\\MediaLibrary\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-medialibrary/src',
         ),
-        'Spatie\\LaravelSettings\\' => 
+        'Spatie\\LaravelSettings\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-settings/src',
         ),
-        'Spatie\\LaravelPackageTools\\' => 
+        'Spatie\\LaravelPackageTools\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-package-tools/src',
         ),
-        'Spatie\\Image\\' => 
+        'Spatie\\Image\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/image/src',
         ),
-        'Spatie\\ImageOptimizer\\' => 
+        'Spatie\\ImageOptimizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/image-optimizer/src',
         ),
-        'Spatie\\CalendarLinks\\' => 
+        'Spatie\\CalendarLinks\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/calendar-links/src',
         ),
-        'Saloon\\' => 
+        'Saloon\\' =>
         array (
             0 => __DIR__ . '/..' . '/saloonphp/saloon/src',
         ),
-        'Sabberworm\\CSS\\' => 
+        'Sabberworm\\CSS\\' =>
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
         ),
-        'Saade\\BladeIconsax\\' => 
+        'Saade\\BladeIconsax\\' =>
         array (
             0 => __DIR__ . '/..' . '/saade/blade-iconsax/src',
         ),
-        'React\\Stream\\' => 
+        'React\\Stream\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/stream/src',
         ),
-        'React\\Socket\\' => 
+        'React\\Socket\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/socket/src',
         ),
-        'React\\Promise\\Timer\\' => 
+        'React\\Promise\\Timer\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/promise-timer/src',
         ),
-        'React\\Promise\\' => 
+        'React\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',
         ),
-        'React\\EventLoop\\' => 
+        'React\\EventLoop\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/event-loop/src',
         ),
-        'React\\Dns\\' => 
+        'React\\Dns\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/dns/src',
         ),
-        'React\\Datagram\\' => 
+        'React\\Datagram\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/datagram/src',
         ),
-        'React\\Cache\\' => 
+        'React\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/cache/src',
         ),
-        'Ratchet\\RFC6455\\' => 
+        'Ratchet\\RFC6455\\' =>
         array (
             0 => __DIR__ . '/..' . '/ratchet/rfc6455/src',
         ),
-        'Ramsey\\Uuid\\' => 
+        'Ramsey\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' => 
+        'Ramsey\\Collection\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Pusher\\' => 
+        'Pusher\\' =>
         array (
             0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
         ),
-        'Psy\\' => 
+        'Psy\\' =>
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
         ),
-        'Psr\\SimpleCache\\' => 
+        'Psr\\SimpleCache\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
+        'Psr\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\EventDispatcher\\' => 
+        'Psr\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
-        'Psr\\Container\\' => 
+        'Psr\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Psr\\Clock\\' => 
+        'Psr\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/clock/src',
         ),
-        'PhpParser\\' => 
+        'PhpParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'PhpOption\\' => 
+        'PhpOption\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'ParagonIE\\Sodium\\' => 
+        'ParagonIE\\Sodium\\' =>
         array (
             0 => __DIR__ . '/..' . '/paragonie/sodium_compat/namespaced',
         ),
-        'PHPStan\\PhpDocParser\\' => 
+        'PHPStan\\PhpDocParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
-        'OfficeGuy\\LaravelSumitGateway\\' => 
+        'OfficeGuy\\LaravelSumitGateway\\' =>
         array (
             0 => __DIR__ . '/..' . '/officeguy/laravel-sumit-gateway/src',
         ),
-        'NunoMaduro\\Collision\\' => 
+        'NunoMaduro\\Collision\\' =>
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
         ),
-        'Nette\\' => 
+        'Nette\\' =>
         array (
             0 => __DIR__ . '/..' . '/nette/schema/src',
             1 => __DIR__ . '/..' . '/nette/utils/src',
         ),
-        'Native\\Mobile\\' => 
+        'Native\\Mobile\\' =>
         array (
             0 => __DIR__ . '/..' . '/nativephp/mobile/src',
         ),
-        'Monolog\\' => 
+        'Monolog\\' =>
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Mockery\\' => 
+        'Mockery\\' =>
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
         ),
-        'Masterminds\\' => 
+        'Masterminds\\' =>
         array (
             0 => __DIR__ . '/..' . '/masterminds/html5/src',
         ),
-        'MarvinLabs\\Luhn\\' => 
+        'MarvinLabs\\Luhn\\' =>
         array (
             0 => __DIR__ . '/..' . '/marvinlabs/laravel-luhn/src/Luhn',
         ),
-        'MallardDuck\\BladeBoxicons\\' => 
+        'MallardDuck\\BladeBoxicons\\' =>
         array (
             0 => __DIR__ . '/..' . '/mallardduck/blade-boxicons/src',
         ),
-        'Lorisleiva\\Lody\\' => 
+        'Lorisleiva\\Lody\\' =>
         array (
             0 => __DIR__ . '/..' . '/lorisleiva/lody/src',
         ),
-        'Lorisleiva\\Actions\\' => 
+        'Lorisleiva\\Actions\\' =>
         array (
             0 => __DIR__ . '/..' . '/lorisleiva/laravel-actions/src',
         ),
-        'Livewire\\' => 
+        'Livewire\\' =>
         array (
             0 => __DIR__ . '/..' . '/livewire/livewire/src',
         ),
-        'League\\Uri\\' => 
+        'League\\Uri\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/uri',
             1 => __DIR__ . '/..' . '/league/uri-interfaces',
         ),
-        'League\\MimeTypeDetection\\' => 
+        'League\\MimeTypeDetection\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
         ),
-        'League\\Flysystem\\Local\\' => 
+        'League\\Flysystem\\Local\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/flysystem-local',
         ),
-        'League\\Flysystem\\' => 
+        'League\\Flysystem\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
-        'League\\Config\\' => 
+        'League\\Config\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/config/src',
         ),
-        'League\\CommonMark\\' => 
+        'League\\CommonMark\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
         ),
-        'Laravel\\Tinker\\' => 
+        'Laravel\\Tinker\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
-        'Laravel\\Telescope\\Database\\Factories\\' => 
+        'Laravel\\Telescope\\Database\\Factories\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/telescope/database/factories',
         ),
-        'Laravel\\Telescope\\' => 
+        'Laravel\\Telescope\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/telescope/src',
         ),
-        'Laravel\\SerializableClosure\\' => 
+        'Laravel\\SerializableClosure\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
-        'Laravel\\Sentinel\\' => 
+        'Laravel\\Sentinel\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/sentinel/src',
         ),
-        'Laravel\\Sanctum\\' => 
+        'Laravel\\Sanctum\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/sanctum/src',
         ),
-        'Laravel\\Sail\\' => 
+        'Laravel\\Sail\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/sail/src',
         ),
-        'Laravel\\Roster\\' => 
+        'Laravel\\Roster\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/roster/src',
         ),
-        'Laravel\\Reverb\\' => 
+        'Laravel\\Reverb\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/reverb/src',
         ),
-        'Laravel\\Pulse\\' => 
+        'Laravel\\Pulse\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/pulse/src',
         ),
-        'Laravel\\Prompts\\' => 
+        'Laravel\\Prompts\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/prompts/src',
         ),
-        'Laravel\\Pail\\' => 
+        'Laravel\\Pail\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/pail/src',
         ),
-        'Laravel\\Mcp\\Server\\' => 
+        'Laravel\\Mcp\\Server\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/mcp/src/Server',
         ),
-        'Laravel\\Mcp\\' => 
+        'Laravel\\Mcp\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/mcp/src',
         ),
-        'Laravel\\Breeze\\' => 
+        'Laravel\\Breeze\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/breeze/src',
         ),
-        'Laravel\\Boost\\' => 
+        'Laravel\\Boost\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/boost/src',
         ),
-        'Larastan\\Larastan\\' => 
+        'Larastan\\Larastan\\' =>
         array (
             0 => __DIR__ . '/..' . '/larastan/larastan/src',
         ),
-        'Laragear\\WebAuthn\\' => 
+        'Laragear\\WebAuthn\\' =>
         array (
             0 => __DIR__ . '/..' . '/laragear/webauthn/src',
         ),
-        'Laragear\\MetaModel\\' => 
+        'Laragear\\MetaModel\\' =>
         array (
             0 => __DIR__ . '/..' . '/laragear/meta-model/src',
         ),
-        'Kalfa\\SecureStorage\\' => 
+        'Kalfa\\SecureStorage\\' =>
         array (
             0 => __DIR__ . '/..' . '/kalfa/secure-storage/src',
         ),
-        'Illuminate\\Support\\' => 
+        'Illuminate\\Support\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
             1 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections',
             2 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Conditionable',
             3 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Reflection',
         ),
-        'Illuminate\\' => 
+        'Illuminate\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
         ),
-        'GuzzleHttp\\UriTemplate\\' => 
+        'GuzzleHttp\\UriTemplate\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/uri-template/src',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'GuzzleHttp\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'GuzzleHttp\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'GrahamCampbell\\ResultType\\' => 
+        'GrahamCampbell\\ResultType\\' =>
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
         ),
-        'Fruitcake\\Cors\\' => 
+        'Fruitcake\\Cors\\' =>
         array (
             0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
         ),
-        'FontLib\\' => 
+        'FontLib\\' =>
         array (
             0 => __DIR__ . '/..' . '/dompdf/php-font-lib/src/FontLib',
         ),
-        'Faker\\' => 
+        'Faker\\' =>
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'Evenement\\' => 
+        'Evenement\\' =>
         array (
             0 => __DIR__ . '/..' . '/evenement/evenement/src',
         ),
-        'EragLaravelPwa\\' => 
+        'EragLaravelPwa\\' =>
         array (
             0 => __DIR__ . '/..' . '/erag/laravel-pwa/src',
         ),
-        'Endroid\\QrCode\\' => 
+        'Endroid\\QrCode\\' =>
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
         ),
-        'Egulias\\EmailValidator\\' => 
+        'Egulias\\EmailValidator\\' =>
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
         ),
-        'Dotenv\\' => 
+        'Dotenv\\' =>
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
-        'Dompdf\\' => 
+        'Dompdf\\' =>
         array (
             0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
-        'Docudoodle\\' => 
+        'Docudoodle\\' =>
         array (
             0 => __DIR__ . '/..' . '/genericmilk/docudoodle/src',
         ),
-        'Doctrine\\SqlFormatter\\' => 
+        'Doctrine\\SqlFormatter\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/sql-formatter/src',
         ),
-        'Doctrine\\Inflector\\' => 
+        'Doctrine\\Inflector\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/src',
         ),
-        'Doctrine\\Deprecations\\' => 
+        'Doctrine\\Deprecations\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/deprecations/src',
         ),
-        'Doctrine\\Common\\Lexer\\' => 
+        'Doctrine\\Common\\Lexer\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/src',
         ),
-        'Dflydev\\DotAccessData\\' => 
+        'Dflydev\\DotAccessData\\' =>
         array (
             0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
         ),
-        'DeepCopy\\' => 
+        'DeepCopy\\' =>
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'Dedoc\\Scramble\\Database\\Factories\\' => 
+        'Dedoc\\Scramble\\Database\\Factories\\' =>
         array (
             0 => __DIR__ . '/..' . '/dedoc/scramble/database/factories',
         ),
-        'Dedoc\\Scramble\\' => 
+        'Dedoc\\Scramble\\' =>
         array (
             0 => __DIR__ . '/..' . '/dedoc/scramble/src',
         ),
-        'Database\\Seeders\\' => 
+        'Database\\Seeders\\' =>
         array (
             0 => __DIR__ . '/../..' . '/database/seeders',
             1 => __DIR__ . '/..' . '/laravel/pint/database/seeders',
         ),
-        'Database\\Factories\\' => 
+        'Database\\Factories\\' =>
         array (
             0 => __DIR__ . '/../..' . '/database/factories',
             1 => __DIR__ . '/..' . '/laravel/pint/database/factories',
         ),
-        'Daikazu\\Robotstxt\\' => 
+        'Daikazu\\Robotstxt\\' =>
         array (
             0 => __DIR__ . '/..' . '/daikazu/robotstxt/src',
         ),
-        'DASPRiD\\Enum\\' => 
+        'DASPRiD\\Enum\\' =>
         array (
             0 => __DIR__ . '/..' . '/dasprid/enum/src',
         ),
-        'Cron\\' => 
+        'Cron\\' =>
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
-        'Composer\\Semver\\' => 
+        'Composer\\Semver\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
-        'Composer\\Pcre\\' => 
+        'Composer\\Pcre\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
         ),
-        'Composer\\ClassMapGenerator\\' => 
+        'Composer\\ClassMapGenerator\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/class-map-generator/src',
         ),
-        'Codeat3\\BladeTeenyIcons\\' => 
+        'Codeat3\\BladeTeenyIcons\\' =>
         array (
             0 => __DIR__ . '/..' . '/codeat3/blade-teeny-icons/src',
         ),
-        'Clue\\Redis\\Protocol\\' => 
+        'Clue\\Redis\\Protocol\\' =>
         array (
             0 => __DIR__ . '/..' . '/clue/redis-protocol/src',
         ),
-        'Clue\\React\\Redis\\' => 
+        'Clue\\React\\Redis\\' =>
         array (
             0 => __DIR__ . '/..' . '/clue/redis-react/src',
         ),
-        'Carbon\\Doctrine\\' => 
+        'Carbon\\Doctrine\\' =>
         array (
             0 => __DIR__ . '/..' . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine',
         ),
-        'Carbon\\' => 
+        'Carbon\\' =>
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
-        'Brick\\Math\\' => 
+        'Brick\\Math\\' =>
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
-        'BladeUI\\Icons\\' => 
+        'BladeUI\\Icons\\' =>
         array (
             0 => __DIR__ . '/..' . '/blade-ui-kit/blade-icons/src',
         ),
-        'BladeUI\\Heroicons\\' => 
+        'BladeUI\\Heroicons\\' =>
         array (
             0 => __DIR__ . '/..' . '/blade-ui-kit/blade-heroicons/src',
         ),
-        'Barryvdh\\LaravelIdeHelper\\' => 
+        'Barryvdh\\LaravelIdeHelper\\' =>
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-ide-helper/src',
         ),
-        'Barryvdh\\DomPDF\\' => 
+        'Barryvdh\\DomPDF\\' =>
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
         ),
-        'BaconQrCode\\' => 
+        'BaconQrCode\\' =>
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
-        'App\\' => 
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/app',
             1 => __DIR__ . '/..' . '/laravel/pint/app',
@@ -1018,9 +1029,9 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
     );
 
     public static $prefixesPsr0 = array (
-        'B' => 
+        'B' =>
         array (
-            'Barryvdh' => 
+            'Barryvdh' =>
             array (
                 0 => __DIR__ . '/..' . '/barryvdh/reflection-docblock/src',
             ),
@@ -1028,6 +1039,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\CheckTrialExpiryAndSendReminders' => __DIR__ . '/../..' . '/app/Console/Commands/CheckTrialExpiryAndSendReminders.php',
         'App\\Console\\Commands\\MailTestCommand' => __DIR__ . '/../..' . '/app/Console/Commands/MailTestCommand.php',
         'App\\Console\\Commands\\ProductEngine\\CheckIntegrityCommand' => __DIR__ . '/../..' . '/app/Console/Commands/ProductEngine/CheckIntegrityCommand.php',
         'App\\Console\\Commands\\ProductEngine\\ProcessProductExpirationsCommand' => __DIR__ . '/../..' . '/app/Console/Commands/ProductEngine/ProcessProductExpirationsCommand.php',
@@ -1113,16 +1125,27 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'App\\Http\\Middleware\\RequireImpersonationForSystemAdmin' => __DIR__ . '/../..' . '/app/Http/Middleware/RequireImpersonationForSystemAdmin.php',
         'App\\Http\\Middleware\\SpatiePermissionTeam' => __DIR__ . '/../..' . '/app/Http/Middleware/SpatiePermissionTeam.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\Api\\CouponValidationRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/CouponValidationRequest.php',
         'App\\Http\\Requests\\Api\\InitiateCheckoutRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/InitiateCheckoutRequest.php',
         'App\\Http\\Requests\\Api\\MobileLoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/MobileLoginRequest.php',
         'App\\Http\\Requests\\Api\\StoreEventRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/StoreEventRequest.php',
+        'App\\Http\\Requests\\Api\\StoreEventTableRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/StoreEventTableRequest.php',
         'App\\Http\\Requests\\Api\\StoreGuestRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/StoreGuestRequest.php',
+        'App\\Http\\Requests\\Api\\StoreInvitationRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/StoreInvitationRequest.php',
         'App\\Http\\Requests\\Api\\StoreRsvpResponseRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/StoreRsvpResponseRequest.php',
         'App\\Http\\Requests\\Api\\UpdateEventRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/UpdateEventRequest.php',
+        'App\\Http\\Requests\\Api\\UpdateEventTableRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/UpdateEventTableRequest.php',
+        'App\\Http\\Requests\\Api\\UpdateGuestRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/UpdateGuestRequest.php',
+        'App\\Http\\Requests\\Api\\UpdateOrganizationRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/UpdateOrganizationRequest.php',
+        'App\\Http\\Requests\\Api\\UpdateSeatAssignmentRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Api/UpdateSeatAssignmentRequest.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
+        'App\\Http\\Requests\\Auth\\SendResetLinkPasswordRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/SendResetLinkPasswordRequest.php',
+        'App\\Http\\Requests\\Auth\\StoreConfirmPasswordRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/StoreConfirmPasswordRequest.php',
         'App\\Http\\Requests\\Auth\\StoreRegisterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/StoreRegisterRequest.php',
+        'App\\Http\\Requests\\Auth\\UpdatePasswordRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/UpdatePasswordRequest.php',
         'App\\Http\\Requests\\Dashboard\\StoreEventRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Dashboard/StoreEventRequest.php',
         'App\\Http\\Requests\\Dashboard\\UpdateEventRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Dashboard/UpdateEventRequest.php',
+        'App\\Http\\Requests\\Dashboard\\UpdateOrganizationSettingRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Dashboard/UpdateOrganizationSettingRequest.php',
         'App\\Http\\Requests\\Mobile\\StoreMobileSessionTokenRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Mobile/StoreMobileSessionTokenRequest.php',
         'App\\Http\\Requests\\SubscriptionPurchaseRequest' => __DIR__ . '/../..' . '/app/Http/Requests/SubscriptionPurchaseRequest.php',
         'App\\Http\\Requests\\System\\Accounts\\StoreAccountPaymentMethodRequest' => __DIR__ . '/../..' . '/app/Http/Requests/System/Accounts/StoreAccountPaymentMethodRequest.php',
@@ -1131,6 +1154,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'App\\Http\\Resources\\OrganizationContextResource' => __DIR__ . '/../..' . '/app/Http/Resources/OrganizationContextResource.php',
         'App\\Http\\Resources\\OrganizationMembershipResource' => __DIR__ . '/../..' . '/app/Http/Resources/OrganizationMembershipResource.php',
         'App\\Jobs\\ExpireAccountCreditsJob' => __DIR__ . '/../..' . '/app/Jobs/ExpireAccountCreditsJob.php',
+        'App\\Jobs\\SendTrialExpiringReminderJob' => __DIR__ . '/../..' . '/app/Jobs/SendTrialExpiringReminderJob.php',
         'App\\Jobs\\SyncOrganizationSubscriptionsJob' => __DIR__ . '/../..' . '/app/Jobs/SyncOrganizationSubscriptionsJob.php',
         'App\\Listeners\\Billing\\AuditBillingEvent' => __DIR__ . '/../..' . '/app/Listeners/Billing/AuditBillingEvent.php',
         'App\\Listeners\\LogProductEngineEvent' => __DIR__ . '/../..' . '/app/Listeners/LogProductEngineEvent.php',
@@ -1176,7 +1200,9 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'App\\Livewire\\System\\Users\\Show' => __DIR__ . '/../..' . '/app/Livewire/System/Users/Show.php',
         'App\\Logging\\TruncateExceptionContextProcessor' => __DIR__ . '/../..' . '/app/Logging/TruncateExceptionContextProcessor.php',
         'App\\Logging\\TruncateExceptionTap' => __DIR__ . '/../..' . '/app/Logging/TruncateExceptionTap.php',
+        'App\\Mail\\MjmlMailable' => __DIR__ . '/../..' . '/app/Mail/MjmlMailable.php',
         'App\\Mail\\OrganizationInvitationMail' => __DIR__ . '/../..' . '/app/Mail/OrganizationInvitationMail.php',
+        'App\\Mail\\TrialExpiringReminder' => __DIR__ . '/../..' . '/app/Mail/TrialExpiringReminder.php',
         'App\\Mail\\WelcomeOrganizer' => __DIR__ . '/../..' . '/app/Mail/WelcomeOrganizer.php',
         'App\\Models\\Account' => __DIR__ . '/../..' . '/app/Models/Account.php',
         'App\\Models\\AccountCreditTransaction' => __DIR__ . '/../..' . '/app/Models/AccountCreditTransaction.php',
@@ -1215,6 +1241,7 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'App\\Policies\\OrganizationPolicy' => __DIR__ . '/../..' . '/app/Policies/OrganizationPolicy.php',
         'App\\Policies\\PaymentPolicy' => __DIR__ . '/../..' . '/app/Policies/PaymentPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
+        'App\\Providers\\MjmlServiceProvider' => __DIR__ . '/../..' . '/app/Providers/MjmlServiceProvider.php',
         'App\\Providers\\NativeServiceProvider' => __DIR__ . '/../..' . '/app/Providers/NativeServiceProvider.php',
         'App\\Providers\\SystemSettingsServiceProvider' => __DIR__ . '/../..' . '/app/Providers/SystemSettingsServiceProvider.php',
         'App\\Providers\\TelescopeServiceProvider' => __DIR__ . '/../..' . '/app/Providers/TelescopeServiceProvider.php',
@@ -1227,11 +1254,13 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'App\\Services\\CouponService' => __DIR__ . '/../..' . '/app/Services/CouponService.php',
         'App\\Services\\EventLinks' => __DIR__ . '/../..' . '/app/Services/EventLinks.php',
         'App\\Services\\FeatureResolver' => __DIR__ . '/../..' . '/app/Services/FeatureResolver.php',
+        'App\\Services\\MjmlRenderer' => __DIR__ . '/../..' . '/app/Services/MjmlRenderer.php',
         'App\\Services\\MobileSecureTokenStore' => __DIR__ . '/../..' . '/app/Services/MobileSecureTokenStore.php',
         'App\\Services\\OfficeGuy\\DocumentService' => __DIR__ . '/../..' . '/app/Services/OfficeGuy/DocumentService.php',
         'App\\Services\\OfficeGuy\\SystemBillingService' => __DIR__ . '/../..' . '/app/Services/OfficeGuy/SystemBillingService.php',
         'App\\Services\\OrganizationContext' => __DIR__ . '/../..' . '/app/Services/OrganizationContext.php',
         'App\\Services\\OrganizationMemberService' => __DIR__ . '/../..' . '/app/Services/OrganizationMemberService.php',
+        'App\\Services\\PanelScreenshotRunner' => __DIR__ . '/../..' . '/app/Services/PanelScreenshotRunner.php',
         'App\\Services\\PermissionSyncService' => __DIR__ . '/../..' . '/app/Services/PermissionSyncService.php',
         'App\\Services\\ProductEngineOperationsMonitor' => __DIR__ . '/../..' . '/app/Services/ProductEngineOperationsMonitor.php',
         'App\\Services\\ProductIntegrityChecker' => __DIR__ . '/../..' . '/app/Services/ProductIntegrityChecker.php',
@@ -9458,6 +9487,12 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'Spatie\\MediaLibrary\\Support\\UrlGenerator\\DefaultUrlGenerator' => __DIR__ . '/..' . '/spatie/laravel-medialibrary/src/Support/UrlGenerator/DefaultUrlGenerator.php',
         'Spatie\\MediaLibrary\\Support\\UrlGenerator\\UrlGenerator' => __DIR__ . '/..' . '/spatie/laravel-medialibrary/src/Support/UrlGenerator/UrlGenerator.php',
         'Spatie\\MediaLibrary\\Support\\UrlGenerator\\UrlGeneratorFactory' => __DIR__ . '/..' . '/spatie/laravel-medialibrary/src/Support/UrlGenerator/UrlGeneratorFactory.php',
+        'Spatie\\Mjml\\Exceptions\\CouldNotConvertMjml' => __DIR__ . '/..' . '/spatie/mjml-php/src/Exceptions/CouldNotConvertMjml.php',
+        'Spatie\\Mjml\\Exceptions\\SidecarPackageUnavailable' => __DIR__ . '/..' . '/spatie/mjml-php/src/Exceptions/SidecarPackageUnavailable.php',
+        'Spatie\\Mjml\\Mjml' => __DIR__ . '/..' . '/spatie/mjml-php/src/Mjml.php',
+        'Spatie\\Mjml\\MjmlError' => __DIR__ . '/..' . '/spatie/mjml-php/src/MjmlError.php',
+        'Spatie\\Mjml\\MjmlResult' => __DIR__ . '/..' . '/spatie/mjml-php/src/MjmlResult.php',
+        'Spatie\\Mjml\\ValidationLevel' => __DIR__ . '/..' . '/spatie/mjml-php/src/ValidationLevel.php',
         'Spatie\\Permission\\Commands\\AssignRoleCommand' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/AssignRoleCommand.php',
         'Spatie\\Permission\\Commands\\CacheResetCommand' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CacheResetCommand.php',
         'Spatie\\Permission\\Commands\\CreatePermissionCommand' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CreatePermissionCommand.php',
@@ -10542,6 +10577,169 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'Symfony\\Polyfill\\Php84\\Php84' => __DIR__ . '/..' . '/symfony/polyfill-php84/Php84.php',
         'Symfony\\Polyfill\\Php85\\Php85' => __DIR__ . '/..' . '/symfony/polyfill-php85/Php85.php',
         'Symfony\\Polyfill\\Uuid\\Uuid' => __DIR__ . '/..' . '/symfony/polyfill-uuid/Uuid.php',
+        'TallStackUi\\Facades\\TallStackUi' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Facades/TallStackUi.php',
+        'TallStackUi\\Foundation\\Attributes\\ColorsThroughOf' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Attributes/ColorsThroughOf.php',
+        'TallStackUi\\Foundation\\Attributes\\PassThroughRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Attributes/PassThroughRuntime.php',
+        'TallStackUi\\Foundation\\Attributes\\RequireLivewireContext' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Attributes/RequireLivewireContext.php',
+        'TallStackUi\\Foundation\\Attributes\\SkipDebug' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Attributes/SkipDebug.php',
+        'TallStackUi\\Foundation\\Attributes\\SoftPersonalization' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Attributes/SoftPersonalization.php',
+        'TallStackUi\\Foundation\\Console\\FindComponentCommand' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Console/FindComponentCommand.php',
+        'TallStackUi\\Foundation\\Console\\IdeCommand' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Console/IdeCommand.php',
+        'TallStackUi\\Foundation\\Console\\SetupColorCommand' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Console/SetupColorCommand.php',
+        'TallStackUi\\Foundation\\Console\\SetupPrefixCommand' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Console/SetupPrefixCommand.php',
+        'TallStackUi\\Foundation\\Exceptions\\InappropriateIconGuideExecution' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Exceptions/InappropriateIconGuideExecution.php',
+        'TallStackUi\\Foundation\\Exceptions\\InvalidSelectedPositionException' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Exceptions/InvalidSelectedPositionException.php',
+        'TallStackUi\\Foundation\\Exceptions\\MissingLivewireException' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Exceptions/MissingLivewireException.php',
+        'TallStackUi\\Foundation\\Http\\Controllers\\TallStackUiAssetsController' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Http/Controllers/TallStackUiAssetsController.php',
+        'TallStackUi\\Foundation\\Interactions\\AbstractInteraction' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Interactions/AbstractInteraction.php',
+        'TallStackUi\\Foundation\\Interactions\\Banner' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Interactions/Banner.php',
+        'TallStackUi\\Foundation\\Interactions\\Dialog' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Interactions/Dialog.php',
+        'TallStackUi\\Foundation\\Interactions\\Toast' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Interactions/Toast.php',
+        'TallStackUi\\Foundation\\Interactions\\Traits\\DispatchInteraction' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Interactions/Traits/DispatchInteraction.php',
+        'TallStackUi\\Foundation\\Interactions\\Traits\\InteractWithConfirmation' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Interactions/Traits/InteractWithConfirmation.php',
+        'TallStackUi\\Foundation\\Personalization\\Contracts\\Personalization' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Personalization/Contracts/Personalization.php',
+        'TallStackUi\\Foundation\\Personalization\\Personalization' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Personalization/Personalization.php',
+        'TallStackUi\\Foundation\\Personalization\\PersonalizationFactory' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Personalization/PersonalizationFactory.php',
+        'TallStackUi\\Foundation\\Support\\Blade\\BindProperty' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Blade/BindProperty.php',
+        'TallStackUi\\Foundation\\Support\\Blade\\ComponentPrefix' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Blade/ComponentPrefix.php',
+        'TallStackUi\\Foundation\\Support\\Blade\\Directives' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Blade/Directives.php',
+        'TallStackUi\\Foundation\\Support\\Blade\\Wireable' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Blade/Wireable.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\CompileColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/CompileColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\AlertColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/AlertColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\AvatarColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/AvatarColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\BadgeColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/BadgeColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\BannerColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/BannerColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\BooleanColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/BooleanColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\ButtonColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/ButtonColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\CardColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/CardColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\DialogColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/DialogColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\EnvironmentColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/EnvironmentColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\ErrorsColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/ErrorsColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\LinkColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/LinkColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\ProgressColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/ProgressColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\RadioColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/RadioColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\RangeColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/RangeColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\RatingColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/RatingColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\StatsColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/StatsColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\ToastColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/ToastColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\ToggleColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/ToggleColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Components\\TooltipColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Components/TooltipColors.php',
+        'TallStackUi\\Foundation\\Support\\Colors\\Concerns\\SetupColors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Colors/Concerns/SetupColors.php',
+        'TallStackUi\\Foundation\\Support\\Concerns\\BaseComponent\\ManagesClasses' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Concerns/BaseComponent/ManagesClasses.php',
+        'TallStackUi\\Foundation\\Support\\Concerns\\BaseComponent\\ManagesCompilation' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Concerns/BaseComponent/ManagesCompilation.php',
+        'TallStackUi\\Foundation\\Support\\Concerns\\BaseComponent\\ManagesOutput' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Concerns/BaseComponent/ManagesOutput.php',
+        'TallStackUi\\Foundation\\Support\\Concerns\\BaseComponent\\ManagesRender' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Concerns/BaseComponent/ManagesRender.php',
+        'TallStackUi\\Foundation\\Support\\Concerns\\BuildRawIcon' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Concerns/BuildRawIcon.php',
+        'TallStackUi\\Foundation\\Support\\Configurations\\CompileConfigurations' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Configurations/CompileConfigurations.php',
+        'TallStackUi\\Foundation\\Support\\Icons\\IconGuide' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Icons/IconGuide.php',
+        'TallStackUi\\Foundation\\Support\\Icons\\IconGuideMap' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Icons/IconGuideMap.php',
+        'TallStackUi\\Foundation\\Support\\Miscellaneous\\ReflectComponent' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Miscellaneous/ReflectComponent.php',
+        'TallStackUi\\Foundation\\Support\\Miscellaneous\\UploadComponentFileAdapter' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Miscellaneous/UploadComponentFileAdapter.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\AbstractRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/AbstractRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\CompileRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/CompileRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\ButtonRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/ButtonRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\CheckboxRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/CheckboxRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\ClipboardRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/ClipboardRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\ColorRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/ColorRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\CurrencyRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/CurrencyRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\DateRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/DateRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\DropdownItemsRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/DropdownItemsRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\InputRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/InputRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\KeyValueRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/KeyValueRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\LabelRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/LabelRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\ModalRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/ModalRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\NumberRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/NumberRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\PasswordRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/PasswordRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\PinRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/PinRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\RangeRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/RangeRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\RatingRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/RatingRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\ReactionRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/ReactionRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\SelectNativeRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/SelectNativeRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\SelectStyledRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/SelectStyledRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\SignatureRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/SignatureRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\SlideRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/SlideRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\StatsRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/StatsRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\TabItemsRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/TabItemsRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\TableRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/TableRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\TagRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/TagRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\TextareaRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/TextareaRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\TimeRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/TimeRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\TooltipRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/TooltipRuntime.php',
+        'TallStackUi\\Foundation\\Support\\Runtime\\Components\\UploadRuntime' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Foundation/Support/Runtime/Components/UploadRuntime.php',
+        'TallStackUi\\TallStackUi' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/TallStackUi.php',
+        'TallStackUi\\TallStackUiComponent' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/TallStackUiComponent.php',
+        'TallStackUi\\TallStackUiServiceProvider' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/TallStackUiServiceProvider.php',
+        'TallStackUi\\Traits\\Interactions' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/Traits/Interactions.php',
+        'TallStackUi\\View\\Components\\Alert' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Alert.php',
+        'TallStackUi\\View\\Components\\Avatar' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Avatar.php',
+        'TallStackUi\\View\\Components\\Badge' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Badge.php',
+        'TallStackUi\\View\\Components\\Banner' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Banner.php',
+        'TallStackUi\\View\\Components\\Boolean' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Boolean.php',
+        'TallStackUi\\View\\Components\\Button\\Button' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Button/Button.php',
+        'TallStackUi\\View\\Components\\Button\\Circle' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Button/Circle.php',
+        'TallStackUi\\View\\Components\\Button\\Traits\\Setup' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Button/Traits/Setup.php',
+        'TallStackUi\\View\\Components\\Card' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Card.php',
+        'TallStackUi\\View\\Components\\Carousel' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Carousel.php',
+        'TallStackUi\\View\\Components\\Clipboard' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Clipboard.php',
+        'TallStackUi\\View\\Components\\Dropdown\\Dropdown' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Dropdown/Dropdown.php',
+        'TallStackUi\\View\\Components\\Dropdown\\Items' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Dropdown/Items.php',
+        'TallStackUi\\View\\Components\\Dropdown\\Submenu' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Dropdown/Submenu.php',
+        'TallStackUi\\View\\Components\\Dropdown\\Traits\\SharedTransitions' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Dropdown/Traits/SharedTransitions.php',
+        'TallStackUi\\View\\Components\\Environment' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Environment.php',
+        'TallStackUi\\View\\Components\\Errors' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Errors.php',
+        'TallStackUi\\View\\Components\\Floating' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Floating.php',
+        'TallStackUi\\View\\Components\\Form\\Checkbox' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Checkbox.php',
+        'TallStackUi\\View\\Components\\Form\\Color' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Color.php',
+        'TallStackUi\\View\\Components\\Form\\Currency' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Currency.php',
+        'TallStackUi\\View\\Components\\Form\\Date' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Date.php',
+        'TallStackUi\\View\\Components\\Form\\Error' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Error.php',
+        'TallStackUi\\View\\Components\\Form\\Hint' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Hint.php',
+        'TallStackUi\\View\\Components\\Form\\Input' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Input.php',
+        'TallStackUi\\View\\Components\\Form\\Label' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Label.php',
+        'TallStackUi\\View\\Components\\Form\\Number' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Number.php',
+        'TallStackUi\\View\\Components\\Form\\Password' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Password.php',
+        'TallStackUi\\View\\Components\\Form\\Pin' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Pin.php',
+        'TallStackUi\\View\\Components\\Form\\Radio' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Radio.php',
+        'TallStackUi\\View\\Components\\Form\\Range' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Range.php',
+        'TallStackUi\\View\\Components\\Form\\Select\\Native' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Select/Native.php',
+        'TallStackUi\\View\\Components\\Form\\Select\\Styled' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Select/Styled.php',
+        'TallStackUi\\View\\Components\\Form\\Select\\Traits\\Setup' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Select/Traits/Setup.php',
+        'TallStackUi\\View\\Components\\Form\\Tag' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Tag.php',
+        'TallStackUi\\View\\Components\\Form\\Textarea' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Textarea.php',
+        'TallStackUi\\View\\Components\\Form\\Time' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Time.php',
+        'TallStackUi\\View\\Components\\Form\\Toggle' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Toggle.php',
+        'TallStackUi\\View\\Components\\Form\\Traits\\DefaultInputClasses' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Traits/DefaultInputClasses.php',
+        'TallStackUi\\View\\Components\\Form\\Traits\\Setup' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Traits/Setup.php',
+        'TallStackUi\\View\\Components\\Form\\Upload' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Form/Upload.php',
+        'TallStackUi\\View\\Components\\Icon' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Icon.php',
+        'TallStackUi\\View\\Components\\Interaction\\Dialog' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Interaction/Dialog.php',
+        'TallStackUi\\View\\Components\\Interaction\\Toast' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Interaction/Toast.php',
+        'TallStackUi\\View\\Components\\KeyValue' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/KeyValue.php',
+        'TallStackUi\\View\\Components\\Layout\\Header' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Layout/Header.php',
+        'TallStackUi\\View\\Components\\Layout\\Layout' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Layout/Layout.php',
+        'TallStackUi\\View\\Components\\Layout\\SideBar\\Item' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Layout/SideBar/Item.php',
+        'TallStackUi\\View\\Components\\Layout\\SideBar\\Separator' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Layout/SideBar/Separator.php',
+        'TallStackUi\\View\\Components\\Layout\\SideBar\\SideBar' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Layout/SideBar/SideBar.php',
+        'TallStackUi\\View\\Components\\Link' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Link.php',
+        'TallStackUi\\View\\Components\\Loading' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Loading.php',
+        'TallStackUi\\View\\Components\\Modal' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Modal.php',
+        'TallStackUi\\View\\Components\\Progress\\Circle' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Progress/Circle.php',
+        'TallStackUi\\View\\Components\\Progress\\Progress' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Progress/Progress.php',
+        'TallStackUi\\View\\Components\\Progress\\Traits\\Setup' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Progress/Traits/Setup.php',
+        'TallStackUi\\View\\Components\\Rating' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Rating.php',
+        'TallStackUi\\View\\Components\\Reaction' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Reaction.php',
+        'TallStackUi\\View\\Components\\Signature' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Signature.php',
+        'TallStackUi\\View\\Components\\Slide' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Slide.php',
+        'TallStackUi\\View\\Components\\Stats' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Stats.php',
+        'TallStackUi\\View\\Components\\Step\\Items' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Step/Items.php',
+        'TallStackUi\\View\\Components\\Step\\Step' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Step/Step.php',
+        'TallStackUi\\View\\Components\\Tab\\Items' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Tab/Items.php',
+        'TallStackUi\\View\\Components\\Tab\\Tab' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Tab/Tab.php',
+        'TallStackUi\\View\\Components\\Table' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Table.php',
+        'TallStackUi\\View\\Components\\ThemeSwitch' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/ThemeSwitch.php',
+        'TallStackUi\\View\\Components\\Tooltip' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Tooltip.php',
+        'TallStackUi\\View\\Components\\Wrapper\\Input' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Wrapper/Input.php',
+        'TallStackUi\\View\\Components\\Wrapper\\Radio' => __DIR__ . '/..' . '/tallstackui/tallstackui/src/View/Components/Wrapper/Radio.php',
         'Termwind\\Actions\\StyleToMethod' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Actions/StyleToMethod.php',
         'Termwind\\Components\\Anchor' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/Anchor.php',
         'Termwind\\Components\\BreakLine' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Components/BreakLine.php',
@@ -10592,8 +10790,11 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'Tests\\Feature\\Billing\\SumitBillingProviderTest' => __DIR__ . '/../..' . '/tests/Feature/Billing/SumitBillingProviderTest.php',
         'Tests\\Feature\\Billing\\UsageOverageBillingTest' => __DIR__ . '/../..' . '/tests/Feature/Billing/UsageOverageBillingTest.php',
         'Tests\\Feature\\CreditServiceTest' => __DIR__ . '/../..' . '/tests/Feature/CreditServiceTest.php',
+        'Tests\\Feature\\EventCreationAuthorizationTest' => __DIR__ . '/../..' . '/tests/Feature/EventCreationAuthorizationTest.php',
+        'Tests\\Feature\\EventSlugGenerationTest' => __DIR__ . '/../..' . '/tests/Feature/EventSlugGenerationTest.php',
         'Tests\\Feature\\ExampleTest' => __DIR__ . '/../..' . '/tests/Feature/ExampleTest.php',
         'Tests\\Feature\\Feature\\GuestImportTest' => __DIR__ . '/../..' . '/tests/Feature/Feature/GuestImportTest.php',
+        'Tests\\Feature\\Mail\\MjmlMailablesTest' => __DIR__ . '/../..' . '/tests/Feature/Mail/MjmlMailablesTest.php',
         'Tests\\Feature\\MobileBootstrapTest' => __DIR__ . '/../..' . '/tests/Feature/MobileBootstrapTest.php',
         'Tests\\Feature\\MobileContractConfigTest' => __DIR__ . '/../..' . '/tests/Feature/MobileContractConfigTest.php',
         'Tests\\Feature\\MobileEntryRouteTest' => __DIR__ . '/../..' . '/tests/Feature/MobileEntryRouteTest.php',
@@ -10608,8 +10809,11 @@ class ComposerStaticInit59e717ad7ec6057f9c5fac1efd20a21c
         'Tests\\Feature\\System\\Accounts\\AccountPaymentMethodControllerTest' => __DIR__ . '/../..' . '/tests/Feature/System/Accounts/AccountPaymentMethodControllerTest.php',
         'Tests\\Feature\\System\\Accounts\\AccountShowTest' => __DIR__ . '/../..' . '/tests/Feature/System/Accounts/AccountShowTest.php',
         'Tests\\Feature\\System\\Products\\CreateProductWizardTest' => __DIR__ . '/../..' . '/tests/Feature/System/Products/CreateProductWizardTest.php',
+        'Tests\\Feature\\System\\Products\\ProductTreeViewTest' => __DIR__ . '/../..' . '/tests/Feature/System/Products/ProductTreeViewTest.php',
+        'Tests\\Feature\\UiFormControlsConsistencyTest' => __DIR__ . '/../..' . '/tests/Feature/UiFormControlsConsistencyTest.php',
         'Tests\\TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Tests\\Unit\\ExampleTest' => __DIR__ . '/../..' . '/tests/Unit/ExampleTest.php',
+        'Tests\\Unit\\PanelScreenshotRunnerTest' => __DIR__ . '/../..' . '/tests/Unit/PanelScreenshotRunnerTest.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',
         'TheSeer\\Tokenizer\\NamespaceUri' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUri.php',
         'TheSeer\\Tokenizer\\NamespaceUriException' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUriException.php',

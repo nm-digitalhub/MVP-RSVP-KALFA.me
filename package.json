@@ -10,6 +10,7 @@
         "@tailwindcss/vite": "^4.2.1",
         "laravel-echo": "^2.3.0",
         "laravel-vite-plugin": "^2.0.0",
+        "mjml": "^4.18.0",
         "prettier": "^3.8.1",
         "prettier-plugin-tailwindcss": "^0.7.2",
         "pusher-js": "^8.4.0",

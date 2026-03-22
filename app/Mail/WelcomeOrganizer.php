@@ -6,16 +6,10 @@ namespace App\Mail;
 
 use App\Models\Organization;
 use App\Models\User;
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
-class WelcomeOrganizer extends Mailable
+class WelcomeOrganizer extends MjmlMailable
 {
-    use Queueable, SerializesModels;
-
     /**
      * Create a new message instance.
      */
@@ -23,32 +17,41 @@ class WelcomeOrganizer extends Mailable
         public Organization $organization,
         public User $user,
         public ?string $pdfUrl = null
-    ) {}
-
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: __('Welcome to Kalfa - :organization', ['organization' => $this->organization->name]),
-        );
+    ) {
+        $this->subject(__('Welcome to Kalfa - :organization', ['organization' => $this->organization->name]));
     }
 
     /**
-     * Get the message content definition.
+     * Get the MJML view for the message.
      */
-    public function content(): Content
+    public function mjmlView(): string
     {
-        return new Content(
-            markdown: 'emails.welcome-organizer',
-        );
+        return 'emails.welcome-organizer.mjml';
+    }
+
+    /**
+     * Get the data for the MJML view.
+     *
+     * @return array<string, mixed>
+     */
+    public function mjmlData(): array
+    {
+        return [
+            'organization' => $this->organization,
+            'user' => $this->user,
+            'pdfUrl' => $this->pdfUrl,
+        ];
+    }
+
+    protected function mailLanguage(): string
+    {
+        return 'he';
     }
 
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, Attachment>
      */
     public function attachments(): array
     {

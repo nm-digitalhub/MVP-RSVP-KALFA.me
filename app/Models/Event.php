@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -112,5 +113,62 @@ class Event extends Model implements HasMedia
      */
     public array $customFields {
         get => $this->settings['custom'] ?? [];
+    }
+
+    public static function generateUniqueSlug(int $organizationId, string $name, ?int $ignoreEventId = null): string
+    {
+        $baseSlug = Str::slug($name);
+        $baseSlug = $baseSlug !== '' ? $baseSlug : 'event';
+        $slug = $baseSlug;
+        $suffix = 2;
+
+        while (static::withTrashed()
+            ->where('organization_id', $organizationId)
+            ->where('slug', $slug)
+            ->when($ignoreEventId !== null, fn ($query) => $query->whereKeyNot($ignoreEventId))
+            ->exists()) {
+            $slug = $baseSlug.'-'.$suffix;
+            $suffix++;
+        }
+
+        return $slug;
+    }
+
+    public function accountHasBillingAccess(): bool
+    {
+        $this->loadMissing('organization.account');
+
+        return $this->organization?->account?->hasBillingAccess() ?? false;
+    }
+
+    public function requiresPerEventPayment(): bool
+    {
+        return ! $this->accountHasBillingAccess();
+    }
+
+    public function shouldActivateFromAccountBilling(): bool
+    {
+        if ($this->requiresPerEventPayment()) {
+            return false;
+        }
+
+        if (! in_array($this->status, [EventStatus::Draft, EventStatus::PendingPayment], true)) {
+            return false;
+        }
+
+        $this->loadMissing('eventBilling');
+
+        return $this->eventBilling === null;
+    }
+
+    public function ensureAccessibleStatus(): bool
+    {
+        if (! $this->shouldActivateFromAccountBilling()) {
+            return false;
+        }
+
+        $this->update(['status' => EventStatus::Active]);
+
+        return true;
     }
 }

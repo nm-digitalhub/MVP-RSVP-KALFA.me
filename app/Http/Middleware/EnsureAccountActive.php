@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\Event;
 use App\Models\Organization;
 use Closure;
 use Illuminate\Http\Request;
@@ -43,11 +44,15 @@ class EnsureAccountActive
             return $next($request);
         }
 
-        // Resolve organization: route parameter (API) or user's current org (web).
+        // Resolve organization from the most specific route context first.
         $routeOrg = $request->route('organization');
-        $org = $routeOrg instanceof Organization
-            ? $routeOrg
-            : $user->currentOrganization;
+        $routeEvent = $request->route('event');
+
+        $org = match (true) {
+            $routeOrg instanceof Organization => $routeOrg,
+            $routeEvent instanceof Event => $routeEvent->organization,
+            default => $user->currentOrganization,
+        };
 
         if ($org === null) {
             // Web: EnsureOrganizationSelected handles redirect. API: pass through.

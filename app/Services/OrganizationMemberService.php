@@ -12,11 +12,25 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class OrganizationMemberService
 {
+    private const ROLE_PERMISSIONS = [
+        'Organization Admin' => [
+            'view-event-details',
+            'manage-event-guests',
+            'manage-event-tables',
+            'send-invitations',
+        ],
+        'Organization Editor' => [
+            'view-event-details',
+            'manage-event-guests',
+        ],
+    ];
+
     /**
      * Invite a new member via email.
      */
@@ -125,6 +139,27 @@ class OrganizationMemberService
         });
     }
 
+    public function ensureSpatieRole(Organization $organization, User $user): void
+    {
+        $pivot = $organization->users()
+            ->where('users.id', $user->id)
+            ->first()?->pivot;
+
+        if ($pivot === null) {
+            return;
+        }
+
+        $role = $pivot->role instanceof OrganizationUserRole
+            ? $pivot->role
+            : OrganizationUserRole::tryFrom((string) $pivot->role);
+
+        if ($role === null) {
+            return;
+        }
+
+        $this->syncSpatieRole($organization, $user, $role);
+    }
+
     /**
      * Sync Spatie roles based on our Pivot role.
      */
@@ -138,7 +173,12 @@ class OrganizationMemberService
         };
 
         // Ensure role exists for this team
-        Role::findOrCreate($spatieRoleName, 'web');
+        $spatieRole = Role::findOrCreate($spatieRoleName, 'web');
+        $permissions = Permission::query()
+            ->whereIn('name', self::ROLE_PERMISSIONS[$spatieRoleName])
+            ->get();
+
+        $spatieRole->syncPermissions($permissions);
 
         $user->syncRoles([$spatieRoleName]);
     }

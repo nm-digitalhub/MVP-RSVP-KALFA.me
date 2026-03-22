@@ -56,6 +56,9 @@ final class Show extends Component
 
     public bool $entitlementIsActive = true;
 
+    /** @var array<int, array{key: string, value: string, type: string}> */
+    public array $newConstraints = [];
+
     public ?EntitlementType $filterType = null;
 
     public bool $showAddLimitForm = false;
@@ -146,7 +149,13 @@ final class Show extends Component
             'newFeatureKey' => 'required|string|max:100',
             'newLabel' => 'required|string|max:255',
             'newValue' => 'nullable|string|max:255',
+            'newType' => [Rule::enum(EntitlementType::class)],
             'newDescription' => 'nullable|string|max:1000',
+            'entitlementIsActive' => ['required', 'boolean'],
+            'newConstraints' => ['nullable', 'array'],
+            'newConstraints.*.key' => ['required', 'string', 'max:255'],
+            'newConstraints.*.value' => ['nullable', 'string'],
+            'newConstraints.*.type' => ['required', 'in:string,number,boolean,json'],
         ];
     }
 
@@ -369,6 +378,7 @@ final class Show extends Component
             'type' => $this->newType,
             'description' => $this->newDescription,
             'is_active' => $this->entitlementIsActive,
+            'constraints' => $this->newConstraints !== [] ? $this->newConstraints : null,
         ];
 
         if ($this->editingEntitlementId !== null) {
@@ -395,6 +405,7 @@ final class Show extends Component
         $this->newType = $entitlement->type;
         $this->newDescription = $entitlement->description;
         $this->entitlementIsActive = $entitlement->is_active;
+        $this->newConstraints = (array) ($entitlement->constraints ?? []);
         $this->resetErrorBag();
     }
 
@@ -430,6 +441,22 @@ final class Show extends Component
         $this->newType = EntitlementType::Text;
         $this->newDescription = '';
         $this->entitlementIsActive = true;
+        $this->newConstraints = [];
+    }
+
+    public function addConstraintRow(): void
+    {
+        $this->newConstraints[] = [
+            'key' => '',
+            'value' => '',
+            'type' => 'string',
+        ];
+    }
+
+    public function removeConstraintRow(int $index): void
+    {
+        unset($this->newConstraints[$index]);
+        $this->newConstraints = array_values($this->newConstraints);
     }
 
     public function setFilterType(EntitlementType|string|null $type): void
