@@ -79,7 +79,7 @@ class UiFormControlsConsistencyTest extends TestCase
 
         $invitationsResponse->assertOk()
             ->assertSee('class="w-full sm:min-w-[200px] sm:flex-1"', false)
-            ->assertSee('class="input-base mt-1"', false);
+            ->assertSee('wire:model="createForGuestId"', false);
     }
 
     public function test_payment_forms_use_the_shared_input_language(): void

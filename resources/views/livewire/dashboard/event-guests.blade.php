@@ -44,8 +44,15 @@
             <p class="text-sm text-gray-500 mb-2">{{ __('CSV columns: name (or שם), email, phone, notes') }}</p>
             <form wire:submit="import" class="flex flex-wrap items-end gap-3">
                 <div class="w-full sm:max-w-md">
-                    <label for="guest-import-file" class="mb-2 block text-sm font-medium text-gray-700">{{ __('CSV file') }}</label>
-                    <input id="guest-import-file" type="file" wire:model="importFile" accept=".csv,.txt" class="input-base block w-full text-sm text-gray-500 file:me-4 file:rounded-lg file:border-0 file:bg-brand/10 file:px-4 file:py-2.5 file:text-sm file:font-medium file:text-brand hover:file:bg-brand/15" />
+                    <x-ts-input
+                        id="guest-import-file"
+                        type="file"
+                        wire:model="importFile"
+                        accept=".csv,.txt"
+                        label="{{ __('CSV file') }}"
+                        hint="{{ __('CSV columns: name (or שם), email, phone, notes') }}"
+                        class="mt-1"
+                    />
                     <div wire:loading wire:target="importFile" class="mt-2">
                         <x-ts-alert color="primary" light text="{{ __('Uploading...') }}" />
                     </div>
