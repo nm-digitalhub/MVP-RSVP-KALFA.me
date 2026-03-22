@@ -21,3 +21,774 @@
 [2026-03-20 03:32:56] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T01:32:55.417Z"} 
 [2026-03-20 03:57:50] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T01:57:49.733Z"} 
 [2026-03-20 05:31:48] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T03:31:47.217Z"} 
+[2026-03-20 11:49:46] production.WARNING: startAuthentication() was not called correctly. It will try to continue with the provided options, but this call should be refactored to use the expected call structure instead. See https://simplewebauthn.dev/docs/packages/browser#typeerror-cannot-read-properties-of-undefined-reading-challenge for more information. {"url":"https://kalfa.me/login","user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T09:49:46.012Z"} 
+[2026-03-20 11:50:14] production.ERROR: Uncaught SyntaxError: Identifier 'CACHE_NAME' has already been declared https://kalfa.me/sw.js 1 1 SyntaxError Identifier 'CACHE_NAME' has already been declared SyntaxError: Identifier 'CACHE_NAME' has already been declared {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T09:50:13.692Z"} 
+[2026-03-20 11:50:14] production.ERROR: Uncaught SyntaxError: Identifier 'CACHE_NAME' has already been declared https://kalfa.me/sw.js 1 1 SyntaxError Identifier 'CACHE_NAME' has already been declared SyntaxError: Identifier 'CACHE_NAME' has already been declared {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T09:50:13.692Z"} 
+[2026-03-20 12:20:24] production.WARNING: startAuthentication() was not called correctly. It will try to continue with the provided options, but this call should be refactored to use the expected call structure instead. See https://simplewebauthn.dev/docs/packages/browser#typeerror-cannot-read-properties-of-undefined-reading-challenge for more information. {"url":"https://kalfa.me/login","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T10:20:23.715Z"} 
+[2026-03-20 12:20:49] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/system/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T10:20:49.486Z"} 
+[2026-03-20 12:20:49] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/system/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T10:20:49.486Z"} 
+[2026-03-20 12:21:01] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T10:21:00.996Z"} 
+[2026-03-20 12:21:01] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T10:21:00.996Z"} 
+[2026-03-20 13:09:08] production.WARNING: Alpine Expression Error: Unexpected token ';'. Expected ')' to end a compound expression.
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 426 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T11:09:08.310Z"} 
+[2026-03-20 13:09:08] production.ERROR: SyntaxError: Unexpected token ';'. Expected ')' to end a compound expression. https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token ';'. Expected ')' to end a compound expression. AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+@https://kalfa.me/vendor/livewire/livewire.js:4217:48
+@https://kalfa.me/vendor/livewire/livewire.js:2173:66
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T11:09:08.337Z"} 
+[2026-03-20 13:09:08] production.ERROR: SyntaxError: Unexpected token ';'. Expected ')' to end a compound expression. https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token ';'. Expected ')' to end a compound expression. AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+@https://kalfa.me/vendor/livewire/livewire.js:4217:48
+@https://kalfa.me/vendor/livewire/livewire.js:2173:66
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T11:09:08.337Z"} 
+[2026-03-20 14:05:51] production.WARNING: Alpine Expression Error: Unexpected token ';'. Expected ')' to end a compound expression.
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:05:50.767Z"} 
+[2026-03-20 14:05:51] production.ERROR: SyntaxError: Unexpected token ';'. Expected ')' to end a compound expression. https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token ';'. Expected ')' to end a compound expression. AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+@https://kalfa.me/vendor/livewire/livewire.js:4217:48
+@https://kalfa.me/vendor/livewire/livewire.js:2173:66
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:05:50.783Z"} 
+[2026-03-20 14:05:51] production.ERROR: SyntaxError: Unexpected token ';'. Expected ')' to end a compound expression. https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token ';'. Expected ')' to end a compound expression. AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+@https://kalfa.me/vendor/livewire/livewire.js:4217:48
+@https://kalfa.me/vendor/livewire/livewire.js:2173:66
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:05:50.783Z"} 
+[2026-03-20 14:18:22] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:18:21.643Z"} 
+[2026-03-20 14:18:22] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:18:21.666Z"} 
+[2026-03-20 14:18:22] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:18:21.666Z"} 
+[2026-03-20 14:19:35] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:34.967Z"} 
+[2026-03-20 14:19:35] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:34.992Z"} 
+[2026-03-20 14:19:35] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:34.992Z"} 
+[2026-03-20 14:19:38] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:38.548Z"} 
+[2026-03-20 14:19:38] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:38.571Z"} 
+[2026-03-20 14:19:38] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:38.571Z"} 
+[2026-03-20 14:19:42] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:42.299Z"} 
+[2026-03-20 14:19:42] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:42.323Z"} 
+[2026-03-20 14:19:42] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:42.323Z"} 
+[2026-03-20 14:19:46] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:46.046Z"} 
+[2026-03-20 14:19:46] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:46.075Z"} 
+[2026-03-20 14:19:46] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:46.075Z"} 
+[2026-03-20 14:19:49] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:19:49.578Z"} 
+[2026-03-20 14:19:49] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:19:49.607Z"} 
+[2026-03-20 14:19:49] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:19:49.607Z"} 
+[2026-03-20 14:19:53] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:19:53.003Z"} 
+[2026-03-20 14:19:53] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:19:53.034Z"} 
+[2026-03-20 14:19:53] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:19:53.034Z"} 
+[2026-03-20 14:19:57] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:56.625Z"} 
+[2026-03-20 14:19:57] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:56.650Z"} 
+[2026-03-20 14:19:57] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:19:56.650Z"} 
+[2026-03-20 14:20:00] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:00.052Z"} 
+[2026-03-20 14:20:00] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:00.076Z"} 
+[2026-03-20 14:20:00] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:00.077Z"} 
+[2026-03-20 14:20:04] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:04.028Z"} 
+[2026-03-20 14:20:04] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:04.059Z"} 
+[2026-03-20 14:20:04] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:04.059Z"} 
+[2026-03-20 14:20:08] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:07.849Z"} 
+[2026-03-20 14:20:08] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:07.869Z"} 
+[2026-03-20 14:20:08] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:20:07.869Z"} 
+[2026-03-20 14:20:11] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:20:11.373Z"} 
+[2026-03-20 14:20:11] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:20:11.392Z"} 
+[2026-03-20 14:20:11] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:20:11.392Z"} 
+[2026-03-20 14:20:14] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 427 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:20:14.605Z"} 
+[2026-03-20 14:20:15] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:20:14.628Z"} 
+[2026-03-20 14:20:15] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:20:14.628Z"} 
+[2026-03-20 14:33:25] production.WARNING: Alpine Expression Error: Unexpected token ';'. Expected ')' to end a compound expression.
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 446 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:33:25.148Z"} 
+[2026-03-20 14:33:25] production.ERROR: SyntaxError: Unexpected token ';'. Expected ')' to end a compound expression. https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token ';'. Expected ')' to end a compound expression. AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+@https://kalfa.me/vendor/livewire/livewire.js:4217:48
+@https://kalfa.me/vendor/livewire/livewire.js:2173:66
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:33:25.159Z"} 
+[2026-03-20 14:33:25] production.ERROR: SyntaxError: Unexpected token ';'. Expected ')' to end a compound expression. https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token ';'. Expected ')' to end a compound expression. AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+@https://kalfa.me/vendor/livewire/livewire.js:4217:48
+@https://kalfa.me/vendor/livewire/livewire.js:2173:66
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:33:25.159Z"} 
+[2026-03-20 14:33:33] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 446 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:33:32.708Z"} 
+[2026-03-20 14:33:33] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:33:32.732Z"} 
+[2026-03-20 14:33:33] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:33:32.732Z"} 
+[2026-03-20 14:33:37] production.WARNING: Alpine Expression Error: Unexpected token ';'
+
+Expression: "!isTouch && (actionsOpen = false; popoverOpen = false)" null null null null 446 null null {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:33:36.933Z"} 
+[2026-03-20 14:33:37] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:33:36.954Z"} 
+[2026-03-20 14:33:37] production.ERROR: Uncaught SyntaxError: Unexpected token ';' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1396 21 SyntaxError Unexpected token ';' SyntaxError: Unexpected token ';'
+    at new AsyncFunction (<anonymous>)
+    at safeAsyncFunction (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1396:21)
+    at generateFunctionFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1409:16)
+    at generateEvaluatorFromString (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1414:16)
+    at normalEvaluator (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1372:111)
+    at evaluateLater (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1358:12)
+    at https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:4217:35
+    at Function.<anonymous> (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:2173:58)
+    at flushHandlers (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1538:48)
+    at stopDeferring (https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734:1543:7) {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:33:36.954Z"} 
+[2026-03-20 14:36:09] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:36:08.509Z"} 
+[2026-03-20 14:37:45] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:37:44.594Z"} 
+[2026-03-20 14:38:20] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:38:19.572Z"} 
+[2026-03-20 14:38:23] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:38:22.745Z"} 
+[2026-03-20 14:49:15] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:49:14.381Z"} 
+[2026-03-20 14:50:51] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T12:50:50.262Z"} 
+[2026-03-20 14:51:02] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:01.690Z"} 
+[2026-03-20 14:51:05] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:04.970Z"} 
+[2026-03-20 14:51:14] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:13.159Z"} 
+[2026-03-20 14:51:15] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:14.650Z"} 
+[2026-03-20 14:51:22] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:21.160Z"} 
+[2026-03-20 14:51:23] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:22.679Z"} 
+[2026-03-20 14:51:35] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:34.759Z"} 
+[2026-03-20 14:51:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:36.272Z"} 
+[2026-03-20 14:51:42] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:41.715Z"} 
+[2026-03-20 14:51:43] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:42.944Z"} 
+[2026-03-20 14:51:45] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:44.458Z"} 
+[2026-03-20 14:51:45] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:51:45.051Z"} 
+[2026-03-20 14:58:23] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:58:21.974Z"} 
+[2026-03-20 14:58:24] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:58:23.675Z"} 
+[2026-03-20 14:59:31] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:30.252Z"} 
+[2026-03-20 14:59:32] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:31.808Z"} 
+[2026-03-20 14:59:38] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:37.970Z"} 
+[2026-03-20 14:59:40] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:39.365Z"} 
+[2026-03-20 14:59:46] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:45.425Z"} 
+[2026-03-20 14:59:47] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:46.850Z"} 
+[2026-03-20 14:59:54] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:52.888Z"} 
+[2026-03-20 14:59:55] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T12:59:54.260Z"} 
+[2026-03-20 15:00:19] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:00:18.880Z"} 
+[2026-03-20 15:00:21] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:00:20.462Z"} 
+[2026-03-20 15:00:27] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:00:27.017Z"} 
+[2026-03-20 15:00:29] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:00:28.550Z"} 
+[2026-03-20 15:00:59] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:00:58.721Z"} 
+[2026-03-20 15:01:01] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:01:00.449Z"} 
+[2026-03-20 15:01:07] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:01:06.818Z"} 
+[2026-03-20 15:01:09] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:01:08.318Z"} 
+[2026-03-20 15:12:31] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:12:30.438Z"} 
+[2026-03-20 15:12:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:12:36.176Z"} 
+[2026-03-20 15:12:38] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:12:37.670Z"} 
+[2026-03-20 15:12:44] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:12:43.051Z"} 
+[2026-03-20 15:12:44] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:12:43.824Z"} 
+[2026-03-20 15:12:46] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:12:45.256Z"} 
+[2026-03-20 15:17:02] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:17:01.210Z"} 
+[2026-03-20 15:19:36] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:19:35.104Z"} 
+[2026-03-20 15:19:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:19:36.573Z"} 
+[2026-03-20 15:24:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:24:51.667Z"} 
+[2026-03-20 15:33:35] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:33:34.928Z"} 
+[2026-03-20 15:33:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:33:36.503Z"} 
+[2026-03-20 15:39:09] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:39:08.369Z"} 
+[2026-03-20 15:39:19] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:39:18.838Z"} 
+[2026-03-20 15:39:41] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:39:40.975Z"} 
+[2026-03-20 15:39:43] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:39:42.523Z"} 
+[2026-03-20 15:43:11] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:43:11.003Z"} 
+[2026-03-20 15:43:13] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:43:12.560Z"} 
+[2026-03-20 15:43:54] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:43:53.196Z"} 
+[2026-03-20 15:44:06] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:44:05.181Z"} 
+[2026-03-20 15:51:54] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:51:53.367Z"} 
+[2026-03-20 15:51:55] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:51:54.927Z"} 
+[2026-03-20 15:52:01] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T13:52:00.705Z"} 
+[2026-03-20 15:54:22] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:54:21.912Z"} 
+[2026-03-20 15:54:24] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:54:23.560Z"} 
+[2026-03-20 15:54:30] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:54:29.927Z"} 
+[2026-03-20 15:54:32] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:54:31.348Z"} 
+[2026-03-20 15:56:40] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:56:39.474Z"} 
+[2026-03-20 15:56:41] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:56:41.029Z"} 
+[2026-03-20 15:56:48] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:56:47.492Z"} 
+[2026-03-20 15:56:49] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T13:56:48.945Z"} 
+[2026-03-20 16:48:34] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T14:48:33.835Z"} 
+[2026-03-20 16:51:06] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T14:51:05.256Z"} 
+[2026-03-20 16:55:43] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T14:55:42.536Z"} 
+[2026-03-20 17:23:14] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:23:13.958Z"} 
+[2026-03-20 17:24:18] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:24:17.184Z"} 
+[2026-03-20 17:33:04] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:33:03.365Z"} 
+[2026-03-20 17:33:24] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:33:23.534Z"} 
+[2026-03-20 17:36:49] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:36:49.032Z"} 
+[2026-03-20 17:40:50] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:40:49.935Z"} 
+[2026-03-20 17:42:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:42:51.422Z"} 
+[2026-03-20 17:51:53] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:51:52.580Z"} 
+[2026-03-20 17:59:28] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:59:27.520Z"} 
+[2026-03-20 17:59:31] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T15:59:30.638Z"} 
+[2026-03-20 18:08:28] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:08:27.185Z"} 
+[2026-03-20 18:08:42] production.WARNING: Alpine Expression Error: Can't find variable: mobileActionsOpen
+
+Expression: "mobileActionsOpen.toString()" null null mobileActionsOpen.toString() false 1376 null  {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:08:41.933Z"} 
+[2026-03-20 18:08:42] production.WARNING: Alpine Expression Error: Can't find variable: mobileActionsOpen
+
+Expression: "mobileActionsOpen" null null 1379 null   {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:08:41.934Z"} 
+[2026-03-20 18:08:42] production.ERROR: ReferenceError: Can't find variable: mobileActionsOpen https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: mobileActionsOpen anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+@https://kalfa.me/vendor/livewire/livewire.js:2220:31
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:2186:15
+dontRegisterReactiveSideEffects@https://kalfa.me/vendor/livewire/livewire.js:2225:13
+cloneNode@https://kalfa.me/vendor/livewire/livewire.js:2185:36
+@https://kalfa.me/vendor/livewire/livewire.js:12711:32
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+morph@https://kalfa.me/vendor/livewire/livewire.js:12663:18
+@https://kalfa.me/vendor/livewire/livewire.js:13638:27
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13538:22
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13534:42
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13637:32
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13604:27
+@https://kalfa.me/vendor/livewire/livewire.js:13758:21
+@https://kalfa.me/vendor/livewire/livewire.js:13754:28
+map@[native code]
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4907:30
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4905:29
+@https://kalfa.me/vendor/livewire/livewire.js:5491:46
+@https://kalfa.me/vendor/livewire/livewire.js:5482:59
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1004:21
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1001:32
+@https://kalfa.me/vendor/livewire/livewire.js:5482:35
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5472:44
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5471:35 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:08:41.935Z"} 
+[2026-03-20 18:08:42] production.ERROR: ReferenceError: Can't find variable: mobileActionsOpen https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: mobileActionsOpen anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+@https://kalfa.me/vendor/livewire/livewire.js:2220:31
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:2186:15
+dontRegisterReactiveSideEffects@https://kalfa.me/vendor/livewire/livewire.js:2225:13
+cloneNode@https://kalfa.me/vendor/livewire/livewire.js:2185:36
+@https://kalfa.me/vendor/livewire/livewire.js:12711:32
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+morph@https://kalfa.me/vendor/livewire/livewire.js:12663:18
+@https://kalfa.me/vendor/livewire/livewire.js:13638:27
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13538:22
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13534:42
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13637:32
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13604:27
+@https://kalfa.me/vendor/livewire/livewire.js:13758:21
+@https://kalfa.me/vendor/livewire/livewire.js:13754:28
+map@[native code]
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4907:30
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4905:29
+@https://kalfa.me/vendor/livewire/livewire.js:5491:46
+@https://kalfa.me/vendor/livewire/livewire.js:5482:59
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1004:21
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1001:32
+@https://kalfa.me/vendor/livewire/livewire.js:5482:35
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5472:44
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5471:35 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:08:41.935Z"} 
+[2026-03-20 18:08:42] production.ERROR: ReferenceError: Can't find variable: mobileActionsOpen https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: mobileActionsOpen anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3966:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+@https://kalfa.me/vendor/livewire/livewire.js:2220:31
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3966:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:2186:15
+dontRegisterReactiveSideEffects@https://kalfa.me/vendor/livewire/livewire.js:2225:13
+cloneNode@https://kalfa.me/vendor/livewire/livewire.js:2185:36
+@https://kalfa.me/vendor/livewire/livewire.js:12711:32
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+morph@https://kalfa.me/vendor/livewire/livewire.js:12663:18
+@https://kalfa.me/vendor/livewire/livewire.js:13638:27
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13538:22
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13534:42
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13637:32
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13604:27
+@https://kalfa.me/vendor/livewire/livewire.js:13758:21
+@https://kalfa.me/vendor/livewire/livewire.js:13754:28
+map@[native code]
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4907:30
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4905:29
+@https://kalfa.me/vendor/livewire/livewire.js:5491:46
+@https://kalfa.me/vendor/livewire/livewire.js:5482:59
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1004:21
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1001:32
+@https://kalfa.me/vendor/livewire/livewire.js:5482:35
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5472:44
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5471:35 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:08:41.935Z"} 
+[2026-03-20 18:08:42] production.ERROR: ReferenceError: Can't find variable: mobileActionsOpen https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: mobileActionsOpen anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3966:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+@https://kalfa.me/vendor/livewire/livewire.js:2220:31
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+@https://kalfa.me/vendor/livewire/livewire.js:3966:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:2186:15
+dontRegisterReactiveSideEffects@https://kalfa.me/vendor/livewire/livewire.js:2225:13
+cloneNode@https://kalfa.me/vendor/livewire/livewire.js:2185:36
+@https://kalfa.me/vendor/livewire/livewire.js:12711:32
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+@https://kalfa.me/vendor/livewire/livewire.js:12895:22
+@https://kalfa.me/vendor/livewire/livewire.js:12726:30
+morph@https://kalfa.me/vendor/livewire/livewire.js:12663:18
+@https://kalfa.me/vendor/livewire/livewire.js:13638:27
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13538:22
+transitionDomMutation@https://kalfa.me/vendor/livewire/livewire.js:13534:42
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13637:32
+morph2@https://kalfa.me/vendor/livewire/livewire.js:13604:27
+@https://kalfa.me/vendor/livewire/livewire.js:13758:21
+@https://kalfa.me/vendor/livewire/livewire.js:13754:28
+map@[native code]
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4907:30
+invokeOnMorph@https://kalfa.me/vendor/livewire/livewire.js:4905:29
+@https://kalfa.me/vendor/livewire/livewire.js:5491:46
+@https://kalfa.me/vendor/livewire/livewire.js:5482:59
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1004:21
+transaction@https://kalfa.me/vendor/livewire/livewire.js:1001:32
+@https://kalfa.me/vendor/livewire/livewire.js:5482:35
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5472:44
+forEach@[native code]
+@https://kalfa.me/vendor/livewire/livewire.js:5471:35 {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:08:41.935Z"} 
+[2026-03-20 18:11:47] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:11:46.945Z"} 
+[2026-03-20 18:11:51] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/26.0 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:11:50.134Z"} 
+[2026-03-20 18:14:28] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:14:27.046Z"} 
+[2026-03-20 18:19:09] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:19:08.231Z"} 
+[2026-03-20 18:19:09] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:19:08.231Z"} 
+[2026-03-20 18:19:10] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:19:09.708Z"} 
+[2026-03-20 18:23:53] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:23:53.033Z"} 
+[2026-03-20 18:33:22] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-20T16:33:21.904Z"} 
+[2026-03-20 18:44:20] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:20.091Z"} 
+[2026-03-20 18:44:21] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:20.091Z"} 
+[2026-03-20 18:44:22] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:21.710Z"} 
+[2026-03-20 18:44:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:51.969Z"} 
+[2026-03-20 18:44:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:51.969Z"} 
+[2026-03-20 18:44:54] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:53.612Z"} 

@@ -8,6 +8,7 @@ use App\Enums\EntitlementType;
 use App\Enums\ProductPriceBillingCycle;
 use App\Enums\ProductStatus;
 use App\Models\Product;
+use App\Models\ProductEntitlement;
 use App\Models\ProductFeature;
 use App\Models\ProductLimit;
 use App\Models\ProductPlan;
@@ -41,6 +42,8 @@ final class Show extends Component
     // Entitlement creation
     public bool $showAddEntitlementForm = false;
 
+    public ?int $editingEntitlementId = null;
+
     public string $newFeatureKey = '';
 
     public string $newLabel = '';
@@ -50,6 +53,8 @@ final class Show extends Component
     public EntitlementType $newType = EntitlementType::Text;
 
     public ?string $newDescription = '';
+
+    public bool $entitlementIsActive = true;
 
     public ?EntitlementType $filterType = null;
 
@@ -357,26 +362,74 @@ final class Show extends Component
     {
         $this->validate($this->entitlementRules());
 
-        $this->product->entitlements()->create([
+        $payload = [
             'feature_key' => $this->newFeatureKey,
             'label' => $this->newLabel,
             'value' => $this->newValue,
             'type' => $this->newType,
             'description' => $this->newDescription,
-            'is_active' => true,
-        ]);
+            'is_active' => $this->entitlementIsActive,
+        ];
+
+        if ($this->editingEntitlementId !== null) {
+            $this->findEntitlement($this->editingEntitlementId)->update($payload);
+            session()->flash('success', __('Entitlement updated.'));
+        } else {
+            $this->product->entitlements()->create($payload);
+            session()->flash('success', __('Entitlement added.'));
+        }
 
         $this->closeAddEntitlementForm();
-        session()->flash('success', __('Entitlement added.'));
+    }
+
+    #[On('tree:open-edit-entitlement')]
+    public function startEditEntitlement(int $entitlementId): void
+    {
+        $entitlement = $this->findEntitlement($entitlementId);
+
+        $this->editingEntitlementId = $entitlement->id;
+        $this->showAddEntitlementForm = true;
+        $this->newFeatureKey = $entitlement->feature_key;
+        $this->newLabel = $entitlement->label;
+        $this->newValue = (string) ($entitlement->value ?? '');
+        $this->newType = $entitlement->type;
+        $this->newDescription = $entitlement->description;
+        $this->entitlementIsActive = $entitlement->is_active;
+        $this->resetErrorBag();
+    }
+
+    #[On('tree:toggle-entitlement')]
+    public function toggleEntitlement(int $entitlementId): void
+    {
+        $entitlement = $this->findEntitlement($entitlementId);
+        $entitlement->update([
+            'is_active' => ! $entitlement->is_active,
+        ]);
+
+        session()->flash('success', $entitlement->fresh()->is_active ? __('Entitlement activated.') : __('Entitlement disabled.'));
+    }
+
+    #[On('tree:delete-entitlement')]
+    public function deleteEntitlement(int $entitlementId): void
+    {
+        $this->findEntitlement($entitlementId)->delete();
+
+        if ($this->editingEntitlementId === $entitlementId) {
+            $this->closeAddEntitlementForm();
+        }
+
+        session()->flash('success', __('Entitlement removed.'));
     }
 
     protected function resetEntitlementForm(): void
     {
+        $this->editingEntitlementId = null;
         $this->newFeatureKey = '';
         $this->newLabel = '';
         $this->newValue = '';
         $this->newType = EntitlementType::Text;
         $this->newDescription = '';
+        $this->entitlementIsActive = true;
     }
 
     public function setFilterType(EntitlementType|string|null $type): void
@@ -907,6 +960,11 @@ final class Show extends Component
     protected function findPlan(int $planId): ProductPlan
     {
         return $this->product->productPlans()->whereKey($planId)->firstOrFail();
+    }
+
+    protected function findEntitlement(int $entitlementId): ProductEntitlement
+    {
+        return $this->product->productEntitlements()->whereKey($entitlementId)->firstOrFail();
     }
 
     protected function findPrice(int $priceId): ProductPrice

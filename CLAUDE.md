@@ -221,6 +221,27 @@ Models use enum casting: `protected function casts(): array { return ['status' =
     - Suspend/activate organization
     - Force delete (catches referential integrity errors)
     - Reset data (placeholder)
+  - `System/Products/Show.php` — product management with tree-view components
+
+### Inline Livewire Components (`⚡` prefix)
+
+Files starting with `⚡` (e.g., `⚡tree-node.blade.php`) are **inline Livewire components** — a single `.blade.php` file containing both the PHP component class (at top) and Blade template.
+
+**Pattern**: PHP class with `new class extends Component` defines props/methods, followed by `@php` logic and Blade HTML. Used for self-contained UI elements like tree nodes and branches that dispatch events to parent components.
+
+### Tree Event Dispatch Pattern
+
+Tree components dispatch events with `tree:` prefix (e.g., `tree:open-edit-plan`, `tree:delete-limit`). Parent components handle these using `#[On('tree:action-name')]` attribute on methods. Type-based routing in tree nodes uses `match()` to dispatch appropriate events based on node type.
+
+### Tone-Based Styling Pattern
+
+Components accept `tone` parameter (slate, brand, sky, emerald, amber) to determine CSS classes. Use `match()` expressions to map tones to color classes for badges, headers, counts.
+
+**Example**: `'brand' => 'border-brand/20 bg-brand/5 text-brand'`
+
+### Alpine.js Store for Tree State
+
+Tree components use `$store.productTree` for shared state (e.g., `showIcons`, `showStatuses`, `showIdentifiers`). Global events like `@tree-expand-all.window` and `@tree-collapse-all.window` control tree expansion.
 
 ### Views Structure
 ```
@@ -354,6 +375,14 @@ Route::apiResource('organizations.events', EventController::class)
 - PHPUnit 11.5+ with SQLite in-memory database
 - Test structure: `tests/Feature/` and `tests/Unit/`
 - `tests/Feature/SumitProductionValidationTest.php` validates SUMIT gateway configuration
+
+### System Admin Testing Pattern
+
+For system admin component tests:
+- Create users with `is_system_admin => true`
+- Use `Livewire::actingAs($user)->test(Show::class, ['product' => $product])` pattern
+- Test event dispatch from child components: `->dispatch('tree:open-edit-plan', planId: $plan->id)`
+- Verify form population: `->assertSet('editingPlanId', $plan->id)->assertSet('showAddPlanForm', true)`
 
 ---
 
