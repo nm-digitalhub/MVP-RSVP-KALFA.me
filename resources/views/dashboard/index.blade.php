@@ -1,58 +1,75 @@
 <x-layouts.app>
     <x-slot:title>{{ __('Dashboard') }}</x-slot:title>
 
-<div class="min-h-screen bg-gray-50 py-12 px-4">
+<div class="min-h-screen bg-surface py-6 sm:py-8 px-3 sm:px-4">
     <div class="max-w-7xl mx-auto">
-        <div class="mb-6">
+        <div class="mb-5 sm:mb-6">
             @session('success')
-                <div class="mb-4 rounded-md bg-green-50 p-4 text-sm text-green-800">{{ $value }}</div>
+                <div class="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-3 sm:px-4 py-3 text-sm text-emerald-900 ring-1 ring-inset ring-emerald-200/50" role="status" aria-live="polite">{{ $value }}</div>
             @endsession
-            <h1 class="text-2xl font-semibold text-gray-900">{{ $organization->name }}</h1>
-            <p class="mt-1 text-sm text-gray-500">{{ __('Dashboard') }}</p>
+            <h1 class="text-xl sm:text-2xl font-semibold text-content">{{ $organization->name }}</h1>
+            <p class="mt-1 text-sm text-content-muted">{{ __('Dashboard') }}</p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div class="px-4 py-4 sm:px-6 border-b border-gray-200">
-                <h2 class="text-lg font-medium text-gray-900">{{ __('Events') }}</h2>
+        <div class="card overflow-hidden">
+            <div class="border-b border-stroke px-3 sm:px-4 py-3 sm:py-4 flex justify-between items-center gap-3">
+                <h2 class="text-base sm:text-lg font-semibold text-content">{{ __('Events') }}</h2>
+                <a href="{{ route('dashboard.events.create') }}" class="btn btn-primary btn-sm focus-ring">
+                    <x-heroicon-o-plus class="h-4 w-4" />
+                    <span class="hidden sm:inline">{{ __('Create') }}</span>
+                </a>
             </div>
             <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
+                <table class="min-w-full divide-y divide-stroke">
+                    <thead class="bg-surface">
                         <tr>
-                            <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Title') }}</th>
-                            <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Date') }}</th>
-                            <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Event status') }}</th>
-                            <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider">{{ __('Guests count') }}</th>
-                            <th scope="col" class="px-4 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">{{ __('Title') }}</th>
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">{{ __('Date') }}</th>
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">{{ __('Status') }}</th>
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted hidden sm:table-cell">{{ __('Guests') }}</th>
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-end text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tbody class="bg-card divide-y divide-stroke">
                         @forelse($events as $event)
-                            <tr>
-                                <td class="px-4 py-3 text-sm text-gray-900">{{ $event->name }}</td>
-                                <td class="px-4 py-3 text-sm text-gray-600">{{ $event->event_date?->format('Y-m-d') }}</td>
-                                <td class="px-4 py-3">
-                                    <span class="inline-flex px-2 py-1 text-xs font-medium rounded-full
+                            <tr class="data-table-row">
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm font-medium text-content">{{ $event->name }}</td>
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-content-muted">{{ $event->event_date?->format('Y-m-d') }}</td>
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3">
+                                    <span class="badge text-[9px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1
                                         @switch($event->status->value ?? '')
-                                            @case('draft') bg-gray-100 text-gray-800 @break
-                                            @case('pending_payment') bg-amber-100 text-amber-800 @break
-                                            @case('active') bg-green-100 text-green-800 @break
-                                            @case('locked') bg-blue-100 text-blue-800 @break
-                                            @case('archived') bg-gray-100 text-gray-600 @break
-                                            @case('cancelled') bg-red-100 text-red-800 @break
-                                            @default bg-gray-100 text-gray-800
+                                            @case('draft') badge-neutral @break
+                                            @case('pending_payment') badge-warning @break
+                                            @case('active') badge-success @break
+                                            @case('locked') badge-info @break
+                                            @case('archived') badge-neutral @break
+                                            @case('cancelled') badge-danger @break
+                                            @default badge-neutral
                                         @endswitch">
-                                        {{ $event->status?->value ? __($event->status->value) : __('—') }}
+                                        {{ $event->status?->label() ?? __('—') }}
                                     </span>
                                 </td>
-                                <td class="px-4 py-3 text-sm text-gray-600">{{ $event->guests_count ?? 0 }}</td>
-                                <td class="px-4 py-3 text-sm">
-                                    <a href="{{ route('dashboard.events.show', $event) }}" class="text-indigo-600 hover:text-indigo-900">{{ __('View') }}</a>
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-content-muted hidden sm:table-cell">{{ $event->guests_count ?? 0 }}</td>
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-end">
+                                    <a href="{{ route('dashboard.events.show', [$organization, $event]) }}"
+                                       class="interactive inline-flex font-medium text-brand hover:text-brand-hover focus-ring rounded px-2 py-1 text-xs">
+                                        {{ __('View') }}
+                                    </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-4 py-8 text-center text-sm text-gray-500">{{ __('No events yet.') }}</td>
+                                <td colspan="5" class="px-3 sm:px-4 py-8 sm:py-10 text-center">
+                                    <div class="flex flex-col items-center justify-center gap-3">
+                                        <div class="flex size-12 items-center justify-center rounded-xl bg-surface/50">
+                                            <x-kalfa-app-icon class="h-7 w-7 opacity-40" alt="" />
+                                        </div>
+                                        <div class="space-y-1">
+                                            <p class="text-sm font-medium text-content">{{ __('No events yet.') }}</p>
+                                            <p class="text-xs text-content-muted">{{ __('Get started by creating your first event.') }}</p>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>
