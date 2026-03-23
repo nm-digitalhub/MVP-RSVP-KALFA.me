@@ -1,0 +1,13 @@
+{
+  "underlying_goal": "Exit the session",
+  "goal_categories": {},
+  "outcome": "unclear_from_transcript",
+  "user_satisfaction_counts": {},
+  "claude_helpfulness": "unhelpful",
+  "session_type": "warmup_minimal",
+  "friction_counts": {},
+  "friction_detail": "",
+  "primary_success": "none",
+  "brief_summary": "User typed /exit command to terminate the session; no work was requested or performed",
+  "session_id": "dca572b6-105f-41d6-bf03-6b18ef2e9ff1"
+}

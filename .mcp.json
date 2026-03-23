@@ -20,6 +20,14 @@
                 "-y",
                 "mcp-copy-web-ui"
             ]
+        },
+        "obsidian": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "mcp-obsidian",
+                "/var/www/vhosts/kalfa.me/httpdocs/documentation"
+            ]
         }
     }
 }

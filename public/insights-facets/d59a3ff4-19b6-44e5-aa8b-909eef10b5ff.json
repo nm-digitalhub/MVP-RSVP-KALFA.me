@@ -1,0 +1,25 @@
+{
+  "underlying_goal": "Execute a dead code analysis on a Laravel + FilamentPHP codebase to identify unused code that can be safely removed",
+  "goal_categories": {
+    "code_analysis": 8,
+    "performance_optimization": 3,
+    "command_execution": 15
+  },
+  "outcome": "mostly_achieved",
+  "user_satisfaction_counts": {
+    "dissatisfied": 12,
+    "likely_satisfied": 3,
+    "satisfied": 1
+  },
+  "claude_helpfulness": "moderately_helpful",
+  "session_type": "iterative_refinement",
+  "friction_counts": {
+    "misunderstood_request": 8,
+    "wrong_approach": 1,
+    "user_rejected_action": 5
+  },
+  "friction_detail": "Claude repeatedly failed to execute the exact command specified by the user, missing keywords (restored, saving) and adding quotes/generic method names despite repeated explicit corrections, then ran overly broad scans that timed out",
+  "primary_success": "none",
+  "brief_summary": "User wanted dead code analysis using TLDR tool with specific entry points; after extensive friction with Claude not following exact command specifications and performance issues with full scans, user eventually ran commands manually and achieved results.",
+  "session_id": "d59a3ff4-19b6-44e5-aa8b-909eef10b5ff"
+}

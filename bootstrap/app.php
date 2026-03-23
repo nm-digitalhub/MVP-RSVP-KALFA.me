@@ -6,6 +6,7 @@ use App\Http\Middleware\EnsureSystemAdmin;
 use App\Http\Middleware\ImpersonationExpiry;
 use App\Http\Middleware\RequestId;
 use App\Http\Middleware\RequireImpersonationForSystemAdmin;
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\SpatiePermissionTeam;
 use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         // Trust reverse proxy (Nginx) headers for correct HTTPS/scheme detection
         $middleware->trustProxies(at: '*');
+
+        // Security headers - applied globally (only for HTML responses)
+        $middleware->append(SecurityHeaders::class);
 
         $middleware->alias([
             'abilities' => CheckAbilities::class,

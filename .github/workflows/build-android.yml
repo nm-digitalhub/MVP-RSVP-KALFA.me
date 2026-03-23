@@ -1,0 +1,207 @@
+name: Build Android App
+
+on:
+  push:
+    branches: [main]
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      skip_tests:
+        description: 'Skip tests during build'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    name: Build Android App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, pdo, pdo_sqlite, curl, zip
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Build frontend assets
+        run: npm run build
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 34
+          build-tools: 34.0.0
+          ndk: 26.1.10909143
+          cmake: 3.22.1
+          cmdline-tools: 12.0
+
+      - name: Configure NativePHP environment
+        run: |
+          # Set production environment variables
+          echo "NATIVEPHP_APP_ID=me.kalfa.eventrsvp" >> $GITHUB_ENV
+          echo "NATIVEPHP_APP_VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+          echo "NATIVEPHP_APP_VERSION_CODE=${{ github.run_number }}" >> $GITHUB_ENV
+          echo "NATIVEPHP_START_URL=/mobile" >> $GITHUB_ENV
+          echo "NATIVEPHP_DEEPLINK_SCHEME=kalfa" >> $GITHUB_ENV
+          echo "NATIVEPHP_DEEPLINK_HOST=kalfa.me" >> $GITHUB_ENV
+          echo "VITE_MOBILE_API_BASE_URL=https://kalfa.me" >> $GITHUB_ENV
+
+          # Display versions
+          php -v
+          composer show nativephp/mobile | head -5
+
+      - name: Run NativePHP install
+        run: |
+          php artisan native:install --force
+          echo "NativePHP installed successfully"
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x nativephp/android/gradlew
+
+      - name: Build Android app
+        run: |
+          php artisan native:build android
+        env:
+          NATIVEPHP_APP_ID: ${{ env.NATIVEPHP_APP_ID }}
+          NATIVEPHP_APP_VERSION: ${{ env.NATIVEPHP_APP_VERSION }}
+          NATIVEPHP_APP_VERSION_CODE: ${{ env.NATIVEPHP_APP_VERSION_CODE }}
+          NATIVEPHP_START_URL: /mobile
+          NATIVEPHP_DEEPLINK_SCHEME: kalfa
+          NATIVEPHP_DEEPLINK_HOST: kalfa.me
+
+      - name: Package Android AAB (Play Store)
+        run: |
+          php artisan native:package android
+
+      - name: Sign APK for testing
+        if: ${{ github.event_name == 'pull_request' || github.ref_type != 'tag' }}
+        run: |
+          # Build debug APK for testing
+          cd nativephp/android
+          ./gradlew assembleDebug
+          echo "Debug APK built"
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-aab-${{ github.run_number }}
+          path: |
+            nativephp/resources/
+            storage/app/native-build/*.aab
+          retention-days: 30
+
+      - name: Upload APK artifact (for testing)
+        if: ${{ github.event_name == 'pull_request' || github.ref_type != 'tag' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk-${{ github.run_number }}
+          path: |
+            nativephp/android/app/build/outputs/apk/debug/*.apk
+          retention-days: 7
+
+      - name: Upload to Play Store (internal testing)
+        if: ${{ github.event_name == 'push' && github.ref_type == 'tag' }}
+        env:
+          PLAY_STORE_SERVICE_ACCOUNT_JSON: ${{ secrets.PLAY_STORE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          # Install Google Play CLI
+          npm install -g @google-cloud/cli
+
+          # Activate service account
+          echo "$PLAY_STORE_SERVICE_ACCOUNT_JSON" > service-account.json
+          gcloud auth activate-service-account --key-file=service-account.json
+
+          # Upload AAB to Play Store
+          AAB_PATH=$(find storage/app/native-build -name "*.aab" | head -1)
+          gcloud firebase android distribute release \
+            --app me.kalfa.eventrsvp \
+            --artifact "$AAB_PATH" \
+            --status "completed" \
+            --release-notes "Version ${{ env.NATIVEPHP_APP_VERSION }}"
+
+      - name: Build summary
+        if: always()
+        run: |
+          echo "## Android Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Package**: me.kalfa.eventrsvp" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ env.NATIVEPHP_APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Build Number**: ${{ github.run_number }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Min SDK**: 34 (Android 14)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "### ✅ Build Successful" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### ❌ Build Failed" >> $GITHUB_STEP_SUMMARY
+          fi
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    if: ${{ inputs.skip_tests != 'true' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, pdo, pdo_sqlite
+
+      - name: Install dependencies
+        run: |
+          composer install --no-dev --prefer-dist
+          npm ci
+
+      - name: Run tests
+        run: php artisan test --parallel
+
+  notify:
+    name: Notify Build Status
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+
+    steps:
+      - name: Send Slack notification
+        if: ${{ secrets.SLACK_WEBHOOK_URL != '' }}
+        uses: 8398a7/action-slack-send@v3
+        with:
+          status: ${{ job.status }}
+          text: |
+            Android build ${{ job.status }}!
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+            Author: ${{ github.actor }}
+          webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}

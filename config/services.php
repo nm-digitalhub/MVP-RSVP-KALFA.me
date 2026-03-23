@@ -45,7 +45,7 @@ return [
         'whatsapp_from' => env('TWILIO_WHATSAPP_FROM'), // e.g. +14155238886 for Sandbox, or same as TWILIO_NUMBER if WhatsApp-enabled
         'verify_sid' => env('TWILIO_VERIFY_SID'),
         'log_level' => env('TWILIO_LOG_LEVEL', 'debug'),
-        'rsvp_node_ws_url' => env('RSVP_NODE_WS_URL', 'wss://node.kalfa.me/media'),
+        'rsvp_node_ws_url' => env('RSVP_NODE_WS_URL', 'wss://voice-bridge.kalfa.me/media'),
         'call_log_secret' => env('CALL_LOG_SECRET', ''),
     ],
 

@@ -1,0 +1,23 @@
+{
+  "underlying_goal": "Detect dead code in a Laravel/PHP project",
+  "goal_categories": {
+    "tool_installation_setup": 2,
+    "dead_code_analysis": 2,
+    "system_information": 1
+  },
+  "outcome": "partially_achieved",
+  "user_satisfaction_counts": {
+    "likely_satisfied": 1
+  },
+  "claude_helpfulness": "moderately_helpful",
+  "session_type": "exploration",
+  "friction_counts": {
+    "tool_installation_issues": 3,
+    "misunderstood_request": 1,
+    "wrong_approach": 1
+  },
+  "friction_detail": "TLDR tool installation failed multiple times due to package not existing and environment management issues; Claude initially tried to use a skill that was just documentation rather than an active tool",
+  "primary_success": "none",
+  "brief_summary": "User wanted to detect dead code using the TLDR tool; despite multiple installation attempts and workarounds, the analysis appeared to still be running when the user exited.",
+  "session_id": "8961e4c7-3471-4785-9d85-bb4b4281be55"
+}

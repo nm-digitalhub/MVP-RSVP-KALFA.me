@@ -15,13 +15,15 @@ This is an **RSVP + Seating SaaS application** built with Laravel 12 and Livewir
 - **Frontend**: Livewire 4 + Alpine.js + Tailwind CSS v4
 - **Build**: Vite 7
 - **UI Components**: Flowbite 4
-- **Authentication**: Laravel Sanctum
+- **Authentication**: Laravel Sanctum + WebAuthn (passkeys)
 - **Payment**: `officeguy/laravel-sumit-gateway` (SUMIT is the only active gateway; CardCom/PayPal are legacy)
 - **Twilio**: Verify API for OTP (SMS/WhatsApp). SID: `VA5f1c126dd6b47bcd05492197c1c36f73`. **Programmable Voice**: outbound RSVP calls; TwiML connect → Stream to Node.js; Node relays to **Gemini Live API** for voice-to-voice; Hebrew TTS (Google.he-IL-Standard-A + SSML); WhatsApp fallback on no-answer/short call.
 - **Node.js** (`server.js`): WebSocket relay Twilio Media Stream ↔ Gemini Live (BidiGenerateContent); receives guest/event/invitation params; calls `save_rsvp` tool and POSTs to Laravel `POST /api/twilio/rsvp/process`. Env: `GEMINI_API_KEY`, `PHP_WEBHOOK`, `CALL_LOG_URL`, `CALL_LOG_SECRET`.
+- **OfficeGuy CRM**: Full integration - entities, folders, activities, document generation, webhooks
+- **Products Engine**: Feature entitlements, usage metering, plan management, limits
 - **Database**: PostgreSQL (production) or MySQL; SQLite for tests
 - **Language**: Hebrew (RTL support) - `app.blade.php` sets `dir="rtl"`
-- **Mail**: Laravel Mail (e.g. `App\Mail\WelcomeOrganizer`); views in `resources/views/emails/`
+- **Mail**: Laravel Mail + MJML rendering (e.g. `App\Mail\WelcomeOrganizer`); views in `resources/views/emails/`
 
 ---
 
@@ -127,6 +129,21 @@ The application uses **organization-based multi-tenancy**. Every resource (event
 - Placeholder service for OfficeGuy subscription management
 - Methods: `getOrganizationSubscription()`, `cancelSubscription()`, `extendTrial()`, `applyCredit()`, `retryPayment()`, `getMRR()`, `getChurnRate()`, `getActiveSubscriptions()`
 - All methods currently return stub values until OfficeGuy integration is wired
+
+**OfficeGuy CRM Services** (`app/Services/Sumit/`):
+- `OfficeGuyCustomerSearchService` - Customer lookup and search
+- `EventBillingPayable` - Links event billing to OfficeGuy payable system
+- `SumitUsageChargePayable` - Usage-based billing integration
+- `AccountPaymentMethodManager` - Payment method token management
+- `ProductIntegrityChecker` - Validates product configurations
+
+**Products Engine** (`app/Models/` + `app/Services/`):
+- `Product`, `ProductPlan`, `ProductPrice` - Product catalog with plans and pricing
+- `ProductEntitlement`, `ProductFeature`, `ProductLimit` - Feature flags and usage limits
+- `AccountProduct`, `AccountEntitlement`, `AccountFeatureUsage` - Account-level entitlements
+- `UsageMeter` - Tracks feature usage against limits
+- `UsagePolicyService` - Enforces usage policies and limits
+- `FeatureResolver` - Resolves feature availability for accounts
 
 **Billing Flow** (managed by `BillingService`):
 1. Event created in `Draft` status
@@ -416,6 +433,10 @@ app/
 - The project is on branch `feature/4-business-areas` with main branch at origin/main
 - Livewire 4 is installed (stable) after SUMIT v3 migration
 - Use `declare(strict_types=1);` in all PHP files (enforced by project standards)
+- **MCP Servers**: Configure in `.mcp.json` (project root, used by Cursor) — also updates `.cursor/mcp.json` and `~/.claude/mcp_servers.json` as needed
+- **Obsidian Vault**: Existing vault at `documentation/` with `.obsidian/` — use for MCP connections
+- **claude-diary**: Installed globally at `~/.claude/commands/` — use `/diary` and `/reflect` commands
+- **File Listing**: `find` fails with Hebrew filenames — use `ls` or quote paths properly
 
 ===
 

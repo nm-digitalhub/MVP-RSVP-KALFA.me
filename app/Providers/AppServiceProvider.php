@@ -11,13 +11,17 @@ use App\Listeners\Billing\AuditBillingEvent;
 use App\Listeners\LogProductEngineEvent;
 use App\Listeners\StoreWebAuthnCredentialInSession;
 use App\Services\Billing\SumitBillingProvider;
+use App\Services\Database\ReadReplicaHealthService;
+use App\Services\Database\ReadWriteConnection;
 use App\Services\FeatureResolver;
 use App\Services\ProductEngineOperationsMonitor;
 use App\Services\ProductIntegrityChecker;
 use App\Services\StubPaymentGateway;
 use App\Services\SubscriptionManager;
 use App\Services\SubscriptionService;
+use App\Services\SubscriptionSyncService;
 use App\Services\SumitPaymentGateway;
+use App\Services\TaggedCache;
 use App\Services\UsageMeter;
 use App\Services\UsagePolicyService;
 use Dedoc\Scramble\Scramble;
@@ -56,6 +60,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SubscriptionService::class, fn (): SubscriptionService => new SubscriptionService(app(BillingProvider::class), app(FeatureResolver::class)));
         $this->app->singleton(SubscriptionManager::class, fn (): SubscriptionManager => new SubscriptionManager(app(SubscriptionService::class)));
         $this->app->singleton(UsagePolicyService::class, fn (): UsagePolicyService => new UsagePolicyService(app(FeatureResolver::class)));
+        $this->app->singleton(SubscriptionSyncService::class, fn (): SubscriptionSyncService => new SubscriptionSyncService(app(FeatureResolver::class)));
+        $this->app->singleton(TaggedCache::class, fn (): TaggedCache => new TaggedCache(app('cache')));
+        $this->app->singleton(ReadReplicaHealthService::class, fn (): ReadReplicaHealthService => new ReadReplicaHealthService(app('db')));
+        $this->app->singleton(ReadWriteConnection::class, fn (): ReadWriteConnection => new ReadWriteConnection(app('db'), app(ReadReplicaHealthService::class)));
         $this->app->singleton(ProductEngineOperationsMonitor::class, fn (): ProductEngineOperationsMonitor => new ProductEngineOperationsMonitor);
         $this->app->singleton(ProductIntegrityChecker::class, fn (): ProductIntegrityChecker => new ProductIntegrityChecker);
 
@@ -178,9 +186,29 @@ class AppServiceProvider extends ServiceProvider
             return $user->is_system_admin === true;
         });
 
+        // ============================================
+        // Rate Limiting - Redis-based throttling
+        // ============================================
+
+        // Public RSVP endpoints - stricter limits
         RateLimiter::for('rsvp_show', fn () => Limit::perMinute(60));
         RateLimiter::for('rsvp_submit', fn () => Limit::perMinute(10));
+
+        // Checkout/payment endpoints - very strict limits
+        RateLimiter::for('checkout_initiate', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
+        RateLimiter::for('checkout_tokenize', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
+
+        // Invitation endpoints - moderate limits
+        RateLimiter::for('invite_send', fn () => Limit::perHour(100));
+        RateLimiter::for('invite_batch', fn () => Limit::perHour(20));
+
+        // API endpoints - authenticated limits
+        RateLimiter::for('api', fn (Request $request) => Limit::perMinute(60)->by($request->user()?->id ?: $request->ip()));
+
+        // Webhooks - high limit for payment processors
         RateLimiter::for('webhooks', fn () => Limit::perMinute(120));
+
+        // Authentication endpoints - prevent brute force
         RateLimiter::for('webauthn', fn (Request $request) => Limit::perMinute(10)->by($request->ip()));
         RateLimiter::for('mobile_session', fn (Request $request) => Limit::perMinute(30)->by($request->ip()));
         RateLimiter::for('login', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));

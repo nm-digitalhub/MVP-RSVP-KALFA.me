@@ -1,0 +1,19 @@
+{
+  "underlying_goal": "Analyze the codebase and create a CLAUDE.md file with common commands and architecture documentation",
+  "goal_categories": {
+    "warmup_minimal": 1
+  },
+  "outcome": "not_achieved",
+  "user_satisfaction_counts": {
+    "neutral": 1
+  },
+  "claude_helpfulness": "unhelpful",
+  "session_type": "single_task",
+  "friction_counts": {
+    "user_rejected_action": 1
+  },
+  "friction_detail": "User interrupted Claude before any work could begin",
+  "primary_success": "none",
+  "brief_summary": "User requested codebase analysis and CLAUDE.md creation but interrupted immediately and exited before any work was done",
+  "session_id": "9094cb15-eb8f-43df-aa53-ce410084ca5d"
+}

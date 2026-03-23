@@ -1,0 +1,17 @@
+{
+  "underlying_goal": "Review a session and update CLAUDE.md with helpful context for future sessions",
+  "goal_categories": {
+    "documentation_update": 1
+  },
+  "outcome": "fully_achieved",
+  "user_satisfaction_counts": {
+    "satisfied": 1
+  },
+  "claude_helpfulness": "very_helpful",
+  "session_type": "single_task",
+  "friction_counts": {},
+  "friction_detail": "",
+  "primary_success": "good_explanations",
+  "brief_summary": "User wanted to review a session and update CLAUDE.md with patterns to help future sessions; Claude successfully analyzed the codebase and added documentation about Livewire components and testing patterns.",
+  "session_id": "eeebb867-8ec1-44fa-bafb-a2e9c326f7b1"
+}

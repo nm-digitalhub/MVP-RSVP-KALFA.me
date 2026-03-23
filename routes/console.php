@@ -1,11 +1,13 @@
 <?php
 
 use App\Console\Commands\CheckTrialExpiryAndSendReminders;
+use App\Console\Commands\Database\BackupDatabase;
 use App\Console\Commands\ProductEngine\CheckIntegrityCommand;
 use App\Console\Commands\ProductEngine\ProcessTrialExpirationsCommand;
 use App\Services\ProductEngineOperationsMonitor;
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schedule;
 
 Artisan::command('inspire', function () {
@@ -71,3 +73,11 @@ Schedule::command(CheckTrialExpiryAndSendReminders::class)
     ->description('Send trial expiry reminder emails')
     ->dailyAt('09:00')
     ->withoutOverlapping();
+
+// Daily database backup - run at 2 AM (low traffic time)
+Schedule::command(BackupDatabase::class, ['--keep=30'])
+    ->description('Daily database backup')
+    ->dailyAt('02:00')
+    ->withoutOverlapping()
+    ->onSuccess(fn () => Log::info('Daily database backup completed'))
+    ->onFailure(fn () => Log::error('Daily database backup failed'));

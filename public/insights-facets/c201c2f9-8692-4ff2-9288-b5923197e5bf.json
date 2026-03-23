@@ -1,0 +1,15 @@
+{
+  "underlying_goal": "User was running local commands to update Composer packages and npm packages, with no explicit interaction or requests made to Claude",
+  "goal_categories": {
+    "warmup_minimal": 1
+  },
+  "outcome": "unclear_from_transcript",
+  "user_satisfaction_counts": {},
+  "claude_helpfulness": "unhelpful",
+  "session_type": "exploration",
+  "friction_counts": {},
+  "friction_detail": "",
+  "primary_success": "none",
+  "brief_summary": "User only ran local commands (composer update, npm install) without making any explicit requests to Claude",
+  "session_id": "c201c2f9-8692-4ff2-9288-b5923197e5bf"
+}

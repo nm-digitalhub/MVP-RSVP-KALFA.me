@@ -53,6 +53,12 @@ See [[Daily/]] for today's work log.
 - **Terminal** - Terminal window within Obsidian
 - **Large Language Models** - AI assistance integration
 
+## MCP Integration
+
+- **Vault Path**: `documentation/` — used by Obsidian MCP server
+- **Config**: `.mcp.json` in project root (Cursor), also `.cursor/mcp.json` and `~/.claude/mcp_servers.json`
+- **claude-diary**: Installed globally at `~/.claude/commands/` — use `/diary` and `/reflect` commands
+
 ## Quick Templates
 
 Press `Ctrl/Cmd + P` to access templates:

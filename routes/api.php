@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\BillingCheckoutController;
+use App\Http\Controllers\Api\BillingCouponController;
 use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\EventTableController;
@@ -77,6 +79,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('payments/{payment}', [PaymentController::class, 'show'])->name('payments.show');
+
+    // Billing checkout endpoints (subscription purchase)
+    Route::post('billing/checkout', [BillingCheckoutController::class, 'store'])->name('billing.checkout.store');
+    Route::post('billing/coupon/validate', [BillingCouponController::class, 'validate'])->name('billing.coupon.validate');
 });
 
 // Twilio/Node.js integration endpoints (secured via secret key in controller)

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Services\Database\ReadWriteConnection;
 use App\Services\OrganizationContext;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,7 +18,8 @@ use Illuminate\View\View;
 class DashboardController extends Controller
 {
     public function __construct(
-        private OrganizationContext $context
+        private OrganizationContext $context,
+        private ReadWriteConnection $db,
     ) {}
 
     /**
@@ -29,7 +32,9 @@ class DashboardController extends Controller
             abort(404, 'No active organization.');
         }
 
-        $events = $organization->events()
+        // Use read replica for dashboard queries
+        $events = Event::on($this->db->read()->getName())
+            ->where('organization_id', $organization->id)
             ->with(['organization.account', 'eventBilling'])
             ->withCount('guests')
             ->orderByDesc('event_date')

@@ -2,6 +2,13 @@
 
 This index is automatically generated and lists all documentation files:
 
+## 📚 Quick Links
+
+- **[Complete Documentation](Complete-Documentation-2026-03-23.md)** - Full system documentation (NEW 2026-03-23)
+- **[Codebase Analysis](Codebase-Analysis-2026-03-23.md)** - Live code scan with gaps analysis
+- **[Architecture/](Architecture/)** - Technical architecture documentation
+- **[Knowledge/](Knowledge/)** - Knowledge base articles
+
 * **app/**
   * **Console/**
     * **Commands/**
