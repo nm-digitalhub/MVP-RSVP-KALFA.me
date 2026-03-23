@@ -1,4 +1,10 @@
 # ===========================
+# GitIngest Digests (contain source code)
+# ===========================
+*-digest.txt
+*-digest.md
+
+# ===========================
 # Dependencies & Package Managers
 # ===========================
 node_modules/

@@ -7,8 +7,8 @@
             :subtitle="$event->name"
         />
         @if($event->eventTables->isNotEmpty())
-            <p class="mt-1 text-sm text-gray-500">
-                <a href="{{ route('dashboard.events.seat-assignments.index', $event) }}" class="font-medium text-brand hover:text-indigo-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded">
+            <p class="mt-1 text-sm text-content-muted">
+                <a href="{{ route('dashboard.events.seat-assignments.index', $event) }}" class="interactive font-medium text-brand hover:text-brand-hover focus-ring rounded">
                     {{ __('Assign guests to tables') }}
                 </a>
             </p>

@@ -1,19 +1,26 @@
 <div>
-    <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
-        <a href="{{ route('dashboard.events.show', $event) }}" class="inline-flex min-h-[44px] items-center rounded-lg px-2 text-sm font-medium text-gray-500 transition-colors duration-200 hover:text-gray-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2">&larr; {{ __('Back to event') }}</a>
+    {{-- Back + actions bar --}}
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4 sm:mb-5">
+        <a href="{{ route('dashboard.events.show', $event) }}" class="btn btn-secondary btn-sm focus-ring inline-flex items-center gap-2">
+            <svg class="w-4 h-4 rtl:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            <span class="hidden sm:inline">{{ __('Back') }}</span>
+        </a>
         @can('update', $event)
             @if(!$showForm)
-                <div class="flex gap-2">
-                    <x-primary-button type="button" wire:click="openCreate">{{ __('Add guest') }}</x-primary-button>
-                </div>
+                <x-primary-button type="button" wire:click="openCreate" class="inline-flex items-center gap-2 min-h-[44px]">
+                    <x-heroicon-o-plus class="w-5 h-5" />
+                    <span class="hidden sm:inline">{{ __('Add guest') }}</span>
+                </x-primary-button>
             @endif
         @endcan
     </div>
 
     @if($showForm)
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">{{ $editingId ? __('Edit guest') : __('Add guest') }}</h3>
-            <div class="space-y-3 max-w-md">
+        <div class="card p-4 sm:p-5 mb-4 sm:mb-5">
+            <h3 class="text-base sm:text-lg font-semibold text-content mb-3 sm:mb-4">{{ $editingId ? __('Edit guest') : __('Add guest') }}</h3>
+            <div class="space-y-3 sm:space-y-4 max-w-md">
                 <div>
                     <x-ts-input id="guest_name" wire:model="name" label="{{ __('Name') }}" />
                 </div>
@@ -29,7 +36,7 @@
                 <div>
                     <x-ts-textarea id="guest_notes" wire:model="notes" rows="2" label="{{ __('Notes') }}" />
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 pt-1">
                     <x-primary-button wire:click="save">{{ __('Save') }}</x-primary-button>
                     <x-secondary-button wire:click="cancelForm">{{ __('Cancel') }}</x-secondary-button>
                 </div>
@@ -39,9 +46,9 @@
 
     {{-- Import --}}
     @can('update', $event)
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-6">
-            <h3 class="text-sm font-medium text-gray-900 mb-2">{{ __('Import from CSV') }}</h3>
-            <p class="text-sm text-gray-500 mb-2">{{ __('CSV columns: name (or שם), email, phone, notes') }}</p>
+        <div class="card p-4 sm:p-5 mb-4 sm:mb-5">
+            <h3 class="text-sm font-semibold text-content mb-2">{{ __('Import from CSV') }}</h3>
+            <p class="text-sm text-content-muted mb-3">{{ __('CSV columns: name (or שם), email, phone, notes') }}</p>
             <form wire:submit="import" class="flex flex-wrap items-end gap-3">
                 <div class="w-full sm:max-w-md">
                     <x-ts-input
@@ -51,7 +58,6 @@
                         accept=".csv,.txt"
                         label="{{ __('CSV file') }}"
                         hint="{{ __('CSV columns: name (or שם), email, phone, notes') }}"
-                        class="mt-1"
                     />
                     <div wire:loading wire:target="importFile" class="mt-2">
                         <x-ts-alert color="primary" light text="{{ __('Uploading...') }}" />
@@ -63,37 +69,47 @@
         </div>
     @endcan
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div class="card overflow-hidden">
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
+            <table class="min-w-full divide-y divide-stroke">
+                <thead class="bg-surface">
                     <tr>
-                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Name') }}</th>
-                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Email') }}</th>
-                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Phone') }}</th>
-                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase">{{ __('Group') }}</th>
-                        <th class="px-4 py-2 text-end text-xs font-medium text-gray-500 uppercase"></th>
+                        <th scope="col" class="px-3 sm:px-4 py-2 text-end text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">{{ __('Name') }}</th>
+                        <th scope="col" class="px-3 sm:px-4 py-2 text-end text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted hidden sm:table-cell">{{ __('Email') }}</th>
+                        <th scope="col" class="px-3 sm:px-4 py-2 text-end text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted hidden sm:table-cell">{{ __('Phone') }}</th>
+                        <th scope="col" class="px-3 sm:px-4 py-2 text-end text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">{{ __('Group') }}</th>
+                        <th scope="col" class="px-3 sm:px-4 py-2 text-end text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">{{ __('Actions') }}</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
+                <tbody class="bg-card divide-y divide-stroke">
                     @forelse($guests as $guest)
-                        <tr wire:key="guest-{{ $guest->id }}">
-                            <td class="px-4 py-2 text-sm text-gray-900">{{ $guest->name }}</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">{{ $guest->email ?? '—' }}</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">{{ $guest->phone ?? '—' }}</td>
-                            <td class="px-4 py-2 text-sm text-gray-600">{{ $guest->group_name ?? '—' }}</td>
-                            <td class="px-4 py-2 text-sm">
+                        <tr wire:key="guest-{{ $guest->id }}" class="data-table-row">
+                            <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm font-medium text-content">{{ $guest->name }}</td>
+                            <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-content-muted hidden sm:table-cell">{{ $guest->email ?? '—' }}</td>
+                            <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-content-muted hidden sm:table-cell">{{ $guest->phone ?? '—' }}</td>
+                            <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-content-muted">{{ $guest->group_name ?? '—' }}</td>
+                            <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-end">
                                 @can('update', $guest)
-                                    <button type="button" wire:click="openEdit({{ $guest->id }})" class="min-h-[44px] inline-flex items-center px-2 text-brand hover:text-indigo-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-1 rounded cursor-pointer transition-colors duration-200">{{ __('Edit') }}</button>
+                                    <button type="button" wire:click="openEdit({{ $guest->id }})" class="interactive inline-flex min-h-[44px] items-center px-2 text-sm font-medium text-brand hover:text-brand-hover focus-ring rounded">{{ __('Edit') }}</button>
                                 @endcan
                                 @can('delete', $guest)
-                                    <button type="button" wire:click="deleteGuest({{ $guest->id }})" wire:confirm="{{ __('Delete this guest?') }}" class="min-h-[44px] inline-flex items-center px-2 text-red-600 hover:text-red-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-1 rounded cursor-pointer transition-colors duration-200">{{ __('Delete') }}</button>
+                                    <button type="button" wire:click="deleteGuest({{ $guest->id }})" wire:confirm="{{ __('Delete this guest?') }}" class="interactive inline-flex min-h-[44px] items-center px-2 text-sm font-medium text-danger hover:text-danger-hover focus-ring rounded ms-2">{{ __('Delete') }}</button>
                                 @endcan
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-4 py-8 text-center text-sm text-gray-500">{{ __('No guests yet.') }}</td>
+                            <td colspan="5" class="px-3 sm:px-4 py-8 sm:py-10 text-center">
+                                <div class="flex flex-col items-center justify-center gap-2 sm:gap-3">
+                                    <div class="flex size-10 sm:size-12 items-center justify-center rounded-xl bg-surface/50">
+                                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-content-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        </svg>
+                                    </div>
+                                    <p class="text-sm font-medium text-content">{{ __('No guests yet.') }}</p>
+                                    <p class="text-xs text-content-muted">{{ __('Add guests to your event.') }}</p>
+                                </div>
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>
