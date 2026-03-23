@@ -50,6 +50,56 @@ final class SubscriptionService
         return $subscription;
     }
 
+    /**
+     * Activate a paid subscription (from checkout with payment token).
+     * Creates the AccountSubscription record and activates it with billing metadata.
+     */
+    public function activatePaid(
+        Account $account,
+        ProductPlan $plan,
+        array $billingMetadata = [],
+        ?int $grantedBy = null,
+        ?CarbonInterface $startedAt = null,
+        array $metadata = [],
+    ): AccountSubscription {
+        // Merge billing metadata into subscription metadata
+        $metadata['billing'] = $billingMetadata;
+
+        $subscription = $account->subscriptions()->create([
+            'product_plan_id' => $plan->id,
+            'status' => AccountSubscriptionStatus::Active,
+            'started_at' => $startedAt ?? now(),
+            'metadata' => $metadata !== [] ? $metadata : null,
+        ]);
+
+        // Grant product immediately (no need to call activate() since we already have billing metadata)
+        $subscription->account->grantProduct(
+            $plan->product,
+            $grantedBy,
+            $subscription->ends_at,
+            [
+                'source' => 'subscription',
+                'subscription_id' => $subscription->id,
+                'product_plan_id' => $subscription->product_plan_id,
+            ],
+        );
+
+        $this->clearFeatureCache($subscription);
+
+        ProductEngineEvent::dispatch(
+            'subscription.activated',
+            $subscription->account,
+            $plan->product,
+            $subscription,
+            [
+                'product_plan_id' => $plan->id,
+                'billing_provider' => $billingMetadata['provider'] ?? null,
+            ],
+        );
+
+        return $subscription->fresh(['account', 'productPlan.product']);
+    }
+
     public function activate(AccountSubscription $subscription, ?int $grantedBy = null): AccountSubscription
     {
         return DB::transaction(function () use ($subscription, $grantedBy): AccountSubscription {

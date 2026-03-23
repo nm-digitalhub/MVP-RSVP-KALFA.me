@@ -1,0 +1,20 @@
+{
+  "underlying_goal": "Install and set up a NativePHP documentation MCP server",
+  "goal_categories": {
+    "warmup_minimal": 1
+  },
+  "outcome": "partially_achieved",
+  "user_satisfaction_counts": {
+    "likely_satisfied": 1
+  },
+  "claude_helpfulness": "moderately_helpful",
+  "session_type": "exploration",
+  "friction_counts": {
+    "misunderstood_request": 1,
+    "wrong_approach": 2
+  },
+  "friction_detail": "Claude attempted multiple installation approaches (Python venv, skillfish, MCP Market API) that weren't what the user wanted, and user had to interrupt tool calls and use /exit to stop the session",
+  "primary_success": "good_explanations",
+  "brief_summary": "User wanted to install a NativePHP documentation MCP server but Claude struggled with the correct installation method, leading to an interrupted session.",
+  "session_id": "b6705515-f9e4-4baa-8549-0731b1f86093"
+}

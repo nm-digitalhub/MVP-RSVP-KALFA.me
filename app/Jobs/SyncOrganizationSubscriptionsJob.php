@@ -7,6 +7,7 @@ namespace App\Jobs;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\OfficeGuy\SystemBillingService;
+use App\Services\SubscriptionSyncService;
 use App\Services\SystemAuditLogger;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
@@ -26,14 +27,30 @@ class SyncOrganizationSubscriptionsJob implements ShouldQueue
         public readonly ?int $actorId = null,
     ) {}
 
-    public function handle(SystemBillingService $billingService): void
-    {
-        $count = $billingService->syncOrganizationSubscriptions($this->organization);
+    public function handle(
+        SystemBillingService $billingService,
+        SubscriptionSyncService $syncService,
+    ): void {
+        $account = $this->organization->account;
+
+        if ($account === null) {
+            Log::warning('Organization has no account to sync subscriptions', [
+                'organization_id' => $this->organization->id,
+            ]);
+
+            return;
+        }
+
+        $result = $syncService->syncAccountSubscriptions($account);
 
         // Bust cached subscription after sync so the next read reflects fresh data.
         $billingService->forgetSubscriptionCache($this->organization);
 
         $actor = $this->actorId ? User::find($this->actorId) : null;
-        SystemAuditLogger::log($actor, 'organization.subscriptions_synced', $this->organization, ['synced' => $count]);
+        SystemAuditLogger::log($actor, 'organization.subscriptions_synced', $this->organization, [
+            'synced' => $result['synced'],
+            'skipped' => $result['skipped'],
+            'errors' => $result['errors'],
+        ]);
     }
 }

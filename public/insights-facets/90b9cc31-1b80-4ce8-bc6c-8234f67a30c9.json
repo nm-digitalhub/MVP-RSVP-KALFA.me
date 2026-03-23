@@ -1,0 +1,21 @@
+{
+  "underlying_goal": "Analyze brand identity and create a logo for an RSVP/seating SaaS platform",
+  "goal_categories": {
+    "brand_analysis": 1,
+    "logo_design": 1,
+    "code_explanation": 1
+  },
+  "outcome": "partially_achieved",
+  "user_satisfaction_counts": {
+    "likely_satisfied": 2
+  },
+  "claude_helpfulness": "moderately_helpful",
+  "session_type": "multi_task",
+  "friction_counts": {
+    "user_rejected_action": 1
+  },
+  "friction_detail": "User exited the session before logo design was completed",
+  "primary_success": "good_explanations",
+  "brief_summary": "User requested brand color audit, then logo creation; audit was completed successfully and saved, but user exited before logo design could be finished",
+  "session_id": "90b9cc31-1b80-4ce8-bc6c-8234f67a30c9"
+}

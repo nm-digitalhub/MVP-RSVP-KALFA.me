@@ -1,0 +1,124 @@
+# Voice Bridge Microservice - CI/CD Pipeline
+# Builds and deploys the voice-bridge service to Kubernetes
+
+name: Voice Bridge Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'voice-bridge/**'
+      - '.github/workflows/voice-bridge-deploy.yml'
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: voice-bridge
+
+jobs:
+  # ============================================
+  # Build and push Docker image
+  # ============================================
+  build:
+    name: Build Docker Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: voice-bridge
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # ============================================
+  # Deploy to Kubernetes (production)
+  # ============================================
+  deploy:
+    name: Deploy to Kubernetes
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    environment:
+      name: production
+      url: https://voice-bridge.kalfa.me
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure kubectl
+        uses: azure/k8s-set-context@v4
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+
+      - name: Update image tag in deployment
+        run: |
+          IMAGE_SHA=${{ github.sha }}
+          kubectl set image deployment/voice-bridge \
+            voice-bridge=${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}:$IMAGE_SHA \
+            --namespace=rsvp \
+            --context=default
+
+      - name: Wait for rollout
+        run: |
+          kubectl rollout status deployment/voice-bridge --namespace=rsvp --timeout=5m
+
+      - name: Verify deployment
+        run: |
+          kubectl get pods -n rsvp -l app=voice-bridge
+          kubectl describe deployment voice-bridge -n rsvp
+
+  # ============================================
+  # Health check after deployment
+  # ============================================
+  health-check:
+    name: Health Check
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Check health endpoint
+        run: |
+          sleep 30 # Wait for pods to be ready
+          HEALTH_URL="https://voice-bridge.kalfa.me/health"
+          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" $HEALTH_URL)
+
+          if [ $RESPONSE -eq 200 ]; then
+            echo "✓ Health check passed (HTTP $RESPONSE)"
+            curl -s $HEALTH_URL | jq .
+          else
+            echo "✗ Health check failed (HTTP $RESPONSE)"
+            exit 1
+          fi

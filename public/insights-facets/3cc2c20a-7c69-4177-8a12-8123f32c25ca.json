@@ -1,0 +1,15 @@
+{
+  "underlying_goal": "Analyze a Laravel RSVP and seating SaaS project",
+  "goal_categories": {
+    "codebase_understanding": 1
+  },
+  "outcome": "partially_achieved",
+  "user_satisfaction_counts": {},
+  "claude_helpfulness": "moderately_helpful",
+  "session_type": "single_task",
+  "friction_counts": {},
+  "friction_detail": "",
+  "primary_success": "good_explanations",
+  "brief_summary": "User requested project analysis of a Laravel event management SaaS, received overview but session ended prematurely.",
+  "session_id": "3cc2c20a-7c69-4177-8a12-8123f32c25ca"
+}

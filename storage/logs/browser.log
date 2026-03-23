@@ -792,3 +792,599 @@ forEach@[native code]
 [2026-03-20 18:44:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:51.969Z"} 
 [2026-03-20 18:44:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/dashboard","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:51.969Z"} 
 [2026-03-20 18:44:54] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.0.0 Safari/537.36","timestamp":"2026-03-20T16:44:53.612Z"} 
+[2026-03-22 16:39:01] production.WARNING: startAuthentication() was not called correctly. It will try to continue with the provided options, but this call should be refactored to use the expected call structure instead. See https://simplewebauthn.dev/docs/packages/browser#typeerror-cannot-read-properties-of-undefined-reading-challenge for more information. {"url":"https://kalfa.me/login","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T14:39:00.135Z"} 
+[2026-03-22 16:39:07] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T14:39:06.317Z"} 
+[2026-03-22 16:39:12] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/products/1","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T14:39:11.775Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Unexpected EOF
+
+Expression: "'<x-kalfa-app-icon class=\" null null null __('Total Events') false $totalEvents ?? 0 false '<x-kalfa-app-icon class=\ false 1231 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.060Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Unexpected EOF
+
+Expression: "'<svg class=\" null null null __('Total Guests') false $totalGuests ?? 0 false '<svg class=\ false 1232 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.061Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Unexpected token '>'
+
+Expression: "$upcomingEvent?->name ?? __('None scheduled')" null null null null __('Upcoming Event') false $upcomingEvent?->name ?? __('None scheduled') false $upcomingEvent?->event_date?->format('d.m.Y') false '<svg class=\ false 1234 null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.061Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Unexpected token '>'
+
+Expression: "$upcomingEvent?->event_date?->format('d.m.Y')" null null null null __('Upcoming Event') false $upcomingEvent?->name ?? __('None scheduled') false $upcomingEvent?->event_date?->format('d.m.Y') false '<svg class=\ false 1234 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.061Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Can't find variable: __
+
+Expression: "__('Total Events')" null null null __('Total Events') false $totalEvents ?? 0 false '<x-kalfa-app-icon class=\ false 1231 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.077Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Can't find variable: $totalEvents
+
+Expression: "$totalEvents ?? 0" null null null __('Total Events') false $totalEvents ?? 0 false '<x-kalfa-app-icon class=\ false 1231 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.077Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Can't find variable: __
+
+Expression: "__('Total Guests')" null null null __('Total Guests') false $totalGuests ?? 0 false '<svg class=\ false 1232 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.077Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Can't find variable: $totalGuests
+
+Expression: "$totalGuests ?? 0" null null null __('Total Guests') false $totalGuests ?? 0 false '<svg class=\ false 1232 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.077Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Can't find variable: __
+
+Expression: "__('Upcoming Event')" null null null null __('Upcoming Event') false $upcomingEvent?->name ?? __('None scheduled') false $upcomingEvent?->event_date?->format('d.m.Y') false '<svg class=\ false 1234 null null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.077Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Can't find variable: __
+
+Expression: "__('Organization')" null null null __('Organization') false __('Active') false '<svg class=\ false 1236 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.077Z"} 
+[2026-03-22 17:03:36] production.WARNING: Alpine Expression Error: Can't find variable: __
+
+Expression: "__('Active')" null null null __('Organization') false __('Active') false '<svg class=\ false 1236 null null null  {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.077Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected EOF https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected EOF AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected EOF https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected EOF AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected EOF https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected EOF AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected EOF https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected EOF AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected token '>' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token '>' AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected token '>' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token '>' AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected token '>' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token '>' AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Unexpected token '>' https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected token '>' AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: $totalEvents https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: $totalEvents anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: $totalEvents https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: $totalEvents anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: $totalGuests https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: $totalGuests anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: $totalGuests https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: $totalGuests anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+nowInitializeAlpineOnTheNewPage@https://kalfa.me/vendor/livewire/livewire.js:12441:21
+@https://kalfa.me/vendor/livewire/livewire.js:12350:48
+@https://kalfa.me/vendor/livewire/livewire.js:12427:21 {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.084Z"} 
+[2026-03-22 17:03:36] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.085Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.085Z"} 
+[2026-03-22 17:03:36] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:03:35.085Z"} 
+[2026-03-22 17:08:17] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:08:16.879Z"} 
+[2026-03-22 17:31:08] production.DEBUG: 403 Forbidden Page - Enhanced UI/UX loaded {"url":"https://kalfa.me/verify-email/4/25e3ff799872d8e8937459c49abd05108046be1b?expires=1774196943&signature=c01b763c75064c5098c8ee5b468f60418a482123662092eee203b2cb3de425d3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:31:07.205Z"} 
+[2026-03-22 17:33:22] production.DEBUG: 403 Forbidden Page - Enhanced UI/UX loaded {"url":"https://kalfa.me/verify-email/4/25e3ff799872d8e8937459c49abd05108046be1b?expires=1774197187&signature=1983858f5968ac78d87ca497bbdd86856138557740bb4498b15630d4be4977de","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:33:21.598Z"} 
+[2026-03-22 17:33:29] production.DEBUG: 403 Forbidden Page - Enhanced UI/UX loaded {"url":"https://kalfa.me/verify-email/4/25e3ff799872d8e8937459c49abd05108046be1b?expires=1774196943&signature=c01b763c75064c5098c8ee5b468f60418a482123662092eee203b2cb3de425d3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:33:28.840Z"} 
+[2026-03-22 17:34:51] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:34:50.364Z"} 
+[2026-03-22 17:35:07] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:06.094Z"} 
+[2026-03-22 17:35:07] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:06.130Z"} 
+[2026-03-22 17:35:07] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:06.130Z"} 
+[2026-03-22 17:35:18] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:17.471Z"} 
+[2026-03-22 17:35:23] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:22.049Z"} 
+[2026-03-22 17:35:23] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:22.051Z"} 
+[2026-03-22 17:35:23] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:22.051Z"} 
+[2026-03-22 17:35:26] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing/intents","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:25.813Z"} 
+[2026-03-22 17:35:29] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:28.322Z"} 
+[2026-03-22 17:35:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:36.409Z"} 
+[2026-03-22 17:35:37] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:36.412Z"} 
+[2026-03-22 17:35:37] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:36.412Z"} 
+[2026-03-22 17:35:40] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:39.870Z"} 
+[2026-03-22 17:35:51] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:35:50.803Z"} 
+[2026-03-22 17:47:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:36.585Z"} 
+[2026-03-22 17:47:40] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:39.538Z"} 
+[2026-03-22 17:47:43] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:42.509Z"} 
+[2026-03-22 17:47:50] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:49.749Z"} 
+[2026-03-22 17:47:50] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:49.749Z"} 
+[2026-03-22 17:47:50] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:49.750Z"} 
+[2026-03-22 17:47:55] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:54.147Z"} 
+[2026-03-22 17:47:58] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:47:57.711Z"} 
+[2026-03-22 17:48:02] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:48:02.001Z"} 
+[2026-03-22 17:48:21] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:48:20.228Z"} 
+[2026-03-22 17:48:43] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:48:42.353Z"} 
+[2026-03-22 17:48:48] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:48:47.815Z"} 
+[2026-03-22 17:48:58] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing/usage","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:48:57.090Z"} 
+[2026-03-22 17:49:02] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:49:01.926Z"} 
+[2026-03-22 17:52:52] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/select-plan","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T15:52:51.461Z"} 
+[2026-03-22 18:14:49] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T16:14:48.059Z"} 
+[2026-03-22 18:14:49] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T16:14:48.059Z"} 
+[2026-03-22 18:14:49] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T16:14:48.059Z"} 
+[2026-03-22 19:36:30] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:29.985Z"} 
+[2026-03-22 19:36:38] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:37.093Z"} 
+[2026-03-22 19:36:38] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:37.093Z"} 
+[2026-03-22 19:36:38] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:37.093Z"} 
+[2026-03-22 19:36:41] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:40.818Z"} 
+[2026-03-22 19:36:45] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:44.848Z"} 
+[2026-03-22 19:36:53] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:52.391Z"} 
+[2026-03-22 19:36:53] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:52.392Z"} 
+[2026-03-22 19:36:53] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:52.392Z"} 
+[2026-03-22 19:36:57] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:36:56.313Z"} 
+[2026-03-22 19:37:10] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:09.716Z"} 
+[2026-03-22 19:37:15] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organization/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:14.180Z"} 
+[2026-03-22 19:37:21] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:20.239Z"} 
+[2026-03-22 19:37:21] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:20.239Z"} 
+[2026-03-22 19:37:21] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/profile","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:20.240Z"} 
+[2026-03-22 19:37:33] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:32.525Z"} 
+[2026-03-22 19:37:33] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:32.525Z"} 
+[2026-03-22 19:37:33] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:32.525Z"} 
+[2026-03-22 19:37:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:36.567Z"} 
+[2026-03-22 19:37:42] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:37:41.086Z"} 
+[2026-03-22 19:50:48] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/billing","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:50:47.044Z"} 
+[2026-03-22 19:50:59] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:50:58.748Z"} 
+[2026-03-22 19:50:59] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard/events","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:50:58.750Z"} 
+[2026-03-22 19:50:59] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/dashboard/events","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:50:58.750Z"} 
+[2026-03-22 19:51:04] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:51:03.202Z"} 
+[2026-03-22 19:51:04] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:51:03.202Z"} 
+[2026-03-22 19:51:04] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/organizations","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:51:03.203Z"} 
+[2026-03-22 19:51:07] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:51:06.921Z"} 
+[2026-03-22 19:51:11] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:51:10.446Z"} 
+[2026-03-22 19:56:31] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T17:56:30.580Z"} 
+[2026-03-22 20:04:44] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:04:43.170Z"} 
+[2026-03-22 20:15:49] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:15:48.163Z"} 
+[2026-03-22 20:25:03] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:25:02.987Z"} 
+[2026-03-22 20:26:22] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:26:21.115Z"} 
+[2026-03-22 20:31:37] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:31:36.144Z"} 
+[2026-03-22 20:48:45] production.WARNING: Alpine Expression Error: Unexpected EOF
+
+Expression: "__('Used for \" null null null __('Venue address') false __('Used for \ false old('venue_address') false 174 null null  {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.191Z"} 
+[2026-03-22 20:48:45] production.WARNING: Alpine Expression Error: Can't find variable: __
+
+Expression: "__('Venue address')" null null null __('Venue address') false __('Used for \ false old('venue_address') false 174 null null null  {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.192Z"} 
+[2026-03-22 20:48:45] production.WARNING: Alpine Expression Error: Can't find variable: old
+
+Expression: "old('venue_address')" null null null __('Venue address') false __('Used for \ false old('venue_address') false 174 null null null  {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.192Z"} 
+[2026-03-22 20:48:45] production.ERROR: SyntaxError: Unexpected EOF https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected EOF AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.202Z"} 
+[2026-03-22 20:48:45] production.ERROR: SyntaxError: Unexpected EOF https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 SyntaxError Unexpected EOF AsyncFunction@[native code]
+safeAsyncFunction@https://kalfa.me/vendor/livewire/livewire.js:1396:38
+generateFunctionFromString@https://kalfa.me/vendor/livewire/livewire.js:1409:33
+generateEvaluatorFromString@https://kalfa.me/vendor/livewire/livewire.js:1414:42
+normalEvaluator@https://kalfa.me/vendor/livewire/livewire.js:1372:138
+evaluateLater@https://kalfa.me/vendor/livewire/livewire.js:1358:32
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3869:35
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.203Z"} 
+[2026-03-22 20:48:45] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.203Z"} 
+[2026-03-22 20:48:45] production.ERROR: ReferenceError: Can't find variable: __ https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: __ anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.203Z"} 
+[2026-03-22 20:48:45] production.ERROR: ReferenceError: Can't find variable: old https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: old anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.203Z"} 
+[2026-03-22 20:48:45] production.ERROR: ReferenceError: Can't find variable: old https://kalfa.me/vendor/livewire/livewire.js?id=8f29b734 1341 19 ReferenceError Can't find variable: old anonymous@
+anonymous@
+@https://kalfa.me/vendor/livewire/livewire.js:1421:32
+tryCatch@https://kalfa.me/vendor/livewire/livewire.js:1320:22
+@https://kalfa.me/vendor/livewire/livewire.js:3870:29
+reactiveEffect@https://kalfa.me/vendor/livewire/livewire.js:2704:20
+effect2@https://kalfa.me/vendor/livewire/livewire.js:2679:14
+effect@https://kalfa.me/vendor/livewire/livewire.js:946:41
+wrappedEffect@https://kalfa.me/vendor/livewire/livewire.js:962:35
+handler2@https://kalfa.me/vendor/livewire/livewire.js:3870:12
+flushHandlers@https://kalfa.me/vendor/livewire/livewire.js:1538:48
+stopDeferring@https://kalfa.me/vendor/livewire/livewire.js:1543:20
+deferHandlingDirectives@https://kalfa.me/vendor/livewire/livewire.js:1546:18
+initTree@https://kalfa.me/vendor/livewire/livewire.js:1743:28
+@https://kalfa.me/vendor/livewire/livewire.js:1689:15
+forEach@[native code]
+start@https://kalfa.me/vendor/livewire/livewire.js:1688:104
+start2@https://kalfa.me/vendor/livewire/livewire.js:13282:25
+@https://kalfa.me/vendor/livewire/livewire.js:15110:22 {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.203Z"} 
+[2026-03-22 20:48:45] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/create","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:48:44.213Z"} 
+[2026-03-22 20:49:53] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:49:52.039Z"} 
+[2026-03-22 20:49:57] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:49:56.470Z"} 
+[2026-03-22 20:56:26] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:56:25.191Z"} 
+[2026-03-22 20:56:30] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:56:29.385Z"} 
+[2026-03-22 20:56:59] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T18:56:58.980Z"} 
+[2026-03-22 21:06:39] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T19:06:38.598Z"} 
+[2026-03-22 21:07:24] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3/guests","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T19:07:23.274Z"} 
+[2026-03-22 21:29:42] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T19:29:41.536Z"} 
+[2026-03-22 21:29:50] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3/guests","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T19:29:49.753Z"} 
+[2026-03-22 21:30:30] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard/events/3","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T19:30:29.494Z"} 
+[2026-03-23 01:22:40] production.WARNING: startAuthentication() was not called correctly. It will try to continue with the provided options, but this call should be refactored to use the expected call structure instead. See https://simplewebauthn.dev/docs/packages/browser#typeerror-cannot-read-properties-of-undefined-reading-challenge for more information. {"url":"https://kalfa.me/login","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T23:22:39.953Z"} 
+[2026-03-23 01:22:46] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/dashboard","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T23:22:45.530Z"} 
+[2026-03-23 01:23:11] production.ERROR: SyntaxError: Can't create duplicate variable: 'oa' null 0 0 SyntaxError Can't create duplicate variable: 'oa' {"url":"https://kalfa.me/system/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T23:23:10.935Z"} 
+[2026-03-23 01:23:11] production.ERROR: SyntaxError: Can't create duplicate variable: 'oa' null 0 0 SyntaxError Can't create duplicate variable: 'oa' {"url":"https://kalfa.me/system/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T23:23:10.935Z"} 
+[2026-03-23 01:23:11] production.DEBUG: Service worker registration succeeded: {"url":"https://kalfa.me/system/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T23:23:10.935Z"} 
+[2026-03-23 01:23:11] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/system/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T23:23:10.936Z"} 
+[2026-03-23 01:23:11] production.ERROR: SyntaxError: Can't create duplicate variable: 'CACHE_NAME' null 0 0 SyntaxError Can't create duplicate variable: 'CACHE_NAME' {"url":"https://kalfa.me/system/settings","user_agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 26_2_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/146.0.7680.40 Mobile/15E148 Safari/604.1","timestamp":"2026-03-22T23:23:10.936Z"} 

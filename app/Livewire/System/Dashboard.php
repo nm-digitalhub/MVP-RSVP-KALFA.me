@@ -8,10 +8,10 @@ use App\Models\Event;
 use App\Models\Guest;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Database\ReadWriteConnection;
 use App\Services\OfficeGuy\SystemBillingService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -26,32 +26,39 @@ class Dashboard extends Component
 
     protected SystemBillingService $billing;
 
-    public function boot(SystemBillingService $billing): void
-    {
+    protected ReadWriteConnection $db;
+
+    public function boot(
+        SystemBillingService $billing,
+        ReadWriteConnection $db,
+    ): void {
         $this->billing = $billing;
+        $this->db = $db;
     }
 
     public function render(): View
     {
-        // --- KPI metrics ---
-        $totalOrganizations = Organization::count();
-        $totalUsers = User::count();
-        $totalEvents = Event::count();
-        $totalGuests = Guest::count();
+        $readConn = $this->db->read()->getName();
 
-        $activeOrganizations = Organization::where('is_suspended', false)->count();
-        $newUsers7 = User::where('created_at', '>=', now()->subDays(7))->count();
-        $newUsers30 = User::where('created_at', '>=', now()->subDays(30))->count();
-        $newOrgs7 = Organization::where('created_at', '>=', now()->subDays(7))->count();
-        $newOrgs30 = Organization::where('created_at', '>=', now()->subDays(30))->count();
-        $events30d = Event::where('created_at', '>=', now()->subDays(30))->count();
+        // --- KPI metrics ---
+        $totalOrganizations = Organization::on($readConn)->count();
+        $totalUsers = User::on($readConn)->count();
+        $totalEvents = Event::on($readConn)->count();
+        $totalGuests = Guest::on($readConn)->count();
+
+        $activeOrganizations = Organization::on($readConn)->where('is_suspended', false)->count();
+        $newUsers7 = User::on($readConn)->where('created_at', '>=', now()->subDays(7))->count();
+        $newUsers30 = User::on($readConn)->where('created_at', '>=', now()->subDays(30))->count();
+        $newOrgs7 = Organization::on($readConn)->where('created_at', '>=', now()->subDays(7))->count();
+        $newOrgs30 = Organization::on($readConn)->where('created_at', '>=', now()->subDays(30))->count();
+        $events30d = Event::on($readConn)->where('created_at', '>=', now()->subDays(30))->count();
 
         // --- Health signals ---
-        $usersWithoutOrg = User::whereDoesntHave('organizations')->count();
-        $orgsWithoutEvents = Organization::whereDoesntHave('events')->count();
-        $orgsWithoutOwner = Organization::whereDoesntHave('users', fn ($q) => $q->where('organization_users.role', 'owner'))->count();
-        $systemAdminsCount = User::where('is_system_admin', true)->count();
-        $suspendedOrgCount = Organization::where('is_suspended', true)->count();
+        $usersWithoutOrg = User::on($readConn)->whereDoesntHave('organizations')->count();
+        $orgsWithoutEvents = Organization::on($readConn)->whereDoesntHave('events')->count();
+        $orgsWithoutOwner = Organization::on($readConn)->whereDoesntHave('users', fn ($q) => $q->where('organization_users.role', 'owner'))->count();
+        $systemAdminsCount = User::on($readConn)->where('is_system_admin', true)->count();
+        $suspendedOrgCount = Organization::on($readConn)->where('is_suspended', true)->count();
 
         // --- Billing ---
         $mrr = $this->billing->getMRR();
@@ -77,8 +84,8 @@ class Dashboard extends Component
         $recentExceptions = $this->getRecentExceptionsCount();
 
         // --- Recent activity ---
-        $recentOrganizations = Organization::latest()->limit(5)->get();
-        $recentUsers = User::latest()->limit(5)->get();
+        $recentOrganizations = Organization::on($readConn)->latest()->limit(5)->get();
+        $recentUsers = User::on($readConn)->latest()->limit(5)->get();
 
         return view('livewire.system.dashboard', compact(
             'totalOrganizations', 'totalUsers', 'totalEvents', 'totalGuests',
@@ -97,7 +104,7 @@ class Dashboard extends Component
     {
         if ($driver === 'database') {
             try {
-                return (int) DB::table('jobs')->count();
+                return (int) $this->db->read()->table('jobs')->count();
             } catch (\Exception) {
                 return -1;
             }
@@ -110,7 +117,7 @@ class Dashboard extends Component
     private function getFailedJobsCount(): int
     {
         try {
-            return (int) DB::table('failed_jobs')->count();
+            return (int) $this->db->read()->table('failed_jobs')->count();
         } catch (\Exception) {
             return -1;
         }
@@ -120,7 +127,7 @@ class Dashboard extends Component
     private function checkDbAlive(): bool
     {
         try {
-            DB::select('SELECT 1');
+            $this->db->read()->select('SELECT 1');
 
             return true;
         } catch (\Exception) {
@@ -158,7 +165,7 @@ class Dashboard extends Component
         }
 
         try {
-            $oldestTimestamp = DB::table('jobs')->min('created_at');
+            $oldestTimestamp = $this->db->read()->table('jobs')->min('created_at');
 
             if ($oldestTimestamp === null) {
                 return ['status' => 'idle', 'oldestAgeMinutes' => null];
@@ -209,7 +216,7 @@ class Dashboard extends Component
     {
         // Try Pulse first (lightweight, production-friendly)
         try {
-            $count = DB::table('pulse_entries')
+            $count = $this->db->read()->table('pulse_entries')
                 ->where('type', 'exception')
                 ->where('timestamp', '>=', now()->subHours(24)->timestamp)
                 ->count();
@@ -220,7 +227,7 @@ class Dashboard extends Component
         }
 
         try {
-            return (int) DB::table('telescope_entries')
+            return (int) $this->db->read()->table('telescope_entries')
                 ->where('type', 'exception')
                 ->where('created_at', '>=', now()->subHours(24))
                 ->count();

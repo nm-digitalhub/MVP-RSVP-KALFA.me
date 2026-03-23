@@ -103,6 +103,25 @@ return [
             'sslmode' => 'prefer',
         ],
 
+        'pgsql_read' => [
+            'driver' => 'pgsql',
+            'url' => env('DB_READ_URL'),
+            'host' => env('DB_READ_HOST', env('DB_HOST', '127.0.0.1')),
+            'port' => env('DB_READ_PORT', env('DB_PORT', '5432')),
+            'database' => env('DB_READ_DATABASE', env('DB_DATABASE', 'laravel')),
+            'username' => env('DB_READ_USERNAME', env('DB_USERNAME', 'root')),
+            'password' => env('DB_READ_PASSWORD', env('DB_PASSWORD', '')),
+            'charset' => env('DB_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+            'read_timeout' => env('DB_READ_TIMEOUT', '5'),
+            'options' => [
+                PDO::ATTR_STRINGIFY_FETCHES => false,
+            ],
+        ],
+
         'sqlsrv' => [
             'driver' => 'sqlsrv',
             'url' => env('DB_URL'),
@@ -149,7 +168,7 @@ return [
 
     'redis' => [
 
-        'client' => env('REDIS_CLIENT', 'phpredis'),
+        'client' => env('REDIS_CLIENT', 'predis'),
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),

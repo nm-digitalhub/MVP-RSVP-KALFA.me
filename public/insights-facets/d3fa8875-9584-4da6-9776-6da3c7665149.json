@@ -1,0 +1,15 @@
+{
+  "underlying_goal": "Exit the Claude Code session",
+  "goal_categories": {
+    "warmup_minimal": 1
+  },
+  "outcome": "fully_achieved",
+  "user_satisfaction_counts": {},
+  "claude_helpfulness": "unhelpful",
+  "session_type": "quick_question",
+  "friction_counts": {},
+  "friction_detail": "",
+  "primary_success": "none",
+  "brief_summary": "User ran an exit command to end the session with no requests or interactions.",
+  "session_id": "d3fa8875-9584-4da6-9776-6da3c7665149"
+}

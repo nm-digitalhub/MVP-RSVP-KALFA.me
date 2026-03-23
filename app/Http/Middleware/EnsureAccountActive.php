@@ -64,7 +64,8 @@ class EnsureAccountActive
         if ($account === null) {
             return $this->deny(
                 $request,
-                __('Your organization is not linked to an account. Please contact support.')
+                __('Your organization is not linked to an account. Please contact support.'),
+                'no_account'
             );
         }
 
@@ -72,22 +73,60 @@ class EnsureAccountActive
             return $next($request);
         }
 
+        // Check for specific reasons
+        $hasExpiredTrial = $account->subscriptions()
+            ->where('status', 'trial')
+            ->where('trial_ends_at', '<', now())
+            ->exists();
+
+        $hasExpiredSubscription = $account->subscriptions()
+            ->whereIn('status', ['past_due', 'cancelled'])
+            ->exists();
+
+        $hasAnySubscription = $account->subscriptions()->exists();
+
+        if ($hasExpiredSubscription) {
+            return $this->deny(
+                $request,
+                __('Your subscription has expired. Please renew to continue.'),
+                'subscription_expired'
+            );
+        }
+
+        if ($hasExpiredTrial) {
+            return $this->deny(
+                $request,
+                __('Your trial has ended. Choose a plan to continue.'),
+                'trial_expired'
+            );
+        }
+
+        if ($hasAnySubscription) {
+            return $this->deny(
+                $request,
+                __('Your subscription is pending payment. Please complete payment to continue.'),
+                'subscription_pending'
+            );
+        }
+
         return $this->deny(
             $request,
-            __('Your account does not have an active plan. Please choose a plan to continue.')
+            __('Your account does not have an active plan. Please choose a plan to continue.'),
+            'no_active_plan'
         );
     }
 
-    private function deny(Request $request, string $message): Response
+    private function deny(Request $request, string $message, string $reason = 'no_active_plan'): Response
     {
         if ($request->expectsJson()) {
             return response()->json([
                 'message' => $message,
-                'reason' => 'no_active_plan',
+                'reason' => $reason,
+                'redirect_url' => route('billing.account', ['reason' => $reason]),
             ], 402);
         }
 
-        return redirect()->route('billing.account')
+        return redirect()->route('billing.account', ['reason' => $reason])
             ->with('warning', $message);
     }
 }

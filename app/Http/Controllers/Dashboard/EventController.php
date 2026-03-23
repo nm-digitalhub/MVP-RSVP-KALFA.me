@@ -11,6 +11,8 @@ use App\Http\Requests\Dashboard\UpdateEventRequest;
 use App\Models\Event;
 use App\Services\EventLinks;
 use App\Services\OrganizationContext;
+use App\Services\UsageMeter;
+use App\Services\UsagePolicyService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
@@ -21,7 +23,9 @@ use Illuminate\View\View;
 class EventController extends Controller
 {
     public function __construct(
-        private OrganizationContext $context
+        private OrganizationContext $context,
+        private UsagePolicyService $usagePolicy,
+        private UsageMeter $usageMeter,
     ) {}
 
     public function create(): View|RedirectResponse
@@ -46,6 +50,18 @@ class EventController extends Controller
         }
 
         Gate::authorize('create', [Event::class, $organization->id]);
+
+        $account = $organization->account;
+
+        // Check usage limits before creating the event (only if account exists)
+        if ($account !== null) {
+            $decision = $this->usagePolicy->check($account, 'max_active_events', 1);
+
+            if ($decision->isBlocked()) {
+                return redirect()->back()
+                    ->with('error', __('You have reached your plan limit for active events. Upgrade your plan to create more events.'));
+            }
+        }
 
         $validated = $request->validated();
         $settings = [];
@@ -91,6 +107,17 @@ class EventController extends Controller
         } elseif ($request->hasFile('image')) {
             $event->addMediaFromRequest('image')
                 ->toMediaCollection('event-image');
+        }
+
+        // Record usage for the created event (only for active events)
+        if ($event->status === EventStatus::Active && $account?->product) {
+            $this->usageMeter->record(
+                $account,
+                $account->product,
+                'max_active_events',
+                1,
+                metadata: ['event_id' => $event->id, 'event_name' => $event->name],
+            );
         }
 
         return redirect()->route('dashboard.events.index')

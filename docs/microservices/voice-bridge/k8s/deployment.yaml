@@ -1,0 +1,420 @@
+# Voice Bridge Microservice - Kubernetes Manifests
+# Multi-region deployment for RSVP Voice Bridge
+
+# ============================================
+# Namespace
+# ============================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rsvp
+  labels:
+    app: rsvp
+    project: voice-bridge
+
+---
+# ============================================
+# Secret: Environment Variables
+# ============================================
+apiVersion: v1
+kind: Secret
+metadata:
+  name: voice-bridge-secrets
+  namespace: rsvp
+type: Opaque
+stringData:
+  # Gemini API Key (generate from Google Cloud Console)
+  gemini-api-key: "YOUR_GEMINI_API_KEY_HERE"
+
+  # Call log secret (should match Laravel config)
+  call-log-secret: "YOUR_CALL_LOG_SECRET_HERE"
+
+---
+# ============================================
+# ConfigMap: Non-Sensitive Configuration
+# ============================================
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: voice-bridge-config
+  namespace: rsvp
+data:
+  # WebSocket server port
+  PORT: "4000"
+
+  # Gemini model to use
+  GEMINI_MODEL: "models/gemini-2.0-flash-exp"
+
+  # Laravel webhook endpoints
+  PHP_WEBHOOK: "https://kalfa.me/api/twilio/rsvp/process"
+  CALL_LOG_URL: "https://kalfa.me/api/twilio/calling/log"
+
+  # Logging level (debug, info, warn, error)
+  LOG_LEVEL: "info"
+
+  # Region identifier for metrics
+  REGION: "il-central-1"
+
+  # Heartbeat interval to Twilio (milliseconds)
+  HEALTH_CHECK_INTERVAL: "30000"
+
+---
+# ============================================
+# Deployment: Voice Bridge Pods
+# ============================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voice-bridge
+  namespace: rsvp
+  labels:
+    app: voice-bridge
+    region: il-central-1
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: voice-bridge
+  template:
+    metadata:
+      labels:
+        app: voice-bridge
+        region: il-central-1
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "4000"
+        prometheus.io/path: "/metrics"
+    spec:
+      # Service account for workloads
+      serviceAccountName: voice-bridge
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+      - name: voice-bridge
+        image: voice-bridge:latest
+        imagePullPolicy: Always
+        ports:
+        - name: ws
+          containerPort: 4000
+          protocol: TCP
+        env:
+        # From ConfigMap
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: voice-bridge-config
+              key: PORT
+        - name: GEMINI_MODEL
+          valueFrom:
+            configMapKeyRef:
+              name: voice-bridge-config
+              key: GEMINI_MODEL
+        - name: PHP_WEBHOOK
+          valueFrom:
+            configMapKeyRef:
+              name: voice-bridge-config
+              key: PHP_WEBHOOK
+        - name: CALL_LOG_URL
+          valueFrom:
+            configMapKeyRef:
+              name: voice-bridge-config
+              key: CALL_LOG_URL
+        - name: LOG_LEVEL
+          valueFrom:
+            configMapKeyRef:
+              name: voice-bridge-config
+              key: LOG_LEVEL
+        - name: REGION
+          valueFrom:
+            configMapKeyRef:
+              name: voice-bridge-config
+              key: REGION
+        - name: HEALTH_CHECK_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: voice-bridge-config
+              key: HEALTH_CHECK_INTERVAL
+
+        # From Secrets
+        - name: GEMINI_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: voice-bridge-secrets
+              key: gemini-api-key
+        - name: CALL_LOG_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: voice-bridge-secrets
+              key: call-log-secret
+
+        # From pod metadata
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+
+        # Liveness probe - restarts container if unhealthy
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: ws
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        # Readiness probe - marks pod as ready to receive traffic
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: ws
+            scheme: HTTP
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        # Startup probe - gives container time to start
+        startupProbe:
+          httpGet:
+            path: /health
+            port: ws
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 12
+
+      # Pod disruption budget for graceful maintenance
+      minReadySeconds: 10
+
+---
+# ============================================
+# Service: ClusterIP for Internal Traffic
+# ============================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: voice-bridge
+  namespace: rsvp
+  labels:
+    app: voice-bridge
+spec:
+  type: ClusterIP
+  ports:
+  - name: ws
+    port: 4000
+    targetPort: ws
+    protocol: TCP
+  selector:
+    app: voice-bridge
+  sessionAffinity: None
+
+---
+# ============================================
+# HorizontalPodAutoscaler
+# ============================================
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: voice-bridge-hpa
+  namespace: rsvp
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: voice-bridge
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  # Scale based on CPU utilization
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  # Scale based on memory utilization
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  # Scale based on custom metric (active connections per pod)
+  - type: Pods
+    pods:
+      metric:
+        name: voice_bridge_connections
+      target:
+        type: AverageValue
+        averageValue: "50"
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max
+
+---
+# ============================================
+# PodDisruptionBudget
+# ============================================
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: voice-bridge-pdb
+  namespace: rsvp
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: voice-bridge
+
+---
+# ============================================
+# ServiceAccount
+# ============================================
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: voice-bridge
+  namespace: rsvp
+automountServiceAccountToken: false
+
+---
+# ============================================
+# NetworkPolicy
+# ============================================
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: voice-bridge-netpol
+  namespace: rsvp
+spec:
+  podSelector:
+    matchLabels:
+      app: voice-bridge
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  # Allow WebSocket traffic from anywhere (Twilio needs external access)
+  - ports:
+    - port: 4000
+      protocol: TCP
+  egress:
+  # Allow DNS
+  - ports:
+    - port: 53
+      protocol: TCP
+    - port: 53
+      protocol: UDP
+  # Allow HTTPS to Gemini API
+  - ports:
+    - port: 443
+      protocol: TCP
+  # Allow HTTPS to Laravel webhook
+  - ports:
+    - port: 443
+      protocol: TCP
+
+---
+# ============================================
+# Ingress: External Access via WebSocket
+# ============================================
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: voice-bridge-ingress
+  namespace: rsvp
+  annotations:
+    # TLS certificate
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+
+    # WebSocket support
+    nginx.ingress.kubernetes.io/websocket-services: voice-bridge
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+
+    # Security headers
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+    # CORS (if needed for API access)
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://kalfa.me"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - voice-bridge.kalfa.me
+    secretName: voice-bridge-tls
+  rules:
+  - host: voice-bridge.kalfa.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: voice-bridge
+            port:
+              number: 4000
+
+---
+# ============================================
+# ServiceMonitor: Prometheus Metrics
+# ============================================
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: voice-bridge
+  namespace: rsvp
+  labels:
+    app: voice-bridge
+spec:
+  selector:
+    matchLabels:
+      app: voice-bridge
+  endpoints:
+  - port: ws
+    path: /metrics
+    interval: 30s
+    scheme: http
