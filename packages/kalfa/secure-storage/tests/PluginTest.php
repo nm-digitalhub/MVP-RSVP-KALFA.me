@@ -96,6 +96,51 @@ class PluginTest extends TestCase
         }
     }
 
+    /**
+     * Mobile shell loads the Laravel app over HTTPS; network_state in
+     * config/nativephp.php expects ACCESS_NETWORK_STATE on Android.
+     */
+    public function test_android_declares_network_permissions_for_mobile_shell(): void
+    {
+        $manifest = json_decode(file_get_contents($this->manifestPath), true);
+
+        $this->assertIsArray($manifest['android']['permissions'] ?? null);
+        $perms = $manifest['android']['permissions'];
+
+        $this->assertContains('android.permission.INTERNET', $perms);
+        $this->assertContains('android.permission.ACCESS_NETWORK_STATE', $perms);
+    }
+
+    /**
+     * NativePHP Mobile v3 documents ios.info_plist and ios.dependencies — not
+     * ios.permissions or ios.repositories (those are Android-oriented patterns).
+     *
+     * @see https://nativephp.com/docs/mobile/3/plugins/creating-plugins
+     * @see https://nativephp.com/docs/mobile/3/plugins/permissions-dependencies
+     */
+    public function test_ios_manifest_uses_documented_nativephp_v3_structure(): void
+    {
+        $manifest = json_decode(file_get_contents($this->manifestPath), true);
+        $ios = $manifest['ios'];
+
+        $this->assertIsArray($ios);
+        $this->assertArrayHasKey('min_version', $ios);
+        $this->assertArrayHasKey('dependencies', $ios);
+        $this->assertIsArray($ios['dependencies']['swift_packages'] ?? null);
+        $this->assertIsArray($ios['dependencies']['pods'] ?? null);
+
+        $this->assertArrayNotHasKey(
+            'permissions',
+            $ios,
+            'iOS permission copy belongs under ios.info_plist (NS*UsageDescription), not ios.permissions'
+        );
+        $this->assertArrayNotHasKey(
+            'repositories',
+            $ios,
+            'Custom dependency repositories are declared under android.repositories only'
+        );
+    }
+
     // -------------------------------------------------------------------------
     // Native Code
     // -------------------------------------------------------------------------
@@ -105,7 +150,7 @@ class PluginTest extends TestCase
      */
     public function test_android_kotlin_file_exists(): void
     {
-        $file = $this->pluginPath.'/resources/android/SecureStorageFunctions.kt';
+        $file = $this->pluginPath.'/resources/android/src/SecureStorageFunctions.kt';
 
         $this->assertFileExists($file);
 
@@ -137,7 +182,7 @@ class PluginTest extends TestCase
     {
         $manifest = json_decode(file_get_contents($this->manifestPath), true);
 
-        $kotlinFile = $this->pluginPath.'/resources/android/SecureStorageFunctions.kt';
+        $kotlinFile = $this->pluginPath.'/resources/android/src/SecureStorageFunctions.kt';
         $swiftFile = $this->pluginPath.'/resources/ios/Sources/SecureStorageFunctions.swift';
 
         $this->assertFileExists($kotlinFile);

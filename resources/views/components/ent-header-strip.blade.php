@@ -44,7 +44,7 @@
                             @csrf
                             <button type="submit" class="w-full px-4 py-2 text-start text-sm hover:bg-surface flex items-center justify-between">
                                 <span>{{ $org->name }}</span>
-                                @if($org->id === auth()->user()->current_organization->id)
+                                @if((int) $org->id === (int) auth()->user()->current_organization_id)
                                     <x-heroicon-o-check class="h-4 w-4 text-brand" />
                                 @endif
                             </button>

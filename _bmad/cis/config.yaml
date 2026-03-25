@@ -9,4 +9,4 @@ visual_tools: intermediate
 user_name: KALFA Netanel
 communication_language: Hebrew
 document_output_language: English
-output_folder: "{project-root}//var/www/vhosts/kalfa.me/bmad-output"
+output_folder: /var/www/vhosts/kalfa.me/bmad-output

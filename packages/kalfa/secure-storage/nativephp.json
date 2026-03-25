@@ -26,7 +26,10 @@
     ],
     "android": {
         "min_version": 33,
-        "permissions": [],
+        "permissions": [
+            "android.permission.INTERNET",
+            "android.permission.ACCESS_NETWORK_STATE"
+        ],
         "repositories": [],
         "dependencies": {
             "implementation": [
@@ -40,8 +43,6 @@
     },
     "ios": {
         "min_version": "18.2",
-        "permissions": [],
-        "repositories": [],
         "dependencies": {
             "swift_packages": [],
             "pods": []

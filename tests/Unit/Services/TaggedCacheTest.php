@@ -25,36 +25,42 @@ final class TaggedCacheTest extends TestCase
 
     public function test_remember_stores_and_retrieves_data_with_tags(): void
     {
+        $tags = ['tenant:123'];
+
         $result = $this->taggedCache->remember(
             'test-key',
-            ['tenant:123'],
+            $tags,
             fn () => 'test-value',
             60,
         );
 
         $this->assertSame('test-value', $result);
-        $this->assertTrue($this->taggedCache->has('test-key'));
+        $this->assertTrue($this->taggedCache->has('test-key', $tags));
     }
 
     public function test_put_stores_data_with_tags(): void
     {
+        $tags = ['tenant:123', 'entity:event'];
+
         $this->taggedCache->put(
             'test-key',
-            ['tenant:123', 'entity:event'],
+            $tags,
             'test-value',
             60,
         );
 
-        $this->assertSame('test-value', $this->taggedCache->get('test-key'));
+        $this->assertSame('test-value', $this->taggedCache->get('test-key', $tags));
     }
 
     public function test_forget_removes_cached_item(): void
     {
-        $this->taggedCache->put('test-key', ['tenant:123'], 'value', 60);
-        $this->assertTrue($this->taggedCache->has('test-key'));
+        $tags = ['tenant:123'];
 
-        $this->taggedCache->forget('test-key');
-        $this->assertFalse($this->taggedCache->has('test-key'));
+        $this->taggedCache->put('test-key', $tags, 'value', 60);
+        $this->assertTrue($this->taggedCache->has('test-key', $tags));
+
+        $this->taggedCache->forget('test-key', $tags);
+        $this->assertFalse($this->taggedCache->has('test-key', $tags));
     }
 
     public function test_flush_tags_invalidates_all_cache_with_tag(): void
@@ -65,10 +71,10 @@ final class TaggedCacheTest extends TestCase
 
         $this->taggedCache->flushTags(['tenant:123']);
 
-        $this->assertFalse($this->taggedCache->has('key1'));
-        $this->assertFalse($this->taggedCache->has('key2'));
+        $this->assertFalse($this->taggedCache->has('key1', ['tenant:123', 'type:A']));
+        $this->assertFalse($this->taggedCache->has('key2', ['tenant:123', 'type:B']));
         // key3 should still exist since it has different tenant tag
-        $this->assertTrue($this->taggedCache->has('key3'));
+        $this->assertTrue($this->taggedCache->has('key3', ['tenant:456', 'type:A']));
     }
 
     public function test_flush_tenant_invalidates_all_tenant_cache(): void
@@ -79,9 +85,9 @@ final class TaggedCacheTest extends TestCase
 
         $this->taggedCache->flushTenant(123);
 
-        $this->assertFalse($this->taggedCache->has('key1'));
-        $this->assertFalse($this->taggedCache->has('key2'));
-        $this->assertTrue($this->taggedCache->has('key3')); // Different tenant
+        $this->assertFalse($this->taggedCache->has('key1', ['tenant:123']));
+        $this->assertFalse($this->taggedCache->has('key2', ['tenant:123']));
+        $this->assertTrue($this->taggedCache->has('key3', ['tenant:456'])); // Different tenant
     }
 
     public function test_flush_entity_invalidates_entity_cache(): void
@@ -92,9 +98,9 @@ final class TaggedCacheTest extends TestCase
 
         $this->taggedCache->flushEntity('event', 1);
 
-        $this->assertFalse($this->taggedCache->has('key1'));
-        $this->assertTrue($this->taggedCache->has('key2')); // Different event
-        $this->assertTrue($this->taggedCache->has('key3')); // Different entity type
+        $this->assertFalse($this->taggedCache->has('key1', ['entity:event:1']));
+        $this->assertTrue($this->taggedCache->has('key2', ['entity:event:2'])); // Different event
+        $this->assertTrue($this->taggedCache->has('key3', ['entity:guest'])); // Different entity type
     }
 
     public function test_flush_features_invalidates_feature_cache(): void
@@ -104,8 +110,8 @@ final class TaggedCacheTest extends TestCase
 
         $this->taggedCache->flushFeatures(123);
 
-        $this->assertFalse($this->taggedCache->has('key1'));
-        $this->assertTrue($this->taggedCache->has('key2')); // Different tenant
+        $this->assertFalse($this->taggedCache->has('key1', ['feature:123']));
+        $this->assertTrue($this->taggedCache->has('key2', ['tenant:456'])); // Different tenant
     }
 
     public function test_tenant_tags_generates_correct_format(): void
@@ -142,14 +148,16 @@ final class TaggedCacheTest extends TestCase
 
     public function test_remember_uses_default_ttl_when_not_specified(): void
     {
+        $tags = ['tenant:123'];
+
         $result = $this->taggedCache->remember(
             'test-key',
-            ['tenant:123'],
+            $tags,
             fn () => 'test-value',
         );
 
         $this->assertSame('test-value', $result);
-        $this->assertTrue($this->taggedCache->has('test-key'));
+        $this->assertTrue($this->taggedCache->has('test-key', $tags));
     }
 
     public function test_flush_clears_all_cache(): void
@@ -159,8 +167,8 @@ final class TaggedCacheTest extends TestCase
 
         $this->taggedCache->flush();
 
-        $this->assertFalse($this->taggedCache->has('key1'));
-        $this->assertFalse($this->taggedCache->has('key2'));
+        $this->assertFalse($this->taggedCache->has('key1', ['tenant:123']));
+        $this->assertFalse($this->taggedCache->has('key2', ['tenant:456']));
     }
 
     public function test_multiple_tags_can_be_flushed(): void
@@ -173,41 +181,47 @@ final class TaggedCacheTest extends TestCase
         // but key3 should remain since it has type:B
         $this->taggedCache->flushTags(['type:A']);
 
-        $this->assertFalse($this->taggedCache->has('key1'));
-        $this->assertFalse($this->taggedCache->has('key2'));
-        $this->assertTrue($this->taggedCache->has('key3'));
+        $this->assertFalse($this->taggedCache->has('key1', ['tenant:123', 'type:A', 'subtype:X']));
+        $this->assertFalse($this->taggedCache->has('key2', ['tenant:456', 'type:A', 'subtype:Y']));
+        $this->assertTrue($this->taggedCache->has('key3', ['tenant:123', 'type:B']));
     }
 
     public function test_complex_tag_invalidation_scenario(): void
     {
+        $tags123EventList = ['tenant:123', 'entity:event'];
+        $tags123GuestList = ['tenant:123', 'entity:guest'];
+        $tags123Event1 = ['tenant:123', 'entity:event:1'];
+        $tags123Guest1 = ['tenant:123', 'entity:guest:1'];
+        $tags456EventList = ['tenant:456', 'entity:event'];
+
         // Simulating a real-world scenario:
         // Organization 123 has events and guests
-        $this->taggedCache->put('events:list', ['tenant:123', 'entity:event'], 'events-data', 60);
-        $this->taggedCache->put('guests:list', ['tenant:123', 'entity:guest'], 'guests-data', 60);
-        $this->taggedCache->put('event:1', ['tenant:123', 'entity:event:1'], 'event-1-data', 60);
-        $this->taggedCache->put('guest:1', ['tenant:123', 'entity:guest:1'], 'guest-1-data', 60);
+        $this->taggedCache->put('events:list', $tags123EventList, 'events-data', 60);
+        $this->taggedCache->put('guests:list', $tags123GuestList, 'guests-data', 60);
+        $this->taggedCache->put('event:1', $tags123Event1, 'event-1-data', 60);
+        $this->taggedCache->put('guest:1', $tags123Guest1, 'guest-1-data', 60);
 
         // Organization 456 has its own data
-        $this->taggedCache->put('events:list', ['tenant:456', 'entity:event'], 'events-456-data', 60);
+        $this->taggedCache->put('events:list', $tags456EventList, 'events-456-data', 60);
 
         // When event 1 is updated, flush its specific cache
         $this->taggedCache->flushEntity('event', 1);
 
-        $this->assertFalse($this->taggedCache->has('event:1'));
-        $this->assertTrue($this->taggedCache->has('events:list')); // Still cached (tenant:123)
-        $this->assertTrue($this->taggedCache->has('guests:list')); // Not affected
-        $this->assertTrue($this->taggedCache->has('guest:1')); // Not affected
-        $this->assertTrue($this->taggedCache->has('events:list')); // Org 456 still cached
+        $this->assertFalse($this->taggedCache->has('event:1', $tags123Event1));
+        $this->assertTrue($this->taggedCache->has('events:list', $tags123EventList)); // Still cached (tenant:123)
+        $this->assertTrue($this->taggedCache->has('guests:list', $tags123GuestList)); // Not affected
+        $this->assertTrue($this->taggedCache->has('guest:1', $tags123Guest1)); // Not affected
+        $this->assertTrue($this->taggedCache->has('events:list', $tags456EventList)); // Org 456 still cached
 
         // Now flush entire tenant 123 cache
         $this->taggedCache->flushTenant(123);
 
-        $this->assertFalse($this->taggedCache->has('events:list')); // Org 123's events list
-        $this->assertFalse($this->taggedCache->has('guests:list')); // Org 123's guests list
-        $this->assertFalse($this->taggedCache->has('guest:1')); // Org 123's guest
+        $this->assertFalse($this->taggedCache->has('events:list', $tags123EventList)); // Org 123's events list
+        $this->assertFalse($this->taggedCache->has('guests:list', $tags123GuestList)); // Org 123's guests list
+        $this->assertFalse($this->taggedCache->has('guest:1', $tags123Guest1)); // Org 123's guest
 
         // Org 456's cache should remain
-        $org456Data = $this->taggedCache->get('events:list');
+        $org456Data = $this->taggedCache->get('events:list', $tags456EventList);
         $this->assertNotNull($org456Data);
     }
 }

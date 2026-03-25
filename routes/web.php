@@ -21,8 +21,11 @@ use App\Http\Controllers\Twilio\RsvpVoiceController;
 use App\Http\Controllers\TwilioController;
 use App\Http\Controllers\WebAuthn\WebAuthnLoginController;
 use App\Http\Controllers\WebAuthn\WebAuthnRegisterController;
+use App\Http\Controllers\WellKnown\UniversalLinksController;
+use App\Http\Middleware\VerifyCsrfToken;
 use App\Livewire\AcceptInvitation;
 use App\Livewire\Billing\PlanSelection;
+use App\Livewire\Dashboard\EventList;
 use App\Livewire\Dashboard\OrganizationMembers;
 use App\Livewire\System\Accounts\CreateAccountWizard;
 use App\Livewire\System\Dashboard;
@@ -30,8 +33,6 @@ use App\Livewire\System\Organizations\Show;
 use App\Livewire\System\Products\CreateProductWizard;
 use App\Livewire\System\Settings\Index;
 use App\Livewire\System\TrialReminders;
-use App\Livewire\Dashboard\EventList;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -87,6 +88,17 @@ Route::match(['get', 'post'], '/mvp-rsvp/webhook/callcomes', [TwilioController::
 |--------------------------------------------------------------------------
 | Auth, Dashboard, Organizations, Events, Public Event, RSVP, Checkout.
 */
+
+/*
+|--------------------------------------------------------------------------
+| Universal Links / App Links (NativePHP associated domains)
+|--------------------------------------------------------------------------
+| https://nativephp.com/docs/mobile/3/concepts/deep-links
+*/
+Route::get('.well-known/apple-app-site-association', [UniversalLinksController::class, 'appleAppSiteAssociation'])
+    ->name('well-known.apple-app-site-association');
+Route::get('.well-known/assetlinks.json', [UniversalLinksController::class, 'assetLinks'])
+    ->name('well-known.assetlinks');
 
 // Home: redirect to dashboard if authenticated, else login
 Route::get('/', function () {

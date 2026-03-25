@@ -3,7 +3,7 @@
 # Version: 6.2.1
 # Date: 2026-03-25T16:47:54.028Z
 
-test_artifacts: "{project-root}//var/www/vhosts/kalfa.me/bmad-output/test-artifacts"
+test_artifacts: /var/www/vhosts/kalfa.me/bmad-output/test-artifacts
 tea_use_playwright_utils: true
 tea_use_pactjs_utils: true
 tea_pact_mcp: mcp
@@ -22,4 +22,4 @@ trace_output: /var/www/vhosts/kalfa.me/bmad-output/test-artifacts/traceability
 user_name: KALFA Netanel
 communication_language: Hebrew
 document_output_language: English
-output_folder: "{project-root}//var/www/vhosts/kalfa.me/bmad-output"
+output_folder: /var/www/vhosts/kalfa.me/bmad-output

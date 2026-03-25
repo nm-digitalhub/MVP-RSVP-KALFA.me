@@ -12,7 +12,7 @@ use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Session\TokenMismatchException;
 use Laravel\Sanctum\Http\Middleware\CheckAbilities;
 use Laravel\Sanctum\Http\Middleware\CheckForAnyAbility;
@@ -41,7 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'require.impersonation' => RequireImpersonationForSystemAdmin::class,
         ]);
         $middleware->web(replace: [
-            ValidateCsrfToken::class => VerifyCsrfToken::class,
+            PreventRequestForgery::class => VerifyCsrfToken::class,
         ]);
         $middleware->web(append: [
             RequestId::class,

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Contracts\PaymentGatewayInterface;
 use App\Enums\EventBillingStatus;
 use App\Enums\EventStatus;
 use App\Enums\PaymentStatus;
@@ -13,6 +14,7 @@ use App\Models\Organization;
 use App\Models\Payment;
 use App\Models\Plan;
 use App\Models\User;
+use App\Services\SumitPaymentGateway;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Tests\TestCase;
@@ -181,16 +183,21 @@ class SumitProductionValidationTest extends TestCase
      */
     public function test_gateway_timeout_rolls_back_transaction_event_stays_draft(): void
     {
-        $gateway = new class implements \App\Contracts\PaymentGatewayInterface
+        $gateway = new class implements PaymentGatewayInterface
         {
             public function createOneTimePayment(int $organizationId, int $amount, array $metadata = []): array
             {
                 throw new \RuntimeException('Gateway timeout');
             }
 
+            public function chargeWithToken(int $organizationId, int $amount, array $metadata, string $token): array
+            {
+                throw new \RuntimeException('Gateway timeout');
+            }
+
             public function handleWebhook(array $payload, string $signature): void {}
         };
-        $this->app->instance(\App\Contracts\PaymentGatewayInterface::class, $gateway);
+        $this->app->instance(PaymentGatewayInterface::class, $gateway);
 
         $user = User::factory()->create();
         $org = $this->createOrganization();
@@ -219,7 +226,7 @@ class SumitProductionValidationTest extends TestCase
         Config::set('billing.default_gateway', 'sumit');
         Config::set('billing.sumit.redirect_success_url', null);
         Config::set('billing.sumit.redirect_cancel_url', null);
-        $this->app->bind(\App\Contracts\PaymentGatewayInterface::class, \App\Services\SumitPaymentGateway::class);
+        $this->app->bind(PaymentGatewayInterface::class, SumitPaymentGateway::class);
 
         $user = User::factory()->create();
         $org = $this->createOrganization();
