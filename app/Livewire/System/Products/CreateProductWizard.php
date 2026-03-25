@@ -17,7 +17,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Transition;
 use Livewire\Component;
+use OfficeGuy\LaravelSumitGateway\Services\SumitProductService;
 
+#[Layout('layouts.app')]
+#[Title('Create product')]
 final class CreateProductWizard extends Component
 {
     public int $step = 1;
@@ -127,12 +130,12 @@ final class CreateProductWizard extends Component
             $this->validateOnly($property, $this->featureRules());
         }
 
-        if (in_array($property, ['planName', 'planSlug', 'planDescription', 'planAmount', 'planCurrency'], true) && $this->product !== null) {
-            if ($property === 'planSlug') {
-                $this->planSlug = Str::slug($this->planSlug);
-            }
-            $this->validateOnly($property, $this->planRules());
-        }
+if (in_array($property, ['planName', 'planSlug', 'planSku', 'planDescription', 'planAmount', 'planCurrency'], true) && $this->product !== null) {
+if ($property === 'planSlug') {
+        $this->planSlug = Str::slug($this->planSlug);
+    }
+    $this->validateOnly($property, $this->planRules());
+}
     }
 
     public function updatedPlanName(): void
@@ -310,32 +313,54 @@ final class CreateProductWizard extends Component
         session()->flash('success', __('Feature removed.'));
     }
 
-    public function addPlan(): void
-    {
-        $product = $this->requireProduct();
-        $validated = $this->validate($this->planRules());
+   public function addPlan(): void
+{
+    $product = $this->requireProduct();
+    $validated = $this->validate($this->planRules());
 
-        $plan = $product->productPlans()->create([
-            'name' => $validated['planName'],
-            'slug' => $validated['planSlug'],
-            'sku' => $this->planSku,
-            'description' => $validated['planDescription'] ?: null,
-            'is_active' => $this->planIsActive,
+$plan = $product->productPlans()->create([
+    'name' => $validated['planName'],
+    'slug' => $validated['planSlug'],
+    'sku' => $validated['planSku'] ?: null,
+    'description' => $validated['planDescription'] ?: null,
+    'is_active' => $this->planIsActive,
+]);
+
+    if (! empty($validated['planAmount'])) {
+        $plan->prices()->create([
+            'currency' => $validated['planCurrency'],
+            'amount' => (int) $validated['planAmount'],
+            'billing_cycle' => $this->planBillingCycle,
+            'is_active' => true,
+        ]);
+    }
+
+    $sumitResponse = SumitProductService::createProduct(
+        name: $plan->name,
+        sku: $plan->sku ?? '',
+        price: ((float) ($validated['planAmount'] ?: 0)) / 100,
+        description: $plan->description
+    );
+
+    if (! $sumitResponse['success']) {
+        $this->addError('plan', __('The plan was created locally, but failed to sync to SUMIT: :error', [
+            'error' => $sumitResponse['error'] ?? __('Unknown error'),
+        ]));
+
+        session()->flash('error', __('Plan added to draft product, but SUMIT sync failed.'));
+    } elseif (isset($sumitResponse['sumit_entity_id'])) {
+        $plan->update([
+            'sumit_entity_id' => $sumitResponse['sumit_entity_id'],
         ]);
 
-        if (! empty($validated['planAmount'])) {
-            $plan->prices()->create([
-                'currency' => $validated['planCurrency'],
-                'amount' => (int) $validated['planAmount'],
-                'billing_cycle' => $this->planBillingCycle,
-                'is_active' => true,
-            ]);
-        }
-
-        $this->resetPlanForm();
-        $this->product = $product->fresh();
+        session()->flash('success', __('Plan added to draft product and synced to SUMIT.'));
+    } else {
         session()->flash('success', __('Plan added to draft product.'));
     }
+
+    $this->resetPlanForm();
+    $this->product = $product->fresh();
+}
 
     public function removePlan(int $planId): void
     {
@@ -374,8 +399,7 @@ final class CreateProductWizard extends Component
         return $this->redirectRoute('system.products.show', ['product' => $product], navigate: true);
     }
 
-    #[Layout('layouts.app')]
-    #[Title('Create product')]
+
     public function render(): View
     {
         return view('livewire.system.products.create-product-wizard', [
@@ -562,16 +586,17 @@ final class CreateProductWizard extends Component
     }
 
     protected function resetPlanForm(): void
-    {
-        $this->reset([
-            'planName',
-            'planSlug',
-            'planDescription',
-            'planAmount',
-        ]);
+{
+    $this->reset([
+        'planName',
+        'planSlug',
+        'planSku',
+        'planDescription',
+        'planAmount',
+    ]);
 
-        $this->planIsActive = true;
-        $this->planCurrency = 'USD';
-        $this->planBillingCycle = 'monthly';
-    }
+    $this->planIsActive = true;
+    $this->planCurrency = 'USD';
+    $this->planBillingCycle = 'monthly';
+}
 }

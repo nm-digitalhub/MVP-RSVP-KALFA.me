@@ -24,4 +24,15 @@ enum EventStatus: string
             self::Cancelled => __('Cancelled'),
         };
     }
+
+    public function getBadgeColor(): string
+    {
+        return match ($this) {
+            self::Draft, self::Archived => 'neutral',
+            self::PendingPayment => 'warning',
+            self::Active => 'success',
+            self::Locked => 'info',
+            self::Cancelled => 'danger',
+        };
+    }
 }

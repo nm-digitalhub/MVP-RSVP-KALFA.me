@@ -6,6 +6,13 @@
                 "artisan",
                 "boost:mcp"
             ]
+        },
+        "laravel-codebase": {
+            "command": "php",
+            "args": [
+                "artisan",
+                "introspect:mcp"
+            ]
         }
     }
 }

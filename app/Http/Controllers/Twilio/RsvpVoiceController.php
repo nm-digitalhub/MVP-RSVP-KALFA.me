@@ -197,6 +197,8 @@ final class RsvpVoiceController extends Controller
                         'message' => $notes ?: 'Twilio voice RSVP (Gemini Live)',
                         'ip' => $request->ip(),
                         'user_agent' => $request->userAgent() ?? 'Node-Gemini',
+                        'response_method' => 'voice_speech',
+                        'call_sid' => $invitation->call_sid,
                     ]
                 );
 
@@ -270,6 +272,8 @@ final class RsvpVoiceController extends Controller
                     'message' => 'Twilio voice RSVP (DTMF)',
                     'ip' => $request->ip(),
                     'user_agent' => 'Twilio-Voice',
+                    'response_method' => 'voice_dtmf',
+                    'call_sid' => $invitation->call_sid,
                 ]
             );
 

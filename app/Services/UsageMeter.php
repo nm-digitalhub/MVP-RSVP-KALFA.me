@@ -147,13 +147,20 @@ final class UsageMeter
             return [];
         }
 
-        $overageMetricKey = (string) data_get($subscription->productPlan->metadata, 'commercial.overage_metric_key', '');
+        // Source of truth for usage pricing: ProductPrice (billing_cycle=usage).
+        // Metadata fields are kept as fallback during migration only.
+        $usagePrice = $subscription->productPlan->prices
+            ->firstWhere('billing_cycle', ProductPriceBillingCycle::Usage);
+
+        $overageMetricKey = (string) (data_get($usagePrice?->metadata, 'metric_key')
+            ?? data_get($subscription->productPlan->metadata, 'commercial.overage_metric_key', ''));
 
         if ($overageMetricKey === '' || $overageMetricKey !== $record->metric_key) {
             return [];
         }
 
-        $unitAmountMinor = (int) data_get($subscription->productPlan->metadata, 'commercial.overage_amount_minor', 0);
+        $unitAmountMinor = $usagePrice?->amount
+            ?? (int) data_get($subscription->productPlan->metadata, 'commercial.overage_amount_minor', 0);
 
         if ($unitAmountMinor < 1) {
             return [];
@@ -176,8 +183,10 @@ final class UsageMeter
         }
 
         $amountMinor = $unitAmountMinor * $newOverageQuantity;
-        $currency = (string) data_get($subscription->productPlan->metadata, 'commercial.currency', $subscription->productPlan->primaryPrice()?->currency ?? 'ILS');
-        $unit = (string) data_get($subscription->productPlan->metadata, 'commercial.overage_unit', 'unit');
+        $currency = (string) ($usagePrice?->currency
+            ?? data_get($subscription->productPlan->metadata, 'commercial.currency', $subscription->productPlan->primaryPrice()?->currency ?? 'ILS'));
+        $unit = (string) (data_get($usagePrice?->metadata, 'unit')
+            ?? data_get($subscription->productPlan->metadata, 'commercial.overage_unit', 'unit'));
 
         $billingResult = $this->billingProvider->reportUsage($subscription, $record->metric_key, $newOverageQuantity, [
             'usage_record_id' => $record->id,

@@ -1,12 +1,12 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>{{ __('Billing intents') }}</x-slot:title>
-    <x-slot:containerWidth>max-w-4xl</x-slot:containerWidth>
-    <x-slot:header>
-        <x-page-header
-            :title="__('Billing intents')"
-            :subtitle="__('Purchase intents (read-only)')"
-        />
-    </x-slot:header>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <x-page-header
+        :title="__('Billing intents')"
+        :subtitle="__('Purchase intents (read-only)')"
+    />
 
     <livewire:billing.billing-intents-index />
-</x-layouts.app>
+</div>
+</x-layouts.enterprise-app>

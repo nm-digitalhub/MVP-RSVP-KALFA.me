@@ -1,7 +1,7 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>שינוי סיסמה</x-slot:title>
 
-<div class="auth-screen px-4" dir="rtl">
+<div class="no-main-spacing auth-screen px-4" dir="rtl">
     <div class="auth-shell">
         <div class="auth-card">
         <div>
@@ -272,4 +272,4 @@ document.getElementById('password-change-form').addEventListener('submit', funct
     submitButton.textContent = 'משנה סיסמה...';
 });
 </script>
-</x-layouts.app>
+</x-layouts.enterprise-app>

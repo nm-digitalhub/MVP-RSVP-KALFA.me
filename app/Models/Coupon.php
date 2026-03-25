@@ -13,6 +13,50 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $code
+ * @property string|null $description
+ * @property CouponDiscountType $discount_type
+ * @property int $discount_value
+ * @property CouponTargetType $target_type
+ * @property array<array-key, mixed>|null $target_ids
+ * @property int|null $max_uses
+ * @property int|null $max_uses_per_account
+ * @property bool $first_time_only
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $expires_at
+ * @property int $created_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $discount_duration_months
+ * @property-read \App\Models\User $creator
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CouponRedemption> $redemptions
+ * @property-read int|null $redemptions_count
+ * @method static Builder<static>|Coupon active()
+ * @method static \Database\Factories\CouponFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Coupon newModelQuery()
+ * @method static Builder<static>|Coupon newQuery()
+ * @method static Builder<static>|Coupon query()
+ * @method static Builder<static>|Coupon whereCode($value)
+ * @method static Builder<static>|Coupon whereCreatedAt($value)
+ * @method static Builder<static>|Coupon whereCreatedBy($value)
+ * @method static Builder<static>|Coupon whereDescription($value)
+ * @method static Builder<static>|Coupon whereDiscountDurationMonths($value)
+ * @method static Builder<static>|Coupon whereDiscountType($value)
+ * @method static Builder<static>|Coupon whereDiscountValue($value)
+ * @method static Builder<static>|Coupon whereExpiresAt($value)
+ * @method static Builder<static>|Coupon whereFirstTimeOnly($value)
+ * @method static Builder<static>|Coupon whereId($value)
+ * @method static Builder<static>|Coupon whereIsActive($value)
+ * @method static Builder<static>|Coupon whereMaxUses($value)
+ * @method static Builder<static>|Coupon whereMaxUsesPerAccount($value)
+ * @method static Builder<static>|Coupon whereTargetIds($value)
+ * @method static Builder<static>|Coupon whereTargetType($value)
+ * @method static Builder<static>|Coupon whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperCoupon
+ */
 final class Coupon extends Model
 {
     /** @use HasFactory<\Database\Factories\CouponFactory> */

@@ -1,12 +1,11 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>{{ __('Billing & Entitlements') }}</x-slot:title>
-    <x-slot:containerWidth>max-w-3xl</x-slot:containerWidth>
-    <x-slot:header>
-        <x-page-header
-            :title="__('Billing & Entitlements')"
-            :subtitle="__('Account overview for current organization')"
-        />
-    </x-slot:header>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <x-page-header
+        :title="__('Billing & Entitlements')"
+        :subtitle="__('Account overview for current organization')"
+    />
 
     @session('warning')
         <div class="mb-6 flex items-start gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800" role="alert">
@@ -85,4 +84,5 @@
     @endif
 
     <livewire:billing.account-overview />
-</x-layouts.app>
+</div>
+</x-layouts.enterprise-app>

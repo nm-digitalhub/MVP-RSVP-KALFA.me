@@ -7,6 +7,13 @@
                 "boost:mcp"
             ]
         },
+        "laravel-codebase": {
+            "command": "php",
+            "args": [
+                "artisan",
+                "introspect:mcp"
+            ]
+        },
         "mediaProcessor": {
             "command": "npx",
             "args": [
@@ -27,6 +34,14 @@
                 "-y",
                 "mcp-obsidian",
                 "/var/www/vhosts/kalfa.me/httpdocs/documentation"
+            ]
+        },
+        "tree-sitter-mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@nendo/tree-sitter-mcp",
+                "--mcp"
             ]
         }
     }

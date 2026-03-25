@@ -13,6 +13,7 @@
     <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fluxAppearance
 
     {{-- PWA meta + manifest + icons --}}
     @PwaHead
@@ -36,7 +37,7 @@
         @endif
 
         {{-- Main Content Area --}}
-        <div class="flex flex-col flex-1 min-w-0 overflow-hidden bg-card">
+        <div class="flex flex-col flex-1 min-w-0 overflow-hidden bg-surface">
             {{-- Desktop Topbar - Only visible on lg+ screens --}}
             @if(auth()->check())
                 <div class="hidden lg:block">
@@ -51,6 +52,15 @@
                 </div>
             @endif
 
+            <div class="border-b border-gray-200/50 bg-surface-alt px-6 py-3">
+                @include('components.breadcrumbs.flux', [
+                    'items' => [
+                        ['label' => __('Dashboard'), 'url' => route('dashboard')],
+                        ['label' => $title ?? __('Dashboard')],
+                    ],
+                ])
+            </div>
+
             {{-- Page Content - Scrollable area --}}
             <main
                 id="main-content"
@@ -63,6 +73,9 @@
     </div>
 
     @stack('scripts')
+
+    @fluxScripts
+    @livewireScripts
 
     <tallstackui:script />
 

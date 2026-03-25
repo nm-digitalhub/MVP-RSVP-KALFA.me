@@ -17,6 +17,51 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+/**
+ * @property int $id
+ * @property int $organization_id
+ * @property string $name
+ * @property string $slug
+ * @property \Illuminate\Support\Carbon|null $event_date
+ * @property string|null $venue_name
+ * @property array<array-key, mixed>|null $settings
+ * @property EventStatus $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\EventBilling|null $eventBilling
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EventTable> $eventTables
+ * @property-read int|null $event_tables_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Guest> $guests
+ * @property-read int|null $guests_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invitation> $invitations
+ * @property-read int|null $invitations_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
+ * @property-read int|null $media_count
+ * @property-read \App\Models\Organization $organization
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SeatAssignment> $seatAssignments
+ * @property-read int|null $seat_assignments_count
+ * @method static \Database\Factories\EventFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereEventDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereSettings($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereVenueName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Event withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperEvent
+ */
 class Event extends Model implements HasMedia
 {
     use HasFactory;
@@ -170,5 +215,19 @@ class Event extends Model implements HasMedia
         $this->update(['status' => EventStatus::Active]);
 
         return true;
+    }
+
+    /**
+     * Get badge color for Flux UI component.
+     */
+    public function getBadgeColor(): string
+    {
+        return match ($this->status) {
+            EventStatus::Draft, EventStatus::Archived => 'neutral',
+            EventStatus::PendingPayment => 'warning',
+            EventStatus::Active => 'success',
+            EventStatus::Locked => 'info',
+            EventStatus::Cancelled => 'danger',
+        };
     }
 }

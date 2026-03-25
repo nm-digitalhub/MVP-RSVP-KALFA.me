@@ -1,6 +1,7 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>שיחות RSVP — Twilio</x-slot:title>
 
+<div class="no-main-spacing min-h-screen bg-surface py-8 px-4">
     <style>
         .calling-card { background: #1e293b; border-radius: 16px; padding: 2.5rem; width: 100%; max-width: 440px; box-shadow: 0 25px 50px rgba(0,0,0,.4); margin: 2rem auto; }
         .calling-card h1 { font-size: 1.5rem; margin-bottom: .5rem; color: #f8fafc; }
@@ -204,4 +205,5 @@
 })();
     </script>
     @endpush
-</x-layouts.app>
+</div>
+</x-layouts.enterprise-app>
