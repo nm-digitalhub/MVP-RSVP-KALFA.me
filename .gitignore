@@ -12,13 +12,6 @@ npm-debug.log
 yarn-error.log
 vendor/
 
-# ===========================
-# Environment Files
-# ===========================
-.env
-.env.backup
-.env.production
-.env.testing
 
 # ===========================
 # Laravel Framework
@@ -54,18 +47,7 @@ _ide_helper_models.php
 .phpunit.result.cache
 auth.json
 
-# ===========================
-# Credential Files (CRITICAL)
-# ===========================
-credentials/
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.cer
-*.csr
-*.keystore
-*.jks
+
 
 # ===========================
 # Binary Artifacts
