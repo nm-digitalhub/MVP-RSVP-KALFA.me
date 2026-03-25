@@ -62,7 +62,7 @@ class Dashboard extends Component
 
         // --- Billing ---
         $mrr = $this->billing->getMRR();
-        $activeSubscriptions = $this->billing->getActiveSubscriptions();
+        $activeSubscriptionCount = $this->billing->getActiveSubscriptionCount();
         $churn = $this->billing->getChurnRate();
 
         // --- Real-time monitoring ---
@@ -91,7 +91,7 @@ class Dashboard extends Component
             'totalOrganizations', 'totalUsers', 'totalEvents', 'totalGuests',
             'activeOrganizations', 'newUsers7', 'newUsers30', 'newOrgs7', 'newOrgs30', 'events30d',
             'usersWithoutOrg', 'orgsWithoutEvents', 'orgsWithoutOwner', 'systemAdminsCount', 'suspendedOrgCount',
-            'mrr', 'activeSubscriptions', 'churn',
+            'mrr', 'activeSubscriptionCount', 'churn',
             'queueDriver', 'queuePending', 'queueFailed', 'cacheDriver', 'dbDriver',
             'dbAlive', 'cacheAlive', 'phpVersion', 'laravelVersion', 'appEnv', 'lastRefreshedAt',
             'queueWorkerStatus', 'diskFreeGb', 'diskTotalGb', 'diskFreePercent', 'recentExceptions',

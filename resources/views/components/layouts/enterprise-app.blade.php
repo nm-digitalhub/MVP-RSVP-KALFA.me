@@ -15,8 +15,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @fluxAppearance
 
-    {{-- PWA meta + manifest + icons --}}
-    @PwaHead
+    {{-- PWA meta + manifest (see resources/views/components/pwa-head.blade.php) --}}
+    <x-pwa-head />
 
     @stack('styles')
 </head>
@@ -79,8 +79,8 @@
 
     <tallstackui:script />
 
-    {{-- Register PWA service worker --}}
-    @RegisterServiceWorkerScript
+    {{-- Register PWA service worker (browser only; NativePHP shell skips via @web) --}}
+    <x-register-service-worker-script />
 
     @isset($paymentGatewayConfig)
     <script>

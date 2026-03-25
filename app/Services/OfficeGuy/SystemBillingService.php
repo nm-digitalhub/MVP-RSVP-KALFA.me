@@ -193,4 +193,12 @@ class SystemBillingService
             ->with('subscriber')
             ->get();
     }
+
+    /**
+     * Number of active subscriptions (aggregate only — avoids loading full rows + relations).
+     */
+    public function getActiveSubscriptionCount(): int
+    {
+        return (int) Subscription::where('status', Subscription::STATUS_ACTIVE)->count();
+    }
 }

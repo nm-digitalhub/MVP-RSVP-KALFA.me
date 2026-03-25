@@ -5,8 +5,8 @@
 
 project_name: httpdocs
 game_dev_experience: intermediate
-planning_artifacts: "{project-root}//var/www/vhosts/kalfa.me/bmad-output/planning-artifacts"
-implementation_artifacts: "{project-root}//var/www/vhosts/kalfa.me/bmad-output/implementation-artifacts"
+planning_artifacts: /var/www/vhosts/kalfa.me/bmad-output/planning-artifacts
+implementation_artifacts: /var/www/vhosts/kalfa.me/bmad-output/implementation-artifacts
 project_knowledge: "{project-root}/docs"
 primary_platform:
   - unity
@@ -18,4 +18,4 @@ primary_platform:
 user_name: KALFA Netanel
 communication_language: Hebrew
 document_output_language: English
-output_folder: "{project-root}//var/www/vhosts/kalfa.me/bmad-output"
+output_folder: /var/www/vhosts/kalfa.me/bmad-output

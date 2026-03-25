@@ -3,7 +3,7 @@
 @php
     $isSystemAdmin = auth()->check() && auth()->user()->is_system_admin;
     $isBilling = request()->routeIs('billing.*');
-    $isSystem = str_contains(request()->route()->getName(), 'system.');
+    $isSystem = str_contains(request()->route()?->getName() ?? '', 'system.');
 @endphp
 
 <header class="h-12 bg-card border-b border-stroke flex items-center justify-between px-3 sm:px-4 flex-shrink-0">
@@ -50,7 +50,7 @@
                             @csrf
                             <button type="submit" class="w-full px-3 py-1.5 text-start text-xs hover:bg-surface flex items-center justify-between gap-2">
                                 <span class="truncate">{{ $org->name }}</span>
-                                @if($org->id === auth()->user()->current_organization->id)
+                                @if((int) $org->id === (int) auth()->user()->current_organization_id)
                                     <x-heroicon-o-check class="h-3.5 w-3.5 text-brand flex-shrink-0" />
                                 @endif
                             </button>

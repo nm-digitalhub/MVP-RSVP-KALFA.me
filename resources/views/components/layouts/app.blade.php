@@ -17,8 +17,8 @@
     {{-- Livewire styles --}}
     @livewireStyles
 
-    {{-- PWA meta + manifest + icons --}}
-    @PwaHead
+    {{-- PWA meta + manifest (see resources/views/components/pwa-head.blade.php) --}}
+    <x-pwa-head />
 
     @stack('styles')
 
@@ -54,8 +54,8 @@
 
 <tallstackui:script />
 
-{{-- Register PWA service worker --}}
-@RegisterServiceWorkerScript
+{{-- Register PWA service worker (browser only; NativePHP shell skips via @web) --}}
+<x-register-service-worker-script />
 
 @isset($paymentGatewayConfig)
 <script>
