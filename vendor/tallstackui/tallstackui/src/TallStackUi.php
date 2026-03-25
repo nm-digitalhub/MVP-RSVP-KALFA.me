@@ -3,11 +3,12 @@
 namespace TallStackUi;
 
 use Illuminate\View\ComponentAttributeBag;
-use TallStackUi\Foundation\Personalization\Personalization;
-use TallStackUi\Foundation\Support\Blade\ComponentPrefix;
-use TallStackUi\Foundation\Support\Blade\Directives;
-use TallStackUi\Foundation\Support\Blade\Wireable;
-use TallStackUi\Foundation\Support\Icons\IconGuideMap;
+use TallStackUi\Customization\Customization;
+use TallStackUi\Support\Blade\ComponentPrefix;
+use TallStackUi\Support\Blade\Directives;
+use TallStackUi\Support\Blade\Wireable;
+use TallStackUi\Support\Breadcrumbs\BreadcrumbRegistry;
+use TallStackUi\Support\Icons\IconGuideMap;
 
 class TallStackUi
 {
@@ -20,6 +21,22 @@ class TallStackUi
             'attributes' => $attributes,
             'livewire' => $livewire,
         ]);
+    }
+
+    /**
+     * Get the breadcrumb registry for defining route-based breadcrumbs.
+     */
+    public function breadcrumbs(): BreadcrumbRegistry
+    {
+        return app(BreadcrumbRegistry::class);
+    }
+
+    /**
+     * Create an instance of the Customization class.
+     */
+    public function customize(?string $component = null, ?string $scope = null): Customization
+    {
+        return app(Customization::class, ['component' => $component, 'scope' => $scope]);
     }
 
     /**
@@ -36,14 +53,6 @@ class TallStackUi
     public function icon(string $key): string
     {
         return app(IconGuideMap::class)::internal($key);
-    }
-
-    /**
-     * Create an instance of the Personalization class.
-     */
-    public function personalize(?string $component = null, ?string $scope = null): Personalization
-    {
-        return app(Personalization::class, ['component' => $component, 'scope' => $scope]);
     }
 
     /**

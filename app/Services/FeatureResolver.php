@@ -239,8 +239,19 @@ final class FeatureResolver
 
     private function planLimitValue(Account $account, string $featureKey): mixed
     {
-        $subscription = $account->activeSubscriptions()
+        $subscription = $account->subscriptions()
             ->with('productPlan')
+            ->where(function (Builder $query): void {
+                $query->where(function (Builder $q): void {
+                    // Active subscriptions (not ended)
+                    $q->where('status', \App\Enums\AccountSubscriptionStatus::Active->value)
+                        ->where(fn (Builder $b) => $b->whereNull('ends_at')->orWhere('ends_at', '>', now()));
+                })->orWhere(function (Builder $q): void {
+                    // Trial subscriptions (not expired)
+                    $q->where('status', \App\Enums\AccountSubscriptionStatus::Trial->value)
+                        ->where('trial_ends_at', '>', now());
+                });
+            })
             ->latest('started_at')
             ->latest('id')
             ->get()

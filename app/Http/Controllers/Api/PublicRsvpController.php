@@ -76,11 +76,19 @@ class PublicRsvpController extends Controller
                 array_merge($validated, [
                     'ip' => $request->ip(),
                     'user_agent' => $request->userAgent(),
+                    'response_method' => 'web',
                 ])
             );
             $invitation->update([
                 'status' => InvitationStatus::Responded,
                 'responded_at' => now(),
+            ]);
+
+            // Dispatch Pulse tracking event
+            \Illuminate\Support\Facades\Event::dispatch('rsvp.response.created', [
+                'response_type' => $rsvp->response->value,
+                'event_id' => $invitation->event_id,
+                'guest_id' => $invitation->guest_id,
             ]);
 
             return $rsvp;

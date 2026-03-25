@@ -28,7 +28,7 @@ return new class extends Migration
             if (! Schema::hasColumn($tableName, 'client_id')) {
                 continue;
             }
-            Schema::table($tableName, function (Blueprint $table): void {
+            Schema::table($tableName, function (Blueprint $table) use ($tableName): void {
                 try {
                     $table->dropForeign(['client_id']);
                 } catch (\Throwable) {

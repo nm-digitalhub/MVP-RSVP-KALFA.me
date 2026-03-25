@@ -232,5 +232,10 @@ return [
                 '#^/telescope#', // Telescope dashboard...
             ],
         ],
+
+        // Custom RSVP Operations Recorder
+        \App\Pulse\Recorders\RsvpOperations::class => [
+            'enabled' => env('PULSE_RSVP_OPERATIONS_ENABLED', true),
+        ],
     ],
 ];

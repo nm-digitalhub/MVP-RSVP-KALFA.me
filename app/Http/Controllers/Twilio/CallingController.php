@@ -143,6 +143,23 @@ final class CallingController extends Controller
             'invitation_id' => $invitationId,
         ]);
 
+        if ($invitationId > 0) {
+            $updateData = [
+                'call_sid' => $callSid,
+                'call_status' => $callStatus,
+            ];
+
+            if ($callDuration !== null) {
+                $updateData['call_duration'] = $callDuration;
+            }
+
+            if ($callStatus === 'completed' || in_array($callStatus, ['no-answer', 'canceled', 'busy', 'failed'], true)) {
+                $updateData['call_ended_at'] = now();
+            }
+
+            \App\Models\Invitation::where('id', $invitationId)->update($updateData);
+        }
+
         // WhatsApp Fallback logic
         $shouldSendWhatsApp = in_array($callStatus, ['no-answer', 'canceled'], true)
             || ($callStatus === 'completed' && $callDuration !== null && $callDuration <= 5);

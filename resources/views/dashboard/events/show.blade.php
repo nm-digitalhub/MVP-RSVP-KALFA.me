@@ -1,18 +1,18 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>{{ $event->name }}</x-slot:title>
-    <x-slot:containerWidth>max-w-4xl</x-slot:containerWidth>
-    <x-slot:header>
-        <x-page-header
-            :title="$event->name"
-            :subtitle="$event->event_date ? $event->event_date->format('Y-m-d') . ($event->venue_name ? ' · ' . $event->venue_name : '') : ($event->venue_name ?? '')"
-        />
-    </x-slot:header>
 
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
     @session('success')
         <div class="mb-4 rounded-xl border border-emerald-200 bg-emerald-50 px-3 sm:px-4 py-3 text-sm text-emerald-900 ring-1 ring-inset ring-emerald-200/50" role="status" aria-live="polite">{{ $value }}</div>
     @endsession
 
-    <div class="space-y-4 sm:space-y-5">
+    {{-- Page header --}}
+    <x-page-header
+        :title="$event->name"
+        :subtitle="$event->event_date ? $event->event_date->format('Y-m-d') . ($event->venue_name ? ' · ' . $event->venue_name : '') : ($event->venue_name ?? '')"
+    />
+
+    <div class="mt-4 sm:mt-6 space-y-4 sm:space-y-5">
         @if($event->imageUrl)
             <section class="card card-elevated overflow-hidden" aria-hidden="true">
                 <img src="{{ $event->imageUrl }}" alt="" class="w-full h-48 sm:h-64 object-cover" width="800" height="256" />
@@ -41,10 +41,10 @@
                 </div>
                 <div class="flex gap-2">
                     @can('update', $event)
-                        <a href="{{ route('dashboard.events.edit', [$organization, $event]) }}" class="btn btn-secondary btn-sm focus-ring">{{ __('Edit') }}</a>
+                        <a href="{{ route('dashboard.events.edit', $event) }}" class="btn btn-secondary btn-sm focus-ring">{{ __('Edit') }}</a>
                     @endcan
                     @can('delete', $event)
-                        <form action="{{ route('dashboard.events.destroy', [$organization, $event]) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Delete this event?') }}');">
+                        <form action="{{ route('dashboard.events.destroy', $event) }}" method="POST" class="inline" onsubmit="return confirm('{{ __('Delete this event?') }}');">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger-outline btn-sm focus-ring">{{ __('Delete') }}</button>
@@ -136,7 +136,7 @@
                 @php
                     $label = $card['count'] === 1 ? $card['label_singular'] : $card['label_plural'];
                 @endphp
-                <a href="{{ route($card['route'], [$organization, $event]) }}" class="card card-clickable group block">
+                <a href="{{ route($card['route'], $event) }}" class="card card-clickable group block">
                     <div class="px-3 sm:px-4 py-3 sm:py-4 border-b border-stroke flex justify-between items-center">
                         <h2 class="text-base sm:text-lg font-medium text-content">{{ $titles[$card['key']] }}</h2>
                         <span class="text-sm font-medium text-brand group-hover:text-brand-hover">{{ __('Manage') }}</span>
@@ -148,4 +148,5 @@
             @endforeach
         </section>
     </div>
-</x-layouts.app>
+</div>
+</x-layouts.enterprise-app>

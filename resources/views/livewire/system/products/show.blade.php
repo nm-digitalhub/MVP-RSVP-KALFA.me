@@ -248,10 +248,21 @@
 
     @foreach($productPlans->filter(fn($p) => data_get($p->metadata, 'commercial') !== null) as $commercialPlan)
         @php
-            $planPrice = $commercialPlan->prices->first();
+            $planPrice = $commercialPlan->prices->firstWhere('billing_cycle', \App\Enums\ProductPriceBillingCycle::Monthly)
+                ?? $commercialPlan->prices->first();
             $includedQty = (int) data_get($commercialPlan->metadata, 'commercial.included_quantity', 0);
-            $overageMinor = (int) data_get($commercialPlan->metadata, 'commercial.overage_amount_minor', 0);
-            $overageUnit = data_get($commercialPlan->metadata, 'commercial.overage_unit', '');
+            $usagePriceRow = $commercialPlan->prices->firstWhere('billing_cycle', \App\Enums\ProductPriceBillingCycle::Usage);
+            $overageMinor = $usagePriceRow?->amount ?? (int) data_get($commercialPlan->metadata, 'commercial.overage_amount_minor', 0);
+            $rawOverageUnit = data_get($usagePriceRow?->metadata, 'unit')
+                ?? data_get($commercialPlan->metadata, 'commercial.overage_unit', '');
+            $rawIncludedUnit = data_get($commercialPlan->metadata, 'commercial.included_unit', '');
+            $unitLabels = [
+                'voice_rsvp_calls' => __('RSVP calls'),
+                'call' => __('call'),
+                'calls' => __('calls'),
+            ];
+            $includedUnitLabel = $unitLabels[$rawIncludedUnit] ?? str_replace('_', ' ', $rawIncludedUnit);
+            $overageUnit = $unitLabels[$rawOverageUnit] ?? str_replace('_', ' ', $rawOverageUnit);
             $revenuePerCall = ($planPrice && $includedQty > 0)
                 ? number_format($planPrice->amount / $includedQty / 100, 3)
                 : '—';
@@ -265,7 +276,7 @@
                 <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                     <div class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Included Capacity') }}</div>
                     <div class="mt-2 text-xl font-semibold text-slate-900">{{ $includedQty ?: '—' }}</div>
-                    <div class="mt-1 text-xs text-slate-500">{{ data_get($commercialPlan->metadata, 'commercial.included_unit', '') }}</div>
+                    <div class="mt-1 text-xs text-slate-500">{{ $includedUnitLabel }}</div>
                 </div>
                 <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
                     <div class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Overage Rate') }}</div>
@@ -391,69 +402,168 @@
         </section>
     @endif
 
-    @if($showPriceForm)
-        <section class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm" data-audit-section="price-editor">
+    @if($showPlanPrices && $planPricesForPlan)
+        <section class="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm" data-audit-section="plan-prices">
             <div class="border-b border-slate-200 bg-slate-50 px-4 py-4 sm:px-6 sm:py-5">
-                <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Pricing') }}</p>
-                <h2 class="mt-1.5 text-lg font-semibold text-slate-900">{{ $editingPriceId ? __('Edit Price') : __('Add Price') }}</h2>
-                <p class="mt-1.5 text-sm text-slate-500">{{ __('Configure pricing tiers and billing cycles for a plan.') }}</p>
+                <div class="flex items-start justify-between">
+                    <div>
+                        <p class="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Pricing') }}</p>
+                        <h2 class="mt-1.5 text-lg font-semibold text-slate-900">{{ $planPricesForPlan->name }}</h2>
+                        <p class="mt-1.5 text-sm text-slate-500">{{ __('All pricing tiers for this plan.') }}</p>
+                    </div>
+                    <button type="button" wire:click="closePlanPrices" class="inline-flex min-h-8 min-w-8 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-400 transition hover:bg-slate-50 hover:text-slate-600">
+                        <x-heroicon-o-x-mark class="size-4" />
+                    </button>
+                </div>
             </div>
 
-            <div class="p-4 sm:p-6">
-                <form wire:submit.prevent="savePrice" class="grid gap-4 sm:grid-cols-2">
-                    <div class="space-y-2">
-                        <label for="price-plan" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Plan') }}</label>
-                        <select id="price-plan" wire:model.live="pricePlanId" class="block w-full cursor-pointer rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" {{ $editingPriceId ? 'disabled' : '' }}>
-                            @foreach($productPlans as $plan)
-                                <option value="{{ $plan->id }}">{{ $plan->name }} ({{ $plan->slug }})</option>
-                            @endforeach
-                        </select>
-                        @error('pricePlanId') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
-                    </div>
+            <div class="divide-y divide-slate-100">
+                @forelse($planPricesForPlan->prices as $price)
+                    @php
+                        $isEditing = $editingPriceId === $price->id;
+                        $isMonthly = $price->billing_cycle->value === 'monthly';
+                        $isUsage = $price->billing_cycle->value === 'usage';
+                        $includedQty = (int) data_get($planPricesForPlan->metadata, 'commercial.included_quantity', 0);
+                        $includedUnit = (string) data_get($planPricesForPlan->metadata, 'commercial.included_unit', '');
+                        $cycleConfig = match ($price->billing_cycle->value) {
+                            'yearly' => ['label' => __('Yearly Subscription'), 'unit' => __('year'), 'icon' => 'heroicon-o-calendar', 'desc' => __('Annual subscription fee')],
+                            'usage' => ['label' => __('Per Call (Overage)'), 'unit' => __('call'), 'icon' => 'heroicon-o-phone-arrow-up-right', 'desc' => __('Charged for each call beyond :qty included', ['qty' => number_format($includedQty)])],
+                            default => ['label' => __('Monthly Subscription'), 'unit' => __('mo'), 'icon' => 'heroicon-o-credit-card', 'desc' => $includedQty > 0 ? __('Includes :qty :unit', ['qty' => number_format($includedQty), 'unit' => $includedUnit]) : __('Fixed monthly fee')],
+                        };
+                    @endphp
 
-                    <div class="space-y-2">
-                        <label for="price-currency" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Currency') }}</label>
-                        <input id="price-currency" wire:model.live.blur="priceCurrency" type="text" maxlength="3" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" />
-                        @error('priceCurrency') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
-                    </div>
+                    @if($isEditing && $showPriceForm)
+                        {{-- Inline edit form --}}
+                        <div class="bg-brand/[0.02] p-4 sm:p-6" x-data="{ amount: $wire.entangle('priceAmount'), qty: {{ $includedQty }} }">
+                            <div class="mb-4 flex items-center gap-2">
+                                <x-dynamic-component :component="$cycleConfig['icon']" class="size-4 text-slate-400" />
+                                <span class="text-sm font-semibold text-slate-700">{{ $cycleConfig['label'] }}</span>
+                            </div>
+                            <form wire:submit.prevent="savePrice" class="grid gap-4 sm:grid-cols-2">
+                                <div class="space-y-2">
+                                    <label class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ $isUsage ? __('Amount per Call') : __('Amount per Month') }}</label>
+                                    <div class="relative">
+                                        <input wire:model.live.blur="priceAmount" x-model="amount" type="number" min="0" step="0.01" class="block w-full rounded-2xl border border-slate-200 bg-white py-3 pe-14 ps-4 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" placeholder="0.00" />
+                                        <span class="pointer-events-none absolute end-4 top-1/2 -translate-y-1/2 text-xs font-semibold uppercase tracking-wide text-slate-400">{{ $priceCurrency ?: '...' }}</span>
+                                    </div>
+                                    @error('priceAmount') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
+                                    @if($isMonthly && $includedQty > 0)
+                                        <p class="flex items-center gap-1.5 px-1 text-[11px] font-medium text-slate-500" x-show="amount > 0 && qty > 0">
+                                            <x-heroicon-o-calculator class="size-3.5 text-slate-400" />
+                                            <span x-text="parseFloat(amount).toFixed(0)"></span>
+                                            <span>/ {{ number_format($includedQty) }} {{ $includedUnit }} =</span>
+                                            <span class="font-semibold text-slate-700" x-text="(parseFloat(amount) / qty).toFixed(3) + ' {{ $priceCurrency }}'"></span>
+                                            <span class="text-slate-400">/ {{ __('call') }}</span>
+                                        </p>
+                                    @endif
+                                    @if($isUsage && $includedQty > 0)
+                                        <p class="flex items-center gap-1.5 px-1 text-[11px] font-medium text-slate-500" x-show="amount > 0 && qty > 0">
+                                            <x-heroicon-o-calculator class="size-3.5 text-slate-400" />
+                                            {{ __('If all :qty calls were overage:', ['qty' => number_format($includedQty)]) }}
+                                            <span class="font-semibold text-slate-700" x-text="(parseFloat(amount) * qty).toFixed(2) + ' {{ $priceCurrency }}'"></span>
+                                        </p>
+                                    @endif
+                                </div>
 
-                    <div class="space-y-2">
-                        <label for="price-amount" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Amount (Minor Units)') }}</label>
-                        <input id="price-amount" wire:model.live.blur="priceAmount" type="number" min="0" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" />
-                        @error('priceAmount') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
-                        <p class="text-[10px] text-slate-500">{{ __('Enter amount in minor units (cents for USD). For example, enter 9900 for $99.00.') }}</p>
-                    </div>
+                                <div class="space-y-2">
+                                    <label class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Currency') }}</label>
+                                    <input wire:model.live.blur="priceCurrency" type="text" maxlength="3" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" />
+                                    @error('priceCurrency') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
+                                </div>
 
-                    <div class="space-y-2">
-                        <label for="price-cycle" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Billing Cycle') }}</label>
-                        <select id="price-cycle" wire:model.live="priceBillingCycle" class="block w-full cursor-pointer rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10">
-                            @foreach(\App\Enums\ProductPriceBillingCycle::cases() as $cycle)
-                                <option value="{{ $cycle->value }}">{{ $cycle->label() }}</option>
-                            @endforeach
-                        </select>
-                        @error('priceBillingCycle') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
-                    </div>
+                                <div class="space-y-2">
+                                    <label class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Billing Cycle') }}</label>
+                                    <select wire:model.live="priceBillingCycle" class="block w-full cursor-pointer rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10">
+                                        @foreach(\App\Enums\ProductPriceBillingCycle::cases() as $cycle)
+                                            <option value="{{ $cycle->value }}">{{ $cycle->label() }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
 
-                    <div class="space-y-2">
-                        <label for="price-status" class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Status') }}</label>
-                        <select id="price-status" wire:model.live="priceIsActive" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10">
-                            <option value="1">{{ __('Active') }}</option>
-                            <option value="0">{{ __('Inactive') }}</option>
-                        </select>
-                    </div>
+                                <div class="space-y-2">
+                                    <label class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">{{ __('Status') }}</label>
+                                    <select wire:model.live="priceIsActive" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10">
+                                        <option value="1">{{ __('Active') }}</option>
+                                        <option value="0">{{ __('Inactive') }}</option>
+                                    </select>
+                                </div>
 
-                    <div class="flex flex-col gap-3 pt-2 sm:col-span-2 sm:flex-row">
-                        <button type="submit" class="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-3 font-semibold text-white transition hover:bg-brand-hover data-loading:pointer-events-none data-loading:opacity-60">
-                            <x-heroicon-o-check class="size-5" />
-                            <span>{{ $editingPriceId ? __('Save Price') : __('Create Price') }}</span>
-                        </button>
-                        <button type="button" wire:click="cancelPriceEdit" class="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-600 transition hover:bg-slate-50">
-                            <x-heroicon-o-x-mark class="size-5" />
-                            <span>{{ __('Cancel') }}</span>
-                        </button>
+                                <div class="flex flex-col gap-3 pt-2 sm:col-span-2 sm:flex-row">
+                                    <button type="submit" class="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl bg-brand px-6 py-3 font-semibold text-white transition hover:bg-brand-hover data-loading:pointer-events-none data-loading:opacity-60">
+                                        <x-heroicon-o-check class="size-5" />
+                                        <span>{{ __('Save Price') }}</span>
+                                    </button>
+                                    <button type="button" wire:click="cancelPriceEdit" class="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-600 transition hover:bg-slate-50">
+                                        <x-heroicon-o-x-mark class="size-5" />
+                                        <span>{{ __('Cancel') }}</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    @else
+                        {{-- Readonly row --}}
+                        <div class="flex items-center justify-between gap-4 px-4 py-4 sm:px-6">
+                            <div class="flex items-center gap-3">
+                                <div class="hidden size-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 sm:flex">
+                                    <x-dynamic-component :component="$cycleConfig['icon']" class="size-5 text-slate-500" />
+                                </div>
+                                <div>
+                                    <div class="flex items-baseline gap-2">
+                                        <span class="{{ $isMonthly ? 'text-xl' : 'text-lg' }} font-semibold tracking-tight text-slate-900">{{ $isUsage ? number_format($price->amount / 100, 2) : number_format($price->amount / 100) }}</span>
+                                        <span class="text-xs font-semibold text-slate-400">{{ $price->currency }} / {{ $cycleConfig['unit'] }}</span>
+                                        @if(!$price->is_active)
+                                            <span class="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-[10px] font-medium text-slate-400">{{ __('Inactive') }}</span>
+                                        @endif
+                                    </div>
+                                    <p class="mt-0.5 text-xs text-slate-500">{{ $cycleConfig['desc'] }}</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                @if($priceEditUnlocked)
+                                    <button type="button" wire:click="editPlanPrice({{ $price->id }})" class="inline-flex min-h-8 items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 transition hover:bg-slate-50">
+                                        <x-heroicon-o-pencil class="size-3.5" />
+                                        <span>{{ __('Edit') }}</span>
+                                    </button>
+                                @else
+                                    <x-heroicon-o-lock-closed class="size-4 text-slate-300" />
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+                @empty
+                    <div class="px-4 py-6 text-center text-sm text-slate-500 sm:px-6">
+                        {{ __('No prices configured for this plan.') }}
                     </div>
-                </form>
+                @endforelse
             </div>
+
+            {{-- Password unlock bar --}}
+            @if(! $priceEditUnlocked)
+                <div class="border-t border-slate-200 bg-slate-50 px-4 py-4 sm:px-6">
+                    <form wire:submit.prevent="unlockPriceEdit" class="flex flex-col gap-3 sm:flex-row sm:items-end">
+                        <div class="flex-1 space-y-1.5">
+                            <label class="block px-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                <x-heroicon-o-lock-closed class="mb-0.5 inline size-3" />
+                                {{ __('Enter password to unlock editing') }}
+                            </label>
+                            <input type="password" wire:model="priceUnlockPassword" class="block w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-900 transition focus:border-brand focus:ring-4 focus:ring-brand/10" placeholder="••••••••" />
+                            @error('priceUnlockPassword') <p class="px-1 text-xs font-semibold text-rose-500">{{ $message }}</p> @enderror
+                        </div>
+                        <button type="submit" class="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-100 data-loading:pointer-events-none data-loading:opacity-60">
+                            <x-heroicon-o-lock-open class="size-4" />
+                            <span>{{ __('Unlock') }}</span>
+                        </button>
+                    </form>
+                </div>
+            @else
+                <div class="border-t border-emerald-100 bg-emerald-50/50 px-4 py-3 sm:px-6">
+                    <p class="flex items-center gap-2 text-xs font-semibold text-emerald-700">
+                        <x-heroicon-o-lock-open class="size-4" />
+                        {{ __('Editing unlocked. Click "Edit" on any price to modify it.') }}
+                    </p>
+                </div>
+            @endif
         </section>
     @endif
 

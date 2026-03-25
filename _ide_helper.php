@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 12.54.0.
+ * Generated for Laravel 12.55.1.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -5267,7 +5267,7 @@ namespace Illuminate\Support\Facades {
          */
         public static function lock($name, $seconds = 0, $owner = null)
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            /** @var \Illuminate\Cache\RedisStore $instance */
             return $instance->lock($name, $seconds, $owner);
         }
 
@@ -5281,21 +5281,8 @@ namespace Illuminate\Support\Facades {
          */
         public static function restoreLock($name, $owner)
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            /** @var \Illuminate\Cache\RedisStore $instance */
             return $instance->restoreLock($name, $owner);
-        }
-
-        /**
-         * Remove an item from the cache if it is expired.
-         *
-         * @param string $key
-         * @return bool
-         * @static
-         */
-        public static function forgetIfExpired($key)
-        {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
-            return $instance->forgetIfExpired($key);
         }
 
         /**
@@ -5306,58 +5293,82 @@ namespace Illuminate\Support\Facades {
          */
         public static function flush()
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            /** @var \Illuminate\Cache\RedisStore $instance */
             return $instance->flush();
         }
 
         /**
-         * Get the underlying database connection.
+         * Remove all expired tag set entries.
          *
-         * @return \Illuminate\Database\PostgresConnection
+         * @return void
          * @static
          */
-        public static function getConnection()
+        public static function flushStaleTags()
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
-            return $instance->getConnection();
+            /** @var \Illuminate\Cache\RedisStore $instance */
+            $instance->flushStaleTags();
         }
 
         /**
-         * Set the underlying database connection.
+         * Get the Redis connection instance.
          *
-         * @param \Illuminate\Database\ConnectionInterface $connection
-         * @return \Illuminate\Cache\DatabaseStore
+         * @return \Illuminate\Redis\Connections\Connection
+         * @static
+         */
+        public static function connection()
+        {
+            /** @var \Illuminate\Cache\RedisStore $instance */
+            return $instance->connection();
+        }
+
+        /**
+         * Get the Redis connection instance that should be used to manage locks.
+         *
+         * @return \Illuminate\Redis\Connections\Connection
+         * @static
+         */
+        public static function lockConnection()
+        {
+            /** @var \Illuminate\Cache\RedisStore $instance */
+            return $instance->lockConnection();
+        }
+
+        /**
+         * Specify the name of the connection that should be used to store data.
+         *
+         * @param string $connection
+         * @return void
          * @static
          */
         public static function setConnection($connection)
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
-            return $instance->setConnection($connection);
+            /** @var \Illuminate\Cache\RedisStore $instance */
+            $instance->setConnection($connection);
         }
 
         /**
-         * Get the connection used to manage locks.
+         * Specify the name of the connection that should be used to manage locks.
          *
-         * @return \Illuminate\Database\PostgresConnection
-         * @static
-         */
-        public static function getLockConnection()
-        {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
-            return $instance->getLockConnection();
-        }
-
-        /**
-         * Specify the connection that should be used to manage locks.
-         *
-         * @param \Illuminate\Database\ConnectionInterface $connection
-         * @return \Illuminate\Cache\DatabaseStore
+         * @param string $connection
+         * @return \Illuminate\Cache\RedisStore
          * @static
          */
         public static function setLockConnection($connection)
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            /** @var \Illuminate\Cache\RedisStore $instance */
             return $instance->setLockConnection($connection);
+        }
+
+        /**
+         * Get the Redis database instance.
+         *
+         * @return \Illuminate\Contracts\Redis\Factory
+         * @static
+         */
+        public static function getRedis()
+        {
+            /** @var \Illuminate\Cache\RedisStore $instance */
+            return $instance->getRedis();
         }
 
         /**
@@ -5368,7 +5379,7 @@ namespace Illuminate\Support\Facades {
          */
         public static function getPrefix()
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            /** @var \Illuminate\Cache\RedisStore $instance */
             return $instance->getPrefix();
         }
 
@@ -5381,7 +5392,7 @@ namespace Illuminate\Support\Facades {
          */
         public static function setPrefix($prefix)
         {
-            /** @var \Illuminate\Cache\DatabaseStore $instance */
+            /** @var \Illuminate\Cache\RedisStore $instance */
             $instance->setPrefix($prefix);
         }
 
@@ -15912,6 +15923,18 @@ namespace Illuminate\Support\Facades {
         }
 
         /**
+         * Determine if the current request is asking for Markdown.
+         *
+         * @return bool
+         * @static
+         */
+        public static function wantsMarkdown()
+        {
+            /** @var \Illuminate\Http\Request $instance */
+            return $instance->wantsMarkdown();
+        }
+
+        /**
          * Determines whether the current requests accepts a given content type.
          *
          * @param string|array $contentTypes
@@ -15959,6 +15982,18 @@ namespace Illuminate\Support\Facades {
         {
             /** @var \Illuminate\Http\Request $instance */
             return $instance->acceptsJson();
+        }
+
+        /**
+         * Determines whether a request accepts Markdown.
+         *
+         * @return bool
+         * @static
+         */
+        public static function acceptsMarkdown()
+        {
+            /** @var \Illuminate\Http\Request $instance */
+            return $instance->acceptsMarkdown();
         }
 
         /**
@@ -23018,6 +23053,15 @@ namespace Illuminate\Support\Facades {
             return $instance->renderTranslation();
         }
 
+        /**
+         * @see \Flux\FluxServiceProvider::bootMacros()
+         * @static
+         */
+        public static function getCurrentComponentData()
+        {
+            return \Illuminate\View\Factory::getCurrentComponentData();
+        }
+
             }
     /**
      * @see \Illuminate\Foundation\Vite
@@ -23888,7 +23932,7 @@ namespace Laravel\Pulse\Facades {
         /**
          * Filter items before storage using the provided filter.
          *
-         * @param (callable(\Laravel\Pulse\Entry|\Laravel\Pulse\Value): bool) $filter
+         * @param (callable(Entry|Value): bool) $filter
          * @static
          */
         public static function filter($filter)
@@ -23933,7 +23977,7 @@ namespace Laravel\Pulse\Facades {
         /**
          * Get the registered recorders.
          *
-         * @return \Illuminate\Support\Collection<int, object>
+         * @return Collection<int, object>
          * @static
          */
         public static function recorders()
@@ -23945,7 +23989,7 @@ namespace Laravel\Pulse\Facades {
         /**
          * Resolve the user details for the given user IDs.
          *
-         * @param \Illuminate\Support\Collection<int, string> $keys
+         * @param Collection<int, string> $keys
          * @static
          */
         public static function resolveUsers($keys)
@@ -23958,7 +24002,7 @@ namespace Laravel\Pulse\Facades {
          * Resolve the users' details using the given closure.
          *
          * @deprecated
-         * @param callable(\Illuminate\Support\Collection<int, mixed>):  ?iterable<int|string, array{name: string, email?: ?string, avatar?: ?string, extra?: ?string}>  $callback
+         * @param callable(Collection<int, mixed>):  ?iterable<int|string, array{name: string, email?: ?string, avatar?: ?string, extra?: ?string}>  $callback
          * @static
          */
         public static function users($callback)
@@ -23970,7 +24014,7 @@ namespace Laravel\Pulse\Facades {
         /**
          * Resolve the user's details using the given closure.
          *
-         * @param callable(\Illuminate\Contracts\Auth\Authenticatable):  array{name: string, email?: ?string, avatar?: ?string, extra?: ?string}  $callback
+         * @param callable(Authenticatable):  array{name: string, email?: ?string, avatar?: ?string, extra?: ?string}  $callback
          * @static
          */
         public static function user($callback)
@@ -24072,7 +24116,7 @@ namespace Laravel\Pulse\Facades {
         /**
          * Handle exceptions using the given callback.
          *
-         * @param (callable(\Throwable): mixed) $callback
+         * @param (callable(Throwable): mixed) $callback
          * @static
          */
         public static function handleExceptionsUsing($callback)
@@ -24117,6 +24161,203 @@ namespace Laravel\Pulse\Facades {
         {
             /** @var \Laravel\Pulse\Pulse $instance */
             return $instance->afterResolving($app, $class, $callback);
+        }
+
+            }
+    }
+
+namespace Flux {
+    /**
+     * @see \Flux\FluxManager
+     */
+    class Flux {
+        /**
+         * @static
+         */
+        public static function boot()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->boot();
+        }
+
+        /**
+         * @static
+         */
+        public static function ensurePro()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->ensurePro();
+        }
+
+        /**
+         * @static
+         */
+        public static function pro()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->pro();
+        }
+
+        /**
+         * @static
+         */
+        public static function markAssetsRendered()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->markAssetsRendered();
+        }
+
+        /**
+         * @static
+         */
+        public static function scripts($options = [])
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->scripts($options);
+        }
+
+        /**
+         * @static
+         */
+        public static function fluxAppearance($options = [])
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->fluxAppearance($options);
+        }
+
+        /**
+         * @static
+         */
+        public static function editorStyles()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->editorStyles();
+        }
+
+        /**
+         * @static
+         */
+        public static function editorScripts()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->editorScripts();
+        }
+
+        /**
+         * @static
+         */
+        public static function classes($styles = null)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->classes($styles);
+        }
+
+        /**
+         * @static
+         */
+        public static function disallowWireModel($attributes, $componentName)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->disallowWireModel($attributes, $componentName);
+        }
+
+        /**
+         * @static
+         */
+        public static function splitAttributes($attributes, $by = [], $strict = false)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->splitAttributes($attributes, $by, $strict);
+        }
+
+        /**
+         * @static
+         */
+        public static function restorePassThroughProps($attributes, $passThroughProps)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->restorePassThroughProps($attributes, $passThroughProps);
+        }
+
+        /**
+         * @static
+         */
+        public static function forwardedAttributes($attributes, $propKeys)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->forwardedAttributes($attributes, $propKeys);
+        }
+
+        /**
+         * @static
+         */
+        public static function attributesAfter($prefix, $attributes, $default = [])
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->attributesAfter($prefix, $attributes, $default);
+        }
+
+        /**
+         * @static
+         */
+        public static function applyInset($inset, $top, $right, $bottom, $left)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->applyInset($inset, $top, $right, $bottom, $left);
+        }
+
+        /**
+         * @static
+         */
+        public static function componentExists($name)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->componentExists($name);
+        }
+
+        /**
+         * @static
+         */
+        public static function bootComponents()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->bootComponents();
+        }
+
+        /**
+         * @static
+         */
+        public static function bootModal()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->bootModal();
+        }
+
+        /**
+         * @static
+         */
+        public static function modal($name)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->modal($name);
+        }
+
+        /**
+         * @static
+         */
+        public static function modals()
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->modals();
+        }
+
+        /**
+         * @static
+         */
+        public static function toast($text, $heading = null, $duration = 5000, $variant = null, $position = null)
+        {
+            /** @var \Flux\FluxManager $instance */
+            return $instance->toast($text, $heading, $duration, $variant, $position);
         }
 
             }
@@ -24583,6 +24824,20 @@ namespace Livewire {
         }
 
             }
+    /**
+     */
+    class Component {
+        /**
+         * @see \Flux\FluxManager::bootModal()
+         * @param mixed $name
+         * @static
+         */
+        public static function modal($name)
+        {
+            return \Livewire\Component::modal($name);
+        }
+
+            }
     }
 
 namespace Lorisleiva\Actions\Facades {
@@ -24887,6 +25142,69 @@ namespace MarvinLabs\Luhn\Facades {
             }
     }
 
+namespace TallStackUi\Facades {
+    /**
+     * @see \TallStackUi\TallStackUi
+     */
+    class TallStackUi {
+        /**
+         * Create an instance of the BladeSupport class.
+         *
+         * @static
+         */
+        public static function blade($attributes = null, $livewire = false)
+        {
+            /** @var \TallStackUi\TallStackUi $instance */
+            return $instance->blade($attributes, $livewire);
+        }
+
+        /**
+         * Create an instance of the BladeDirectives class.
+         *
+         * @static
+         */
+        public static function directives()
+        {
+            /** @var \TallStackUi\TallStackUi $instance */
+            return $instance->directives();
+        }
+
+        /**
+         * Get the internal icon path.
+         *
+         * @static
+         */
+        public static function icon($key)
+        {
+            /** @var \TallStackUi\TallStackUi $instance */
+            return $instance->icon($key);
+        }
+
+        /**
+         * Create an instance of the Personalization class.
+         *
+         * @static
+         */
+        public static function personalize($component = null, $scope = null)
+        {
+            /** @var \TallStackUi\TallStackUi $instance */
+            return $instance->personalize($component, $scope);
+        }
+
+        /**
+         * Set the component prefix or get the ComponentPrefix instance when $name is null.
+         *
+         * @static
+         */
+        public static function prefix($name = null)
+        {
+            /** @var \TallStackUi\TallStackUi $instance */
+            return $instance->prefix($name);
+        }
+
+            }
+    }
+
 namespace EragLaravelPwa\Facades {
     /**
      */
@@ -25077,7 +25395,31 @@ namespace Illuminate\Routing {
 namespace Illuminate\View {
     /**
      */
+    class Factory {
+        /**
+         * @see \Flux\FluxServiceProvider::bootMacros()
+         * @static
+         */
+        public static function getCurrentComponentData()
+        {
+            return \Illuminate\View\Factory::getCurrentComponentData();
+        }
+
+            }
+    /**
+     */
     class ComponentAttributeBag {
+        /**
+         * @see \Flux\FluxServiceProvider::bootMacros()
+         * @param mixed $key
+         * @param mixed $default
+         * @static
+         */
+        public static function pluck($key, $default = null)
+        {
+            return \Illuminate\View\ComponentAttributeBag::pluck($key, $default);
+        }
+
         /**
          * @see \Livewire\Features\SupportBladeAttributes\SupportBladeAttributes::provide()
          * @param mixed $name
@@ -25164,6 +25506,13 @@ namespace Illuminate\View {
             return \Illuminate\View\View::response($callback);
         }
 
+            }
+    }
+
+namespace App\Livewire\Billing {
+    /**
+     */
+    class PlanSelection extends \Livewire\Component {
             }
     }
 
@@ -29054,6 +29403,20 @@ namespace  {
         }
 
         /**
+         * Add an "order by" clause to order results by a given sequence of values.
+         *
+         * @param \Illuminate\Contracts\Database\Query\Expression|string $column
+         * @param \Illuminate\Contracts\Support\Arrayable|array $values
+         * @return \Illuminate\Database\Eloquent\Builder<static>
+         * @static
+         */
+        public static function inOrderOf($column, $values)
+        {
+            /** @var \Illuminate\Database\Query\Builder $instance */
+            return $instance->inOrderOf($column, $values);
+        }
+
+        /**
          * Add a raw "order by" clause to the query.
          *
          * @param string $sql
@@ -30223,10 +30586,12 @@ namespace  {
     class Pdf extends \Barryvdh\DomPDF\Facade\Pdf {}
     class Pwa extends \EragLaravelPwa\Facades\Pwa {}
     class Pulse extends \Laravel\Pulse\Facades\Pulse {}
+    class Flux extends \Flux\Flux {}
     class Livewire extends \Livewire\Livewire {}
     class Action extends \Lorisleiva\Actions\Facades\Actions {}
     class Lody extends \Lorisleiva\Lody\Lody {}
     class Luhn extends \MarvinLabs\Luhn\Facades\Luhn {}
+    class TallStackUi extends \TallStackUi\Facades\TallStackUi {}
     class PWA extends \EragLaravelPwa\Facades\PWA {}
 }
 

@@ -26,7 +26,59 @@ use OfficeGuy\LaravelSumitGateway\Support\Traits\HasSumitCustomerTrait;
 
 /**
  * Account layer for entitlements and optional SUMIT customer mapping.
+ *
  * type: organization | individual. No enforcement or gating in this phase.
+ *
+ * @property int $id
+ * @property string $type
+ * @property int|null $owner_user_id
+ * @property int|null $sumit_customer_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $name
+ * @property string|null $twilio_subaccount_sid
+ * @property int $credit_balance_agorot
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountProduct> $accountProducts
+ * @property-read int|null $account_products_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountProduct> $activeAccountProducts
+ * @property-read int|null $active_account_products_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountSubscription> $activeSubscriptions
+ * @property-read int|null $active_subscriptions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BillingIntent> $billingIntents
+ * @property-read int|null $billing_intents_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountEntitlement> $entitlements
+ * @property-read int|null $entitlements_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\EventBilling> $eventsBilling
+ * @property-read int|null $events_billing_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountFeatureUsage> $featureUsage
+ * @property-read int|null $feature_usage_count
+ * @property-read string|null $company
+ * @property-read string|null $email
+ * @property-read string|null $phone
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $organizations
+ * @property-read int|null $organizations_count
+ * @property-read \App\Models\User|null $owner
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, OfficeGuyToken> $paymentMethods
+ * @property-read int|null $payment_methods_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
+ * @property-read int|null $payments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountSubscription> $subscriptions
+ * @property-read int|null $subscriptions_count
+ * @method static \Database\Factories\AccountFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Account newModelQuery()
+ * @method static Builder<static>|Account newQuery()
+ * @method static Builder<static>|Account query()
+ * @method static Builder<static>|Account whereCreatedAt($value)
+ * @method static Builder<static>|Account whereCreditBalanceAgorot($value)
+ * @method static Builder<static>|Account whereId($value)
+ * @method static Builder<static>|Account whereName($value)
+ * @method static Builder<static>|Account whereOwnerUserId($value)
+ * @method static Builder<static>|Account whereSumitCustomerId($value)
+ * @method static Builder<static>|Account whereTwilioSubaccountSid($value)
+ * @method static Builder<static>|Account whereType($value)
+ * @method static Builder<static>|Account whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccount
  */
 class Account extends Model implements HasSumitCustomer
 {

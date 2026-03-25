@@ -1,14 +1,13 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>{{ __('Organization settings') }}</x-slot:title>
-    <x-slot:containerWidth>max-w-2xl</x-slot:containerWidth>
-    <x-slot:header>
-        <x-page-header
-            :title="__('Organization settings')"
-            :subtitle="$organization->name"
-        />
-    </x-slot:header>
 
-    <div class="card overflow-hidden">
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <x-page-header
+        :title="__('Organization settings')"
+        :subtitle="$organization->name"
+    />
+
+    <div class="mt-4 sm:mt-6 card overflow-hidden">
         <form action="{{ route('dashboard.organization-settings.update') }}" method="POST" class="p-4 sm:p-6 space-y-4 sm:space-y-5">
             @csrf
             @method('PUT')
@@ -28,4 +27,5 @@
             </div>
         </form>
     </div>
-</x-layouts.app>
+</div>
+</x-layouts.enterprise-app>
