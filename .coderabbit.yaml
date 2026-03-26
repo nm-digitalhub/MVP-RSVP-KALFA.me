@@ -1,0 +1,295 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+language: he-IL
+
+reviews:
+  path_instructions:
+    # --- Models & Database ---
+    - path: "app/Models/**"
+      instructions: |
+        Review Eloquent models for:
+        - Proper relationship definitions (belongsTo, hasMany, morphMany, etc.)
+        - Correct enum casts using PHP 8.4 backed enums from app/Enums/
+        - Mass assignment protection ($fillable / $guarded)
+        - Query scopes returning correct types
+        - Missing indexes on frequently queried columns
+        - N+1 query risks in accessors or relationships
+
+    - path: "database/migrations/**"
+      instructions: |
+        Review migrations for:
+        - Proper foreign key constraints with cascading deletes where appropriate
+        - Correct column types and nullable annotations
+        - Index definitions on columns used in WHERE, JOIN, ORDER BY
+        - Reversible migrations (down() method)
+        - Multi-tenant scoping (organization_id foreign keys where needed)
+
+    - path: "database/factories/**"
+      instructions: |
+        Ensure factories produce valid model instances.
+        Verify relationships are wired correctly and states are useful for testing.
+
+    - path: "database/seeders/**"
+      instructions: |
+        Ensure seeders are idempotent (safe to run multiple times).
+        Verify they respect foreign key constraints and enum values.
+
+    # --- Controllers ---
+    - path: "app/Http/Controllers/**"
+      instructions: |
+        Review controllers for:
+        - Thin controllers — business logic should live in Services/ or Actions
+        - Proper authorization checks (policies, gates, middleware)
+        - Input validation via Form Request classes (not inline)
+        - Correct HTTP status codes and response types
+        - Organization scoping for multi-tenant routes
+
+    - path: "app/Http/Controllers/Api/**"
+      instructions: |
+        Review API controllers for:
+        - Use of Eloquent API Resources for response transformation
+        - Proper Sanctum authentication
+        - Rate limiting considerations
+        - Consistent JSON response structure
+        - API versioning compliance
+
+    - path: "app/Http/Controllers/Dashboard/**"
+      instructions: |
+        Verify dashboard controllers enforce ensure.organization and ensure.account_active middleware.
+        Check that all queries are scoped to the current organization.
+
+    - path: "app/Http/Controllers/System/**"
+      instructions: |
+        System admin controllers must require system.admin and require.impersonation middleware.
+        Flag any route accessible without proper admin authorization.
+
+    - path: "app/Http/Controllers/Twilio/**"
+      instructions: |
+        Review Twilio webhook controllers for:
+        - Request signature validation (Twilio security)
+        - Proper TwiML response generation
+        - Error handling for voice/SMS failures
+        - No sensitive data in TwiML responses
+
+    - path: "app/Http/Controllers/Auth/**"
+      instructions: |
+        Review authentication controllers for security:
+        - Brute force protection (rate limiting)
+        - Proper session management
+        - Secure password handling
+        - WebAuthn/passkey implementation correctness
+
+    # --- Middleware ---
+    - path: "app/Http/Middleware/**"
+      instructions: |
+        Review middleware for:
+        - Correct middleware ordering (auth before organization scoping)
+        - Proper redirect behavior for unauthorized access
+        - No business logic leaking into middleware
+        - Security header completeness
+
+    # --- Form Requests ---
+    - path: "app/Http/Requests/**"
+      instructions: |
+        Verify validation rules are complete and match database constraints.
+        Check authorization logic in authorize() method.
+        Ensure proper error messages, especially for Hebrew localization.
+
+    # --- Services ---
+    - path: "app/Services/**"
+      instructions: |
+        Review service classes for:
+        - Single responsibility principle
+        - Proper dependency injection (constructor injection)
+        - Database transaction usage for multi-step operations
+        - Exception handling with meaningful error messages
+        - No direct HTTP response generation (that belongs in controllers)
+
+    - path: "app/Services/Billing/**"
+      instructions: |
+        Billing services are critical. Review for:
+        - Correct subscription state management
+        - Proper entitlement checks
+        - Payment amount calculations and currency handling
+        - Idempotent payment processing
+        - Audit logging for financial operations
+
+    - path: "app/Services/Sumit/**"
+      instructions: |
+        Review Sumit gateway integration for:
+        - Secure token handling (no tokens in logs or responses)
+        - Proper error handling for gateway timeouts
+        - Correct payment status mapping
+
+    # --- Livewire Components ---
+    - path: "app/Livewire/**"
+      instructions: |
+        Review Livewire v4 components for:
+        - Proper use of #[Validate] attributes for form validation
+        - Authorization in actions (not just in views)
+        - Minimal data exposed to the client via public properties
+        - Correct use of wire:model, wire:click, and reactive patterns
+        - No heavy queries inside render() — use computed properties or mount()
+
+    # --- Enums ---
+    - path: "app/Enums/**"
+      instructions: |
+        Verify PHP 8.4 backed enums have:
+        - Consistent naming convention (TitleCase cases)
+        - Labels or descriptions for UI display
+        - Proper backing type (string or int)
+
+    # --- Events, Listeners, Jobs ---
+    - path: "app/Events/**"
+      instructions: |
+        Ensure events carry only serializable data.
+        Check that ShouldBroadcast events define proper channel authorization.
+
+    - path: "app/Listeners/**"
+      instructions: |
+        Review listeners for proper error handling and idempotency.
+        Verify ShouldQueue is used for slow operations.
+
+    - path: "app/Jobs/**"
+      instructions: |
+        Review queued jobs for:
+        - Proper retry logic and backoff configuration
+        - Failed job handling
+        - Idempotent execution (safe to retry)
+        - Timeout configuration for long-running jobs
+
+    # --- Policies ---
+    - path: "app/Policies/**"
+      instructions: |
+        Review authorization policies for:
+        - Complete coverage of all CRUD operations
+        - Proper organization scoping (users can only access their org's resources)
+        - System admin bypass where appropriate
+        - Consistent deny behavior (return false, not exceptions)
+
+    # --- Mail ---
+    - path: "app/Mail/**"
+      instructions: |
+        Review mailables for:
+        - Proper queue configuration for non-blocking delivery
+        - Correct use of MJML templates
+        - No sensitive data exposed in email content
+        - Support for both English and Hebrew content
+
+    # --- Routes ---
+    - path: "routes/**"
+      instructions: |
+        Review route definitions for:
+        - Proper middleware stack (auth, verified, ensure.organization, ensure.account_active)
+        - Named routes for all routes (used in route() helper)
+        - RESTful conventions for API routes
+        - No duplicate route names or paths
+        - Rate limiting on public endpoints
+
+    # --- Frontend Views ---
+    - path: "resources/views/**"
+      instructions: |
+        Review Blade views for:
+        - XSS prevention (use {{ }} not {!! !!} unless explicitly safe)
+        - Proper use of Flux UI (<flux:*>) and TallStackUI (<x-*>) components
+        - Consistent use of __('messages.key') for translatable strings
+        - Accessibility attributes (aria-*, alt, role)
+        - Responsive design with Tailwind CSS
+
+    - path: "resources/views/livewire/**"
+      instructions: |
+        Ensure Livewire views properly use wire: directives.
+        Verify loading states (wire:loading) for user feedback.
+        Check that forms use wire:submit.prevent for proper handling.
+
+    - path: "resources/views/emails/**"
+      instructions: |
+        Verify email templates render correctly.
+        Check for proper MJML structure and inline styles for email client compatibility.
+
+    # --- JavaScript ---
+    - path: "resources/js/**"
+      instructions: |
+        Review JavaScript for:
+        - No hardcoded API URLs (use route helpers or meta tags)
+        - Proper Alpine.js patterns (x-data, x-on, x-bind)
+        - No console.log statements in production code
+        - Secure handling of tokens and authentication data
+
+    # --- Translations ---
+    - path: "resources/lang/**"
+      instructions: |
+        Verify translations are complete across all supported languages (en, he, fr).
+        Check for missing keys between language files.
+        Ensure Hebrew text has proper RTL handling context.
+
+    # --- Config ---
+    - path: "config/**"
+      instructions: |
+        Review configuration files for:
+        - No hardcoded secrets (use env() with proper defaults)
+        - Sensible defaults for all environment variables
+        - Proper typing of config values
+
+    - path: "config/billing.php"
+      instructions: |
+        Billing configuration is critical. Verify pricing, plan limits, and feature flags are correct.
+        Ensure all values use env() for environment-specific overrides.
+
+    # --- Tests ---
+    - path: "tests/**"
+      instructions: |
+        Review tests for:
+        - PHPUnit class-based tests (not Pest)
+        - Use of RefreshDatabase trait for database isolation
+        - Factory usage for model creation (not manual inserts)
+        - Meaningful assertion messages
+        - Coverage of happy path, failure cases, and edge cases
+        - Proper use of actingAs() for authenticated test contexts
+
+    - path: "tests/Feature/Api/**"
+      instructions: |
+        Verify API tests check:
+        - Correct HTTP status codes
+        - JSON response structure
+        - Authentication and authorization
+        - Validation error responses
+
+    - path: "tests/Feature/Billing/**"
+      instructions: |
+        Billing tests are critical. Ensure:
+        - Payment flow is tested end-to-end
+        - Subscription state transitions are verified
+        - Edge cases like expired trials and failed payments are covered
+
+    # --- CI/CD & GitHub ---
+    - path: ".github/**"
+      instructions: |
+        Review GitHub workflows for:
+        - Proper secret usage (no hardcoded credentials)
+        - Correct PHP and Node.js version matrix
+        - Cache configuration for dependencies
+        - Test and lint steps before deployment
+
+    # --- Packages ---
+    - path: "packages/**"
+      instructions: |
+        Review custom packages for:
+        - Proper Laravel package structure (ServiceProvider, config, etc.)
+        - Namespace consistency
+        - No tight coupling to the main application
+
+  path_filters:
+    - "!storage/**"
+    - "!public/build/**"
+    - "!public/vendor/**"
+    - "!vendor/**"
+    - "!node_modules/**"
+    - "!*.lock"
+    - "!*.min.js"
+    - "!*.min.css"
+    - "!resources/svg/**"
+    - "!bootstrap/cache/**"
+    - "!.env"
+    - "!.env.*"
+    - "!credentials/**"
