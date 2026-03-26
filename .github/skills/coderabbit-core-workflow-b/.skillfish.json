@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "coderabbit-core-workflow-b",
+  "owner": "brmbobo",
+  "repo": "web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/saas-packs/coderabbit-pack/skills/coderabbit-core-workflow-b",
+  "branch": "master",
+  "sha": "faedde5bc88cc1730a1ee92dcba240888015fc81",
+  "source": "manual"
+}

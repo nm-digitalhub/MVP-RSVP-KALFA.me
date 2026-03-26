@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "coderabbit-install-auth",
+  "owner": "brmbobo",
+  "repo": "web2podcast",
+  "path": ".claude/agents/enterprise-frontend-design/agents/saas-packs/coderabbit-pack/skills/coderabbit-install-auth",
+  "branch": "master",
+  "sha": "2811918db581a41c8f20b48d971b074e2f169148",
+  "source": "manual"
+}
