@@ -80,3 +80,6 @@ Users/
 gemini-cli/
 obsidian-hub/
 obsidian-claude-pkm/
+
+.gemini/
+gha-creds-*.json

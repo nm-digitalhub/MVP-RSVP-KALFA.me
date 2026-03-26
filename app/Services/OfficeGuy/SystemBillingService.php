@@ -27,6 +27,10 @@ class SystemBillingService
      * Get active subscription for an organization.
      * Cached for 60s — call {@see forgetSubscriptionCache()} after any mutation.
      *
+     * Only the subscription primary key is cached. Caching a serialized Eloquent model can yield
+     * PHP's incomplete-class placeholder on unserialize (autoload order, package renames), which
+     * breaks the declared return type.
+     *
      * Note: SUMIT subscriptions are linked to Account (billing entity), not Organization.
      */
     public function getOrganizationSubscription(Organization $organization): ?Subscription
@@ -37,15 +41,32 @@ class SystemBillingService
             return null;
         }
 
-        return Cache::remember(
-            "org:{$organization->id}:subscription",
+        $cacheKey = "org:{$organization->id}:subscription";
+
+        $subscriptionId = Cache::remember(
+            $cacheKey,
             self::SUBSCRIPTION_CACHE_TTL,
-            fn () => Subscription::where('subscriber_type', $account->getMorphClass())
+            fn (): ?int => Subscription::query()
+                ->where('subscriber_type', $account->getMorphClass())
                 ->where('subscriber_id', $account->id)
                 ->where('status', Subscription::STATUS_ACTIVE)
                 ->latest()
-                ->first()
+                ->value('id')
         );
+
+        if ($subscriptionId === null) {
+            return null;
+        }
+
+        $subscription = Subscription::query()->find($subscriptionId);
+
+        if ($subscription === null) {
+            Cache::forget($cacheKey);
+
+            return null;
+        }
+
+        return $subscription;
     }
 
     /** Invalidate the cached subscription entry for an organization after a mutation. */
