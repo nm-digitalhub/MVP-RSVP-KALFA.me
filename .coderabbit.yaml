@@ -19,6 +19,7 @@ reviews:
     base_branches:
       - "main"
 
+  reviews:
   path_filters:
     - "!**/node_modules/**"
     - "!**/vendor/**"
