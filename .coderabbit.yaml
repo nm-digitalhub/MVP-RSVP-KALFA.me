@@ -19,27 +19,29 @@ reviews:
     base_branches:
       - "main"
 
-  path_filters: - 
-    "!**/node_modules/**" - 
-    "!**/vendor/**" - 
-    "!**/storage/**" - 
-    "!**/bootstrap/cache/**" - 
-    "!**/public/build/**" - 
-    "!**/public/storage/**" - 
-    "!**/.gemini/**" - 
-    "!**/.agent/**" - 
-    "!**/.agents/**" - 
-    "!**/.claude/**" - 
-    "!**/.claude-os/**" - 
-    "!**/.cursor/**" - 
-    "!**/.codex/**" - 
-    "!**/.continue/**" - 
-    "!**/.vscode/**" - 
-    "!**/MEMORY/**" - 
-    "!**/_bmad/**" - "!**/*.log" - 
-    "!**/*.min.js" - 
-    "!**/*.min.css" -
-- "!**/*.svg"
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/vendor/**"
+    - "!**/storage/**"
+    - "!**/bootstrap/cache/**"
+    - "!**/public/build/**"
+    - "!**/public/storage/**"
+    - "!**/.gemini/**"
+    - "!**/.agent/**"
+    - "!**/.agents/**"
+    - "!**/.claude/**"
+    - "!**/.claude-os/**"
+    - "!**/.cursor/**"
+    - "!**/.codex/**"
+    - "!**/.continue/**"
+    - "!**/.vscode/**"
+    - "!**/MEMORY/**"
+    - "!**/_bmad/**"
+    - "!**/*.log"
+    - "!**/*.min.js"
+    - "!**/*.min.css"
+    - "!**/*.svg"
+
   path_instructions:
     - path: "app/**/*.php"
       instructions: |
