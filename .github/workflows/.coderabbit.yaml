@@ -1,0 +1,91 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+language: "he-IL"
+early_access: false
+
+chat:
+  auto_reply: true
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: false
+  high_level_summary: true
+  review_status: true
+  collapse_walkthrough: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+    base_branches:
+      - "main"
+
+  path_filters:
+    - "!**/node_modules/**"
+    - "!**/vendor/**"
+    - "!**/storage/**"
+    - "!**/bootstrap/cache/**"
+    - "!**/public/build/**"
+    - "!**/public/storage/**"
+    - "!**/.gemini/**"
+    - "!**/.agent/**"
+    - "!**/.agents/**"
+    - "!**/.claude/**"
+    - "!**/.claude-os/**"
+    - "!**/.cursor/**"
+    - "!**/.codex/**"
+    - "!**/.continue/**"
+    - "!**/.vscode/**"
+    - "!**/MEMORY/**"
+    - "!**/_bmad/**"
+    - "!**/*.log"
+    - "!**/*.min.js"
+    - "!**/*.min.css"
+
+  path_instructions:
+    - path: "app/**/*.php"
+      instructions: |
+        Review Laravel application code for bugs, regression risks, authorization and validation correctness, query performance, maintainability, and architectural separation of concerns.
+
+        Pay particular attention to how data and control flow move across layers: request entry points, middleware, controllers, services, models, jobs, events, and persistence.
+
+        Prefer findings about runtime correctness, hidden coupling, side effects, transaction safety, and performance over superficial style comments.
+
+    - path: "app/Http/Controllers/**/*.php"
+      instructions: |
+        Review controllers for thin-controller design.
+        Check that request validation, authorization, orchestration, and response shaping are handled correctly and consistently.
+        Flag business logic that should live in services or domain-layer code.
+
+    - path: "app/Models/**/*.php"
+      instructions: |
+        Review Eloquent models for relationship correctness, casts, scopes, mass-assignment safety, and lazy-loading or N+1 risks.
+        Flag model code that hides business side effects or creates unclear boundaries.
+
+    - path: "app/Services/**/*.php"
+      instructions: |
+        Review service-layer code for separation of concerns, testability, explicit dependencies, safe error handling, and correct orchestration of domain logic, persistence, jobs, and notifications.
+
+    - path: "routes/**/*.php"
+      instructions: |
+        Review routes for proper middleware protection, consistent naming, RESTful conventions, and alignment with authorization and controller behavior.
+        Treat routes as important entry points in the end-to-end flow.
+
+    - path: "resources/views/**/*.blade.php"
+      instructions: |
+        Review Blade templates for output escaping, sanitization, accessibility, readability, and maintainability.
+        Flag heavy presentation logic, unsafe rendering patterns, and form-handling issues.
+
+    - path: "database/migrations/**/*.php"
+      instructions: |
+        Review migrations for rollback safety, indexing strategy, nullability, destructive changes, deployment risk, and large-table impact.
+        Flag anything that could cause production migration problems.
+
+    - path: "tests/**/*.php"
+      instructions: |
+        Review tests for clear intent, stable assertions, edge-case coverage, and meaningful regression protection.
+        Prefer tests that validate business behavior and integration paths, not only happy paths.
+
+    - path: ".github/workflows/**/*.yml"
+      instructions: |
+        Review workflow changes for secret safety, least-privilege permissions, CI reliability, and maintainability.
+        Flag brittle automation, unsafe token usage, and unnecessary complexity.

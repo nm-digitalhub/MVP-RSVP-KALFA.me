@@ -1,20 +1,9 @@
-<div>
+<div class="space-y-4 sm:space-y-5">
     @if($organization)
-        {{-- Organization Header --}}
-        <div class="card card-elevated mb-8 p-6 lg:flex-row lg:items-center lg:justify-between">
-            <div class="flex items-center gap-4">
-                <div class="flex size-14 items-center justify-center rounded-2xl bg-brand/5 ring-1 ring-brand/10 transition-all duration-200 hover:bg-brand/10">
-                    <x-kalfa-app-icon class="h-9 w-9" alt="" />
-                </div>
-                <div class="space-y-2">
-                    <x-kalfa-wordmark class="justify-start" />
-                    <p class="text-sm text-content-muted">{{ __('Your event workspace for :organization.', ['organization' => $organization->name]) }}</p>
-                </div>
-            </div>
-        </div>
+        {{-- SaaS metric cards --}}
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
 
         {{-- SaaS metric cards --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <x-metric-card
                 :title="__('Total Events')"
                 :value="$totalEvents ?? 0"
@@ -56,11 +45,11 @@
 
         {{-- Events Table --}}
         <div class="card overflow-hidden">
-            <div class="border-b border-stroke px-6 py-4 flex justify-between items-center">
-                <h2 class="text-lg font-semibold text-content">{{ __('Events') }}</h2>
-                <a href="{{ route('dashboard.events.create') }}" class="btn btn-primary focus-ring">
-                    <x-heroicon-o-plus class="h-5 w-5" />
-                    <span>{{ __('Create event') }}</span>
+            <div class="border-b border-stroke px-3 sm:px-4 py-2.5 sm:py-3 flex justify-between items-center gap-3">
+                <h2 class="text-base sm:text-lg font-semibold text-content">{{ __('Events') }}</h2>
+                <a href="{{ route('dashboard.events.create') }}" class="btn btn-primary btn-sm focus-ring">
+                    <x-heroicon-o-plus class="h-4 w-4" />
+                    <span class="hidden sm:inline">{{ __('Create') }}</span>
                 </a>
             </div>
 
@@ -68,19 +57,19 @@
                 <table class="min-w-full divide-y divide-stroke">
                     <thead class="bg-surface">
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">
                                 {{ __('Title') }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">
                                 {{ __('Date') }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
-                                {{ __('Event status') }}
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted">
+                                {{ __('Status') }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
-                                {{ __('Guests count') }}
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted hidden sm:table-cell">
+                                {{ __('Guests') }}
                             </th>
-                            <th scope="col" class="px-6 py-3 text-start text-xs font-semibold uppercase tracking-wider text-content-muted">
+                            <th scope="col" class="px-3 sm:px-4 py-2 text-start text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-content-muted text-end">
                                 {{ __('Actions') }}
                             </th>
                         </tr>
@@ -88,14 +77,14 @@
                     <tbody class="bg-card divide-y divide-stroke">
                         @forelse($events as $event)
                             <tr wire:key="event-{{ $event->id }}" class="data-table-row">
-                                <td class="px-6 py-4 text-sm font-medium text-content">
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm font-medium text-content">
                                     {{ $event->name }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-content-muted">
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-content-muted">
                                     {{ $event->event_date?->format('d.m.Y') }}
                                 </td>
-                                <td class="px-6 py-4">
-                                    <span class="badge
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3">
+                                    <span class="badge text-[9px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1
                                         @switch($event->status->value ?? '')
                                             @case('draft') badge-neutral @break
                                             @case('pending_payment') badge-warning @break
@@ -108,22 +97,22 @@
                                         {{ $event->status?->label() ?? __('—') }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 text-sm text-content-muted">
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-content-muted hidden sm:table-cell">
                                     {{ $event->guests_count ?? 0 }}
                                 </td>
-                                <td class="px-6 py-4 text-sm">
+                                <td class="px-3 sm:px-4 py-2.5 sm:py-3 text-sm text-end">
                                     <a href="{{ route('dashboard.events.show', [$organization, $event]) }}"
-                                       class="interactive font-medium text-brand hover:text-brand-hover focus-ring rounded px-2 py-1">
+                                       class="interactive inline-flex font-medium text-brand hover:text-brand-hover focus-ring rounded px-2 py-1 text-xs">
                                         {{ __('View') }}
                                     </a>
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-12 text-center">
-                                    <div class="flex flex-col items-center justify-center space-y-4">
-                                        <div class="flex size-16 items-center justify-center rounded-2xl bg-surface/50">
-                                            <x-kalfa-app-icon class="h-10 w-10 opacity-40" alt="" />
+                                <td colspan="5" class="px-3 sm:px-4 py-8 sm:py-10 text-center">
+                                    <div class="flex flex-col items-center justify-center gap-3">
+                                        <div class="flex size-12 items-center justify-center rounded-xl bg-surface/50">
+                                            <x-kalfa-app-icon class="h-7 w-7 opacity-40" alt="" />
                                         </div>
                                         <div class="space-y-1">
                                             <p class="text-sm font-medium text-content">{{ __('No events yet.') }}</p>
@@ -139,23 +128,23 @@
         </div>
     @else
         {{-- No Organization State --}}
-        <div class="card card-elevated max-w-2xl mx-auto p-10 text-center">
-            <div class="flex justify-center mb-6">
-                <div class="flex size-20 items-center justify-center rounded-3xl bg-brand/5 ring-1 ring-brand/10">
-                    <x-kalfa-app-icon class="h-12 w-12 text-brand" alt="" />
+        <div class="card card-elevated p-6 sm:p-8 text-center">
+            <div class="flex justify-center mb-4">
+                <div class="flex size-14 sm:size-16 items-center justify-center rounded-2xl bg-brand/5 ring-1 ring-brand/10">
+                    <x-kalfa-app-icon class="h-8 w-8 sm:h-10 sm:w-10 text-brand" alt="" />
                 </div>
             </div>
 
-            <x-kalfa-wordmark class="mb-5" />
+            <x-kalfa-wordmark class="mb-3 h-6 sm:h-8" />
 
-            <p class="mx-auto text-sm leading-6 text-content-muted max-w-md">
-                {{ __('Choose or create an organization to start managing events, guests, and invitations in one place.') }}
+            <p class="mx-auto text-sm leading-relaxed text-content-muted max-w-md">
+                {{ __('Choose or create an organization to start managing events, guests, and invitations.') }}
             </p>
 
-            <div class="mt-8">
+            <div class="mt-6">
                 <a href="{{ route('organizations.index') }}"
                    wire:navigate
-                   class="btn btn-primary focus-ring inline-flex min-h-[48px] px-8">
+                   class="btn btn-primary focus-ring inline-flex min-h-[40px] px-6">
                     {{ __('Go to organizations') }}
                 </a>
             </div>

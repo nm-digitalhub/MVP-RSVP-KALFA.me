@@ -11,6 +11,7 @@ use App\Services\SubscriptionSyncService;
 use App\Services\SystemAuditLogger;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Log;
 
 class SyncOrganizationSubscriptionsJob implements ShouldQueue
 {

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\AccountSubscription;
 use App\Enums\AccountSubscriptionStatus;
 use App\Models\Account;
-use App\Models\OfficeGuy\Subscription as OfficeGuySubscription;
+use App\Models\AccountSubscription;
+use OfficeGuy\LaravelSumitGateway\Models\Subscription as OfficeGuySubscription;
 use App\Models\ProductPlan;
 use Illuminate\Support\Facades\Log;
 
@@ -37,35 +37,31 @@ final class SubscriptionSyncService
         $skipped = 0;
         $errors = 0;
 
-        // Get all SUMIT subscriptions for this account's organizations
-        $organizations = $account->organizations;
+        // Get all SUMIT subscriptions for this account directly
+        // Note: SUMIT subscriptions are linked to Account (billing entity), not Organization
+        $sumitSubs = OfficeGuySubscription::where('subscriber_type', $account->getMorphClass())
+            ->where('subscriber_id', $account->id)
+            ->whereIn('status', ['active', 'pending'])
+            ->get();
 
-        foreach ($organizations as $organization) {
-            $sumitSubs = OfficeGuySubscription::where('subscriber_type', $organization->getMorphClass())
-                ->where('subscriber_id', $organization->id)
-                ->whereIn('status', ['active', 'pending'])
-                ->get();
+        foreach ($sumitSubs as $sumitSub) {
+            try {
+                $result = $this->syncSingleSubscription($account, $sumitSub);
 
-            foreach ($sumitSubs as $sumitSub) {
-                try {
-                    $result = $this->syncSingleSubscription($account, $sumitSub);
-
-                    if ($result === 'created') {
-                        $synced++;
-                    } elseif ($result === 'updated') {
-                        $synced++;
-                    } else {
-                        $skipped++;
-                    }
-                } catch (\Throwable $e) {
-                    $errors++;
-                    Log::error('Failed to sync SUMIT subscription', [
-                        'account_id' => $account->id,
-                        'org_id' => $organization->id,
-                        'sumit_sub_id' => $sumitSub->id,
-                        'error' => $e->getMessage(),
-                    ]);
+                if ($result === 'created') {
+                    $synced++;
+                } elseif ($result === 'updated') {
+                    $synced++;
+                } else {
+                    $skipped++;
                 }
+            } catch (\Throwable $e) {
+                $errors++;
+                Log::error('Failed to sync SUMIT subscription', [
+                    'account_id' => $account->id,
+                    'sumit_sub_id' => $sumitSub->id,
+                    'error' => $e->getMessage(),
+                ]);
             }
         }
 
@@ -163,22 +159,36 @@ final class SubscriptionSyncService
 
     /**
      * Find ProductPlan that matches a SUMIT subscription.
+     *
+     * Matching priority:
+     * 1. metadata.product_plan_id (direct ID reference)
+     * 2. metadata.product_plan_sku (SKU from app-created subscriptions)
+     * 3. metadata.sumit_sku (SKU from SUMIT-created subscriptions)
      */
     private function findProductPlanForSubscription(OfficeGuySubscription $sumitSub): ?ProductPlan
     {
-        // Try to find by name match
-        $productPlan = ProductPlan::where('name', 'like', '%'.$sumitSub->name.'%')
-            ->where('is_active', true)
-            ->first();
-
-        if ($productPlan !== null) {
-            return $productPlan;
+        // Priority 1: Match by product_plan_id from metadata
+        $productPlanId = data_get($sumitSub, 'metadata.product_plan_id');
+        if ($productPlanId !== null) {
+            return ProductPlan::whereKey($productPlanId)
+                ->where('is_active', true)
+                ->first();
         }
 
-        // Try to find by metadata reference
-        $sumitSubId = data_get($sumitSub, 'metadata.product_plan_id');
-        if ($sumitSubId) {
-            return ProductPlan::find($sumitSubId);
+        // Priority 2: Match by product_plan_sku from metadata
+        $productPlanSku = data_get($sumitSub, 'metadata.product_plan_sku');
+        if ($productPlanSku !== null) {
+            return ProductPlan::where('sku', $productPlanSku)
+                ->where('is_active', true)
+                ->first();
+        }
+
+        // Priority 3: Match by sumit_sku from metadata
+        $sumitSku = data_get($sumitSub, 'metadata.sumit_sku');
+        if ($sumitSku !== null) {
+            return ProductPlan::where('sku', $sumitSku)
+                ->where('is_active', true)
+                ->first();
         }
 
         return null;

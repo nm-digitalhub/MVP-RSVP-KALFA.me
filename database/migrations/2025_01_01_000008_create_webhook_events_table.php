@@ -67,7 +67,7 @@ return new class extends Migration
 
             $table->foreign('subscription_id')
                 ->references('id')
-                ->on('subscriptions')
+                ->on('officeguy_subscriptions')
                 ->onDelete('set null');
         });
     }

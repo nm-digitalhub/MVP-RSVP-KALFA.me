@@ -82,19 +82,20 @@
                     @if($editingId === $credential->id)
                         {{-- ── Inline rename form ── --}}
                         <div class="flex items-center gap-2" x-data x-init="$nextTick(() => $el.querySelector('input')?.focus())">
-                            <div class="flex-1 min-w-0">
-                                <input
-                                    wire:model="editingAlias"
-                                    wire:keydown.enter="saveAlias"
-                                    wire:keydown.escape="cancelRename"
-                                    type="text"
-                                    maxlength="64"
-                                    autofocus
-                                    placeholder="לדוגמה: MacBook Pro, iPhone 15..."
-                                    class="w-full min-h-[38px] rounded-lg border border-brand/50 dark:border-brand bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-100 px-3 focus:outline-none focus:ring-2 focus:ring-brand/50 rtl:text-end"
-                                />
-                                <x-input-error :messages="$errors->get('editingAlias')" class="mt-1" />
-                            </div>
+                        <flux:field class="flex-1 min-w-0">
+                            <flux:label for="passkey-alias" class="sr-only">{{ __('Passkey name') }}</flux:label>
+                            <flux:input
+                                wire:model="editingAlias"
+                                wire:keydown.enter="saveAlias"
+                                wire:keydown.escape="cancelRename"
+                                type="text"
+                                id="passkey-alias"
+                                maxlength="64"
+                                autofocus
+                                placeholder="{{ __('Passkey placeholder') }}"
+                            />
+                            <flux:error name="editingAlias" class="mt-1" />
+                        </flux:field>
                             <button
                                 wire:click="saveAlias"
                                 wire:loading.attr="disabled"

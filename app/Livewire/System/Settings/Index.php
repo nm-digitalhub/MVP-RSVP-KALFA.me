@@ -12,49 +12,32 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Layout('layouts.app')]
+#[Title('System Settings')]
 class Index extends Component
 {
     public string $activeTab = 'sumit';
 
-    // Sumit Settings
     public string $sumit_company_id = '';
-
     public string $sumit_private_key = '';
-
     public string $sumit_public_key = '';
-
     public string $sumit_environment = 'www';
-
     public bool $sumit_is_active = false;
-
     public bool $sumit_is_test_mode = false;
 
-    // Twilio Settings
     public string $twilio_sid = '';
-
     public string $twilio_token = '';
-
     public string $twilio_number = '';
-
     public string $twilio_messaging_service_sid = '';
-
     public string $twilio_verify_sid = '';
-
     public string $twilio_api_key = '';
-
     public string $twilio_api_secret = '';
-
     public bool $twilio_is_active = false;
 
-    // Gemini Settings
     public string $gemini_api_key = '';
-
     public string $gemini_model = 'models/gemini-2.0-flash-exp';
-
     public bool $gemini_is_active = false;
 
-    #[Layout('layouts.app')]
-    #[Title('System Settings')]
     public function mount(SumitSettings $sumit, TwilioSettings $twilio, GeminiSettings $gemini): void
     {
         $this->sumit_company_id = $sumit->company_id ?? '';
@@ -102,7 +85,6 @@ class Index extends Component
             $settings->environment = $this->sumit_environment;
             $settings->is_active = $this->sumit_is_active;
             $settings->is_test_mode = $this->sumit_is_test_mode;
-
             $settings->save();
 
             session()->flash('success', __('Sumit settings saved successfully.'));
@@ -128,7 +110,6 @@ class Index extends Component
             $settings->api_key = $this->twilio_api_key;
             $settings->api_secret = $this->twilio_api_secret;
             $settings->is_active = $this->twilio_is_active;
-
             $settings->save();
 
             session()->flash('success', __('Twilio settings saved successfully.'));
@@ -149,7 +130,6 @@ class Index extends Component
             $settings->api_key = $this->gemini_api_key;
             $settings->model = $this->gemini_model;
             $settings->is_active = $this->gemini_is_active;
-
             $settings->save();
 
             session()->flash('success', __('Gemini settings saved successfully.'));

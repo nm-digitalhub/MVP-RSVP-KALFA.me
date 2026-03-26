@@ -1,0 +1,253 @@
+{
+    "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
+    "blade": {
+        "components": {
+            "list": [
+                {
+                    "name": "ts-alert",
+                    "className": "TallStackUi\\View\\Components\\Alert"
+                },
+                {
+                    "name": "ts-avatar",
+                    "className": "TallStackUi\\View\\Components\\Avatar"
+                },
+                {
+                    "name": "ts-badge",
+                    "className": "TallStackUi\\View\\Components\\Badge"
+                },
+                {
+                    "name": "ts-banner",
+                    "className": "TallStackUi\\View\\Components\\Banner"
+                },
+                {
+                    "name": "ts-boolean",
+                    "className": "TallStackUi\\View\\Components\\Boolean"
+                },
+                {
+                    "name": "ts-button",
+                    "className": "TallStackUi\\View\\Components\\Button\\Button"
+                },
+                {
+                    "name": "ts-button.circle",
+                    "className": "TallStackUi\\View\\Components\\Button\\Circle"
+                },
+                {
+                    "name": "ts-carousel",
+                    "className": "TallStackUi\\View\\Components\\Carousel"
+                },
+                {
+                    "name": "ts-card",
+                    "className": "TallStackUi\\View\\Components\\Card"
+                },
+                {
+                    "name": "ts-checkbox",
+                    "className": "TallStackUi\\View\\Components\\Form\\Checkbox"
+                },
+                {
+                    "name": "ts-color",
+                    "className": "TallStackUi\\View\\Components\\Form\\Color"
+                },
+                {
+                    "name": "ts-clipboard",
+                    "className": "TallStackUi\\View\\Components\\Clipboard"
+                },
+                {
+                    "name": "ts-currency",
+                    "className": "TallStackUi\\View\\Components\\Form\\Currency"
+                },
+                {
+                    "name": "ts-date",
+                    "className": "TallStackUi\\View\\Components\\Form\\Date"
+                },
+                {
+                    "name": "ts-dialog",
+                    "className": "TallStackUi\\View\\Components\\Interaction\\Dialog"
+                },
+                {
+                    "name": "ts-dropdown",
+                    "className": "TallStackUi\\View\\Components\\Dropdown\\Dropdown"
+                },
+                {
+                    "name": "ts-dropdown.items",
+                    "className": "TallStackUi\\View\\Components\\Dropdown\\Items"
+                },
+                {
+                    "name": "ts-dropdown.submenu",
+                    "className": "TallStackUi\\View\\Components\\Dropdown\\Submenu"
+                },
+                {
+                    "name": "ts-environment",
+                    "className": "TallStackUi\\View\\Components\\Environment"
+                },
+                {
+                    "name": "ts-error",
+                    "className": "TallStackUi\\View\\Components\\Form\\Error"
+                },
+                {
+                    "name": "ts-errors",
+                    "className": "TallStackUi\\View\\Components\\Errors"
+                },
+                {
+                    "name": "ts-hint",
+                    "className": "TallStackUi\\View\\Components\\Form\\Hint"
+                },
+                {
+                    "name": "ts-icon",
+                    "className": "TallStackUi\\View\\Components\\Icon"
+                },
+                {
+                    "name": "ts-input",
+                    "className": "TallStackUi\\View\\Components\\Form\\Input"
+                },
+                {
+                    "name": "ts-label",
+                    "className": "TallStackUi\\View\\Components\\Form\\Label"
+                },
+                {
+                    "name": "ts-layout",
+                    "className": "TallStackUi\\View\\Components\\Layout\\Layout"
+                },
+                {
+                    "name": "ts-layout.header",
+                    "className": "TallStackUi\\View\\Components\\Layout\\Header"
+                },
+                {
+                    "name": "ts-link",
+                    "className": "TallStackUi\\View\\Components\\Link"
+                },
+                {
+                    "name": "ts-loading",
+                    "className": "TallStackUi\\View\\Components\\Loading"
+                },
+                {
+                    "name": "ts-key-value",
+                    "className": "TallStackUi\\View\\Components\\KeyValue"
+                },
+                {
+                    "name": "ts-modal",
+                    "className": "TallStackUi\\View\\Components\\Modal"
+                },
+                {
+                    "name": "ts-number",
+                    "className": "TallStackUi\\View\\Components\\Form\\Number"
+                },
+                {
+                    "name": "ts-password",
+                    "className": "TallStackUi\\View\\Components\\Form\\Password"
+                },
+                {
+                    "name": "ts-pin",
+                    "className": "TallStackUi\\View\\Components\\Form\\Pin"
+                },
+                {
+                    "name": "ts-progress",
+                    "className": "TallStackUi\\View\\Components\\Progress\\Progress"
+                },
+                {
+                    "name": "ts-progress.circle",
+                    "className": "TallStackUi\\View\\Components\\Progress\\Circle"
+                },
+                {
+                    "name": "ts-radio",
+                    "className": "TallStackUi\\View\\Components\\Form\\Radio"
+                },
+                {
+                    "name": "ts-range",
+                    "className": "TallStackUi\\View\\Components\\Form\\Range"
+                },
+                {
+                    "name": "ts-rating",
+                    "className": "TallStackUi\\View\\Components\\Rating"
+                },
+                {
+                    "name": "ts-side-bar",
+                    "className": "TallStackUi\\View\\Components\\Layout\\SideBar\\SideBar"
+                },
+                {
+                    "name": "ts-side-bar.item",
+                    "className": "TallStackUi\\View\\Components\\Layout\\SideBar\\Item"
+                },
+                {
+                    "name": "ts-side-bar.separator",
+                    "className": "TallStackUi\\View\\Components\\Layout\\SideBar\\Separator"
+                },
+                {
+                    "name": "ts-select.native",
+                    "className": "TallStackUi\\View\\Components\\Form\\Select\\Native"
+                },
+                {
+                    "name": "ts-select.styled",
+                    "className": "TallStackUi\\View\\Components\\Form\\Select\\Styled"
+                },
+                {
+                    "name": "ts-signature",
+                    "className": "TallStackUi\\View\\Components\\Signature"
+                },
+                {
+                    "name": "ts-slide",
+                    "className": "TallStackUi\\View\\Components\\Slide"
+                },
+                {
+                    "name": "ts-stats",
+                    "className": "TallStackUi\\View\\Components\\Stats"
+                },
+                {
+                    "name": "ts-step",
+                    "className": "TallStackUi\\View\\Components\\Step\\Step"
+                },
+                {
+                    "name": "ts-step.items",
+                    "className": "TallStackUi\\View\\Components\\Step\\Items"
+                },
+                {
+                    "name": "ts-tab",
+                    "className": "TallStackUi\\View\\Components\\Tab\\Tab"
+                },
+                {
+                    "name": "ts-tag",
+                    "className": "TallStackUi\\View\\Components\\Form\\Tag"
+                },
+                {
+                    "name": "ts-table",
+                    "className": "TallStackUi\\View\\Components\\Table"
+                },
+                {
+                    "name": "ts-tab.items",
+                    "className": "TallStackUi\\View\\Components\\Tab\\Items"
+                },
+                {
+                    "name": "ts-textarea",
+                    "className": "TallStackUi\\View\\Components\\Form\\Textarea"
+                },
+                {
+                    "name": "ts-theme-switch",
+                    "className": "TallStackUi\\View\\Components\\ThemeSwitch"
+                },
+                {
+                    "name": "ts-time",
+                    "className": "TallStackUi\\View\\Components\\Form\\Time"
+                },
+                {
+                    "name": "ts-toast",
+                    "className": "TallStackUi\\View\\Components\\Interaction\\Toast"
+                },
+                {
+                    "name": "ts-toggle",
+                    "className": "TallStackUi\\View\\Components\\Form\\Toggle"
+                },
+                {
+                    "name": "ts-tooltip",
+                    "className": "TallStackUi\\View\\Components\\Tooltip"
+                },
+                {
+                    "name": "ts-upload",
+                    "className": "TallStackUi\\View\\Components\\Form\\Upload"
+                },
+                {
+                    "name": "ts-reaction",
+                    "className": "TallStackUi\\View\\Components\\Reaction"
+                }
+            ]
+        }
+    }
+}

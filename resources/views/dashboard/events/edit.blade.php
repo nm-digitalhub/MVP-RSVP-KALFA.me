@@ -1,14 +1,13 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>{{ __('Edit event') }}</x-slot:title>
-    <x-slot:containerWidth>max-w-5xl</x-slot:containerWidth>
-    <x-slot:header>
-        <x-page-header
-            :title="__('Edit event')"
-            :subtitle="$event->name"
-        />
-    </x-slot:header>
 
-    <div class="grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <x-page-header
+        :title="__('Edit event')"
+        :subtitle="$event->name"
+    />
+
+    <div class="mt-4 sm:mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start">
         <div class="overflow-hidden rounded-[1.5rem] border border-stroke bg-card shadow-sm">
             <form
                 action="{{ route('dashboard.events.update', $event) }}"
@@ -502,4 +501,5 @@
 })()
 </script>
 @endpush
-</x-layouts.app>
+</div>
+</x-layouts.enterprise-app>

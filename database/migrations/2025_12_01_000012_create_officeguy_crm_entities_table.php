@@ -62,7 +62,7 @@ return new class extends Migration
             $table->index('phone');
             $table->index('sumit_customer_id');
             $table->index('owner_user_id');
-            if (DB::connection()->getDriverName() !== 'sqlite') {
+            if (DB::getDriverName() !== 'sqlite') {
                 $table->fullText(['name', 'company_name', 'email']);
             }
         });

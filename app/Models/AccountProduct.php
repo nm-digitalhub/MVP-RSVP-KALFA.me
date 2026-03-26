@@ -13,6 +13,37 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $account_id
+ * @property int $product_id
+ * @property AccountProductStatus $status
+ * @property \Illuminate\Support\Carbon|null $granted_at
+ * @property \Illuminate\Support\Carbon|null $expires_at
+ * @property int|null $granted_by
+ * @property array<array-key, mixed>|null $metadata
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Account $account
+ * @property-read \App\Models\User|null $grantedBy
+ * @property-read \App\Models\Product $product
+ * @method static Builder<static>|AccountProduct active()
+ * @method static Builder<static>|AccountProduct newModelQuery()
+ * @method static Builder<static>|AccountProduct newQuery()
+ * @method static Builder<static>|AccountProduct query()
+ * @method static Builder<static>|AccountProduct whereAccountId($value)
+ * @method static Builder<static>|AccountProduct whereCreatedAt($value)
+ * @method static Builder<static>|AccountProduct whereExpiresAt($value)
+ * @method static Builder<static>|AccountProduct whereGrantedAt($value)
+ * @method static Builder<static>|AccountProduct whereGrantedBy($value)
+ * @method static Builder<static>|AccountProduct whereId($value)
+ * @method static Builder<static>|AccountProduct whereMetadata($value)
+ * @method static Builder<static>|AccountProduct whereProductId($value)
+ * @method static Builder<static>|AccountProduct whereStatus($value)
+ * @method static Builder<static>|AccountProduct whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountProduct
+ */
 #[ObservedBy([AccountProductObserver::class])]
 class AccountProduct extends Model
 {

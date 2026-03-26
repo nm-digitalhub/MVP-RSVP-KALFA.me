@@ -11,6 +11,32 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Grant: account has a feature_key (from product or manual). No enforcement in this phase.
+ *
+ * @property int $id
+ * @property int $account_id
+ * @property string $feature_key
+ * @property string|null $value
+ * @property int|null $product_entitlement_id
+ * @property \Illuminate\Support\Carbon|null $expires_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property EntitlementType|null $type
+ * @property-read \App\Models\Account $account
+ * @property-read \App\Models\ProductEntitlement|null $productEntitlement
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereExpiresAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereFeatureKey($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereProductEntitlementId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereValue($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountEntitlement
  */
 class AccountEntitlement extends Model
 {

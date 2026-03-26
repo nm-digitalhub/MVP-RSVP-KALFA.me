@@ -25,6 +25,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $name
  * @property string|null $twilio_subaccount_sid
+ * @property int $credit_balance_agorot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountProduct> $accountProducts
  * @property-read int|null $account_products_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountProduct> $activeAccountProducts
@@ -45,25 +46,77 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Organization> $organizations
  * @property-read int|null $organizations_count
  * @property-read \App\Models\User|null $owner
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \OfficeGuy\LaravelSumitGateway\Models\OfficeGuyToken> $paymentMethods
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, OfficeGuyToken> $paymentMethods
  * @property-read int|null $payment_methods_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
  * @property-read int|null $payments_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountSubscription> $subscriptions
  * @property-read int|null $subscriptions_count
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereOwnerUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereSumitCustomerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereTwilioSubaccountSid($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Account whereUpdatedAt($value)
+ * @method static \Database\Factories\AccountFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Account newModelQuery()
+ * @method static Builder<static>|Account newQuery()
+ * @method static Builder<static>|Account query()
+ * @method static Builder<static>|Account whereCreatedAt($value)
+ * @method static Builder<static>|Account whereCreditBalanceAgorot($value)
+ * @method static Builder<static>|Account whereId($value)
+ * @method static Builder<static>|Account whereName($value)
+ * @method static Builder<static>|Account whereOwnerUserId($value)
+ * @method static Builder<static>|Account whereSumitCustomerId($value)
+ * @method static Builder<static>|Account whereTwilioSubaccountSid($value)
+ * @method static Builder<static>|Account whereType($value)
+ * @method static Builder<static>|Account whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccount
  */
 	class Account extends \Eloquent implements \OfficeGuy\LaravelSumitGateway\Contracts\HasSumitCustomer {}
+}
+
+namespace App\Models{
+/**
+ * Immutable ledger entry for account credits and debits.
+ *
+ * Rules:
+ *  - Append-only: never update or delete rows.
+ *  - amount_agorot is always positive (type determines direction).
+ *  - balance_after_agorot is a snapshot at the time of insert.
+ *  - Reversals link back via reference (reference_type = self, reference_id = original tx).
+ *
+ * @property int $id
+ * @property int $account_id
+ * @property string $type
+ * @property CreditSource $source
+ * @property int $amount_agorot
+ * @property int $balance_after_agorot
+ * @property string $currency
+ * @property string|null $description
+ * @property string|null $reference_type
+ * @property int|null $reference_id
+ * @property \Illuminate\Support\Carbon|null $expiry_at
+ * @property int|null $actor_id
+ * @property \Illuminate\Support\Carbon $created_at
+ * @property-read \App\Models\Account $account
+ * @property-read \App\Models\User|null $actor
+ * @property-read Model|\Eloquent|null $reference
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereActorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereAmountAgorot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereBalanceAfterAgorot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereCurrency($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereExpiryAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereReferenceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereReferenceType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereSource($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountCreditTransaction whereType($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountCreditTransaction
+ */
+	class AccountCreditTransaction extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -78,7 +131,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $expires_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \App\Enums\EntitlementType|null $type
+ * @property EntitlementType|null $type
  * @property-read \App\Models\Account $account
  * @property-read \App\Models\ProductEntitlement|null $productEntitlement
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement newModelQuery()
@@ -93,6 +146,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountEntitlement whereValue($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountEntitlement
  */
 	class AccountEntitlement extends \Eloquent {}
 }
@@ -121,6 +176,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountFeatureUsage wherePeriodKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountFeatureUsage whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountFeatureUsage whereUsageCount($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountFeatureUsage
  */
 	class AccountFeatureUsage extends \Eloquent {}
 }
@@ -130,7 +187,7 @@ namespace App\Models{
  * @property int $id
  * @property int $account_id
  * @property int $product_id
- * @property \App\Enums\AccountProductStatus $status
+ * @property AccountProductStatus $status
  * @property \Illuminate\Support\Carbon|null $granted_at
  * @property \Illuminate\Support\Carbon|null $expires_at
  * @property int|null $granted_by
@@ -140,20 +197,22 @@ namespace App\Models{
  * @property-read \App\Models\Account $account
  * @property-read \App\Models\User|null $grantedBy
  * @property-read \App\Models\Product $product
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct active()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereAccountId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereExpiresAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereGrantedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereGrantedBy($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereMetadata($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountProduct whereUpdatedAt($value)
+ * @method static Builder<static>|AccountProduct active()
+ * @method static Builder<static>|AccountProduct newModelQuery()
+ * @method static Builder<static>|AccountProduct newQuery()
+ * @method static Builder<static>|AccountProduct query()
+ * @method static Builder<static>|AccountProduct whereAccountId($value)
+ * @method static Builder<static>|AccountProduct whereCreatedAt($value)
+ * @method static Builder<static>|AccountProduct whereExpiresAt($value)
+ * @method static Builder<static>|AccountProduct whereGrantedAt($value)
+ * @method static Builder<static>|AccountProduct whereGrantedBy($value)
+ * @method static Builder<static>|AccountProduct whereId($value)
+ * @method static Builder<static>|AccountProduct whereMetadata($value)
+ * @method static Builder<static>|AccountProduct whereProductId($value)
+ * @method static Builder<static>|AccountProduct whereStatus($value)
+ * @method static Builder<static>|AccountProduct whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountProduct
  */
 	class AccountProduct extends \Eloquent {}
 }
@@ -163,7 +222,7 @@ namespace App\Models{
  * @property int $id
  * @property int $account_id
  * @property int $product_plan_id
- * @property \App\Enums\AccountSubscriptionStatus $status
+ * @property AccountSubscriptionStatus $status
  * @property \Illuminate\Support\Carbon|null $started_at
  * @property \Illuminate\Support\Carbon|null $trial_ends_at
  * @property \Illuminate\Support\Carbon|null $ends_at
@@ -172,20 +231,22 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Account $account
  * @property-read \App\Models\ProductPlan $productPlan
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription active()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereAccountId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereEndsAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereMetadata($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereProductPlanId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereStartedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereTrialEndsAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|AccountSubscription whereUpdatedAt($value)
+ * @method static Builder<static>|AccountSubscription active()
+ * @method static Builder<static>|AccountSubscription newModelQuery()
+ * @method static Builder<static>|AccountSubscription newQuery()
+ * @method static Builder<static>|AccountSubscription query()
+ * @method static Builder<static>|AccountSubscription whereAccountId($value)
+ * @method static Builder<static>|AccountSubscription whereCreatedAt($value)
+ * @method static Builder<static>|AccountSubscription whereEndsAt($value)
+ * @method static Builder<static>|AccountSubscription whereId($value)
+ * @method static Builder<static>|AccountSubscription whereMetadata($value)
+ * @method static Builder<static>|AccountSubscription whereProductPlanId($value)
+ * @method static Builder<static>|AccountSubscription whereStartedAt($value)
+ * @method static Builder<static>|AccountSubscription whereStatus($value)
+ * @method static Builder<static>|AccountSubscription whereTrialEndsAt($value)
+ * @method static Builder<static>|AccountSubscription whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountSubscription
  */
 	class AccountSubscription extends \Eloquent {}
 }
@@ -204,7 +265,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Account $account
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $payable
+ * @property-read Model|\Eloquent|null $payable
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingIntent newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingIntent newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingIntent query()
@@ -217,6 +278,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingIntent wherePayableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingIntent whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingIntent whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperBillingIntent
  */
 	class BillingIntent extends \Eloquent {}
 }
@@ -240,8 +303,95 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingWebhookEvent whereProcessedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingWebhookEvent whereSource($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BillingWebhookEvent whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperBillingWebhookEvent
  */
 	class BillingWebhookEvent extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property string $code
+ * @property string|null $description
+ * @property CouponDiscountType $discount_type
+ * @property int $discount_value
+ * @property CouponTargetType $target_type
+ * @property array<array-key, mixed>|null $target_ids
+ * @property int|null $max_uses
+ * @property int|null $max_uses_per_account
+ * @property bool $first_time_only
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $expires_at
+ * @property int $created_by
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $discount_duration_months
+ * @property-read \App\Models\User $creator
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\CouponRedemption> $redemptions
+ * @property-read int|null $redemptions_count
+ * @method static Builder<static>|Coupon active()
+ * @method static \Database\Factories\CouponFactory factory($count = null, $state = [])
+ * @method static Builder<static>|Coupon newModelQuery()
+ * @method static Builder<static>|Coupon newQuery()
+ * @method static Builder<static>|Coupon query()
+ * @method static Builder<static>|Coupon whereCode($value)
+ * @method static Builder<static>|Coupon whereCreatedAt($value)
+ * @method static Builder<static>|Coupon whereCreatedBy($value)
+ * @method static Builder<static>|Coupon whereDescription($value)
+ * @method static Builder<static>|Coupon whereDiscountDurationMonths($value)
+ * @method static Builder<static>|Coupon whereDiscountType($value)
+ * @method static Builder<static>|Coupon whereDiscountValue($value)
+ * @method static Builder<static>|Coupon whereExpiresAt($value)
+ * @method static Builder<static>|Coupon whereFirstTimeOnly($value)
+ * @method static Builder<static>|Coupon whereId($value)
+ * @method static Builder<static>|Coupon whereIsActive($value)
+ * @method static Builder<static>|Coupon whereMaxUses($value)
+ * @method static Builder<static>|Coupon whereMaxUsesPerAccount($value)
+ * @method static Builder<static>|Coupon whereTargetIds($value)
+ * @method static Builder<static>|Coupon whereTargetType($value)
+ * @method static Builder<static>|Coupon whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperCoupon
+ */
+	final class Coupon extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $coupon_id
+ * @property int $account_id
+ * @property int $redeemed_by
+ * @property string|null $redeemable_type
+ * @property int|null $redeemable_id
+ * @property int $discount_applied
+ * @property int $trial_days_added
+ * @property array<array-key, mixed>|null $metadata
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Account $account
+ * @property-read \App\Models\Coupon $coupon
+ * @property-read Model|\Eloquent|null $redeemable
+ * @property-read \App\Models\User $redeemedBy
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereAccountId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereCouponId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereDiscountApplied($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereMetadata($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereRedeemableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereRedeemableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereRedeemedBy($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereTrialDaysAdded($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|CouponRedemption whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperCouponRedemption
+ */
+	final class CouponRedemption extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -253,7 +403,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $event_date
  * @property string|null $venue_name
  * @property array<array-key, mixed>|null $settings
- * @property \App\Enums\EventStatus $status
+ * @property EventStatus $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -264,7 +414,7 @@ namespace App\Models{
  * @property-read int|null $guests_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Invitation> $invitations
  * @property-read int|null $invitations_count
- * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, Media> $media
  * @property-read int|null $media_count
  * @property-read \App\Models\Organization $organization
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SeatAssignment> $seatAssignments
@@ -287,6 +437,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Event whereVenueName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Event withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Event withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperEvent
  */
 	class Event extends \Eloquent implements \Spatie\MediaLibrary\HasMedia {}
 }
@@ -299,13 +451,13 @@ namespace App\Models{
  * @property int|null $plan_id
  * @property int $amount_cents
  * @property string $currency
- * @property \App\Enums\EventBillingStatus $status
+ * @property EventBillingStatus $status
  * @property \Illuminate\Support\Carbon|null $paid_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int|null $account_id
  * @property-read \App\Models\Account|null $account
- * @property-read \App\Models\Event $event
+ * @property-read \App\Models\Event|null $event
  * @property-read \App\Models\Organization $organization
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
  * @property-read int|null $payments_count
@@ -324,6 +476,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EventBilling wherePlanId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EventBilling whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EventBilling whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperEventBilling
  */
 	class EventBilling extends \Eloquent {}
 }
@@ -338,7 +492,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Event $event
+ * @property-read \App\Models\Event|null $event
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SeatAssignment> $seatAssignments
  * @property-read int|null $seat_assignments_count
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTable newModelQuery()
@@ -355,6 +509,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTable whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTable withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|EventTable withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperEventTable
  */
 	class EventTable extends \Eloquent {}
 }
@@ -372,7 +528,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\Event $event
+ * @property-read \App\Models\Event|null $event
  * @property-read \App\Models\Invitation|null $invitation
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RsvpResponse> $rsvpResponses
  * @property-read int|null $rsvp_responses_count
@@ -394,6 +550,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Guest whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Guest withTrashed(bool $withTrashed = true)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Guest withoutTrashed()
+ * @mixin \Eloquent
+ * @mixin IdeHelperGuest
  */
 	class Guest extends \Eloquent {}
 }
@@ -406,11 +564,11 @@ namespace App\Models{
  * @property string $token
  * @property string $slug
  * @property \Illuminate\Support\Carbon|null $expires_at
- * @property \App\Enums\InvitationStatus $status
+ * @property InvitationStatus $status
  * @property \Illuminate\Support\Carbon|null $responded_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Event $event
+ * @property-read \App\Models\Event|null $event
  * @property-read \App\Models\Guest|null $guest
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\RsvpResponse> $rsvpResponses
  * @property-read int|null $rsvp_responses_count
@@ -427,6 +585,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invitation whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invitation whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Invitation whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperInvitation
  */
 	class Invitation extends \Eloquent {}
 }
@@ -467,6 +627,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Organization whereSettings($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Organization whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Organization whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperOrganization
  */
 	class Organization extends \Eloquent implements \OfficeGuy\LaravelSumitGateway\Contracts\HasSumitCustomer {}
 }
@@ -476,7 +638,7 @@ namespace App\Models{
  * @property int $id
  * @property int $organization_id
  * @property string $email
- * @property \App\Enums\OrganizationUserRole $role
+ * @property OrganizationUserRole $role
  * @property string $token
  * @property \Illuminate\Support\Carbon $expires_at
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -493,6 +655,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationInvitation whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationInvitation whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationInvitation whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperOrganizationInvitation
  */
 	class OrganizationInvitation extends \Eloquent {}
 }
@@ -502,7 +666,7 @@ namespace App\Models{
  * @property int $id
  * @property int $organization_id
  * @property int $user_id
- * @property \App\Enums\OrganizationUserRole $role
+ * @property OrganizationUserRole $role
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Organization $organization
@@ -516,6 +680,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationUser whereRole($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationUser whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|OrganizationUser whereUserId($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperOrganizationUser
  */
 	class OrganizationUser extends \Eloquent {}
 }
@@ -528,7 +694,7 @@ namespace App\Models{
  * @property int $payable_id
  * @property int $amount_cents
  * @property string $currency
- * @property \App\Enums\PaymentStatus $status
+ * @property PaymentStatus $status
  * @property string|null $gateway
  * @property string|null $gateway_transaction_id
  * @property array<array-key, mixed>|null $gateway_response
@@ -537,7 +703,7 @@ namespace App\Models{
  * @property int|null $account_id
  * @property-read \App\Models\Account|null $account
  * @property-read \App\Models\Organization $organization
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $payable
+ * @property-read Model|\Eloquent $payable
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment query()
@@ -554,6 +720,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment wherePayableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Payment whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperPayment
  */
 	class Payment extends \Eloquent {}
 }
@@ -586,6 +754,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Plan whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperPlan
  */
 	class Plan extends \Eloquent {}
 }
@@ -601,7 +771,7 @@ namespace App\Models{
  * @property array<array-key, mixed>|null $metadata
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \App\Enums\ProductStatus $status
+ * @property ProductStatus $status
  * @property string|null $category
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountProduct> $accountProducts
  * @property-read int|null $account_products_count
@@ -625,21 +795,24 @@ namespace App\Models{
  * @property-read int|null $product_plans_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UsageRecord> $usageRecords
  * @property-read int|null $usage_records_count
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product active()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product byCategory(?string $category)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product draft()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCategory($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereMetadata($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereStatus($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|Product whereUpdatedAt($value)
+ * @method static Builder<static>|Product active()
+ * @method static Builder<static>|Product byCategory(?string $category)
+ * @method static Builder<static>|Product draft()
+ * @method static Builder<static>|Product newModelQuery()
+ * @method static Builder<static>|Product newQuery()
+ * @method static Builder<static>|Product query()
+ * @method static Builder<static>|Product whereCategory($value)
+ * @method static Builder<static>|Product whereCreatedAt($value)
+ * @method static Builder<static>|Product whereDescription($value)
+ * @method static Builder<static>|Product whereId($value)
+ * @method static Builder<static>|Product whereMetadata($value)
+ * @method static Builder<static>|Product whereName($value)
+ * @method static Builder<static>|Product whereSlug($value)
+ * @method static Builder<static>|Product whereStatus($value)
+ * @method static Builder<static>|Product whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperProduct
+ * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
  */
 	class Product extends \Eloquent {}
 }
@@ -656,28 +829,30 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $label
- * @property \App\Enums\EntitlementType $type
+ * @property EntitlementType $type
  * @property bool $is_active
  * @property string|null $description
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountEntitlement> $accountEntitlements
  * @property-read int|null $account_entitlements_count
  * @property-read \App\Models\Product $product
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement active()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement byType(\App\Enums\EntitlementType $type)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereConstraints($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereFeatureKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereLabel($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductEntitlement whereValue($value)
+ * @method static Builder<static>|ProductEntitlement active()
+ * @method static Builder<static>|ProductEntitlement byType(\App\Enums\EntitlementType $type)
+ * @method static Builder<static>|ProductEntitlement newModelQuery()
+ * @method static Builder<static>|ProductEntitlement newQuery()
+ * @method static Builder<static>|ProductEntitlement query()
+ * @method static Builder<static>|ProductEntitlement whereConstraints($value)
+ * @method static Builder<static>|ProductEntitlement whereCreatedAt($value)
+ * @method static Builder<static>|ProductEntitlement whereDescription($value)
+ * @method static Builder<static>|ProductEntitlement whereFeatureKey($value)
+ * @method static Builder<static>|ProductEntitlement whereId($value)
+ * @method static Builder<static>|ProductEntitlement whereIsActive($value)
+ * @method static Builder<static>|ProductEntitlement whereLabel($value)
+ * @method static Builder<static>|ProductEntitlement whereProductId($value)
+ * @method static Builder<static>|ProductEntitlement whereType($value)
+ * @method static Builder<static>|ProductEntitlement whereUpdatedAt($value)
+ * @method static Builder<static>|ProductEntitlement whereValue($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperProductEntitlement
  */
 	class ProductEntitlement extends \Eloquent {}
 }
@@ -695,21 +870,23 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Product $product
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature enabled()
+ * @method static Builder<static>|ProductFeature enabled()
  * @method static \Database\Factories\ProductFeatureFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereFeatureKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereIsEnabled($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereLabel($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereMetadata($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductFeature whereValue($value)
+ * @method static Builder<static>|ProductFeature newModelQuery()
+ * @method static Builder<static>|ProductFeature newQuery()
+ * @method static Builder<static>|ProductFeature query()
+ * @method static Builder<static>|ProductFeature whereCreatedAt($value)
+ * @method static Builder<static>|ProductFeature whereDescription($value)
+ * @method static Builder<static>|ProductFeature whereFeatureKey($value)
+ * @method static Builder<static>|ProductFeature whereId($value)
+ * @method static Builder<static>|ProductFeature whereIsEnabled($value)
+ * @method static Builder<static>|ProductFeature whereLabel($value)
+ * @method static Builder<static>|ProductFeature whereMetadata($value)
+ * @method static Builder<static>|ProductFeature whereProductId($value)
+ * @method static Builder<static>|ProductFeature whereUpdatedAt($value)
+ * @method static Builder<static>|ProductFeature whereValue($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperProductFeature
  */
 	class ProductFeature extends \Eloquent {}
 }
@@ -726,20 +903,22 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Product $product
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit active()
+ * @method static Builder<static>|ProductLimit active()
  * @method static \Database\Factories\ProductLimitFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereLabel($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereLimitKey($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductLimit whereValue($value)
+ * @method static Builder<static>|ProductLimit newModelQuery()
+ * @method static Builder<static>|ProductLimit newQuery()
+ * @method static Builder<static>|ProductLimit query()
+ * @method static Builder<static>|ProductLimit whereCreatedAt($value)
+ * @method static Builder<static>|ProductLimit whereDescription($value)
+ * @method static Builder<static>|ProductLimit whereId($value)
+ * @method static Builder<static>|ProductLimit whereIsActive($value)
+ * @method static Builder<static>|ProductLimit whereLabel($value)
+ * @method static Builder<static>|ProductLimit whereLimitKey($value)
+ * @method static Builder<static>|ProductLimit whereProductId($value)
+ * @method static Builder<static>|ProductLimit whereUpdatedAt($value)
+ * @method static Builder<static>|ProductLimit whereValue($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperProductLimit
  */
 	class ProductLimit extends \Eloquent {}
 }
@@ -764,21 +943,26 @@ namespace App\Models{
  * @property-read \App\Models\Product $product
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AccountSubscription> $subscriptions
  * @property-read int|null $subscriptions_count
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan active()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereMetadata($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereSku($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereSortOrder($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereUpdatedAt($value)
+ * @method static Builder<static>|ProductPlan active()
+ * @method static Builder<static>|ProductPlan newModelQuery()
+ * @method static Builder<static>|ProductPlan newQuery()
+ * @method static Builder<static>|ProductPlan query()
+ * @method static Builder<static>|ProductPlan whereCreatedAt($value)
+ * @method static Builder<static>|ProductPlan whereDescription($value)
+ * @method static Builder<static>|ProductPlan whereId($value)
+ * @method static Builder<static>|ProductPlan whereIsActive($value)
+ * @method static Builder<static>|ProductPlan whereMetadata($value)
+ * @method static Builder<static>|ProductPlan whereName($value)
+ * @method static Builder<static>|ProductPlan whereProductId($value)
+ * @method static Builder<static>|ProductPlan whereSku($value)
+ * @method static Builder<static>|ProductPlan whereSlug($value)
+ * @method static Builder<static>|ProductPlan whereSortOrder($value)
+ * @method static Builder<static>|ProductPlan whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperProductPlan
+ * @property int|null $sumit_entity_id
+ * @method static \Database\Factories\ProductPlanFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPlan whereSumitEntityId($value)
  */
 	class ProductPlan extends \Eloquent {}
 }
@@ -789,25 +973,28 @@ namespace App\Models{
  * @property int $product_plan_id
  * @property string $currency
  * @property int $amount
- * @property \App\Enums\ProductPriceBillingCycle $billing_cycle
+ * @property ProductPriceBillingCycle $billing_cycle
  * @property bool $is_active
  * @property array<array-key, mixed>|null $metadata
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ProductPlan $productPlan
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice active()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice query()
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereBillingCycle($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereCurrency($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereIsActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereMetadata($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereProductPlanId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|ProductPrice whereUpdatedAt($value)
+ * @method static Builder<static>|ProductPrice active()
+ * @method static Builder<static>|ProductPrice newModelQuery()
+ * @method static Builder<static>|ProductPrice newQuery()
+ * @method static Builder<static>|ProductPrice query()
+ * @method static Builder<static>|ProductPrice whereAmount($value)
+ * @method static Builder<static>|ProductPrice whereBillingCycle($value)
+ * @method static Builder<static>|ProductPrice whereCreatedAt($value)
+ * @method static Builder<static>|ProductPrice whereCurrency($value)
+ * @method static Builder<static>|ProductPrice whereId($value)
+ * @method static Builder<static>|ProductPrice whereIsActive($value)
+ * @method static Builder<static>|ProductPrice whereMetadata($value)
+ * @method static Builder<static>|ProductPrice whereProductPlanId($value)
+ * @method static Builder<static>|ProductPrice whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperProductPrice
+ * @method static \Database\Factories\ProductPriceFactory factory($count = null, $state = [])
  */
 	class ProductPrice extends \Eloquent {}
 }
@@ -817,7 +1004,7 @@ namespace App\Models{
  * @property int $id
  * @property int $invitation_id
  * @property int|null $guest_id
- * @property \App\Enums\RsvpResponseType $response
+ * @property RsvpResponseType $response
  * @property int|null $attendees_count
  * @property string|null $message
  * @property string|null $ip
@@ -839,6 +1026,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RsvpResponse whereResponse($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RsvpResponse whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RsvpResponse whereUserAgent($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperRsvpResponse
  */
 	class RsvpResponse extends \Eloquent {}
 }
@@ -852,9 +1041,9 @@ namespace App\Models{
  * @property string|null $seat_number
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Event $event
- * @property-read \App\Models\EventTable $eventTable
- * @property-read \App\Models\Guest $guest
+ * @property-read \App\Models\Event|null $event
+ * @property-read \App\Models\EventTable|null $eventTable
+ * @property-read \App\Models\Guest|null $guest
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SeatAssignment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SeatAssignment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SeatAssignment query()
@@ -865,6 +1054,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SeatAssignment whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SeatAssignment whereSeatNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SeatAssignment whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperSeatAssignment
  */
 	class SeatAssignment extends \Eloquent {}
 }
@@ -882,7 +1073,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User|null $actor
- * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent|null $target
+ * @property-read Model|\Eloquent|null $target
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemAuditLog newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemAuditLog newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemAuditLog query()
@@ -896,6 +1087,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemAuditLog whereTargetType($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemAuditLog whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SystemAuditLog whereUserAgent($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperSystemAuditLog
  */
 	class SystemAuditLog extends \Eloquent {}
 }
@@ -923,6 +1116,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UsageRecord whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UsageRecord whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UsageRecord whereRecordedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperUsageRecord
  */
 	class UsageRecord extends \Eloquent {}
 }
@@ -954,6 +1149,8 @@ namespace App\Models{
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laragear\WebAuthn\Models\WebAuthnCredential> $webAuthnCredentials
+ * @property-read int|null $web_authn_credentials_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -974,7 +1171,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutPermission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User withoutRole($roles, ?string $guard = null)
+ * @mixin \Eloquent
+ * @mixin IdeHelperUser
  */
-	class User extends \Eloquent {}
+	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail, \Laragear\WebAuthn\Contracts\WebAuthnAuthenticatable {}
 }
 

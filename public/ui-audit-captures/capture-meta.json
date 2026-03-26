@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "capturedAt": "2026-03-23T12:17:43.678Z",
+  "baseUrl": "https://kalfa.me",
+  "outputDir": "/var/www/vhosts/kalfa.me/httpdocs/public/ui-audit-captures",
+  "devices": [
+    "desktop",
+    "mobile"
+  ],
+  "routes": [
+    {
+      "key": "dashboard",
+      "path": "/dashboard"
+    },
+    {
+      "key": "events-index",
+      "path": "/dashboard/events"
+    },
+    {
+      "key": "system-products-show",
+      "path": "/system/products/1"
+    }
+  ],
+  "meta": [
+    {
+      "device": "desktop",
+      "routeKey": "dashboard",
+      "width": 1600,
+      "height": 1200,
+      "dir": "rtl",
+      "lang": "he",
+      "title": "התחברות",
+      "url": "https://kalfa.me/login"
+    },
+    {
+      "device": "desktop",
+      "routeKey": "events-index",
+      "width": 1600,
+      "height": 1200,
+      "dir": "rtl",
+      "lang": "he",
+      "title": "התחברות",
+      "url": "https://kalfa.me/login"
+    },
+    {
+      "device": "desktop",
+      "routeKey": "system-products-show",
+      "width": 1600,
+      "height": 1200,
+      "dir": "rtl",
+      "lang": "he",
+      "title": "התחברות",
+      "url": "https://kalfa.me/login"
+    },
+    {
+      "device": "mobile",
+      "routeKey": "dashboard",
+      "width": 393,
+      "height": 660,
+      "dir": "rtl",
+      "lang": "he",
+      "title": "התחברות",
+      "url": "https://kalfa.me/login"
+    },
+    {
+      "device": "mobile",
+      "routeKey": "events-index",
+      "width": 393,
+      "height": 660,
+      "dir": "rtl",
+      "lang": "he",
+      "title": "התחברות",
+      "url": "https://kalfa.me/login"
+    },
+    {
+      "device": "mobile",
+      "routeKey": "system-products-show",
+      "width": 393,
+      "height": 660,
+      "dir": "rtl",
+      "lang": "he",
+      "title": "התחברות",
+      "url": "https://kalfa.me/login"
+    }
+  ]
+}

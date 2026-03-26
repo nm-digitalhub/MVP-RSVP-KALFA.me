@@ -28,26 +28,50 @@ final class SubscriptionService
         ?CarbonInterface $startedAt = null,
         array $metadata = [],
     ): AccountSubscription {
-        $subscription = $account->subscriptions()->create([
-            'product_plan_id' => $plan->id,
-            'status' => AccountSubscriptionStatus::Trial,
-            'started_at' => $startedAt ?? now(),
-            'trial_ends_at' => $trialEndsAt,
-            'metadata' => $metadata !== [] ? $metadata : null,
-        ]);
+        return DB::transaction(function () use ($account, $plan, $trialEndsAt, $startedAt, $metadata): AccountSubscription {
+            $existingTrial = $account->subscriptions()
+                ->where('product_plan_id', $plan->id)
+                ->where('status', AccountSubscriptionStatus::Trial->value)
+                ->where('trial_ends_at', '>', now())
+                ->first();
 
-        ProductEngineEvent::dispatch(
-            'subscription.trial_started',
-            $account,
-            $plan->product,
-            $subscription,
-            [
+            if ($existingTrial !== null) {
+                return $existingTrial;
+            }
+
+            $subscription = $account->subscriptions()->create([
                 'product_plan_id' => $plan->id,
-                'trial_ends_at' => $subscription->trial_ends_at?->toIso8601String(),
-            ],
-        );
+                'status' => AccountSubscriptionStatus::Trial,
+                'started_at' => $startedAt ?? now(),
+                'trial_ends_at' => $trialEndsAt,
+                'metadata' => $metadata !== [] ? $metadata : null,
+            ]);
 
-        return $subscription;
+            $account->grantProduct(
+                $plan->product,
+                expiresAt: $trialEndsAt,
+                metadata: [
+                    'source' => 'trial',
+                    'subscription_id' => $subscription->id,
+                    'product_plan_id' => $plan->id,
+                ],
+            );
+
+            $this->clearFeatureCache($subscription);
+
+            ProductEngineEvent::dispatch(
+                'subscription.trial_started',
+                $account,
+                $plan->product,
+                $subscription,
+                [
+                    'product_plan_id' => $plan->id,
+                    'trial_ends_at' => $subscription->trial_ends_at?->toIso8601String(),
+                ],
+            );
+
+            return $subscription;
+        });
     }
 
     /**
@@ -62,42 +86,42 @@ final class SubscriptionService
         ?CarbonInterface $startedAt = null,
         array $metadata = [],
     ): AccountSubscription {
-        // Merge billing metadata into subscription metadata
-        $metadata['billing'] = $billingMetadata;
+        return DB::transaction(function () use ($account, $plan, $billingMetadata, $grantedBy, $startedAt, $metadata): AccountSubscription {
+            $metadata['billing'] = $billingMetadata;
 
-        $subscription = $account->subscriptions()->create([
-            'product_plan_id' => $plan->id,
-            'status' => AccountSubscriptionStatus::Active,
-            'started_at' => $startedAt ?? now(),
-            'metadata' => $metadata !== [] ? $metadata : null,
-        ]);
-
-        // Grant product immediately (no need to call activate() since we already have billing metadata)
-        $subscription->account->grantProduct(
-            $plan->product,
-            $grantedBy,
-            $subscription->ends_at,
-            [
-                'source' => 'subscription',
-                'subscription_id' => $subscription->id,
-                'product_plan_id' => $subscription->product_plan_id,
-            ],
-        );
-
-        $this->clearFeatureCache($subscription);
-
-        ProductEngineEvent::dispatch(
-            'subscription.activated',
-            $subscription->account,
-            $plan->product,
-            $subscription,
-            [
+            $subscription = $account->subscriptions()->create([
                 'product_plan_id' => $plan->id,
-                'billing_provider' => $billingMetadata['provider'] ?? null,
-            ],
-        );
+                'status' => AccountSubscriptionStatus::Active,
+                'started_at' => $startedAt ?? now(),
+                'metadata' => $metadata !== [] ? $metadata : null,
+            ]);
 
-        return $subscription->fresh(['account', 'productPlan.product']);
+            $subscription->account->grantProduct(
+                $plan->product,
+                $grantedBy,
+                $subscription->ends_at,
+                [
+                    'source' => 'subscription',
+                    'subscription_id' => $subscription->id,
+                    'product_plan_id' => $subscription->product_plan_id,
+                ],
+            );
+
+            $this->clearFeatureCache($subscription);
+
+            ProductEngineEvent::dispatch(
+                'subscription.activated',
+                $subscription->account,
+                $plan->product,
+                $subscription,
+                [
+                    'product_plan_id' => $plan->id,
+                    'billing_provider' => $billingMetadata['provider'] ?? null,
+                ],
+            );
+
+            return $subscription->fresh(['account', 'productPlan.product']);
+        });
     }
 
     public function activate(AccountSubscription $subscription, ?int $grantedBy = null): AccountSubscription

@@ -1,0 +1,89 @@
+# GitIngest configuration for Laravel RSVP+Seating SaaS
+# Usage: cd /var/www/vhosts/kalfa.me/httpdocs && gitingest .
+# Or:   gitingest . -o /tmp/kalfa-digest.txt
+
+[output]
+# Where to write the digest (override with -o flag)
+# path = "/tmp/kalfa-digest.txt"
+
+[include]
+# Core Laravel application
+paths = [
+    "app/",
+    "config/",
+    "database/migrations/",
+    "database/factories/",
+    "database/seeders/",
+    "routes/",
+    "resources/views/",
+    "resources/js/",
+    "resources/css/",
+    "tests/",
+    "bootstrap/app.php",
+    "bootstrap/providers.php",
+    "packages/",
+]
+
+# Only these file types
+patterns = [
+    "*.php",
+    "*.blade.php",
+    "*.js",
+    "*.ts",
+    "*.css",
+    "*.json",
+    "*.yaml",
+    "*.yml",
+    "*.toml",
+]
+
+[exclude]
+# AI tooling (internal context, not source code)
+paths = [
+    ".claude/",
+    ".cursor/",
+    "claude-os/",
+    "claude-knowledge-base-mcp/",
+    "_bmad/",
+    "hivemind/",
+    "hivemind-install/",
+    "gemini-cli/",
+    "obsidian-hub/",
+    "obsidian-claude-pkm/",
+    "documentation/",
+    "docs/",
+    "archive/",
+    "nativephp/",
+
+    # Dependencies (reproducible from lock files)
+    "vendor/",
+    "node_modules/",
+
+    # Build output
+    "public/build/",
+    "storage/",
+
+    # Credentials
+    "credentials/",
+
+    # Personal artifacts
+    "Users/",
+    "var/",
+
+    # Voice bridge (separate Node.js project)
+    "voice-bridge/",
+]
+
+patterns = [
+    "*.lock",
+    "*.log",
+    "*.map",
+    "*.vsix",
+    "*.wav",
+    "*.mp3",
+    "_ide_helper*",
+    "package-lock.json",
+]
+
+[settings]
+max_file_size = 100000  # 100KB per file

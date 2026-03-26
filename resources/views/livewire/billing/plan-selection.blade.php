@@ -71,7 +71,8 @@
                         {{-- Trial CTA --}}
                         <button
                             wire:click="confirmTrial({{ $plan->id }})"
-                            class="w-full inline-flex items-center justify-center gap-2 rounded-2xl {{ $isPopular ? 'bg-brand text-white shadow-lg shadow-brand/25 hover:bg-brand-hover' : 'bg-surface border border-stroke text-content hover:bg-brand hover:text-white hover:border-brand' }} px-6 py-3.5 text-sm font-black transition-all active:scale-95"
+                            wire:loading.attr="disabled"
+                            class="w-full inline-flex items-center justify-center gap-2 rounded-2xl {{ $isPopular ? 'bg-brand text-white shadow-lg shadow-brand/25 hover:bg-brand-hover' : 'bg-surface border border-stroke text-content hover:bg-brand hover:text-white hover:border-brand' }} px-6 py-3.5 text-sm font-black transition-all active:scale-95 disabled:opacity-50"
                         >
                             <x-heroicon-o-play-circle class="size-4" />
                             {{ __('Start 14-day Trial') }}

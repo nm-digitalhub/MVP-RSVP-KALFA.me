@@ -22,7 +22,10 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use OfficeGuy\LaravelSumitGateway\Services\SumitProductService;
 
+#[Layout('layouts.app')]
+#[Title('Product Details')]
 final class Show extends Component
 {
     public Product $product;
@@ -133,6 +136,14 @@ final class Show extends Component
 
     public bool $priceIsActive = true;
 
+    public bool $showPlanPrices = false;
+
+    public ?int $planPricesForPlanId = null;
+
+    public bool $priceEditUnlocked = false;
+
+    public string $priceUnlockPassword = '';
+
     protected function productRules(): array
     {
         return [
@@ -234,14 +245,13 @@ final class Show extends Component
                 Rule::exists('product_plans', 'id')->where(fn ($query) => $query->where('product_id', $this->product->id)),
             ],
             'priceCurrency' => ['required', 'string', 'size:3'],
-            'priceAmount' => ['required', 'integer', 'min:0'],
+            'priceAmount' => ['required', 'numeric', 'min:0'],
             'priceBillingCycle' => [Rule::enum(ProductPriceBillingCycle::class)],
             'priceIsActive' => ['required', 'boolean'],
         ];
     }
 
-    #[Layout('layouts.app')]
-    #[Title('Product Details')]
+    
     public function mount(Product $product): void
     {
         $this->product = $product;
@@ -655,44 +665,109 @@ final class Show extends Component
         $this->planVoiceMinutesLimit = (string) data_get($limits, 'voice_minutes_limit', '');
         $this->planIncludedUnit = (string) data_get($commercial, 'included_unit', '');
         $this->planIncludedQuantity = (string) data_get($commercial, 'included_quantity', '');
-        $this->planOverageMetricKey = (string) data_get($commercial, 'overage_metric_key', '');
-        $this->planOverageUnit = (string) data_get($commercial, 'overage_unit', '');
-        $this->planOverageAmountMinor = (string) data_get($commercial, 'overage_amount_minor', '');
+        $usagePriceForPlan = $plan->prices()->where('billing_cycle', \App\Enums\ProductPriceBillingCycle::Usage)->first();
+        $this->planOverageMetricKey = (string) (data_get($usagePriceForPlan?->metadata, 'metric_key') ?? data_get($commercial, 'overage_metric_key', ''));
+        $this->planOverageUnit = (string) (data_get($usagePriceForPlan?->metadata, 'unit') ?? data_get($commercial, 'overage_unit', ''));
+        $this->planOverageAmountMinor = (string) ($usagePriceForPlan?->amount ?? data_get($commercial, 'overage_amount_minor', ''));
         $this->planTargetMarginPercent = (string) data_get($commercial, 'target_margin_percent', '');
         $this->resetErrorBag();
     }
 
-    public function savePlan(): void
-    {
-        $this->planSlug = Str::slug($this->planSlug);
-        $validated = $this->validate($this->planRules());
+public function savePlan(): void
+{
+    $this->planSlug = Str::slug($this->planSlug);
+    $validated = $this->validate($this->planRules());
 
-        if ($this->editingPlanId !== null) {
-            $this->findPlan($this->editingPlanId)->update([
-                'name' => $validated['planName'],
-                'slug' => $validated['planSlug'],
-                'sku' => $validated['planSku'],
-                'description' => $validated['planDescription'],
-                'is_active' => $validated['planIsActive'],
-                'metadata' => $this->buildPlanMetadata($validated),
-            ]);
+    if ($this->editingPlanId !== null) {
+        $plan = $this->findPlan($this->editingPlanId);
 
-            session()->flash('success', __('Plan updated.'));
-        } else {
-            $this->product->productPlans()->create([
-                'name' => $validated['planName'],
-                'slug' => $validated['planSlug'],
-                'sku' => $validated['planSku'],
-                'description' => $validated['planDescription'],
-                'is_active' => $validated['planIsActive'],
-                'metadata' => $this->buildPlanMetadata($validated),
-            ]);
-
-            session()->flash('success', __('Plan added.'));
-        }
-
-        $this->resetPlanForm();
+        $plan->update([
+            'name' => $validated['planName'],
+            'slug' => $validated['planSlug'],
+            'sku' => $validated['planSku'] ?: null,
+            'description' => $validated['planDescription'],
+            'is_active' => $validated['planIsActive'],
+            'metadata' => $this->buildPlanMetadata($validated),
+        ]);
+    } else {
+        $plan = $this->product->productPlans()->create([
+            'name' => $validated['planName'],
+            'slug' => $validated['planSlug'],
+            'sku' => $validated['planSku'] ?: null,
+            'description' => $validated['planDescription'],
+            'is_active' => $validated['planIsActive'],
+            'metadata' => $this->buildPlanMetadata($validated),
+        ]);
     }
+
+    // Sync overage fields to usage ProductPrice (source of truth)
+    $overageAmount = $validated['planOverageAmountMinor'] !== '' ? (int) $validated['planOverageAmountMinor'] : null;
+    if ($overageAmount !== null) {
+        $plan->prices()->updateOrCreate(
+            ['billing_cycle' => ProductPriceBillingCycle::Usage],
+            [
+                'amount' => $overageAmount,
+                'currency' => $plan->prices()->where('billing_cycle', ProductPriceBillingCycle::Monthly)->value('currency') ?? 'ILS',
+                'is_active' => true,
+                'metadata' => array_filter([
+                    'price_type' => 'overage',
+                    'metric_key' => $validated['planOverageMetricKey'] ?: null,
+                    'unit' => $validated['planOverageUnit'] ?: null,
+                ]),
+            ]
+        );
+    }
+
+    $sumitProperties = [
+        'Accounting_Name' => $plan->name,
+    ];
+
+    if (! empty($plan->sku)) {
+        $sumitProperties['Accounting_SKU'] = $plan->sku;
+    }
+
+    if (! empty($plan->description)) {
+        $sumitProperties['Accounting_Description'] = $plan->description;
+    }
+
+    if ($plan->sumit_entity_id) {
+        $sumitResponse = SumitProductService::updateProduct(
+            (int) $plan->sumit_entity_id,
+            $sumitProperties
+        );
+    } else {
+        $activePrice = $plan->prices()->where('is_active', true)->first();
+        $price = $activePrice ? ((float) $activePrice->amount) / 100 : 0.0;
+
+        $sumitResponse = SumitProductService::createProduct(
+            name: $plan->name,
+            sku: $plan->sku ?? '',
+            price: $price,
+            description: $plan->description
+        );
+
+        if (($sumitResponse['success'] ?? false) && isset($sumitResponse['sumit_entity_id'])) {
+            $plan->update([
+                'sumit_entity_id' => $sumitResponse['sumit_entity_id'],
+            ]);
+        }
+    }
+
+    if (! ($sumitResponse['success'] ?? false)) {
+        session()->flash('error', __('Plan saved locally, but SUMIT sync failed: :error', [
+            'error' => $sumitResponse['error'] ?? __('Unknown error'),
+        ]));
+    } else {
+        session()->flash(
+            'success',
+            $this->editingPlanId !== null
+                ? __('Plan updated.')
+                : __('Plan added.')
+        );
+    }
+
+    $this->resetPlanForm();
+}
 
     public function cancelPlanEdit(): void
     {
@@ -736,13 +811,48 @@ final class Show extends Component
     }
 
     #[On('tree:open-add-price')]
-    public function openAddPriceForm(int $planId): void
+    #[On('tree:open-add-price')]
+    public function openPlanPrices(int $planId): void
     {
         $this->findPlan($planId);
         $this->resetPriceForm();
-        $this->showPriceForm = true;
-        $this->pricePlanId = $planId;
-        $this->editingPriceId = null;
+        $this->planPricesForPlanId = $planId;
+        $this->showPlanPrices = true;
+        $this->priceEditUnlocked = false;
+        $this->priceUnlockPassword = '';
+    }
+
+    public function closePlanPrices(): void
+    {
+        $this->showPlanPrices = false;
+        $this->planPricesForPlanId = null;
+        $this->priceEditUnlocked = false;
+        $this->priceUnlockPassword = '';
+        $this->resetPriceForm();
+    }
+
+    public function unlockPriceEdit(): void
+    {
+        $this->validate(['priceUnlockPassword' => 'required|string']);
+
+        if (! \Illuminate\Support\Facades\Hash::check($this->priceUnlockPassword, auth()->user()->getAuthPassword())) {
+            $this->addError('priceUnlockPassword', __('The provided password is incorrect.'));
+
+            return;
+        }
+
+        $this->priceEditUnlocked = true;
+        $this->priceUnlockPassword = '';
+        $this->resetErrorBag('priceUnlockPassword');
+    }
+
+    public function editPlanPrice(int $priceId): void
+    {
+        if (! $this->priceEditUnlocked) {
+            return;
+        }
+
+        $this->startEditPrice($priceId);
     }
 
     public function startEditPrice(int $priceId): void
@@ -753,68 +863,108 @@ final class Show extends Component
         $this->showPriceForm = true;
         $this->pricePlanId = $price->product_plan_id;
         $this->priceCurrency = strtoupper($price->currency);
-        $this->priceAmount = (string) $price->amount;
+        $this->priceAmount = $price->amount !== null ? (string) ($price->amount / 100) : '';
         $this->priceBillingCycle = $price->billing_cycle;
         $this->priceIsActive = $price->is_active;
         $this->resetErrorBag();
     }
 
-    public function savePrice(): void
-    {
-        $this->priceCurrency = strtoupper($this->priceCurrency);
-        $validated = $this->validate($this->priceRules());
+public function savePrice(): void
+{
+    $this->priceCurrency = strtoupper($this->priceCurrency);
+    $validated = $this->validate($this->priceRules());
 
-        if ($this->editingPriceId !== null) {
-            $this->findPrice($this->editingPriceId)->update([
-                'product_plan_id' => $validated['pricePlanId'],
-                'currency' => $validated['priceCurrency'],
-                'amount' => (int) $validated['priceAmount'],
-                'billing_cycle' => $validated['priceBillingCycle'],
-                'is_active' => $validated['priceIsActive'],
-            ]);
+    $amountMinor = (int) round((float) $validated['priceAmount'] * 100);
 
-            session()->flash('success', __('Price updated.'));
-        } else {
-            ProductPrice::query()->create([
-                'product_plan_id' => $validated['pricePlanId'],
-                'currency' => $validated['priceCurrency'],
-                'amount' => (int) $validated['priceAmount'],
-                'billing_cycle' => $validated['priceBillingCycle'],
-                'is_active' => $validated['priceIsActive'],
-            ]);
+    if ($this->editingPriceId !== null) {
+        $price = $this->findPrice($this->editingPriceId);
 
-            session()->flash('success', __('Price added.'));
-        }
-
-        $this->resetPriceForm();
-    }
-
-    public function cancelPriceEdit(): void
-    {
-        $this->resetPriceForm();
-    }
-
-    public function togglePrice(int $priceId): void
-    {
-        $price = $this->findPrice($priceId);
         $price->update([
-            'is_active' => ! $price->is_active,
+            'product_plan_id' => $validated['pricePlanId'],
+            'currency' => $validated['priceCurrency'],
+            'amount' => $amountMinor,
+            'billing_cycle' => $validated['priceBillingCycle'],
+            'is_active' => $validated['priceIsActive'],
         ]);
 
-        session()->flash('success', $price->fresh()->is_active ? __('Price activated.') : __('Price deactivated.'));
+        $successMessage = __('Price updated.');
+    } else {
+        $price = ProductPrice::query()->create([
+            'product_plan_id' => $validated['pricePlanId'],
+            'currency' => $validated['priceCurrency'],
+            'amount' => $amountMinor,
+            'billing_cycle' => $validated['priceBillingCycle'],
+            'is_active' => $validated['priceIsActive'],
+        ]);
+
+        $successMessage = __('Price added.');
     }
 
-    public function deletePrice(int $priceId): void
-    {
-        $price = $this->findPrice($priceId);
-        $price->delete();
-
-        if ($this->editingPriceId === $priceId) {
-            $this->resetPriceForm();
+    // Sync usage price amount back to plan metadata (transition period)
+    if ($price->billing_cycle === ProductPriceBillingCycle::Usage) {
+        $ownerPlan = $this->product->productPlans()->find($validated['pricePlanId']);
+        if ($ownerPlan) {
+            $metadata = (array) $ownerPlan->metadata;
+            data_set($metadata, 'commercial.overage_amount_minor', $amountMinor);
+            $ownerPlan->update(['metadata' => $metadata]);
         }
-
-        session()->flash('success', __('Price removed.'));
     }
+
+    $plan = $this->product->productPlans()
+        ->with(['prices' => fn ($query) => $query->where('is_active', true)->orderBy('amount')])
+        ->find($validated['pricePlanId']);
+
+    if ($plan && $plan->sumit_entity_id) {
+        $activePrice = $plan->prices->first();
+
+        $sumitResponse = SumitProductService::updateProduct(
+            (int) $plan->sumit_entity_id,
+            [
+                'Accounting_Price' => $activePrice ? ((float) $activePrice->amount) / 100 : 0,
+            ]
+        );
+
+        if (! ($sumitResponse['success'] ?? false)) {
+            session()->flash('error', __('Price saved locally, but SUMIT sync failed: :error', [
+                'error' => $sumitResponse['error'] ?? __('Unknown error'),
+            ]));
+
+            $this->resetPriceForm();
+
+            return;
+        }
+    }
+
+    session()->flash('success', $successMessage);
+    $this->resetPriceForm();
+}
+
+public function cancelPriceEdit(): void
+{
+    $this->resetPriceForm();
+}
+
+public function togglePrice(int $priceId): void
+{
+    $price = $this->findPrice($priceId);
+    $price->update([
+        'is_active' => ! $price->is_active,
+    ]);
+
+    session()->flash('success', $price->fresh()->is_active ? __('Price activated.') : __('Price deactivated.'));
+}
+
+public function deletePrice(int $priceId): void
+{
+    $price = $this->findPrice($priceId);
+    $price->delete();
+
+    if ($this->editingPriceId === $priceId) {
+        $this->resetPriceForm();
+    }
+
+    session()->flash('success', __('Price removed.'));
+}
 
     protected function getFilterButtonClasses(EntitlementType $type, bool $isSelected): array
     {
@@ -878,7 +1028,15 @@ final class Show extends Component
         $pricingBasis = (array) data_get($this->product->metadata, 'commercial_model.pricing_basis', []);
         $pricingSources = (array) data_get($this->product->metadata, 'commercial_model.sources', []);
 
+        $planPricesForPlan = null;
+        if ($this->showPlanPrices && $this->planPricesForPlanId) {
+            $planPricesForPlan = $this->product->productPlans()
+                ->with(['prices' => fn ($q) => $q->orderByRaw("CASE billing_cycle WHEN 'monthly' THEN 0 WHEN 'yearly' THEN 1 WHEN 'usage' THEN 2 ELSE 3 END")->orderByDesc('amount')])
+                ->find($this->planPricesForPlanId);
+        }
+
         return view('livewire.system.products.show', [
+            'planPricesForPlan' => $planPricesForPlan,
             'entitlements' => $entitlementsQuery->orderBy('feature_key')->get(),
             'filterButtonClasses' => $filterButtonClasses,
             'limits' => $this->product->limits,
@@ -965,12 +1123,14 @@ final class Show extends Component
             'editingPriceId',
             'pricePlanId',
             'priceAmount',
+            'priceUnlockPassword',
         ]);
 
         $this->showPriceForm = false;
         $this->priceCurrency = 'USD';
         $this->priceBillingCycle = ProductPriceBillingCycle::Monthly;
         $this->priceIsActive = true;
+        $this->priceEditUnlocked = false;
         $this->resetErrorBag();
     }
 

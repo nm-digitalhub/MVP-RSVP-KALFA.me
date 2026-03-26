@@ -1,19 +1,19 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     <x-slot:title>{{ __('Tables') }} — {{ $event->name }}</x-slot:title>
-    <x-slot:containerWidth>max-w-3xl</x-slot:containerWidth>
-    <x-slot:header>
-        <x-page-header
-            :title="__('Tables')"
-            :subtitle="$event->name"
-        />
-        @if($event->eventTables->isNotEmpty())
-            <p class="mt-1 text-sm text-gray-500">
-                <a href="{{ route('dashboard.events.seat-assignments.index', $event) }}" class="font-medium text-brand hover:text-indigo-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 rounded">
-                    {{ __('Assign guests to tables') }}
-                </a>
-            </p>
-        @endif
-    </x-slot:header>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <x-page-header
+        :title="__('Tables')"
+        :subtitle="$event->name"
+    />
+    @if($event->eventTables->isNotEmpty())
+        <p class="mt-1 text-sm text-content-muted">
+            <a href="{{ route('dashboard.events.seat-assignments.index', $event) }}" class="interactive font-medium text-brand hover:text-brand-hover focus-ring rounded">
+                {{ __('Assign guests to tables') }}
+            </a>
+        </p>
+    @endif
 
     <livewire:dashboard.event-tables :event="$event" />
-</x-layouts.app>
+</div>
+</x-layouts.enterprise-app>
