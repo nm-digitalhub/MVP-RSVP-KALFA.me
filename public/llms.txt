@@ -1,0 +1,94 @@
+# Kalfa RSVP + Seating SaaS
+
+> Multi-tenant event management platform with guest invitations, seating assignments, and payment processing.
+
+## Overview
+
+Kalfa is an RSVP and seating management SaaS built for event organizers in Israel. It provides multi-tenant organizations, event creation, guest management, table/seating layouts, invitation workflows (SMS, WhatsApp, voice calls), and payment processing via SUMIT gateway.
+
+- **Primary language**: Hebrew (RTL)
+- **Stack**: Laravel 12, Livewire 4, Tailwind CSS v4, PostgreSQL
+- **Auth**: Laravel Sanctum (API tokens), WebAuthn (passkeys)
+- **Payments**: SUMIT gateway (OfficeGuy) — redirect and token flows
+
+## API
+
+Base URL: `https://kalfa.me/api`
+
+Authentication: Bearer token via Laravel Sanctum.
+All tenant endpoints require `Authorization: Bearer {token}` header.
+Resources are scoped by organization.
+
+### Public Endpoints (no auth)
+
+- `GET /api/rsvp/{slug}` — Get event RSVP page by invitation slug
+- `POST /api/rsvp/{slug}/responses` — Submit RSVP response (attending/declining/maybe)
+
+### Authenticated Endpoints
+
+#### Organizations
+- `GET /api/organizations/{organization}` — Get organization details
+- `PATCH /api/organizations/{organization}` — Update organization
+
+#### Events
+- `GET /api/organizations/{organization}/events` — List events
+- `POST /api/organizations/{organization}/events` — Create event
+- `GET /api/organizations/{organization}/events/{event}` — Get event
+- `PATCH /api/organizations/{organization}/events/{event}` — Update event
+- `DELETE /api/organizations/{organization}/events/{event}` — Delete event
+
+#### Guests
+- `GET /api/organizations/{organization}/events/{event}/guests` — List guests
+- `POST /api/organizations/{organization}/events/{event}/guests` — Add guest
+- `POST /api/organizations/{organization}/events/{event}/guests/import` — Bulk import guests
+- `GET /api/organizations/{organization}/events/{event}/guests/{guest}` — Get guest
+- `PUT /api/organizations/{organization}/events/{event}/guests/{guest}` — Update guest
+- `DELETE /api/organizations/{organization}/events/{event}/guests/{guest}` — Delete guest
+
+#### Tables & Seating
+- `GET /api/organizations/{organization}/events/{event}/event-tables` — List tables
+- `POST /api/organizations/{organization}/events/{event}/event-tables` — Create table
+- `PUT /api/organizations/{organization}/events/{event}/event-tables/{eventTable}` — Update table
+- `DELETE /api/organizations/{organization}/events/{event}/event-tables/{eventTable}` — Delete table
+- `GET /api/organizations/{organization}/events/{event}/seat-assignments` — Get seat map
+- `PUT /api/organizations/{organization}/events/{event}/seat-assignments` — Update seat assignments
+
+#### Invitations
+- `GET /api/organizations/{organization}/events/{event}/invitations` — List invitations
+- `POST /api/organizations/{organization}/events/{event}/invitations` — Create invitation
+- `POST /api/organizations/{organization}/events/{event}/invitations/{invitation}/send` — Send invitation
+
+#### Payments & Checkout
+- `POST /api/organizations/{organization}/events/{event}/checkout` — Initiate payment
+- `GET /api/payments/{payment}` — Check payment status
+- `POST /api/billing/checkout` — Billing checkout
+- `POST /api/billing/coupon/validate` — Validate coupon code
+
+### Webhooks
+- `POST /api/webhooks/{gateway}` — Payment gateway webhook (HMAC-verified)
+
+## RSVP Response Types
+
+- `attending` — Guest will attend
+- `declining` — Guest will not attend
+- `maybe` — Guest is undecided
+
+## Event Statuses
+
+- `draft` — Event created, not yet paid
+- `pending_payment` — Checkout initiated, awaiting payment
+- `active` — Payment confirmed, event is live
+- `cancelled` — Event cancelled
+- `completed` — Event has concluded
+
+## Rate Limits
+
+- RSVP show: throttled per slug
+- RSVP submit: throttled per slug
+- Mobile auth login: throttled
+- Webhooks: throttled
+
+## Contact
+
+- Website: https://kalfa.me
+- Support: Available through the platform

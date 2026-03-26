@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Pulse\Recorders;
 
-use Illuminate\Contracts\Config\Repository;
-use Laravel\Pulse\Recorders\Recorder;
-use Laravel\Pulse\Redis;
+use Carbon\CarbonImmutable;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Foundation\Application;
+use Laravel\Pulse\Concerns\ConfiguresAfterResolving;
+use Laravel\Pulse\Pulse;
 
 /**
  * Recorder for RSVP-related operations.
@@ -16,8 +18,10 @@ use Laravel\Pulse\Redis;
  * - Invitation sends
  * - Seating assignments
  */
-final class RsvpOperations extends Recorder
+final class RsvpOperations
 {
+    use ConfiguresAfterResolving;
+
     /**
      * The events to listen for.
      *
@@ -33,10 +37,21 @@ final class RsvpOperations extends Recorder
      * Create a new recorder instance.
      */
     public function __construct(
-        protected Repository $config,
-        protected Redis $redis,
+        protected Pulse $pulse,
     ) {
-        parent::__construct($config, $redis);
+        //
+    }
+
+    /**
+     * Register the recorder.
+     */
+    public function register(callable $record, Application $app): void
+    {
+        $this->afterResolving($app, Dispatcher::class, function (Dispatcher $events) use ($record) {
+            foreach ($this->listen as $event) {
+                $events->listen($event, fn (...$data) => $record($event, ...$data));
+            }
+        });
     }
 
     /**
@@ -44,10 +59,12 @@ final class RsvpOperations extends Recorder
      */
     public function record(string $event, array $data): void
     {
+        $timestamp = CarbonImmutable::now()->getTimestamp();
+
         match ($event) {
-            'rsvp.response.created' => $this->recordRsvpResponse($data),
-            'invitation.sent' => $this->recordInvitationSent($data),
-            'seating.assigned' => $this->recordSeatingAssignment($data),
+            'rsvp.response.created' => $this->recordRsvpResponse($timestamp, $data),
+            'invitation.sent' => $this->recordInvitationSent($timestamp, $data),
+            'seating.assigned' => $this->recordSeatingAssignment($timestamp, $data),
             default => null,
         };
     }
@@ -55,43 +72,91 @@ final class RsvpOperations extends Recorder
     /**
      * Record RSVP response.
      */
-    private function recordRsvpResponse(array $data): void
+    private function recordRsvpResponse(int $timestamp, array $data): void
     {
-        $this->redis->pipeline(function ($redis) use ($data) {
-            $key = 'rsvp_operations:'.now()->format('Y-m-d-H');
-            $bucket = now()->format('Y-m-d-H:i');
+        $responseType = $data['response_type'] ?? 'unknown';
+        $eventId = $data['event_id'] ?? 'unknown';
 
-            $redis->hincrby($key, $bucket.':'.$data['response_type'], 1);
-            $redis->hincrby($key, $bucket.':total', 1);
-            $redis->expire($key, $this->config->get('pulse.ingest.trim.keep', 7 * 24 * 60 * 60));
-        });
+        // Record response type count
+        $this->pulse->record(
+            type: 'rsvp_response',
+            key: 'response:'.$responseType,
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
+
+        // Record per-event RSVP count
+        $this->pulse->record(
+            type: 'rsvp_response_by_event',
+            key: 'event:'.$eventId.':'.$responseType,
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
     }
 
     /**
      * Record invitation sent.
      */
-    private function recordInvitationSent(array $data): void
+    private function recordInvitationSent(int $timestamp, array $data): void
     {
-        $this->redis->pipeline(function ($redis) use ($data) {
-            $key = 'invitation_operations:'.now()->format('Y-m-d-H');
+        $organizationId = $data['organization_id'] ?? 'unknown';
+        $eventId = $data['event_id'] ?? 'unknown';
 
-            $redis->hincrby($key, now()->format('Y-m-d-H:i').':sent', 1);
-            $redis->hincrby($key, now()->format('Y-m-d-H:i').':org:'.$data['organization_id'], 1);
-            $redis->expire($key, $this->config->get('pulse.ingest.trim.keep', 7 * 24 * 60 * 60));
-        });
+        // Record total invitations sent
+        $this->pulse->record(
+            type: 'invitation_sent',
+            key: 'total',
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
+
+        // Record per-organization invitations
+        $this->pulse->record(
+            type: 'invitation_sent_by_org',
+            key: 'org:'.$organizationId,
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
+
+        // Record per-event invitations
+        $this->pulse->record(
+            type: 'invitation_sent_by_event',
+            key: 'event:'.$eventId,
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
     }
 
     /**
      * Record seating assignment.
      */
-    private function recordSeatingAssignment(array $data): void
+    private function recordSeatingAssignment(int $timestamp, array $data): void
     {
-        $this->redis->pipeline(function ($redis) use ($data) {
-            $key = 'seating_operations:'.now()->format('Y-m-d-H');
+        $eventId = $data['event_id'] ?? 'unknown';
+        $tableId = $data['table_id'] ?? 'unknown';
 
-            $redis->hincrby($key, now()->format('Y-m-d-H:i').':assigned', 1);
-            $redis->hincrby($key, now()->format('Y-m-d-H:i').':event:'.$data['event_id'], 1);
-            $redis->expire($key, $this->config->get('pulse.ingest.trim.keep', 7 * 24 * 60 * 60));
-        });
+        // Record total seat assignments
+        $this->pulse->record(
+            type: 'seating_assignment',
+            key: 'total',
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
+
+        // Record per-event seat assignments
+        $this->pulse->record(
+            type: 'seating_assignment_by_event',
+            key: 'event:'.$eventId,
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
+
+        // Record per-table assignments
+        $this->pulse->record(
+            type: 'seating_assignment_by_table',
+            key: 'event:'.$eventId.':table:'.$tableId,
+            value: 1,
+            timestamp: $timestamp,
+        )->count()->onlyBuckets();
     }
 }

@@ -3,7 +3,6 @@
 use App\Http\Controllers\BillingSubscriptionCheckoutController;
 use App\Http\Controllers\CheckoutStatusController;
 use App\Http\Controllers\CheckoutTokenizeController;
-use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\EventController;
 use App\Http\Controllers\Dashboard\EventGuestsController;
 use App\Http\Controllers\Dashboard\EventInvitationsController;
@@ -22,8 +21,11 @@ use App\Http\Controllers\Twilio\RsvpVoiceController;
 use App\Http\Controllers\TwilioController;
 use App\Http\Controllers\WebAuthn\WebAuthnLoginController;
 use App\Http\Controllers\WebAuthn\WebAuthnRegisterController;
+use App\Http\Controllers\WellKnown\UniversalLinksController;
+use App\Http\Middleware\VerifyCsrfToken;
 use App\Livewire\AcceptInvitation;
 use App\Livewire\Billing\PlanSelection;
+use App\Livewire\Dashboard\EventList;
 use App\Livewire\Dashboard\OrganizationMembers;
 use App\Livewire\System\Accounts\CreateAccountWizard;
 use App\Livewire\System\Dashboard;
@@ -31,7 +33,6 @@ use App\Livewire\System\Organizations\Show;
 use App\Livewire\System\Products\CreateProductWizard;
 use App\Livewire\System\Settings\Index;
 use App\Livewire\System\TrialReminders;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -88,6 +89,17 @@ Route::match(['get', 'post'], '/mvp-rsvp/webhook/callcomes', [TwilioController::
 | Auth, Dashboard, Organizations, Events, Public Event, RSVP, Checkout.
 */
 
+/*
+|--------------------------------------------------------------------------
+| Universal Links / App Links (NativePHP associated domains)
+|--------------------------------------------------------------------------
+| https://nativephp.com/docs/mobile/3/concepts/deep-links
+*/
+Route::get('.well-known/apple-app-site-association', [UniversalLinksController::class, 'appleAppSiteAssociation'])
+    ->name('well-known.apple-app-site-association');
+Route::get('.well-known/assetlinks.json', [UniversalLinksController::class, 'assetLinks'])
+    ->name('well-known.assetlinks');
+
 // Home: redirect to dashboard if authenticated, else login
 Route::get('/', function () {
     return Auth::check() ? redirect()->route('dashboard') : redirect()->route('login');
@@ -135,7 +147,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Protected routes require active billing (product, subscription, or trial)
         Route::middleware('ensure.account_active')->group(function () {
             Route::livewire('team', OrganizationMembers::class)->name('dashboard.team');
-            Route::get('dashboard/events', [DashboardController::class, 'index'])->name('dashboard.events.index');
+            Route::livewire('dashboard/events', EventList::class)->name('dashboard.events.index');
             Route::get('dashboard/events/create', [EventController::class, 'create'])->name('dashboard.events.create');
             Route::post('dashboard/events', [EventController::class, 'store'])->name('dashboard.events.store');
             Route::get('dashboard/events/{event}', [EventController::class, 'show'])

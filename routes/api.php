@@ -17,7 +17,7 @@ use App\Http\Controllers\Api\SeatAssignmentController;
 use App\Http\Controllers\Api\WebhookController;
 use App\Http\Controllers\Twilio\CallingController;
 use App\Http\Controllers\Twilio\RsvpVoiceController;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Support\Facades\Route;
 
 /*

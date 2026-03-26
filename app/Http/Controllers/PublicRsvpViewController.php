@@ -61,6 +61,7 @@ class PublicRsvpViewController extends Controller
                 array_merge($validated, [
                     'ip' => $request->ip(),
                     'user_agent' => $request->userAgent(),
+                    'response_method' => 'web',
                 ])
             );
             $invitation->update([

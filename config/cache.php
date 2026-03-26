@@ -19,6 +19,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Tagged Cache Store
+    |--------------------------------------------------------------------------
+    |
+    | TaggedCache (tenant / entity invalidation) uses a store that supports
+    | cache tags. Default is Redis in production; use "array" in PHPUnit or
+    | when Redis is unavailable (see CACHE_TAGGED_STORE).
+    |
+    */
+
+    'tagged_store' => env('CACHE_TAGGED_STORE', 'redis'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Cache Stores
     |--------------------------------------------------------------------------
     |
@@ -113,5 +126,18 @@ return [
     */
 
     'prefix' => env('CACHE_PREFIX', Str::slug((string) env('APP_NAME', 'laravel')).'-cache-'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Serializable Cache Classes
+    |--------------------------------------------------------------------------
+    |
+    | Laravel 13+ restricts which PHP classes may be unserialized from cache.
+    | This application stores scalars and arrays only; keep false unless you
+    | explicitly allowlist DTOs or other safe cached object types.
+    |
+    */
+
+    'serializable_classes' => false,
 
 ];

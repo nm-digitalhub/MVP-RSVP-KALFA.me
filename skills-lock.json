@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "skills": {
+    "api-design-patterns": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "3f15c74774287c26486439158e2f7454907b6751fbd2e7842f034555e47df796"
+    },
+    "autofix": {
+      "source": "coderabbitai/skills",
+      "sourceType": "github",
+      "computedHash": "2962bde0a90a52a211f7f752013b0e66997539841da2361e8ca8d14fc8fc20fd"
+    },
+    "clean-code-principles": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "4c22dca6110d58f1454523dc3f192ef20d91f538233da9132b407edd041a4762"
+    },
+    "code-review": {
+      "source": "coderabbitai/skills",
+      "sourceType": "github",
+      "computedHash": "7f793b91a34e2222e54572de0f8c52abdda222d4e06c1cd4ae959117c1c976e2"
+    },
+    "git-workflow": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "e6a28779208771a57940a14e1f9e463ab65c1f8e660fcc52d05b9ec05de3fab1"
+    },
+    "laravel-ai-sdk": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "6e7fb4360bcbe6eea2a634d7b96a46b41887f60eca806f54b7400f3efa508ce0"
+    },
+    "laravel-best-practices": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "6eb357774a2416b3e632cf4f7dec1ff9558af2d70c4b8ade802f5a65ce118fb5"
+    },
+    "laravel-database-optimization": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "e81daff09b14fcf8bb1e5dfa800ff6156f7040cd820664966cac748c2cefb46e"
+    },
+    "laravel-owasp-security": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "35f74b7fb37c9b0cb1a274e7e25f7425e793dacd73620c3507c7e9462e4c9c9d"
+    },
+    "laravel-testing": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "9627c977341aa7a9a11e5f500838409c1e39e1ca0714c6a6038fba4d3a5203c9"
+    },
+    "php-best-practices": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "1b25a60572ddd8b206eaf68b067cde70a9d002df572de8fefda703532cecfdad"
+    },
+    "seo-best-practices": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "b54b53580eaf2faf1fe3cc1ccbdd8174b954ae640623e22c01b041f6e5141b4b"
+    },
+    "state-management": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "0bad07f74366ae633503a6f256eae7d7335c5ba9277110b4d788263d56a7a07a"
+    },
+    "tailwind-best-practices": {
+      "source": "AsyrafHussin/agent-skills",
+      "sourceType": "github",
+      "computedHash": "39145b4b9d12b154d9ff9261805d225557a1dcb5c881b1da8dcc027004aefd44"
+    }
+  }
+}

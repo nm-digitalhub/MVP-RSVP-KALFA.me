@@ -1,18 +1,18 @@
-<x-layouts.app>
+<x-layouts.enterprise-app>
     @can('manage-users')
     <x-slot:title>{{ __('System Users') }}</x-slot:title>
-    <x-slot:containerWidth>max-w-7xl</x-slot:containerWidth>
-    <x-slot:header>
-        <x-page-header
-            :title="__('System Users')"
-            :subtitle="__('Manage all users')"
-        />
-    </x-slot:header>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+    <x-page-header
+        :title="__('System Users')"
+        :subtitle="__('Manage all users')"
+    />
 
     @livewire('system.users.index')
-    @else
-        <div class="p-8 text-center">
-            <p class="text-red-500 font-bold">{{ __('Unauthorized access.') }}</p>
-        </div>
-    @endcan
-</x-layouts.app>
+</div>
+@else
+<div class="p-8 text-center">
+    <p class="text-red-500 font-bold">{{ __('Unauthorized access.') }}</p>
+</div>
+@endcan
+</x-layouts.enterprise-app>

@@ -61,37 +61,51 @@ Add to `.env`:
 
 ```env
 # ============================================
-# NativePHP Mobile Configuration
+# NativePHP Mobile — ערכים כפי שמוגדרים בפרויקט (.env / .env.production)
 # ============================================
 
-# App Identification (Required)
+# App Identification
 NATIVEPHP_APP_ID=me.kalfa.eventrsvp
 NATIVEPHP_APP_VERSION=1.0.0
 NATIVEPHP_APP_VERSION_CODE=1
 
-# Deep Linking (Required)
+# Deep Linking
 NATIVEPHP_DEEPLINK_SCHEME=kalfa
 NATIVEPHP_DEEPLINK_HOST=kalfa.me
 
-# Entry Point (Required)
+# Universal Links / App Links (Laravel — /.well-known/apple-app-site-association + assetlinks.json)
+NATIVEPHP_AASA_WEBCREDENTIALS=true
+NATIVEPHP_ANDROID_PACKAGE_NAME=me.kalfa.eventrsvp
+# Comma-separated SHA-256 fingerprints from Play App Signing (or upload key). Leave empty until you have them.
+NATIVEPHP_ANDROID_ASSETLINKS_SHA256=
+
+# Entry Point
 NATIVEPHP_START_URL=/mobile
 
-# iOS Specific (Required for iOS builds)
-NATIVEPHP_DEVELOPMENT_TEAM=ABC1234567  # Apple Developer Team ID
+# Apple Developer Team ID (Membership details)
+NATIVEPHP_DEVELOPMENT_TEAM=3P6C82QTRL
 
-# API Configuration
+# NativePHP native:package ios — אותו ערך כמו למעלה (הרחבת Dotenv)
+IOS_TEAM_ID=${NATIVEPHP_DEVELOPMENT_TEAM}
+
+# Mobile API (config/mobile.php + Vite)
 VITE_MOBILE_API_BASE_URL=https://kalfa.me
 
-# iOS Credentials (for packaging)
+# iOS signing — https://nativephp.com/docs/mobile/3/getting-started/deployment#ios-packaging
 IOS_DISTRIBUTION_CERTIFICATE_PATH=credentials/distribution.p12
-IOS_DISTRIBUTION_CERTIFICATE_PASSWORD="your-password"
+IOS_DISTRIBUTION_CERTIFICATE_PASSWORD=
 IOS_DISTRIBUTION_PROVISIONING_PROFILE_PATH=credentials/profile.mobileprovision
 
-# App Store Connect (for automated upload)
+# App Store Connect API (קובץ .p8 בתיקיית credentials/)
 APP_STORE_API_KEY_PATH=credentials/AuthKey_6X5674BGPC.p8
 APP_STORE_API_KEY_ID=6X5674BGPC
 APP_STORE_API_ISSUER_ID=f6b7bf87-b2fb-4b05-812b-30efbdb54a3c
+APP_STORE_APP_NAME=
+
+# PHPUnit: .env.testing — אותם שמות משתנים, ערכים ריקים לחתימה/חנות.
 ```
+
+Keep **`.env`**, **`.env.production`**, **`.env.testing`**, and the tracked template **`.env.example`** aligned on these keys. Tracked files in git were not altered for secrets (`.env*` are gitignored); only templates and docs were updated. Never commit real passwords or `.p8` contents; keep files under `credentials/` gitignored.
 
 ### Variable Explanations
 
@@ -100,7 +114,21 @@ APP_STORE_API_ISSUER_ID=f6b7bf87-b2fb-4b05-812b-30efbdb54a3c
 | `NATIVEPHP_APP_ID` | Unique app identifier | Reverse domain (e.g., `com.company.app`) |
 | `NATIVEPHP_APP_VERSION` | Human-readable version | Semantic versioning (e.g., `1.0.0`) |
 | `NATIVEPHP_APP_VERSION_CODE` | Internal version number | Integer (increments each release) |
-| `NATIVEPHP_DEVELOPMENT_TEAM` | Apple Developer Team ID | 10-character alphanumeric string |
+| `NATIVEPHP_DEVELOPMENT_TEAM` | Apple Developer Team ID (Laravel / Xcode project) | 10-character alphanumeric string |
+| `IOS_TEAM_ID` | Same Team ID for `native:package ios` CLI | Match `NATIVEPHP_DEVELOPMENT_TEAM` |
+| `IOS_DISTRIBUTION_CERTIFICATE_PASSWORD` | Password for the `.p12` distribution cert | Set locally per NativePHP env-based packaging |
+| `APP_STORE_APP_NAME` | Optional label for App Store Connect uploads | Short app name string |
+| `VITE_MOBILE_API_BASE_URL` | Mobile shell API origin | HTTPS origin, no trailing slash |
+| `NATIVEPHP_AASA_WEBCREDENTIALS` | Include `webcredentials` in AASA (passkeys on same host) | `true` / `false` |
+| `NATIVEPHP_ANDROID_PACKAGE_NAME` | Android package for `assetlinks.json` | Usually same as `NATIVEPHP_APP_ID` |
+| `NATIVEPHP_ANDROID_ASSETLINKS_SHA256` | App Links verification | Comma-separated SHA-256 cert fingerprints |
+
+After deploy, verify over HTTPS (no redirects to login):
+
+```bash
+curl -fsS "https://kalfa.me/.well-known/apple-app-site-association" | jq .
+curl -fsS "https://kalfa.me/.well-known/assetlinks.json" | jq .
+```
 
 ---
 
@@ -447,8 +475,12 @@ Host at: `https://kalfa.me/support` or `mailto:support@kalfa.me`
 - **Verify:** Laravel API is accessible from device
 
 **Issue: "Deep links not opening app"**
-- **Solution:** Verify `apple-app-site-association` file on server
-- **Android:** Check `assetlinks.json` is hosted correctly
+- **Solution:** Over HTTPS on `NATIVEPHP_DEEPLINK_HOST`, these routes must return 200 with valid JSON (no login redirect):
+  - `https://kalfa.me/.well-known/apple-app-site-association` (iOS Universal Links)
+  - `https://kalfa.me/.well-known/assetlinks.json` (Android App Links)
+- **iOS:** Requires `NATIVEPHP_APP_ID` (bundle) and `NATIVEPHP_DEVELOPMENT_TEAM` (10-character Team ID).
+- **Android:** Set `NATIVEPHP_ANDROID_ASSETLINKS_SHA256` to comma-separated SHA-256 fingerprints; optionally override package with `NATIVEPHP_ANDROID_PACKAGE_NAME`.
+- **www vs apex:** If users hit `www.kalfa.me`, host the same files there or redirect consistently (Apple/Google fetch the exact host in the link).
 
 ### Device-Specific Issues
 

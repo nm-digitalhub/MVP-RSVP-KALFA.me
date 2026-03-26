@@ -47,6 +47,13 @@ class InvitationController extends Controller
             'status' => InvitationStatus::Pending,
         ]);
 
+        // Dispatch Pulse tracking event
+        \Illuminate\Support\Facades\Event::dispatch('invitation.created', [
+            'invitation_id' => $invitation->id,
+            'event_id' => $event->id,
+            'organization_id' => $event->organization_id,
+        ]);
+
         return response()->json($invitation, 201);
     }
 

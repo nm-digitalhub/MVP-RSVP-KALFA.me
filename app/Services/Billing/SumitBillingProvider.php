@@ -108,6 +108,7 @@ final class SumitBillingProvider implements BillingProvider
                 'product_id' => $price->productPlan->product_id,
                 'product_plan_id' => $price->product_plan_id,
                 'product_price_id' => $price->id,
+                'product_plan_sku' => $price->productPlan->sku,
             ],
         );
 

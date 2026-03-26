@@ -35,6 +35,10 @@ final class ReadWriteConnection
      */
     public function read(): Connection
     {
+        if (app()->runningUnitTests()) {
+            return $this->db->connection((string) config('database.default'));
+        }
+
         $connectionName = $this->health->getReadConnection();
 
         return $this->db->connection($connectionName);
@@ -48,6 +52,10 @@ final class ReadWriteConnection
      */
     public function write(): Connection
     {
+        if (app()->runningUnitTests()) {
+            return $this->db->connection((string) config('database.default'));
+        }
+
         return $this->db->connection(self::WRITE_CONNECTION);
     }
 
@@ -159,7 +167,9 @@ final class ReadWriteConnection
      */
     public function model(string $model): Builder
     {
-        $connectionName = $this->health->getReadConnection();
+        $connectionName = app()->runningUnitTests()
+            ? (string) config('database.default')
+            : $this->health->getReadConnection();
 
         /** @var Builder<TModel> */
         return $model::on($connectionName);

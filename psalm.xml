@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="4"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    cacheDirectory="storage/cache/psalm"
+    errorBaseline="psalm-baseline.xml"
+    findUnusedBaselineEntry="true"
+    findUnusedCode="true"
+    findUnusedIssueHandlerSuppression="true"
+    findUnusedPsalmSuppress="true"
+    inferPropertyTypesFromConstructor="true"
+    ensureOverrideAttribute="true"
+    memoizeMethodCallResults="true"
+    restrictReturnTypes="true"
+    reportMixedIssues="false"
+    hideExternalErrors="true"
+>
+    <projectFiles>
+        <directory name="app" />
+
+        <ignoreFiles>
+            <directory name="vendor" />
+            <directory name="node_modules" />
+            <directory name="storage" />
+            <directory name="bootstrap/cache" />
+            <directory name="public/build" />
+            <directory name="archive" />
+            <directory name="documentation" />
+            <directory name="obsidian-hub" />
+        </ignoreFiles>
+
+        <ignoreFiles allowMissingFiles="true">
+            <directory name="tests" />
+            <directory name="resources" />
+            <directory name="routes" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <extraFiles>
+        <directory name="database/migrations" />
+        <file name="app/Support/helpers.php" />
+
+        <ignoreFiles allowMissingFiles="true">
+            <directory name="database/factories" />
+            <directory name="database/seeders" />
+        </ignoreFiles>
+    </extraFiles>
+
+    <plugins>
+        <pluginClass class="Psalm\LaravelPlugin\Plugin" />
+    </plugins>
+</psalm>

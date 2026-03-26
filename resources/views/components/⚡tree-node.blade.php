@@ -219,6 +219,14 @@ new class extends Component
             </div>
 
             <div class="hidden items-center rounded-xl border border-slate-200/90 bg-slate-50/90 p-1 shadow-xs md:flex md:opacity-0 md:transition-all md:group-hover:opacity-100 md:group-focus-within:opacity-100">
+                @if ($type === 'plan')
+                    <button type="button" wire:click="$dispatch('tree:open-add-price', { planId: {{ $nodeId }} })" class="inline-flex min-h-8 min-w-8 cursor-pointer items-center justify-center rounded-lg text-brand transition hover:bg-white hover:text-brand">
+                        <x-heroicon-o-currency-dollar class="size-4" />
+                    </button>
+
+                    <span class="h-5 w-px bg-slate-200"></span>
+                @endif
+
                 <button type="button" wire:click="requestEdit" class="inline-flex min-h-8 min-w-8 cursor-pointer items-center justify-center rounded-lg text-slate-400 transition hover:bg-white hover:text-slate-700">
                     <x-heroicon-o-pencil class="size-4" />
                 </button>
@@ -241,23 +249,28 @@ new class extends Component
                     <x-heroicon-o-ellipsis-horizontal class="size-4.5" />
                 </summary>
 
-                <div class="pt-3">
-                    <div class="grid grid-cols-3 gap-2">
-                        <button type="button" wire:click="requestEdit" class="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-md border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-700">
-                            <x-heroicon-o-pencil class="size-4" />
-                            <span>{{ __('Edit') }}</span>
+                <div class="mt-2 flex flex-col gap-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm">
+                    @if ($type === 'plan')
+                        <button type="button" wire:click="$dispatch('tree:open-add-price', { planId: {{ $nodeId }} })" class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-brand transition hover:bg-brand/5">
+                            <span>{{ __('Price') }}</span>
+                            <x-heroicon-o-currency-dollar class="size-4" />
                         </button>
+                    @endif
 
-                        <button type="button" wire:click="requestToggle" class="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-md border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-700">
-                            <x-heroicon-o-power class="size-4" />
-                            <span>{{ __('Toggle') }}</span>
-                        </button>
+                    <button type="button" wire:click="requestEdit" class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50">
+                        <span>{{ __('Edit') }}</span>
+                        <x-heroicon-o-pencil class="size-4" />
+                    </button>
 
-                        <button type="button" wire:click="requestDelete" class="inline-flex min-h-9 items-center justify-center gap-1.5 rounded-md border border-rose-200 bg-white px-2.5 py-2 text-xs font-medium text-rose-600">
-                            <x-heroicon-o-trash class="size-4" />
-                            <span>{{ __('Delete') }}</span>
-                        </button>
-                    </div>
+                    <button type="button" wire:click="requestToggle" class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-50">
+                        <span>{{ __('Toggle') }}</span>
+                        <x-heroicon-o-power class="size-4" />
+                    </button>
+
+                    <button type="button" wire:click="requestDelete" class="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm text-rose-600 transition hover:bg-rose-50">
+                        <span>{{ __('Delete') }}</span>
+                        <x-heroicon-o-trash class="size-4" />
+                    </button>
                 </div>
             </details>
         </div>
