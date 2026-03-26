@@ -1,5 +1,5 @@
 @php
-    $personalize = $classes();
+    $customization = $classes();
 @endphp
 
 @if (!$livewire && $property)
@@ -17,6 +17,7 @@
     @js($value),
     @js($locale))">
     <x-dynamic-component :component="TallStackUi::prefix('input')"
+                         scope="form.currency.input"
                          {{ $attributes->whereDoesntStartWith('wire:model') }}
                          class="appearance-number-none"
                          inputmode="numeric"
@@ -37,22 +38,22 @@
                     {{ is_string($currency) && $currency !== '1' ? $currency : $symbols['currency'] }}
                 @endif
                 @if ($clearable)
-                        <div @class([
-                                $personalize['clearable.wrapper'],
-                                $personalize['clearable.padding.with-currency'] => $currency,
-                                $personalize['clearable.padding.without-currency'] => ! $currency,
+                    <div @class([
+                                $customization['clearable.wrapper'],
+                                $customization['clearable.padding.with-currency'] => $currency,
+                                $customization['clearable.padding.without-currency'] => ! $currency,
                             ]) x-show="input !== '' && clearable">
-                            <button type="button" class="cursor-pointer" dusk="tallstackui_form_currency_clearable">
-                                <x-dynamic-component :component="TallStackUi::prefix('icon')"
-                                                     :icon="TallStackUi::icon('x-mark')"
-                                                     x-on:click="clear()"
-                                                     internal
-                                                     @class([
-                                                         $personalize['clearable.size'],
-                                                         $personalize['clearable.color'] => !$error && !$invalidate,
-                                                     ]) />
-                            </button>
-                        </div>
+                        <button type="button" class="cursor-pointer" dusk="tallstackui_form_currency_clearable">
+                            <x-dynamic-component :component="TallStackUi::prefix('icon')"
+                                                 :icon="TallStackUi::icon('x-mark')"
+                                                 x-on:click="clear()"
+                                                 internal
+                                    @class([
+                                        $customization['clearable.size'],
+                                        $customization['clearable.color'] => !$error && !$invalidate,
+                                    ]) />
+                        </button>
+                    </div>
                 @endif
             </x-slot:suffix>
         @endif

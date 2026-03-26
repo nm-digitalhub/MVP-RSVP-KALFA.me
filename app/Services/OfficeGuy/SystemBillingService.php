@@ -26,18 +26,47 @@ class SystemBillingService
     /**
      * Get active subscription for an organization.
      * Cached for 60s — call {@see forgetSubscriptionCache()} after any mutation.
+     *
+     * Only the subscription primary key is cached. Caching a serialized Eloquent model can yield
+     * PHP's incomplete-class placeholder on unserialize (autoload order, package renames), which
+     * breaks the declared return type.
+     *
+     * Note: SUMIT subscriptions are linked to Account (billing entity), not Organization.
      */
     public function getOrganizationSubscription(Organization $organization): ?Subscription
     {
-        return Cache::remember(
-            "org:{$organization->id}:subscription",
+        $account = $organization->account;
+
+        if ($account === null) {
+            return null;
+        }
+
+        $cacheKey = "org:{$organization->id}:subscription";
+
+        $subscriptionId = Cache::remember(
+            $cacheKey,
             self::SUBSCRIPTION_CACHE_TTL,
-            fn () => Subscription::where('subscriber_type', $organization->getMorphClass())
-                ->where('subscriber_id', $organization->id)
+            fn (): ?int => Subscription::query()
+                ->where('subscriber_type', $account->getMorphClass())
+                ->where('subscriber_id', $account->id)
                 ->where('status', Subscription::STATUS_ACTIVE)
                 ->latest()
-                ->first()
+                ->value('id')
         );
+
+        if ($subscriptionId === null) {
+            return null;
+        }
+
+        $subscription = Subscription::query()->find($subscriptionId);
+
+        if ($subscription === null) {
+            Cache::forget($cacheKey);
+
+            return null;
+        }
+
+        return $subscription;
     }
 
     /** Invalidate the cached subscription entry for an organization after a mutation. */
@@ -107,11 +136,19 @@ class SystemBillingService
 
     /**
      * Retry failed payment for organization.
+     *
+     * Note: SUMIT subscriptions are linked to Account (billing entity), not Organization.
      */
     public function retryPayment(Organization $organization): bool
     {
-        $subscription = Subscription::where('subscriber_type', $organization->getMorphClass())
-            ->where('subscriber_id', $organization->id)
+        $account = $organization->account;
+
+        if ($account === null) {
+            return false;
+        }
+
+        $subscription = Subscription::where('subscriber_type', $account->getMorphClass())
+            ->where('subscriber_id', $account->id)
             ->where('status', Subscription::STATUS_FAILED)
             ->latest()
             ->first();
@@ -176,5 +213,13 @@ class SystemBillingService
         return Subscription::where('status', Subscription::STATUS_ACTIVE)
             ->with('subscriber')
             ->get();
+    }
+
+    /**
+     * Number of active subscriptions (aggregate only — avoids loading full rows + relations).
+     */
+    public function getActiveSubscriptionCount(): int
+    {
+        return (int) Subscription::where('status', Subscription::STATUS_ACTIVE)->count();
     }
 }

@@ -5,6 +5,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Allowed webhook gateways
+    |--------------------------------------------------------------------------
+    | Webhook requests for gateways not in this list are silently ignored
+    | (HTTP 200 returned, no processing). This prevents route parameter
+    | manipulation from bypassing HMAC verification.
+    */
+    'allowed_gateways' => ['sumit', 'stub'],
+
+    /*
+    |--------------------------------------------------------------------------
     | SUMIT redirect URLs
     |--------------------------------------------------------------------------
     | Legacy one-time payments still use redirect mode through the OfficeGuy

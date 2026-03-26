@@ -1,0 +1,157 @@
+# Kalfa RSVP + Seating SaaS — Full Reference
+
+> Complete technical reference for AI agents integrating with the Kalfa platform.
+
+## Architecture
+
+### Multi-Tenancy
+
+All resources are scoped to organizations. The URL pattern is:
+```
+/api/organizations/{organization_id}/events/{event_id}/...
+```
+
+Users can belong to multiple organizations with roles:
+- `owner` — Full control, billing, transfer
+- `admin` — Manage events, guests, settings
+- `editor` — Create/edit events and guests
+- `viewer` — Read-only access
+
+### Authentication
+
+**API tokens** via Laravel Sanctum:
+```
+POST /api/mobile/auth/login
+Content-Type: application/json
+
+{"email": "user@example.com", "password": "..."}
+```
+
+Returns a Bearer token. Include in subsequent requests:
+```
+Authorization: Bearer {token}
+```
+
+Token abilities: `mobile:base`, `mobile:read`
+
+### Data Models
+
+#### Event
+```json
+{
+  "id": "uuid",
+  "organization_id": "uuid",
+  "name": "string",
+  "description": "string|null",
+  "date": "datetime",
+  "location": "string|null",
+  "status": "draft|pending_payment|active|cancelled|completed",
+  "slug": "string (unique)",
+  "created_at": "datetime",
+  "updated_at": "datetime"
+}
+```
+
+#### Guest
+```json
+{
+  "id": "uuid",
+  "event_id": "uuid",
+  "first_name": "string",
+  "last_name": "string",
+  "email": "string|null",
+  "phone": "string|null",
+  "group_size": "integer (default: 1)",
+  "notes": "string|null"
+}
+```
+
+#### Invitation
+```json
+{
+  "id": "uuid",
+  "event_id": "uuid",
+  "guest_id": "uuid",
+  "slug": "string (unique, used for public RSVP URL)",
+  "status": "pending|sent|responded",
+  "sent_at": "datetime|null",
+  "responded_at": "datetime|null"
+}
+```
+
+#### RSVP Response
+```json
+{
+  "invitation_slug": "string",
+  "response_type": "attending|declining|maybe",
+  "guest_count": "integer",
+  "message": "string|null"
+}
+```
+
+#### EventTable
+```json
+{
+  "id": "uuid",
+  "event_id": "uuid",
+  "name": "string",
+  "capacity": "integer",
+  "position_x": "float|null",
+  "position_y": "float|null"
+}
+```
+
+#### SeatAssignment
+```json
+{
+  "guest_id": "uuid",
+  "event_table_id": "uuid"
+}
+```
+
+### Payment Flow
+
+1. Create event (status: `draft`)
+2. `POST /api/organizations/{org}/events/{event}/checkout` → returns `redirect_url`
+3. User completes payment on gateway page
+4. Webhook confirms payment → event transitions to `active`
+5. `GET /api/payments/{payment}` → check status: `pending|processing|succeeded|failed`
+
+**PCI compliance**: Never send raw card data to the API. Only single-use tokens accepted.
+
+### Public RSVP Flow
+
+No authentication required:
+1. `GET /api/rsvp/{slug}` — Returns event details + guest info for the invitation
+2. `POST /api/rsvp/{slug}/responses` — Submit response with `response_type` and optional `guest_count`
+
+The slug is from the invitation, not the event.
+
+### Voice RSVP (Twilio)
+
+Kalfa supports automated voice calls for RSVP collection via Twilio + Gemini Live API.
+This is an internal system — not exposed as a public API.
+
+### Webhook Integration
+
+Payment webhooks hit `POST /api/webhooks/{gateway}` with HMAC signature verification.
+Currently supported gateway: `sumit` (OfficeGuy/SUMIT).
+
+### Error Responses
+
+Standard Laravel validation errors:
+```json
+{
+  "message": "The given data was invalid.",
+  "errors": {
+    "field_name": ["Error message"]
+  }
+}
+```
+
+HTTP status codes:
+- `401` — Unauthenticated
+- `403` — Unauthorized (wrong organization or insufficient role)
+- `404` — Resource not found
+- `422` — Validation error
+- `429` — Rate limited

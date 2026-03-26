@@ -128,6 +128,12 @@ class CallingService
             ]
         );
 
+        $invitation->update([
+            'call_sid' => $call->sid,
+            'call_status' => 'initiated',
+            'call_initiated_at' => now(),
+        ]);
+
         return $call->sid;
     }
 }

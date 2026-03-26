@@ -7,19 +7,24 @@
         "copilot"
     ],
     "guidelines": true,
-    "herd_mcp": false,
     "mcp": true,
     "nightwatch_mcp": false,
     "packages": [
         "spatie/laravel-permission",
         "spatie/laravel-medialibrary",
-        "nativephp/mobile"
+        "nativephp/mobile",
+        "kalfa/secure-storage",
+        "lorisleiva/laravel-actions"
     ],
     "sail": false,
     "skills": [
+        "laravel-best-practices",
         "pulse-development",
+        "fluxui-development",
         "livewire-development",
         "tailwindcss-development",
+        "laravel-actions",
+        "nativephp-mobile",
         "medialibrary-development",
         "laravel-permission-development",
         "ai-sdk-development",

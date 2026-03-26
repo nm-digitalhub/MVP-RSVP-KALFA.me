@@ -287,7 +287,7 @@
         <h2 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">{{ __('Billing') }}</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
             <div><span class="text-gray-500">{{ __('MRR') }}:</span> <strong>{{ number_format($mrr ?? 0, 2) }}</strong></div>
-            <div><span class="text-gray-500">{{ __('Active subscriptions') }}:</span> <strong>{{ ($activeSubscriptions ?? collect())->count() }}</strong></div>
+            <div><span class="text-gray-500">{{ __('Active subscriptions') }}:</span> <strong>{{ $activeSubscriptionCount ?? 0 }}</strong></div>
             <div><span class="text-gray-500">{{ __('Churn') }}:</span> <strong>{{ number_format(($churn ?? 0) * 100, 1) }}%</strong></div>
         </div>
     </div>

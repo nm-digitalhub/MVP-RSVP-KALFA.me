@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 /**
@@ -28,10 +29,25 @@ return new class extends Migration
             if (! Schema::hasColumn($tableName, 'client_id')) {
                 continue;
             }
+
+            $constraintName = sprintf('%s_client_id_foreign', $tableName);
+
+            if (DB::connection()->getDriverName() === 'pgsql') {
+                // In Postgres the constraint drop supports IF EXISTS.
+                DB::statement(sprintf(
+                    'ALTER TABLE "%s" DROP CONSTRAINT IF EXISTS "%s"',
+                    $tableName,
+                    $constraintName,
+                ));
+
+                continue;
+            }
+
+            // Fallback for non-Postgres drivers.
             Schema::table($tableName, function (Blueprint $table): void {
                 try {
                     $table->dropForeign(['client_id']);
-                } catch (\Throwable) {
+                } catch (Throwable) {
                     // FK may already be missing (e.g. new install) or named differently
                 }
             });

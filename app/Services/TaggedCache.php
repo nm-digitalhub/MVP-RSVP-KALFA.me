@@ -62,37 +62,51 @@ final class TaggedCache
     }
 
     /**
-     * Get data from cache without tags.
+     * Get a value stored under the given tag set (must match the tags used in put / remember).
+     *
+     * @param  array<string>  $tags
      */
-    public function get(string $key): mixed
+    public function get(string $key, array $tags): mixed
     {
-        return $this->repository()->get($key);
+        return $this->repository()
+            ->tags($this->normalizeTags($tags))
+            ->get($key);
     }
 
     /**
-     * Check if key exists in cache.
+     * @param  array<string>  $tags
      */
-    public function has(string $key): bool
+    public function has(string $key, array $tags): bool
     {
-        return $this->repository()->has($key);
+        return $this->repository()
+            ->tags($this->normalizeTags($tags))
+            ->has($key);
     }
 
     /**
-     * Remove item from cache by key.
+     * @param  array<string>  $tags
      */
-    public function forget(string $key): bool
+    public function forget(string $key, array $tags): bool
     {
-        return $this->repository()->forget($key);
+        return $this->repository()
+            ->tags($this->normalizeTags($tags))
+            ->forget($key);
     }
 
     /**
-     * Invalidate all cache with specific tags.
+     * Invalidate all entries that were stored with any of the given tags.
      *
      * @param  array<string>  $tags  Tags to invalidate
      */
     public function flushTags(array $tags): bool
     {
-        return $this->repository()->flush($this->normalizeTags($tags));
+        $normalized = $this->normalizeTags($tags);
+
+        if ($normalized === []) {
+            return false;
+        }
+
+        return $this->repository()->tags($normalized)->flush();
     }
 
     /**
@@ -104,11 +118,13 @@ final class TaggedCache
     }
 
     /**
-     * Invalidate cache for a specific entity.
+     * Invalidate entries tagged with `entity:{type}:{id}` only (not the whole `entity:{type}` bucket).
      */
     public function flushEntity(string $entityType, int|string $entityId): bool
     {
-        return $this->flushTags($this->entityTags($entityType, $entityId));
+        return $this->flushTags([
+            self::TAG_ENTITY_PREFIX.$entityType.':'.$entityId,
+        ]);
     }
 
     /**
@@ -188,7 +204,7 @@ final class TaggedCache
      */
     private function repository(): Repository
     {
-        return $this->cache->store('redis');
+        return $this->cache->store((string) config('cache.tagged_store', 'redis'));
     }
 
     /**

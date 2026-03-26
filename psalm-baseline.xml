@@ -1,0 +1,3168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="6.16.1@f1f5de594dc76faf8784e02d3dc4716c91c6f6ac">
+  <file src="app/Console/Commands/LoadTest/ConcurrentUsers.php">
+    <InvalidArgument>
+      <code><![CDATA[$url]]></code>
+    </InvalidArgument>
+    <InvalidOperand>
+      <code><![CDATA[$totalErrors / $totalRequests]]></code>
+      <code><![CDATA[$totalErrors / $totalRequests]]></code>
+      <code><![CDATA[$totalErrors / $totalRequests]]></code>
+      <code><![CDATA[$totalRequests / $totalTime]]></code>
+      <code><![CDATA[$totalTime += $requestTime]]></code>
+      <code><![CDATA[$totalTime / $requests]]></code>
+      <code><![CDATA[$totalTime / $totalRequests]]></code>
+      <code><![CDATA[($totalErrors / $totalRequests) * 100]]></code>
+      <code><![CDATA[($totalErrors / $totalRequests) * 100]]></code>
+      <code><![CDATA[($totalTime / $totalRequests) * 1000]]></code>
+    </InvalidOperand>
+    <TooManyArguments>
+      <code><![CDATA[option]]></code>
+    </TooManyArguments>
+    <UnusedVariable>
+      <code><![CDATA[$response]]></code>
+      <code><![CDATA[$results]]></code>
+      <code><![CDATA[$time]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="app/Console/Commands/LoadTest/DatabaseReadReplica.php">
+    <InvalidOperand>
+      <code><![CDATA[$duration / $totalRequests]]></code>
+      <code><![CDATA[$requests / $duration]]></code>
+      <code><![CDATA[$totalRequests / $duration]]></code>
+      <code><![CDATA[($duration / $totalRequests) * 1000]]></code>
+    </InvalidOperand>
+    <UnusedVariable>
+      <code><![CDATA[$failureCount]]></code>
+      <code><![CDATA[$result]]></code>
+      <code><![CDATA[$results]]></code>
+      <code><![CDATA[$successCount]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="app/Console/Commands/LoadTest/PulseApmLoadTest.php">
+    <InvalidCast>
+      <code><![CDATA[$pulseUrl]]></code>
+    </InvalidCast>
+    <InvalidOperand>
+      <code><![CDATA[$iterations / $totalDuration]]></code>
+      <code><![CDATA[$operationTimes[$op] / $count]]></code>
+      <code><![CDATA[$operationTimes[$operationName] += microtime(true) - $opStart]]></code>
+      <code><![CDATA[($operationTimes[$op] / $count) * 1000]]></code>
+      <code><![CDATA[config('pulse.storage.table_prefix')]]></code>
+      <code><![CDATA[config('pulse.storage.table_prefix')]]></code>
+      <code><![CDATA[config('pulse.storage.table_prefix')]]></code>
+      <code><![CDATA[config('pulse.storage.table_prefix')]]></code>
+    </InvalidOperand>
+  </file>
+  <file src="app/Console/Commands/LoadTest/RedisCacheHitRate.php">
+    <InvalidOperand>
+      <code><![CDATA[$iterations / $readDuration]]></code>
+      <code><![CDATA[$writeOps / $writeDuration]]></code>
+      <code><![CDATA[($hits + $mixedHits) / ($hits + $misses + $mixedHits + $mixedMisses) * 100]]></code>
+      <code><![CDATA[($hits / ($hits + $misses)) * 100]]></code>
+      <code><![CDATA[($mixedHits / ($mixedHits + $mixedMisses)) * 100]]></code>
+    </InvalidOperand>
+    <TooManyArguments>
+      <code><![CDATA[option]]></code>
+    </TooManyArguments>
+  </file>
+  <file src="app/Console/Commands/MailTestCommand.php">
+    <InvalidOperand>
+      <code><![CDATA[config('mail.default')]]></code>
+      <code><![CDATA[config('mail.mailers.smtp.host')]]></code>
+    </InvalidOperand>
+  </file>
+  <file src="app/Console/Commands/ProductEngine/CheckIntegrityCommand.php">
+    <InvalidArgument>
+      <code><![CDATA[function ($builder) use ($product): void {
+                $builder->whereKey($product)
+                    ->orWhere('slug', $product);
+            }]]></code>
+    </InvalidArgument>
+    <TooManyArguments>
+      <code><![CDATA[with]]></code>
+    </TooManyArguments>
+    <UndefinedMagicMethod>
+      <code><![CDATA[whereKey]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Console/Commands/ProductEngine/ProcessProductExpirationsCommand.php">
+    <InvalidTemplateParam>
+      <code><![CDATA[$this->expiredProductsQuery()
+                    ->with('account', 'product')
+                    ->limit(200)
+                    ->get()
+                    ->map(fn (AccountProduct $ap): array => [
+                        $ap->id,
+                        $ap->account_id,
+                        $ap->product?->name ?? $ap->product_id,
+                        $ap->status->value,
+                        (string) $ap->expires_at,
+                    ])]]></code>
+    </InvalidTemplateParam>
+    <TooManyArguments>
+      <code><![CDATA[with]]></code>
+      <code><![CDATA[with]]></code>
+    </TooManyArguments>
+    <UndefinedConstant>
+      <code><![CDATA[AccountProductStatus::Expired]]></code>
+    </UndefinedConstant>
+  </file>
+  <file src="app/Console/Commands/ProductEngine/ProcessTrialExpirationsCommand.php">
+    <InvalidTemplateParam>
+      <code><![CDATA[$expiredTrials->map(function (AccountSubscription $subscription): array {
+                    return [
+                        $subscription->id,
+                        $subscription->account_id,
+                        $subscription->productPlan->product->name,
+                        $subscription->productPlan->name,
+                        (string) $subscription->trial_ends_at,
+                        $subscription->productPlan->activePrices->isNotEmpty() ? 'activate' : 'cancel',
+                    ];
+                })]]></code>
+    </InvalidTemplateParam>
+    <TooManyArguments>
+      <code><![CDATA[with]]></code>
+    </TooManyArguments>
+  </file>
+  <file src="app/Console/Commands/VerifyWhatsappStatusCommand.php">
+    <InvalidArgument>
+      <code><![CDATA[$to]]></code>
+    </InvalidArgument>
+  </file>
+  <file src="app/Enums/CouponDiscountType.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[description]]></code>
+      <code><![CDATA[label]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Enums/CouponTargetType.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[description]]></code>
+      <code><![CDATA[label]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Enums/CreditSource.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[isDebit]]></code>
+      <code><![CDATA[label]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Enums/EntitlementType.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[color]]></code>
+      <code><![CDATA[label]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Enums/EventStatus.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getBadgeColor]]></code>
+      <code><![CDATA[label]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Enums/Feature.php">
+    <UnusedClass>
+      <code><![CDATA[Feature]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Enums/ProductPriceBillingCycle.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[label]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Enums/ProductStatus.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[label]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Enums/UsagePolicyDecision.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[isAllowed]]></code>
+      <code><![CDATA[isAllowedWithOverage]]></code>
+      <code><![CDATA[requiresOveragePayment]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Events/RsvpReceived.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function broadcastOn(): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Http/Controllers/Api/BillingCheckoutController.php">
+    <InvalidArgument>
+      <code><![CDATA[$account]]></code>
+      <code><![CDATA[$price->productPlan]]></code>
+    </InvalidArgument>
+    <InvalidArrayOffset>
+      <code><![CDATA[$subscriptionResult['error']]]></code>
+      <code><![CDATA[$subscriptionResult['failed']]]></code>
+    </InvalidArrayOffset>
+    <UndefinedMethod>
+      <code><![CDATA[applyCoupon]]></code>
+      <code><![CDATA[authorize]]></code>
+    </UndefinedMethod>
+    <UnusedClass>
+      <code><![CDATA[BillingCheckoutController]]></code>
+    </UnusedClass>
+    <UnusedVariable>
+      <code><![CDATA[$token]]></code>
+    </UnusedVariable>
+  </file>
+  <file src="app/Http/Controllers/Api/BillingCouponController.php">
+    <InvalidArgument>
+      <code><![CDATA[$organization->account]]></code>
+      <code><![CDATA[$plan]]></code>
+    </InvalidArgument>
+    <UnusedClass>
+      <code><![CDATA[BillingCouponController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/CheckoutController.php">
+    <PossiblyUnusedParam>
+      <code><![CDATA[$organization]]></code>
+    </PossiblyUnusedParam>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Plan::findOrFail($request->validated('plan_id'))]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[CheckoutController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/CouponValidationController.php">
+    <UnusedClass>
+      <code><![CDATA[CouponValidationController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/EventController.php">
+    <UndefinedMagicMethod>
+      <code><![CDATA[Event::create(array_merge($request->validated(), [
+            'organization_id' => $organization->id,
+            'status' => $organization->account?->hasBillingAccess() ? EventStatus::Active : EventStatus::Draft,
+        ]))]]></code>
+      <code><![CDATA[Event::where('organization_id', $organization->id)]]></code>
+    </UndefinedMagicMethod>
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$account->product]]></code>
+      <code><![CDATA[$account?->product]]></code>
+    </UndefinedMagicPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[EventController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/EventTableController.php">
+    <UnusedClass>
+      <code><![CDATA[EventTableController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/GuestController.php">
+    <UnusedClass>
+      <code><![CDATA[GuestController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/GuestImportController.php">
+    <NoValue>
+      <code><![CDATA[return $error;]]></code>
+    </NoValue>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$normalizedData === []]]></code>
+      <code><![CDATA[$normalizedData === []]]></code>
+      <code><![CDATA[is_string($error)]]></code>
+    </TypeDoesNotContainType>
+    <UnusedClass>
+      <code><![CDATA[GuestImportController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/InvitationController.php">
+    <NoInterfaceProperties>
+      <code><![CDATA[now()->timestamp]]></code>
+    </NoInterfaceProperties>
+    <UnusedClass>
+      <code><![CDATA[InvitationController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/MobileAuthController.php">
+    <UndefinedMagicMethod>
+      <code><![CDATA[where]]></code>
+    </UndefinedMagicMethod>
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$currentAccessToken->id]]></code>
+    </UndefinedMagicPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[MobileAuthController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/MobileBootstrapController.php">
+    <NoInterfaceProperties>
+      <code><![CDATA[$user->currentAccessToken()?->abilities]]></code>
+    </NoInterfaceProperties>
+    <RedundantCondition>
+      <code><![CDATA[$user->currentAccessToken()?->abilities]]></code>
+    </RedundantCondition>
+    <TypeDoesNotContainNull>
+      <code><![CDATA[$user->currentAccessToken()]]></code>
+    </TypeDoesNotContainNull>
+    <UnusedClass>
+      <code><![CDATA[MobileBootstrapController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/OrganizationController.php">
+    <PossiblyUnusedParam>
+      <code><![CDATA[$request]]></code>
+    </PossiblyUnusedParam>
+    <UnusedClass>
+      <code><![CDATA[OrganizationController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/PaymentController.php">
+    <UnusedClass>
+      <code><![CDATA[PaymentController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/PublicRsvpController.php">
+    <UndefinedMagicMethod>
+      <code><![CDATA[Invitation::where('slug', $slug)]]></code>
+      <code><![CDATA[Invitation::where('slug', $slug)]]></code>
+      <code><![CDATA[RsvpResponse::updateOrCreate(
+                [
+                    'invitation_id' => $invitation->id,
+                    'guest_id' => $invitation->guest_id,
+                ],
+                array_merge($validated, [
+                    'ip' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                ])
+            )]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[PublicRsvpController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/SeatAssignmentController.php">
+    <UndefinedMagicMethod>
+      <code><![CDATA[SeatAssignment::updateOrCreate(
+                [
+                    'event_id' => $event->id,
+                    'guest_id' => $item['guest_id'],
+                ],
+                [
+                    'event_table_id' => $item['event_table_id'],
+                    'seat_number' => $item['seat_number'] ?? null,
+                ]
+            )]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[SeatAssignmentController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/SubscriptionPurchaseController.php">
+    <UnusedClass>
+      <code><![CDATA[SubscriptionPurchaseController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Api/WebhookController.php">
+    <InvalidCast>
+      <code><![CDATA[$secret]]></code>
+    </InvalidCast>
+    <UndefinedMagicMethod>
+      <code><![CDATA[BillingWebhookEvent::create([
+            'source' => $gateway,
+            'event_type' => $payload['type'] ?? $payload['event_type'] ?? null,
+            'payload' => $payload,
+        ])]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[WebhookController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Auth/ConfirmPasswordController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('auth.confirm-password')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[passwordConfirmed]]></code>
+    </UndefinedInterfaceMethod>
+    <UnusedClass>
+      <code><![CDATA[ConfirmPasswordController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Auth/LoginController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('auth.login')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[LoginController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Auth/LogoutController.php">
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[logout]]></code>
+    </UndefinedInterfaceMethod>
+    <UnusedClass>
+      <code><![CDATA[LogoutController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Auth/PasswordController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('auth.forgot-password')]]></code>
+      <code><![CDATA[view('auth.reset-password', ['token' => $token])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[PasswordController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Auth/RegisterController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('auth.register')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[User::create([
+            'name' => $request->name(),
+            'email' => $request->validated('email'),
+            'password' => Hash::make($request->validated('password')),
+        ])]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[RegisterController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Auth/VerificationController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('auth.verify-email')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View|RedirectResponse]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[VerificationController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Auth/VerifyEmailController.php">
+    <UnusedClass>
+      <code><![CDATA[VerifyEmailController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/BillingSubscriptionCheckoutController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('billing.subscription-checkout', [
+            'organization' => $organization,
+            'plan' => $productPlan,
+            'price' => $price,
+            'apiUrl' => url('/api/billing/checkout'),
+            'couponValidateUrl' => url('/api/billing/coupon/validate'),
+            'bearerToken' => $bearerToken,
+            'companyId' => config('officeguy.company_id'),
+            'publicKey' => config('officeguy.public_key'),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[BillingSubscriptionCheckoutController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/CheckoutStatusController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('checkout.status', [
+            'payment' => $payment,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[CheckoutStatusController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/CheckoutTokenizeController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('checkout.tokenize', [
+            'organization' => $organization,
+            'event' => $event,
+            'plan' => $plan,
+            'apiUrl' => $apiUrl,
+            'bearerToken' => $token,
+            'companyId' => config('officeguy.company_id'),
+            'publicKey' => config('officeguy.public_key'),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View|RedirectResponse]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Plan::where('type', 'per_event')]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[CheckoutTokenizeController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Dashboard/DashboardController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('dashboard.index', [
+            'organization' => $organization,
+            'events' => $events,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <PossiblyUnusedParam>
+      <code><![CDATA[$request]]></code>
+    </PossiblyUnusedParam>
+    <UndefinedMagicMethod>
+      <code><![CDATA[ensureAccessibleStatus]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[DashboardController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Dashboard/EventController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('dashboard.events.create', [
+            'organization' => $organization,
+        ])]]></code>
+      <code><![CDATA[view('dashboard.events.edit', [
+            'event' => $event,
+        ])]]></code>
+      <code><![CDATA[view('dashboard.events.show', [
+            'event' => $event,
+            'eventLinks' => app(EventLinks::class),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+      <code><![CDATA[View]]></code>
+      <code><![CDATA[View|RedirectResponse]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Event::create([
+            'organization_id' => $organization->id,
+            'name' => $validated['name'],
+            'slug' => Event::generateUniqueSlug($organization->id, $validated['name']),
+            'event_date' => isset($validated['event_date']) ? $validated['event_date'] : null,
+            'venue_name' => $validated['venue_name'] ?? null,
+            'settings' => $settings,
+            'status' => $organization->account?->hasBillingAccess() ? EventStatus::Active : EventStatus::Draft,
+        ])]]></code>
+    </UndefinedMagicMethod>
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$account->product]]></code>
+      <code><![CDATA[$account?->product]]></code>
+    </UndefinedMagicPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[EventController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Dashboard/EventGuestsController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('dashboard.events.guests', [
+            'event' => $event,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EventGuestsController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Dashboard/EventInvitationsController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('dashboard.events.invitations', ['event' => $event])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EventInvitationsController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Dashboard/EventSeatAssignmentsController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('dashboard.events.seat-assignments', ['event' => $event])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EventSeatAssignmentsController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Dashboard/EventTablesController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('dashboard.events.tables', ['event' => $event])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EventTablesController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Dashboard/OrganizationSettingsController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('dashboard.organizations.edit', [
+            'organization' => $organization,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View|RedirectResponse]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[OrganizationSettingsController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Mobile/MobileSecureStorageSessionController.php">
+    <UnusedClass>
+      <code><![CDATA[MobileSecureStorageSessionController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/OrganizationSwitchController.php">
+    <UnusedClass>
+      <code><![CDATA[OrganizationSwitchController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/PublicEventController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('events.show', [
+            'event' => $event,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Event::where('slug', $slug)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[PublicEventController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/PublicRsvpViewController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('rsvp.show', [
+            'invitation' => $invitation,
+            'eventLinks' => app(EventLinks::class),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View|Response]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Invitation::where('slug', $slug)]]></code>
+      <code><![CDATA[Invitation::where('slug', $slug)]]></code>
+      <code><![CDATA[RsvpResponse::updateOrCreate(
+                [
+                    'invitation_id' => $invitation->id,
+                    'guest_id' => $invitation->guest_id,
+                ],
+                array_merge($validated, [
+                    'ip' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                ])
+            )]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[PublicRsvpViewController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/System/AccountPaymentMethodController.php">
+    <ImplicitToStringCast>
+      <code><![CDATA[$account]]></code>
+      <code><![CDATA[$account]]></code>
+      <code><![CDATA[$account]]></code>
+      <code><![CDATA[$account]]></code>
+      <code><![CDATA[$account]]></code>
+      <code><![CDATA[$account]]></code>
+    </ImplicitToStringCast>
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$paymentMethod->id]]></code>
+      <code><![CDATA[$paymentMethod->id]]></code>
+      <code><![CDATA[$paymentMethod->last_four]]></code>
+      <code><![CDATA[$paymentMethod->last_four]]></code>
+      <code><![CDATA[$token->card_type]]></code>
+      <code><![CDATA[$token->id]]></code>
+      <code><![CDATA[$token->is_default]]></code>
+      <code><![CDATA[$token->last_four]]></code>
+    </UndefinedMagicPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[AccountPaymentMethodController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/System/SystemImpersonationController.php">
+    <NoInterfaceProperties>
+      <code><![CDATA[now()->timestamp]]></code>
+    </NoInterfaceProperties>
+    <UnusedClass>
+      <code><![CDATA[SystemImpersonationController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/System/SystemImpersonationExitController.php">
+    <UnusedClass>
+      <code><![CDATA[SystemImpersonationExitController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Twilio/CallingController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('twilio.calling', [
+            'showNewGuestForm' => $request->boolean('show_new_guest'),
+            'searchedPhone' => $request->query('number', ''),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Event::where('event_date', '>=', now()->startOfDay())]]></code>
+      <code><![CDATA[Guest::create([
+            'event_id' => $event->id,
+            'name' => $name,
+            'phone' => $phone,
+            'email' => $request->input('email'),
+            'group_name' => $request->input('group_name'),
+            'sort_order' => 0,
+        ])]]></code>
+      <code><![CDATA[Invitation::find($invitationId)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[CallingController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/Twilio/RsvpVoiceController.php">
+    <InvalidCast>
+      <code><![CDATA[$wsUrl]]></code>
+    </InvalidCast>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Event::find($eventId)]]></code>
+      <code><![CDATA[Event::find($eventId)]]></code>
+      <code><![CDATA[Guest::find($guestId)]]></code>
+      <code><![CDATA[Guest::find($guestId)]]></code>
+      <code><![CDATA[Invitation::find($invitationId)]]></code>
+      <code><![CDATA[Invitation::find($invitationId)]]></code>
+      <code><![CDATA[RsvpResponse::updateOrCreate(
+                    ['guest_id' => $guest->id, 'invitation_id' => $invitation->id],
+                    [
+                        'response' => $responseType,
+                        'attendees_count' => $attendeesCount,
+                        'message' => $notes ?: 'Twilio voice RSVP (Gemini Live)',
+                        'ip' => $request->ip(),
+                        'user_agent' => $request->userAgent() ?? 'Node-Gemini',
+                    ]
+                )]]></code>
+      <code><![CDATA[RsvpResponse::updateOrCreate(
+                ['guest_id' => $guest->id, 'invitation_id' => $invitation->id],
+                [
+                    'response' => $responseType,
+                    'attendees_count' => $responseType === RsvpResponseType::Yes ? 1 : 0,
+                    'message' => 'Twilio voice RSVP (DTMF)',
+                    'ip' => $request->ip(),
+                    'user_agent' => 'Twilio-Voice',
+                ]
+            )]]></code>
+    </UndefinedMagicMethod>
+    <UndefinedVariable>
+      <code><![CDATA[$request]]></code>
+    </UndefinedVariable>
+    <UnusedClass>
+      <code><![CDATA[RsvpVoiceController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/TwilioController.php">
+    <PossiblyUnusedParam>
+      <code><![CDATA[$request]]></code>
+    </PossiblyUnusedParam>
+    <UnusedClass>
+      <code><![CDATA[TwilioController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/WebAuthn/WebAuthnLoginController.php">
+    <UnusedClass>
+      <code><![CDATA[WebAuthnLoginController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Controllers/WebAuthn/WebAuthnRegisterController.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[response()->json(['message' => 'הגעת למספר המקסימלי של מפתחות זיהוי.'], 422)]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[Responsable|Response]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[WebAuthnRegisterController]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/EnsureAccountActive.php">
+    <UnusedClass>
+      <code><![CDATA[EnsureAccountActive]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/EnsureFeatureAccess.php">
+    <UnusedClass>
+      <code><![CDATA[EnsureFeatureAccess]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/EnsureOrganizationSelected.php">
+    <UnusedClass>
+      <code><![CDATA[EnsureOrganizationSelected]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/EnsureSystemAdmin.php">
+    <UnusedClass>
+      <code><![CDATA[EnsureSystemAdmin]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/ImpersonationExpiry.php">
+    <InvalidOperand>
+      <code><![CDATA[(now()->timestamp - $startedAt) / 60]]></code>
+      <code><![CDATA[now()->timestamp - $startedAt]]></code>
+      <code><![CDATA[now()->timestamp - $startedAt]]></code>
+    </InvalidOperand>
+    <NoInterfaceProperties>
+      <code><![CDATA[now()->timestamp]]></code>
+      <code><![CDATA[now()->timestamp]]></code>
+    </NoInterfaceProperties>
+    <UnusedClass>
+      <code><![CDATA[ImpersonationExpiry]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/RequestId.php">
+    <UnusedClass>
+      <code><![CDATA[RequestId]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/RequireImpersonationForSystemAdmin.php">
+    <UnusedClass>
+      <code><![CDATA[RequireImpersonationForSystemAdmin]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/SecurityHeaders.php">
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[Response]]></code>
+    </UnnecessaryVarAnnotation>
+    <UnusedClass>
+      <code><![CDATA[SecurityHeaders]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/SpatiePermissionTeam.php">
+    <UnusedClass>
+      <code><![CDATA[SpatiePermissionTeam]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Middleware/ThrottleWithCustomResponse.php">
+    <InvalidArgument>
+      <code><![CDATA[$maxAttempts]]></code>
+      <code><![CDATA[$maxAttempts]]></code>
+      <code><![CDATA[60]]></code>
+      <code><![CDATA[RateLimiter::availableIn($maxAttempts)]]></code>
+    </InvalidArgument>
+    <InvalidReturnStatement>
+      <code><![CDATA[$message]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[Response]]></code>
+    </InvalidReturnType>
+    <InvalidStaticInvocation>
+      <code><![CDATA[RateLimiter::availableIn($maxAttempts)]]></code>
+      <code><![CDATA[RateLimiter::availableIn(60)]]></code>
+      <code><![CDATA[RateLimiter::hit($key, $maxAttempts)]]></code>
+      <code><![CDATA[RateLimiter::retriesLeft($limitKey, $maxAttempts)]]></code>
+      <code><![CDATA[RateLimiter::tooManyAttempts($key)]]></code>
+    </InvalidStaticInvocation>
+    <TooFewArguments>
+      <code><![CDATA[RateLimiter::tooManyAttempts($key)]]></code>
+    </TooFewArguments>
+    <UnusedClass>
+      <code><![CDATA[ThrottleWithCustomResponse]]></code>
+    </UnusedClass>
+    <UnusedParam>
+      <code><![CDATA[$decayMinutes]]></code>
+    </UnusedParam>
+  </file>
+  <file src="app/Http/Middleware/VerifyCsrfToken.php">
+    <UnusedClass>
+      <code><![CDATA[VerifyCsrfToken]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Http/Requests/Api/CouponValidationRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/InitiateCheckoutRequest.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function prepareForValidation(): void]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+    <RedundantFunctionCall>
+      <code><![CDATA[strtolower]]></code>
+    </RedundantFunctionCall>
+  </file>
+  <file src="app/Http/Requests/Api/MobileLoginRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/StoreEventRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/StoreEventTableRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/StoreGuestRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/StoreInvitationRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/StoreRsvpResponseRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/UpdateEventRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/UpdateEventTableRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/UpdateGuestRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/UpdateOrganizationRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Api/UpdateSeatAssignmentRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Auth/LoginRequest.php">
+    <ImplicitToStringCast>
+      <code><![CDATA[$this->string('email')]]></code>
+    </ImplicitToStringCast>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Auth/SendResetLinkPasswordRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Auth/StoreConfirmPasswordRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Auth/StoreRegisterRequest.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[[
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Password::defaults()],
+        ]]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[array<string, array<int, string>>]]></code>
+    </InvalidReturnType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Auth/UpdatePasswordRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Dashboard/StoreEventRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Dashboard/UpdateEventRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Dashboard/UpdateOrganizationSettingRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/Mobile/StoreMobileSessionTokenRequest.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function messages(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/SubscriptionPurchaseRequest.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Requests/System/Accounts/StoreAccountPaymentMethodRequest.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function getRedirectUrl(): string]]></code>
+      <code><![CDATA[public function messages(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[authorize]]></code>
+      <code><![CDATA[rules]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Http/Resources/CurrentUserResource.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function toArray(Request $request): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Http/Resources/MobileBootstrapResource.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function toArray(Request $request): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Http/Resources/OrganizationContextResource.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function toArray(Request $request): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Http/Resources/OrganizationMembershipResource.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function toArray(Request $request): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Jobs/ExpireAccountCreditsJob.php">
+    <PossiblyUnusedParam>
+      <code><![CDATA[$creditService]]></code>
+    </PossiblyUnusedParam>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$tries]]></code>
+    </PossiblyUnusedProperty>
+    <UndefinedMagicMethod>
+      <code><![CDATA[AccountCreditTransaction::create([
+                        'account_id' => $locked->id,
+                        'type' => 'debit',
+                        'source' => CreditSource::Expiry,
+                        'amount_agorot' => $toExpire,
+                        'balance_after_agorot' => $newBalance,
+                        'currency' => $creditTx->currency,
+                        'description' => "Credit #{$creditTx->id} expired",
+                        'reference_type' => AccountCreditTransaction::class,
+                        'reference_id' => $creditTx->id,
+                    ])]]></code>
+    </UndefinedMagicMethod>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[Account]]></code>
+    </UnnecessaryVarAnnotation>
+  </file>
+  <file src="app/Jobs/SendTrialExpiringReminderJob.php">
+    <InvalidArgument>
+      <code><![CDATA[$account]]></code>
+      <code><![CDATA[$this->daysRemaining]]></code>
+      <code><![CDATA[$this->subscription]]></code>
+    </InvalidArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[handle]]></code>
+    </PossiblyUnusedMethod>
+    <TooFewArguments>
+      <code><![CDATA[new TrialExpiringReminder($account, $this->subscription, $this->daysRemaining)]]></code>
+      <code><![CDATA[new TrialExpiringReminder($account, $this->subscription, $this->daysRemaining)]]></code>
+      <code><![CDATA[new TrialExpiringReminder($account, $this->subscription, $this->daysRemaining)]]></code>
+    </TooFewArguments>
+  </file>
+  <file src="app/Jobs/SyncOrganizationSubscriptionsJob.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[handle]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedParam>
+      <code><![CDATA[$billingService]]></code>
+      <code><![CDATA[$syncService]]></code>
+    </PossiblyUnusedParam>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$actorId]]></code>
+      <code><![CDATA[$backoff]]></code>
+      <code><![CDATA[$tries]]></code>
+    </PossiblyUnusedProperty>
+    <UndefinedClass>
+      <code><![CDATA[Log]]></code>
+    </UndefinedClass>
+  </file>
+  <file src="app/Listeners/Billing/AuditBillingEvent.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[handle]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[User::find($event->actorId)]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Listeners/LogProductEngineEvent.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[handle]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Listeners/StoreWebAuthnCredentialInSession.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[handle]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Livewire/AcceptInvitation.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.accept-invitation')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[OrganizationInvitation::where('token', $token)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[AcceptInvitation]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Billing/AccountOverview.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.billing.account-overview', [
+            'organization' => $organization,
+            'account' => $account,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Account::create([
+            'type' => 'organization',
+            'name' => $organization->name,
+            'owner_user_id' => $owner?->id,
+        ])]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[AccountOverview]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Billing/BillingIntentsIndex.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.billing.billing-intents-index', [
+                'organization' => $organization,
+                'account' => null,
+                'intents' => collect(),
+            ])]]></code>
+      <code><![CDATA[view('livewire.billing.billing-intents-index', [
+            'organization' => $organization,
+            'account' => $account,
+            'intents' => $intents,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[BillingIntentsIndex]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Billing/EntitlementsIndex.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.billing.entitlements-index', [
+            'organization' => $organization,
+            'account' => $account,
+            'entitlements' => $entitlements,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[AccountEntitlement::create([
+                'account_id' => $account->id,
+                'feature_key' => $this->feature_key,
+                'value' => $this->value ?: null,
+                'expires_at' => $this->expires_at ? $this->expires_at : null,
+            ])]]></code>
+      <code><![CDATA[AccountEntitlement::where('account_id', $account->id)]]></code>
+      <code><![CDATA[AccountEntitlement::where('account_id', $account->id)]]></code>
+      <code><![CDATA[AccountEntitlement::where('account_id', $account->id)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[EntitlementsIndex]]></code>
+    </UnusedClass>
+    <UnusedParam>
+      <code><![CDATA[$context]]></code>
+      <code><![CDATA[$context]]></code>
+    </UnusedParam>
+  </file>
+  <file src="app/Livewire/Billing/PlanSelection.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.billing.plan-selection', [
+            'plans' => $plans,
+            'organization' => $context->current(),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <TypeDoesNotContainType>
+      <code><![CDATA[$organization->account?->activeSubscriptions()]]></code>
+    </TypeDoesNotContainType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[ProductPlan::where('is_active', true)]]></code>
+      <code><![CDATA[ProductPlan::where('is_active', true)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[PlanSelection]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Billing/UsageIndex.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.billing.usage-index', [
+                'organization' => $organization,
+                'account' => null,
+                'usage' => collect(),
+            ])]]></code>
+      <code><![CDATA[view('livewire.billing.usage-index', [
+            'organization' => $organization,
+            'account' => $account,
+            'usage' => $usage,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[UsageIndex]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Dashboard.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.dashboard', [
+            'organization' => $organization,
+            'events' => $events,
+            'totalEvents' => $totalEvents,
+            'totalGuests' => $totalGuests,
+            'upcomingEvent' => $upcomingEvent,
+            'organizationStatusBadge' => $organizationStatusBadge,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[Dashboard]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Dashboard/EventGuests.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.dashboard.event-guests', [
+            'guests' => $guests,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EventGuests]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Dashboard/EventInvitations.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.dashboard.event-invitations', [
+            'invitations' => $invitations,
+            'guestsWithoutInvitation' => $guestsWithoutInvitation,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <NoInterfaceProperties>
+      <code><![CDATA[now()->timestamp]]></code>
+    </NoInterfaceProperties>
+    <UnusedClass>
+      <code><![CDATA[EventInvitations]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Dashboard/EventList.php">
+    <InvalidArgument>
+      <code><![CDATA[function ($q) use ($term) {
+                $q->where('name', 'like', $term)
+                    ->orWhere('venue_name', 'like', $term);
+            }]]></code>
+    </InvalidArgument>
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.dashboard.event-list', [
+            'organization' => $this->organization,
+            'events' => $events,
+            'hasActiveFilters' => $this->search !== '' || $this->filterStatus !== '',
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[where]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[EventList]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Dashboard/EventSeatAssignments.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.dashboard.event-seat-assignments', [
+            'guests' => $guests,
+            'tables' => $tables,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[SeatAssignment::updateOrCreate(
+                ['event_id' => $this->event->id, 'guest_id' => $guest->id],
+                ['event_table_id' => (int) $tableId, 'seat_number' => null]
+            )]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[EventSeatAssignments]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Dashboard/EventTables.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.dashboard.event-tables', ['tables' => $tables])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EventTables]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Dashboard/OrganizationMembers.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.dashboard.organization-members', [
+            'members' => $this->organization->users()->withPivot('role')->orderBy('name')->get(),
+            'invitations' => $this->organization->invitations()->latest()->get(),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[User::findOrFail($userId)]]></code>
+      <code><![CDATA[User::findOrFail($userId)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[OrganizationMembers]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Organizations/Create.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.organizations.create')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Organization::create([
+            'name' => $this->name,
+            'slug' => $this->uniqueSlug($this->name),
+        ])]]></code>
+      <code><![CDATA[Organization::where('slug', $slug)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[Create]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Organizations/Index.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.organizations.index', [
+            'organizations' => $organizations,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[Index]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Profile/DeleteUserForm.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.profile.delete-user-form')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[DeleteUserForm]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Profile/ManagePasskeys.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[$aaguidMap[$aaguid]]]></code>
+      <code><![CDATA[match (true) {
+            in_array('internal', $transports) => ['name' => 'ביומטריה (FaceID / TouchID)', 'icon' => 'biometric'],
+            in_array('usb', $transports) => ['name' => 'USB Security Key', 'icon' => 'key'],
+            in_array('nfc', $transports) => ['name' => 'NFC Key', 'icon' => 'key'],
+            in_array('ble', $transports) => ['name' => 'Bluetooth Key', 'icon' => 'key'],
+            default => ['name' => 'מפתח זיהוי', 'icon' => 'key'],
+        }]]></code>
+      <code><![CDATA[view('livewire.profile.manage-passkeys')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[\Illuminate\View\View]]></code>
+      <code><![CDATA[array{name: string, icon: string, color: string}]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[ManagePasskeys]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Profile/UpdatePasswordForm.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.profile.update-password-form')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[UpdatePasswordForm]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Profile/UpdateProfileInformationForm.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.profile.update-profile-information-form')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[UpdateProfileInformationForm]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Pulse/RsvpOperationsDashboard.php">
+    <InvalidArrayOffset>
+      <code><![CDATA[[
+                str_replace('response:', '', $item->key) => (int) $item->count,
+            ]]]></code>
+    </InvalidArrayOffset>
+    <InvalidCast>
+      <code><![CDATA[$total]]></code>
+      <code><![CDATA[$total]]></code>
+    </InvalidCast>
+    <UnusedClass>
+      <code><![CDATA[RsvpOperationsDashboard]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/Pulse/RsvpResponseRates.php">
+    <InvalidArrayOffset>
+      <code><![CDATA[[
+            str_replace('response:', '', $item->key) => (int) $item->count,
+        ]]]></code>
+    </InvalidArrayOffset>
+    <UnusedClass>
+      <code><![CDATA[RsvpResponseRates]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Accounts/CreateAccountWizard.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.accounts.create-account-wizard', [
+            'users' => $users,
+            'organizationsWithoutAccount' => $organizationsWithoutAccount,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Account::create([
+            'type' => $this->type,
+            'name' => $this->name,
+            'owner_user_id' => $this->owner_user_id !== '' ? (int) $this->owner_user_id : null,
+        ])]]></code>
+      <code><![CDATA[Organization::where('id', $orgId)]]></code>
+      <code><![CDATA[orderBy]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[CreateAccountWizard]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Accounts/Index.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.accounts.index', [
+            'accounts' => $accounts,
+            'stats' => $stats,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Account::count()]]></code>
+      <code><![CDATA[Account::where('created_at', '>=', now()->startOfWeek())]]></code>
+      <code><![CDATA[Account::where('type', 'individual')]]></code>
+      <code><![CDATA[Account::where('type', 'organization')]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[Index]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Accounts/Show.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.accounts.show', [
+            'organizationsAttached' => $organizationsAttached,
+            'organizationsAvailable' => $organizationsAvailable,
+            'entitlements' => $entitlements,
+            'usage' => $usage,
+            'billingIntents' => $billingIntents,
+            'paymentMethods' => $paymentMethods,
+            'products' => $products,
+            'selectedProduct' => $selectedProduct,
+            'selectedProductPlans' => $selectedProductPlans,
+            'sumitCustomerModelLabel' => $sumitCustomerModelLabel,
+            'sumitPaymentsReady' => $sumitPaymentsReady,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Organization::find($this->attach_organization_id)]]></code>
+      <code><![CDATA[Organization::where('account_id', $this->account->id)]]></code>
+      <code><![CDATA[Organization::where(function ($q) {
+            $q->whereNull('account_id')->orWhere('account_id', '!=', $this->account->id);
+        })]]></code>
+    </UndefinedMagicMethod>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[ProductPlan|null]]></code>
+    </UnnecessaryVarAnnotation>
+    <UnusedClass>
+      <code><![CDATA[Show]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Coupons/CreateCouponWizard.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.coupons.create-coupon-wizard', [
+            'plans' => $plans,
+            'discountTypes' => CouponDiscountType::cases(),
+            'targetTypes' => CouponTargetType::cases(),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Coupon::create([
+            'code' => strtoupper($this->code),
+            'description' => $this->description ?: null,
+            'discount_type' => $this->discountType,
+            'discount_value' => (int) $this->discountValue,
+            'discount_duration_months' => ($this->discountType === CouponDiscountType::Percentage->value && $this->discountDurationMonths !== '')
+                ? (int) $this->discountDurationMonths
+                : null,
+            'target_type' => $this->targetType,
+            'target_ids' => $this->targetType === CouponTargetType::Plan->value
+                ? $this->targetPlanIds
+                : null,
+            'max_uses' => $this->maxUses !== '' ? (int) $this->maxUses : null,
+            'max_uses_per_account' => $this->maxUsesPerAccount !== '' ? (int) $this->maxUsesPerAccount : null,
+            'first_time_only' => $this->firstTimeOnly,
+            'is_active' => $this->isActive,
+            'expires_at' => $this->expiresAt !== '' ? $this->expiresAt : null,
+            'created_by' => $user->id,
+        ])]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[CreateCouponWizard]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Coupons/EditCoupon.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.coupons.edit-coupon', [
+            'plans' => $plans,
+            'discountTypes' => CouponDiscountType::cases(),
+            'targetTypes' => CouponTargetType::cases(),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EditCoupon]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Coupons/Index.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.coupons.index', compact('coupons'))]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Coupon::findOrFail($couponId)]]></code>
+      <code><![CDATA[Coupon::findOrFail($couponId)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[Index]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Dashboard.php">
+    <InvalidCast>
+      <code><![CDATA[$queueDriver]]></code>
+      <code><![CDATA[$queueDriver]]></code>
+    </InvalidCast>
+    <InvalidOperand>
+      <code><![CDATA[$free / $total * 100]]></code>
+      <code><![CDATA[$free / 1024 ** 3]]></code>
+      <code><![CDATA[$total / 1024 ** 3]]></code>
+    </InvalidOperand>
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.dashboard', compact(
+            'totalOrganizations', 'totalUsers', 'totalEvents', 'totalGuests',
+            'activeOrganizations', 'newUsers7', 'newUsers30', 'newOrgs7', 'newOrgs30', 'events30d',
+            'usersWithoutOrg', 'orgsWithoutEvents', 'orgsWithoutOwner', 'systemAdminsCount', 'suspendedOrgCount',
+            'mrr', 'activeSubscriptions', 'churn',
+            'queueDriver', 'queuePending', 'queueFailed', 'cacheDriver', 'dbDriver',
+            'dbAlive', 'cacheAlive', 'phpVersion', 'laravelVersion', 'appEnv', 'lastRefreshedAt',
+            'queueWorkerStatus', 'diskFreeGb', 'diskTotalGb', 'diskFreePercent', 'recentExceptions',
+            'recentOrganizations', 'recentUsers',
+        ))]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <NoInterfaceProperties>
+      <code><![CDATA[now()->subHours(24)->timestamp]]></code>
+    </NoInterfaceProperties>
+    <UnusedClass>
+      <code><![CDATA[Dashboard]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Organizations/Index.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.organizations.index', [
+            'organizations' => $organizations,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Organization::withCount(['users', 'events'])]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[Index]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Organizations/Show.php">
+    <ImplicitToStringCast>
+      <code><![CDATA[$this->organization]]></code>
+    </ImplicitToStringCast>
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.organizations.show', [
+            'owner' => $owner,
+            'membersCount' => $membersCount,
+            'members' => $members,
+            'events' => $events,
+            'allUsers' => $allUsers,
+            'subscription' => $this->subscription,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <RedundantCast>
+      <code><![CDATA[(int) $this->trialExtendDays]]></code>
+    </RedundantCast>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Event::where('organization_id', $this->organization->id)]]></code>
+      <code><![CDATA[User::find($this->directAddUserId)]]></code>
+      <code><![CDATA[User::find($userId)]]></code>
+      <code><![CDATA[User::findOrFail($userId)]]></code>
+      <code><![CDATA[User::orderBy('name')]]></code>
+    </UndefinedMagicMethod>
+    <UndefinedThisPropertyFetch>
+      <code><![CDATA[$this->subscription]]></code>
+      <code><![CDATA[$this->subscription]]></code>
+      <code><![CDATA[$this->subscription]]></code>
+    </UndefinedThisPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[Show]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/CreateProductModal.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.partials.create-product-modal')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Product::create([
+            'name' => $validated['name'],
+            'slug' => Str::slug($validated['slug']),
+            'description' => $validated['description'],
+            'category' => $validated['category'],
+            'status' => ProductStatus::Draft,
+        ])]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[CreateProductModal]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/CreateProductWizard.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.create-product-wizard', [
+            'entitlements' => $this->product?->entitlements()->orderBy('feature_key')->get() ?? new Collection,
+            'limits' => $this->supportsLimits()
+                ? ($this->product?->limits()->orderBy('limit_key')->get() ?? new Collection)
+                : new Collection,
+            'features' => $this->supportsFeatures()
+                ? ($this->product?->features()->orderBy('feature_key')->get() ?? new Collection)
+                : new Collection,
+            'supportsLimits' => $this->supportsLimits(),
+            'supportsFeatures' => $this->supportsFeatures(),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Product::create([
+                ...$payload,
+                'status' => ProductStatus::Draft,
+            ])]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[CreateProductWizard]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/EntitlementRow.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.partials.entitlement-row', [
+            'typeIcon' => $this->getTypeIcon(),
+            'typeToneClasses' => $this->getTypeToneClasses(),
+            'valueToneClasses' => $this->getValueToneClasses(),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[EntitlementRow]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/Index.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.index', [
+            'products' => $productsQuery->paginate(12),
+            'stats' => [
+                'total' => Product::query()->count(),
+                'active' => Product::query()->where('status', ProductStatus::Active)->count(),
+                'draft' => Product::query()->where('status', ProductStatus::Draft)->count(),
+                'plans' => ProductPlan::query()->where('is_active', true)->count(),
+                'assignments' => AccountProduct::query()->active()->count(),
+            ],
+            'categories' => Product::query()
+                ->whereNotNull('category')
+                ->selectRaw('category, COUNT(*) as aggregate')
+                ->groupBy('category')
+                ->orderBy('category')
+                ->pluck('aggregate', 'category'),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[Index]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/ProductCard.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.partials.product-card')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[ProductCard]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/ProductStatusBadge.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.partials.product-status-badge', [
+            'colorClasses' => $this->getColorClasses(),
+            'icon' => $this->getIcon(),
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UnusedClass>
+      <code><![CDATA[ProductStatusBadge]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/ProductTree.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.product-tree')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedThisPropertyFetch>
+      <code><![CDATA[$this->plans]]></code>
+    </UndefinedThisPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[ProductTree]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Products/Show.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.products.show', [
+            'entitlements' => $entitlementsQuery->orderBy('feature_key')->get(),
+            'filterButtonClasses' => $filterButtonClasses,
+            'limits' => $this->product->limits,
+            'features' => $this->product->features,
+            'productPlans' => $this->product->productPlans()->with('prices')->get(),
+            'recentAssignments' => $this->product->accountProducts,
+            'recentUsageRecords' => $recentUsageRecords,
+            'commercialInsights' => [
+                'hasPricingModel' => $pricingBasis !== [],
+                'assumedAverageCallMinutes' => data_get($pricingBasis, 'assumed_average_call_minutes'),
+                'estimatedDirectCostUsdPerMinute' => data_get($pricingBasis, 'estimated_direct_cost_usd_per_minute_total'),
+                'estimatedDirectCostUsdPerCall' => data_get($pricingBasis, 'estimated_direct_cost_usd_per_call'),
+                'targetMarginPercent' => data_get($pricingBasis, 'target_margin_percent'),
+                'costComponents' => (array) data_get($pricingBasis, 'estimated_direct_costs_usd_per_minute', []),
+                'sources' => $pricingSources,
+            ],
+            'overview' => [
+                'entitlements' => $this->product->active_entitlements_count,
+                'limits' => $this->product->active_limits_count,
+                'features' => $this->product->enabled_features_count,
+                'plans' => $this->product->product_plans_count,
+                'assignments' => $this->product->active_account_products_count,
+                'usage_records' => $recentUsageRecords->count(),
+            ],
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$this->product->active_account_products_count]]></code>
+    </UndefinedMagicPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[Show]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Settings/Index.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.settings.index')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <RedundantCondition>
+      <code><![CDATA[$gemini->api_key]]></code>
+      <code><![CDATA[$gemini->model]]></code>
+      <code><![CDATA[$sumit->company_id]]></code>
+      <code><![CDATA[$sumit->environment]]></code>
+      <code><![CDATA[$sumit->private_key]]></code>
+      <code><![CDATA[$sumit->public_key]]></code>
+      <code><![CDATA[$twilio->api_key]]></code>
+      <code><![CDATA[$twilio->api_secret]]></code>
+      <code><![CDATA[$twilio->messaging_service_sid]]></code>
+      <code><![CDATA[$twilio->number]]></code>
+      <code><![CDATA[$twilio->sid]]></code>
+      <code><![CDATA[$twilio->token]]></code>
+      <code><![CDATA[$twilio->verify_sid]]></code>
+    </RedundantCondition>
+    <TypeDoesNotContainType>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['']]></code>
+      <code><![CDATA['models/gemini-2.0-flash-exp']]></code>
+      <code><![CDATA['www']]></code>
+    </TypeDoesNotContainType>
+    <UnusedClass>
+      <code><![CDATA[Index]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Users/Index.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.users.index', [
+            'users' => $users,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[User::find($userId)]]></code>
+      <code><![CDATA[User::withCount('organizations')]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[Index]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Livewire/System/Users/Show.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('livewire.system.users.show', [
+            'eventsCount' => $eventsCount,
+        ])]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Event::whereIn('organization_id', $this->user->organizations()->pluck('organizations.id'))]]></code>
+      <code><![CDATA[Organization::find($orgId)]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[Show]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Logging/TruncateExceptionContextProcessor.php">
+    <InvalidCast>
+      <code><![CDATA[$context['exception']]]></code>
+    </InvalidCast>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function __invoke(LogRecord $record): LogRecord]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Logging/TruncateExceptionTap.php">
+    <UndefinedMagicMethod>
+      <code><![CDATA[pushProcessor]]></code>
+    </UndefinedMagicMethod>
+    <UnusedClass>
+      <code><![CDATA[TruncateExceptionTap]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Mail/OrganizationInvitationMail.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function mailLanguage(): string]]></code>
+      <code><![CDATA[public function mjmlData(): array]]></code>
+      <code><![CDATA[public function mjmlView(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Mail/TrialExpiringReminder.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function mailLanguage(): string]]></code>
+      <code><![CDATA[public function mjmlData(): array]]></code>
+      <code><![CDATA[public function mjmlView(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Mail/WelcomeOrganizer.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function mailLanguage(): string]]></code>
+      <code><![CDATA[public function mjmlData(): array]]></code>
+      <code><![CDATA[public function mjmlView(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Models/Account.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[AccountProduct]]></code>
+    </InvalidNullableReturnType>
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->accountProducts()
+            ->where('status', AccountProductStatus::Active->value)
+            ->where(function (Builder $query): void {
+                $query->whereNull('expires_at')
+                    ->orWhere('expires_at', '>', now());
+            })]]></code>
+      <code><![CDATA[$this->subscriptions()
+            ->where('status', AccountSubscriptionStatus::Active->value)
+            ->where(function (Builder $query): void {
+                $query->whereNull('ends_at')
+                    ->orWhere('ends_at', '>', now());
+            })]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[HasMany]]></code>
+      <code><![CDATA[HasMany]]></code>
+    </InvalidReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+      <code><![CDATA[public function getSumitCustomerBusinessId(): ?string]]></code>
+      <code><![CDATA[public function getSumitCustomerEmail(): ?string]]></code>
+      <code><![CDATA[public function getSumitCustomerName(): ?string]]></code>
+      <code><![CDATA[public function getSumitCustomerPhone(): ?string]]></code>
+    </MissingOverrideAttribute>
+    <MissingTemplateParam>
+      <code><![CDATA[HasFactory]]></code>
+    </MissingTemplateParam>
+    <NullableReturnStatement>
+      <code><![CDATA[$assignment->fresh(['product'])]]></code>
+      <code><![CDATA[$existingEntitlement->type]]></code>
+    </NullableReturnStatement>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[eventsBilling]]></code>
+      <code><![CDATA[getCompanyAttribute]]></code>
+      <code><![CDATA[getEmailAttribute]]></code>
+      <code><![CDATA[getPhoneAttribute]]></code>
+      <code><![CDATA[overrideFeature]]></code>
+      <code><![CDATA[owner]]></code>
+      <code><![CDATA[startTrial]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[AccountProduct]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="app/Models/AccountCreditTransaction.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[actor]]></code>
+      <code><![CDATA[isCredit]]></code>
+      <code><![CDATA[isDebit]]></code>
+      <code><![CDATA[isExpired]]></code>
+      <code><![CDATA[isReversal]]></code>
+      <code><![CDATA[reference]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/AccountEntitlement.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+      <code><![CDATA[protected static function booted(): void]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[productEntitlement]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/AccountFeatureUsage.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/AccountProduct.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[AccountProduct]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|AccountProduct]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+      <code><![CDATA[protected static function booted(): void]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[active]]></code>
+      <code><![CDATA[grantedBy]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/AccountSubscription.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[AccountSubscription]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|AccountSubscription]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+      <code><![CDATA[protected static function booted(): void]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[active]]></code>
+      <code><![CDATA[cancel]]></code>
+      <code><![CDATA[productPlan]]></code>
+      <code><![CDATA[renew]]></code>
+      <code><![CDATA[suspend]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/BillingIntent.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[payable]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/BillingWebhookEvent.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Models/Coupon.php">
+    <InvalidOperand>
+      <code><![CDATA[$amountMinor * ($this->discount_value / 100)]]></code>
+    </InvalidOperand>
+    <MethodSignatureMismatch>
+      <code><![CDATA[Coupon]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|Coupon]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[creator]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/CouponRedemption.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[coupon]]></code>
+      <code><![CDATA[redeemable]]></code>
+      <code><![CDATA[redeemedBy]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/Event.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+      <code><![CDATA[public function registerMediaCollections(): void]]></code>
+      <code><![CDATA[public function registerMediaConversions(?Media $media = null): void]]></code>
+    </MissingOverrideAttribute>
+    <MissingTemplateParam>
+      <code><![CDATA[HasFactory]]></code>
+      <code><![CDATA[InteractsWithMedia]]></code>
+    </MissingTemplateParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[eventBilling]]></code>
+      <code><![CDATA[getBadgeColor]]></code>
+      <code><![CDATA[organization]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$customFields]]></code>
+      <code><![CDATA[$imageUrl]]></code>
+    </PossiblyUnusedProperty>
+    <UndefinedMagicMethod>
+      <code><![CDATA[where]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Models/EventBilling.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[event]]></code>
+      <code><![CDATA[organization]]></code>
+      <code><![CDATA[payments]]></code>
+      <code><![CDATA[plan]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/EventTable.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[event]]></code>
+      <code><![CDATA[seatAssignments]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/Guest.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[event]]></code>
+      <code><![CDATA[invitation]]></code>
+      <code><![CDATA[rsvpResponses]]></code>
+      <code><![CDATA[seatAssignment]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/Invitation.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[event]]></code>
+      <code><![CDATA[guest]]></code>
+      <code><![CDATA[rsvpResponses]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/Organization.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+      <code><![CDATA[public function getSumitCustomerEmail(): ?string]]></code>
+      <code><![CDATA[public function getSumitCustomerId(): ?int]]></code>
+    </MissingOverrideAttribute>
+    <MissingTemplateParam>
+      <code><![CDATA[HasFactory]]></code>
+    </MissingTemplateParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[eventsBilling]]></code>
+      <code><![CDATA[payments]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedThisPropertyFetch>
+      <code><![CDATA[$this->sumit_customer_id]]></code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="app/Models/OrganizationInvitation.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[isExpired]]></code>
+      <code><![CDATA[organization]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/OrganizationUser.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[organization]]></code>
+      <code><![CDATA[user]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/Payment.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[organization]]></code>
+      <code><![CDATA[payable]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/Plan.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[eventsBilling]]></code>
+      <code><![CDATA[product]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/Product.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->entitlements()->where('is_active', true)]]></code>
+      <code><![CDATA[$this->features()->where('is_enabled', true)]]></code>
+      <code><![CDATA[$this->limits()->where('is_active', true)]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[HasMany]]></code>
+      <code><![CDATA[HasMany]]></code>
+      <code><![CDATA[HasMany]]></code>
+    </InvalidReturnType>
+    <MethodSignatureMismatch>
+      <code><![CDATA[Product]]></code>
+      <code><![CDATA[Product]]></code>
+      <code><![CDATA[Product]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockParamType>
+      <code><![CDATA[static Builder<static>|Product active()]]></code>
+    </MismatchingDocblockParamType>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|Product]]></code>
+      <code><![CDATA[Builder<static>|Product]]></code>
+      <code><![CDATA[Builder<static>|Product]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[accountProducts]]></code>
+      <code><![CDATA[active]]></code>
+      <code><![CDATA[activeLimits]]></code>
+      <code><![CDATA[byCategory]]></code>
+      <code><![CDATA[draft]]></code>
+      <code><![CDATA[enabledFeatures]]></code>
+      <code><![CDATA[isActive]]></code>
+      <code><![CDATA[isArchived]]></code>
+      <code><![CDATA[isDraft]]></code>
+      <code><![CDATA[plans]]></code>
+      <code><![CDATA[usageRecords]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/ProductEntitlement.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[ProductEntitlement]]></code>
+      <code><![CDATA[ProductEntitlement]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockParamType>
+      <code><![CDATA[static Builder<static>|ProductEntitlement active()]]></code>
+    </MismatchingDocblockParamType>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|ProductEntitlement]]></code>
+      <code><![CDATA[Builder<static>|ProductEntitlement]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[accountEntitlements]]></code>
+      <code><![CDATA[active]]></code>
+      <code><![CDATA[attributes]]></code>
+      <code><![CDATA[byType]]></code>
+      <code><![CDATA[isBoolean]]></code>
+      <code><![CDATA[isNumber]]></code>
+      <code><![CDATA[product]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/ProductFeature.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[ProductFeature]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|ProductFeature]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[enabled]]></code>
+      <code><![CDATA[product]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/ProductLimit.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[ProductLimit]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|ProductLimit]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[active]]></code>
+      <code><![CDATA[product]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/ProductPlan.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[$this->prices()->where('is_active', true)]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[HasMany]]></code>
+    </InvalidReturnType>
+    <MethodSignatureMismatch>
+      <code><![CDATA[ProductPlan]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|ProductPlan]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+      <code><![CDATA[protected static function booted(): void]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[active]]></code>
+      <code><![CDATA[product]]></code>
+      <code><![CDATA[subscriptions]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/ProductPrice.php">
+    <MethodSignatureMismatch>
+      <code><![CDATA[ProductPrice]]></code>
+    </MethodSignatureMismatch>
+    <MismatchingDocblockReturnType>
+      <code><![CDATA[Builder<static>|ProductPrice]]></code>
+    </MismatchingDocblockReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[active]]></code>
+      <code><![CDATA[productPlan]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/RsvpResponse.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[guest]]></code>
+      <code><![CDATA[invitation]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/SeatAssignment.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[event]]></code>
+      <code><![CDATA[eventTable]]></code>
+      <code><![CDATA[guest]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/SystemAuditLog.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[actor]]></code>
+      <code><![CDATA[target]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/UsageRecord.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[account]]></code>
+      <code><![CDATA[product]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Models/User.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function casts(): array]]></code>
+    </MissingOverrideAttribute>
+    <MissingTemplateParam>
+      <code><![CDATA[HasApiTokens]]></code>
+    </MissingTemplateParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[ownedOrganizations]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$currentOrganization]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="app/Observers/AccountProductObserver.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[created]]></code>
+      <code><![CDATA[deleted]]></code>
+      <code><![CDATA[updated]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Policies/EventPolicy.php">
+    <UnusedClass>
+      <code><![CDATA[EventPolicy]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Policies/GuestPolicy.php">
+    <UnusedClass>
+      <code><![CDATA[GuestPolicy]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Policies/OrganizationPolicy.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[manageBilling]]></code>
+      <code><![CDATA[manageMembers]]></code>
+      <code><![CDATA[update]]></code>
+      <code><![CDATA[view]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Policies/PaymentPolicy.php">
+    <UnusedClass>
+      <code><![CDATA[PaymentPolicy]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Providers/AppServiceProvider.php">
+    <InvalidCast>
+      <code><![CDATA[$apiKey]]></code>
+      <code><![CDATA[$apiSecret]]></code>
+      <code><![CDATA[$sid]]></code>
+      <code><![CDATA[$sid]]></code>
+      <code><![CDATA[$token]]></code>
+      <code><![CDATA[$token]]></code>
+      <code><![CDATA[$token]]></code>
+    </InvalidCast>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function register(): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Providers/MjmlServiceProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function register(): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Providers/NativeServiceProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function register(): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Providers/PulseServiceProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function register(): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Providers/TelescopeServiceProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected function gate(): void]]></code>
+      <code><![CDATA[public function register(): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Pulse/Recorders/RsvpOperations.php">
+    <InternalMethod>
+      <code><![CDATA[record]]></code>
+      <code><![CDATA[record]]></code>
+      <code><![CDATA[record]]></code>
+      <code><![CDATA[record]]></code>
+      <code><![CDATA[record]]></code>
+      <code><![CDATA[record]]></code>
+      <code><![CDATA[record]]></code>
+      <code><![CDATA[record]]></code>
+    </InternalMethod>
+    <UnusedClass>
+      <code><![CDATA[RsvpOperations]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Services/Billing/CreditApplicationResult.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[hasCreditsApplied]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$remainingCharge]]></code>
+      <code><![CDATA[$transaction]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="app/Services/Billing/CreditService.php">
+    <InvalidArgument>
+      <code><![CDATA[function ($q) {
+                $q->whereNull('expiry_at')->orWhere('expiry_at', '>', now());
+            }]]></code>
+    </InvalidArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[applyToCheckout]]></code>
+      <code><![CDATA[getHistory]]></code>
+      <code><![CDATA[reverseDebit]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[AccountCreditTransaction::create([
+                'account_id' => $locked->id,
+                'type' => 'credit',
+                'source' => $source->value,
+                'amount_agorot' => $amountAgorot,
+                'balance_after_agorot' => $newBalance,
+                'currency' => $currency,
+                'description' => $description,
+                'reference_type' => $reference ? get_class($reference) : null,
+                'reference_id' => $reference?->getKey(),
+                'expiry_at' => $expiresAt,
+                'actor_id' => $actorId,
+            ])]]></code>
+      <code><![CDATA[AccountCreditTransaction::create([
+                'account_id' => $locked->id,
+                'type' => 'debit',
+                'source' => $source->value,
+                'amount_agorot' => $amountAgorot,
+                'balance_after_agorot' => $newBalance,
+                'currency' => $currency,
+                'description' => $description,
+                'reference_type' => $reference ? get_class($reference) : null,
+                'reference_id' => $reference?->getKey(),
+                'actor_id' => $actorId,
+            ])]]></code>
+    </UndefinedMagicMethod>
+    <UndefinedMethod>
+      <code><![CDATA[whereNull]]></code>
+    </UndefinedMethod>
+    <UnnecessaryVarAnnotation>
+      <code><![CDATA[Account]]></code>
+      <code><![CDATA[Account]]></code>
+    </UnnecessaryVarAnnotation>
+  </file>
+  <file src="app/Services/Billing/StubBillingProvider.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function cancelSubscription(AccountSubscription $subscription): void {}]]></code>
+      <code><![CDATA[public function createCustomer(Account $account): array]]></code>
+      <code><![CDATA[public function createSubscription(Account $account, ProductPrice $price): array]]></code>
+      <code><![CDATA[public function reportUsage(AccountSubscription $subscription, string $metric, int $quantity, array $context = []): array]]></code>
+    </MissingOverrideAttribute>
+    <UnusedClass>
+      <code><![CDATA[StubBillingProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Services/Billing/SumitBillingProvider.php">
+    <InvalidArgument>
+      <code><![CDATA[$customer]]></code>
+    </InvalidArgument>
+    <InvalidCast>
+      <code><![CDATA[config('officeguy.company_id')]]></code>
+      <code><![CDATA[config('officeguy.private_key')]]></code>
+    </InvalidCast>
+    <InvalidNamedArgument>
+      <code><![CDATA[city]]></code>
+      <code><![CDATA[companyNumber]]></code>
+      <code><![CDATA[zipCode]]></code>
+    </InvalidNamedArgument>
+    <InvalidReturnStatement>
+      <code><![CDATA[[
+                'provider' => 'sumit',
+                'failed' => true,
+                'error' => $result['message'] ?? 'Failed to create SUMIT recurring subscription.',
+                'metadata' => [
+                    'officeguy_subscription_id' => $officeGuySubscription->id,
+                    'sumit_customer_id' => (int) $customer['customer_reference'],
+                    'product_price_id' => $price->id,
+                ],
+            ]]]></code>
+      <code><![CDATA[[
+                'provider' => 'sumit',
+                'subscription_reference' => null,
+                'customer_reference' => $customer['customer_reference'],
+                'failed' => true,
+                'error' => $result['message'] ?? 'Payment failed',
+                'metadata' => [
+                    'sumit_customer_id' => (int) $customer['customer_reference'],
+                    'amount_minor' => $amountMinor,
+                    'metric' => $metric,
+                ],
+            ]]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[array]]></code>
+      <code><![CDATA[array]]></code>
+    </InvalidReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function cancelSubscription(AccountSubscription $subscription): void]]></code>
+      <code><![CDATA[public function createCustomer(Account $account): array]]></code>
+      <code><![CDATA[public function createSubscription(Account $account, ProductPrice $price): array]]></code>
+      <code><![CDATA[public function reportUsage(AccountSubscription $subscription, string $metric, int $quantity, array $context = []): array]]></code>
+    </MissingOverrideAttribute>
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$defaultToken->citizen_id]]></code>
+      <code><![CDATA[$defaultToken->expiry_month]]></code>
+      <code><![CDATA[$defaultToken->expiry_year]]></code>
+      <code><![CDATA[$defaultToken->id]]></code>
+      <code><![CDATA[$defaultToken->id]]></code>
+      <code><![CDATA[$defaultToken->token]]></code>
+      <code><![CDATA[$officeGuySubscription->id]]></code>
+      <code><![CDATA[$officeGuySubscription->id]]></code>
+      <code><![CDATA[$officeGuySubscription->id]]></code>
+    </UndefinedMagicPropertyFetch>
+  </file>
+  <file src="app/Services/Billing/WebhookPayloadValidator.php">
+    <InvalidOperand>
+      <code><![CDATA[(float) $amount * 100]]></code>
+    </InvalidOperand>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Payment::where('gateway_transaction_id', $transactionId)]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/BillingService.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[EventBilling::create([
+                'organization_id' => $event->organization_id,
+                'event_id' => $event->id,
+                'plan_id' => $plan->id,
+                'amount_cents' => $plan->price_cents,
+                'currency' => 'ILS',
+                'status' => EventBillingStatus::Pending,
+            ])]]></code>
+      <code><![CDATA[EventBilling::create([
+                'organization_id' => $event->organization_id,
+                'event_id' => $event->id,
+                'plan_id' => $plan->id,
+                'amount_cents' => $plan->price_cents,
+                'currency' => 'ILS',
+                'status' => EventBillingStatus::Pending,
+            ])]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/CallingService.php">
+    <InvalidCast>
+      <code><![CDATA[config('services.twilio.number')]]></code>
+    </InvalidCast>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$call->sid]]></code>
+    </NullableReturnStatement>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Guest::whereHas('event', function ($query) {
+            $query->where('event_date', '>=', now()->startOfDay());
+        })]]></code>
+      <code><![CDATA[Invitation::create([
+            'event_id' => $guest->event_id,
+            'guest_id' => $guest->id,
+            'token' => Str::random(32),
+            'slug' => Str::random(10),
+            'status' => InvitationStatus::Sent,
+        ])]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/CouponService.php">
+    <InvalidStaticInvocation>
+      <code><![CDATA[Coupon::active()]]></code>
+    </InvalidStaticInvocation>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[CouponRedemption]]></code>
+    </PossiblyUnusedReturnValue>
+    <TooFewArguments>
+      <code><![CDATA[Coupon::active()]]></code>
+    </TooFewArguments>
+    <UndefinedMagicMethod>
+      <code><![CDATA[where]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/Database/ReadReplicaHealthService.php">
+    <InvalidOperand>
+      <code><![CDATA[$baseDelay * (2 ** ($attempt - 1))]]></code>
+      <code><![CDATA[$delay * 1000]]></code>
+    </InvalidOperand>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[markReplicaHealthy]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Services/Database/ReadWriteConnection.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[executeWithRetry]]></code>
+      <code><![CDATA[getHealthStatus]]></code>
+      <code><![CDATA[getReplicationLag]]></code>
+      <code><![CDATA[isReadReplicaHealthy]]></code>
+      <code><![CDATA[model]]></code>
+      <code><![CDATA[onReadConnection]]></code>
+      <code><![CDATA[onWriteConnection]]></code>
+      <code><![CDATA[resetFailover]]></code>
+      <code><![CDATA[table]]></code>
+      <code><![CDATA[write]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Services/EventLinks.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[addToCalendarUrl]]></code>
+      <code><![CDATA[navigationLinks]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Services/FeatureResolver.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[allows]]></code>
+      <code><![CDATA[allowsUsage]]></code>
+      <code><![CDATA[clearAccount]]></code>
+      <code><![CDATA[entitlement]]></code>
+      <code><![CDATA[has]]></code>
+    </PossiblyUnusedMethod>
+    <TooManyArguments>
+      <code><![CDATA[with]]></code>
+    </TooManyArguments>
+  </file>
+  <file src="app/Services/MjmlRenderer.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[convert]]></code>
+      <code><![CDATA[render]]></code>
+      <code><![CDATA[validate]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$errors]]></code>
+      <code><![CDATA[$hasErrors]]></code>
+      <code><![CDATA[$html]]></code>
+    </PossiblyUnusedProperty>
+  </file>
+  <file src="app/Services/MobileSecureTokenStore.php">
+    <InvalidCast>
+      <code><![CDATA[config('mobile.secure_storage.access_token_key', 'kalfa.mobile.access_token')]]></code>
+    </InvalidCast>
+  </file>
+  <file src="app/Services/OfficeGuy/DocumentService.php">
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$document->document_id]]></code>
+    </UndefinedMagicPropertyFetch>
+    <UnusedClass>
+      <code><![CDATA[DocumentService]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Services/OfficeGuy/SystemBillingService.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[Subscription::where('status', Subscription::STATUS_ACTIVE)
+            ->with('subscriber')
+            ->get()]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[Collection<int, Subscription>]]></code>
+    </InvalidReturnType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[applyCredit]]></code>
+      <code><![CDATA[retryPayment]]></code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedParam>
+      <code><![CDATA[$amount]]></code>
+      <code><![CDATA[$organization]]></code>
+    </PossiblyUnusedParam>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[int]]></code>
+    </PossiblyUnusedReturnValue>
+    <UndefinedMagicPropertyAssignment>
+      <code><![CDATA[$subscription->trial_ends_at]]></code>
+    </UndefinedMagicPropertyAssignment>
+  </file>
+  <file src="app/Services/OrganizationContext.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[setById]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Organization::find($organizationId)]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/OrganizationMemberService.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[OrganizationInvitation]]></code>
+    </PossiblyUnusedReturnValue>
+    <UndefinedMagicMethod>
+      <code><![CDATA[OrganizationInvitation::create([
+            'organization_id' => $organization->id,
+            'email' => $email,
+            'role' => $role,
+            'token' => Str::random(64),
+            'expires_at' => now()->addDays(7),
+        ])]]></code>
+      <code><![CDATA[OrganizationInvitation::where('organization_id', $organization->id)]]></code>
+      <code><![CDATA[OrganizationInvitation::where('token', $token)]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/PanelScreenshotRunner.php">
+    <UnusedClass>
+      <code><![CDATA[PanelScreenshotRunner]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/Services/PermissionSyncService.php">
+    <UndefinedMagicMethod>
+      <code><![CDATA[Permission::whereIn('name', self::TENANT_PERMISSIONS)]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/ProductEngineOperationsMonitor.php">
+    <InvalidCast>
+      <code><![CDATA[config('product-engine.operations.monitor.max_scheduler_heartbeat_age_seconds', 120)]]></code>
+      <code><![CDATA[config('product-engine.operations.monitor.state_ttl_seconds', 172800)]]></code>
+      <code><![CDATA[config('product-engine.operations.monitor.task_grace_seconds', 120)]]></code>
+    </InvalidCast>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[recordSchedulerHeartbeat]]></code>
+      <code><![CDATA[recordTaskFinished]]></code>
+      <code><![CDATA[recordTaskStarted]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Services/ProductIntegrityChecker.php">
+    <InvalidTemplateParam>
+      <code><![CDATA[$product->entitlements
+            ->groupBy('feature_key')]]></code>
+      <code><![CDATA[$product->entitlements
+            ->groupBy('feature_key')]]></code>
+    </InvalidTemplateParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[assertProductSeedable]]></code>
+    </PossiblyUnusedMethod>
+    <TooManyArguments>
+      <code><![CDATA[with]]></code>
+    </TooManyArguments>
+  </file>
+  <file src="app/Services/StubPaymentGateway.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[[
+            'transaction_id' => $id,
+            'redirect_url' => url("/api/rsvp/stub-success?tid={$id}"),
+            'client_secret' => null,
+        ]]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[array]]></code>
+    </InvalidReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function chargeWithToken(int $organizationId, int $amount, array $metadata, string $token): array]]></code>
+      <code><![CDATA[public function createOneTimePayment(int $organizationId, int $amount, array $metadata = []): array]]></code>
+      <code><![CDATA[public function handleWebhook(array $payload, string $signature): void]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Services/SubscriptionManager.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[activate]]></code>
+      <code><![CDATA[cancel]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Services/SubscriptionService.php">
+    <InvalidArrayOffset>
+      <code><![CDATA[$providerSubscription['error']]]></code>
+      <code><![CDATA[$providerSubscription['failed']]]></code>
+    </InvalidArrayOffset>
+    <InvalidNullableReturnType>
+      <code><![CDATA[AccountSubscription]]></code>
+      <code><![CDATA[AccountSubscription]]></code>
+      <code><![CDATA[AccountSubscription]]></code>
+      <code><![CDATA[AccountSubscription]]></code>
+      <code><![CDATA[AccountSubscription]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[$subscription->fresh(['account', 'productPlan.product'])]]></code>
+      <code><![CDATA[$subscription->fresh(['account', 'productPlan.product'])]]></code>
+      <code><![CDATA[$subscription->fresh(['account', 'productPlan.product'])]]></code>
+      <code><![CDATA[$subscription->fresh(['account', 'productPlan.product'])]]></code>
+      <code><![CDATA[$subscription->fresh(['account', 'productPlan.product'])]]></code>
+      <code><![CDATA[$subscription->fresh(['account', 'productPlan.product'])]]></code>
+    </NullableReturnStatement>
+    <RedundantCondition>
+      <code><![CDATA[$metadata !== []]]></code>
+    </RedundantCondition>
+    <TooManyArguments>
+      <code><![CDATA[with]]></code>
+    </TooManyArguments>
+    <TypeDoesNotContainType>
+      <code><![CDATA[null]]></code>
+    </TypeDoesNotContainType>
+  </file>
+  <file src="app/Services/SubscriptionSyncService.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[syncAccountSubscriptions]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedClass>
+      <code><![CDATA[$sumitSub->id]]></code>
+      <code><![CDATA[OfficeGuySubscription]]></code>
+      <code><![CDATA[OfficeGuySubscription]]></code>
+      <code><![CDATA[OfficeGuySubscription]]></code>
+    </UndefinedClass>
+    <UnusedMethod>
+      <code><![CDATA[findProductPlanForSubscription]]></code>
+      <code><![CDATA[mapSumitStatusToLocalStatus]]></code>
+    </UnusedMethod>
+    <UnusedProperty>
+      <code><![CDATA[$featureResolver]]></code>
+    </UnusedProperty>
+  </file>
+  <file src="app/Services/Sumit/AccountPaymentMethodManager.php">
+    <InvalidCast>
+      <code><![CDATA[config('officeguy.company_id')]]></code>
+      <code><![CDATA[config('officeguy.private_key')]]></code>
+    </InvalidCast>
+    <InvalidNamedArgument>
+      <code><![CDATA[singleUseToken]]></code>
+    </InvalidNamedArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedMagicPropertyFetch>
+      <code><![CDATA[$existing->owner_id]]></code>
+      <code><![CDATA[$existing->owner_type]]></code>
+      <code><![CDATA[$replacement->expiry_month]]></code>
+      <code><![CDATA[$replacement->expiry_year]]></code>
+      <code><![CDATA[$replacement->token]]></code>
+      <code><![CDATA[$token->expiry_month]]></code>
+      <code><![CDATA[$token->expiry_year]]></code>
+      <code><![CDATA[$token->is_default]]></code>
+      <code><![CDATA[$token->owner_id]]></code>
+      <code><![CDATA[$token->owner_type]]></code>
+      <code><![CDATA[$token->token]]></code>
+    </UndefinedMagicPropertyFetch>
+  </file>
+  <file src="app/Services/Sumit/EventBillingPayable.php">
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getCustomerAddress(): ?array]]></code>
+      <code><![CDATA[public function getCustomerCompany(): ?string]]></code>
+      <code><![CDATA[public function getCustomerEmail(): ?string]]></code>
+      <code><![CDATA[public function getCustomerId(): string|int|null]]></code>
+      <code><![CDATA[public function getCustomerName(): string]]></code>
+      <code><![CDATA[public function getCustomerNote(): ?string]]></code>
+      <code><![CDATA[public function getCustomerPhone(): ?string]]></code>
+      <code><![CDATA[public function getFees(): array]]></code>
+      <code><![CDATA[public function getLineItems(): array]]></code>
+      <code><![CDATA[public function getOrderKey(): ?string]]></code>
+      <code><![CDATA[public function getPayableAmount(): float]]></code>
+      <code><![CDATA[public function getPayableCurrency(): string]]></code>
+      <code><![CDATA[public function getPayableId(): string|int]]></code>
+      <code><![CDATA[public function getPayableType(): PayableType]]></code>
+      <code><![CDATA[public function getShippingAmount(): float]]></code>
+      <code><![CDATA[public function getShippingMethod(): ?string]]></code>
+      <code><![CDATA[public function getVatRate(): ?float]]></code>
+      <code><![CDATA[public function isTaxEnabled(): bool]]></code>
+    </MissingOverrideAttribute>
+    <NullableReturnStatement>
+      <code><![CDATA[trim((string) $name) !== '' ? $name : 'Guest']]></code>
+    </NullableReturnStatement>
+  </file>
+  <file src="app/Services/Sumit/OfficeGuyCustomerSearchService.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+    <RedundantCast>
+      <code><![CDATA[(int) $sumitCustomerId]]></code>
+    </RedundantCast>
+  </file>
+  <file src="app/Services/Sumit/SumitUsageChargePayable.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function getCustomerAddress(): ?array]]></code>
+      <code><![CDATA[public function getCustomerCompany(): ?string]]></code>
+      <code><![CDATA[public function getCustomerEmail(): ?string]]></code>
+      <code><![CDATA[public function getCustomerId(): string|int|null]]></code>
+      <code><![CDATA[public function getCustomerName(): string]]></code>
+      <code><![CDATA[public function getCustomerNote(): ?string]]></code>
+      <code><![CDATA[public function getCustomerPhone(): ?string]]></code>
+      <code><![CDATA[public function getFees(): array]]></code>
+      <code><![CDATA[public function getLineItems(): array]]></code>
+      <code><![CDATA[public function getOrderKey(): ?string]]></code>
+      <code><![CDATA[public function getPayableAmount(): float]]></code>
+      <code><![CDATA[public function getPayableCurrency(): string]]></code>
+      <code><![CDATA[public function getPayableId(): string|int]]></code>
+      <code><![CDATA[public function getPayableType(): PayableType]]></code>
+      <code><![CDATA[public function getShippingAmount(): float]]></code>
+      <code><![CDATA[public function getShippingMethod(): ?string]]></code>
+      <code><![CDATA[public function getVatRate(): ?float]]></code>
+      <code><![CDATA[public function isTaxEnabled(): bool]]></code>
+    </MissingOverrideAttribute>
+    <UndefinedConstant>
+      <code><![CDATA[PayableType::DIGITAL]]></code>
+    </UndefinedConstant>
+  </file>
+  <file src="app/Services/SumitPaymentGateway.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function chargeWithToken(int $organizationId, int $amount, array $metadata, string $token): array]]></code>
+      <code><![CDATA[public function createOneTimePayment(int $organizationId, int $amount, array $metadata = []): array]]></code>
+      <code><![CDATA[public function handleWebhook(array $payload, string $signature): void]]></code>
+    </MissingOverrideAttribute>
+    <UndefinedMagicMethod>
+      <code><![CDATA[Payment::where('gateway_transaction_id', $transactionId)]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/SystemAuditLogger.php">
+    <UndefinedMagicMethod>
+      <code><![CDATA[SystemAuditLog::create([
+            'actor_id' => $actor?->getAuthIdentifier(),
+            'target_type' => $targetType,
+            'target_id' => $targetId,
+            'action' => $action,
+            'metadata' => $metadata ?: null,
+            'ip_address' => Request::ip(),
+            'user_agent' => Request::userAgent(),
+        ])]]></code>
+    </UndefinedMagicMethod>
+  </file>
+  <file src="app/Services/TaggedCache.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[combinedTags]]></code>
+      <code><![CDATA[flush]]></code>
+      <code><![CDATA[flushEntity]]></code>
+      <code><![CDATA[flushFeatures]]></code>
+      <code><![CDATA[flushTenant]]></code>
+      <code><![CDATA[forget]]></code>
+      <code><![CDATA[get]]></code>
+      <code><![CDATA[has]]></code>
+      <code><![CDATA[put]]></code>
+      <code><![CDATA[remember]]></code>
+    </PossiblyUnusedMethod>
+    <UndefinedInterfaceMethod>
+      <code><![CDATA[flush]]></code>
+      <code><![CDATA[tags]]></code>
+      <code><![CDATA[tags]]></code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="app/Services/UsageMeter.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[UsageRecord]]></code>
+    </PossiblyUnusedReturnValue>
+  </file>
+  <file src="app/Services/VerifyWhatsAppService.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[checkVerification]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Services/WhatsAppRsvpService.php">
+    <InvalidOperand>
+      <code><![CDATA[$from]]></code>
+      <code><![CDATA[$number]]></code>
+    </InvalidOperand>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="app/Settings/GeminiSettings.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public static function group(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Settings/SumitSettings.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public static function group(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Settings/TwilioSettings.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[public static function group(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Support/Feature.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected static function getFacadeAccessor(): string]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/Support/UsagePolicy.php">
+    <MissingOverrideAttribute>
+      <code><![CDATA[protected static function getFacadeAccessor(): string]]></code>
+    </MissingOverrideAttribute>
+    <UnusedClass>
+      <code><![CDATA[UsagePolicy]]></code>
+    </UnusedClass>
+  </file>
+  <file src="app/View/Components/AppLayout.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('layouts.app')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function render(): View]]></code>
+    </MissingOverrideAttribute>
+  </file>
+  <file src="app/View/Components/GuestLayout.php">
+    <InvalidReturnStatement>
+      <code><![CDATA[view('layouts.guest')]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[View]]></code>
+    </InvalidReturnType>
+    <MissingOverrideAttribute>
+      <code><![CDATA[public function render(): View]]></code>
+    </MissingOverrideAttribute>
+  </file>
+</files>

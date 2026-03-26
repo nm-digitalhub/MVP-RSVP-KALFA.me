@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Search Wireframe - Dashboard Events List</title>
+    <!-- Heroicons Components - Professional Icon Library Used in Project -->
+    <script>
+        // These SVG definitions match the Heroicons components used in this project
+        // Reference: resources/views/components/heroicon-o-*.blade.php
+
+        // Heroicon: magnifying-glass (search icon) - used in search input
+        const heroiconMagnifyingGlass = `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>`;
+
+        // Heroicon: x-mark (clear/close button)
+        const heroiconXMark = `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
+
+        // Heroicon: funnel (filter icon)
+        const heroiconFunnel = `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 01-.659 1.591l-5.432 5.432a2.25 2.25 0 00-.659 1.591v2.927a2.25 2.25 0 01-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 00-.659-1.591L3.659 7.409A2.25 2.25 0 013 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0112 3z"/></svg>`;
+
+        // Heroicon: plus (create button)
+        const heroiconPlus = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15"/></svg>`;
+
+        // Heroicon: chevron-down (dropdown)
+        const heroiconChevronDown = `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/></svg>`;
+
+        // Helper function to render icons
+        function icon(name, className = '') {
+            const icons = {
+                search: heroiconMagnifyingGlass,
+                x: heroiconXMark,
+                funnel: heroiconFunnel,
+                plus: heroiconPlus,
+                chevron: heroiconChevronDown
+            };
+            return icons[name]?.replace('class="', `class="${className} `) || '';
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-surface: #f8fafc;
+            --bg-card: #ffffff;
+            --border-color: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --brand-primary: #3b82f6;
+            --brand-hover: #2563eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --neutral: #6b7280;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #e5e7eb;
+            padding: 20px;
+            direction: rtl;
+        }
+
+        .wireframe-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .wireframe-section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .device-frame {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-surface);
+        }
+
+        .device-label {
+            background: var(--text-primary);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 12px;
+            display: inline-block;
+            margin-bottom: 8px;
+            border-radius: 4px;
+        }
+
+        /* Dashboard Layout Styles */
+        .dashboard-layout {
+            display: flex;
+            min-height: 500px;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #1e293b;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-logo {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-primary);
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .sidebar-nav-item {
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+        }
+
+        .sidebar-nav-item.active {
+            background: var(--brand-primary);
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            height: 60px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 16px;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .page-content {
+            padding: 24px;
+            flex: 1;
+        }
+
+        .page-header {
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+        }
+
+        .search-row {
+            display: flex;
+            gap: 16px;
+            align-items: flex-end;
+        }
+
+        .search-field {
+            flex: 1;
+        }
+
+        .search-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+        }
+
+        /* Heroicons SVG styling */
+        .heroicon {
+            width: 16px;
+            height: 16px;
+            stroke-width: 2;
+        }
+
+        .heroicon-sm {
+            width: 14px;
+            height: 14px;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 44px;
+            padding: 0 44px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--bg-surface);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .filter-dropdown {
+            width: 160px;
+        }
+
+        .filter-select {
+            width: 100%;
+            height: 44px;
+            padding: 0 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+            background: var(--bg-surface);
+        }
+
+        .create-btn {
+            height: 44px;
+            padding: 0 20px;
+            background: var(--brand-primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .create-btn:hover {
+            background: var(--brand-hover);
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .results-count {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--bg-surface);
+            padding: 12px 16px;
+            text-align: right;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-success { background: #d1fae5; color: #065f46; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-neutral { background: #f1f5f9; color: #475569; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+
+        .action-link {
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--bg-surface);
+            border-radius: 16px;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .empty-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        /* Mobile Styles */
+        .mobile-frame {
+            max-width: 375px;
+            margin: 0 auto;
+        }
+
+        .mobile-topbar {
+            height: 56px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 12px;
+        }
+
+        .mobile-menu-btn {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-surface);
+            border-radius: 8px;
+        }
+
+        .mobile-search {
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .mobile-search-input {
+            width: 100%;
+            height: 40px;
+            padding: 0 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--bg-surface);
+        }
+
+        .mobile-event-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 10px;
+        }
+
+        .mobile-event-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .mobile-event-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .mobile-event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-guests-count {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Loading State */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 6px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-text {
+            height: 14px;
+            margin-bottom: 8px;
+        }
+
+        .skeleton-text.short {
+            width: 60%;
+        }
+
+        /* State Indicators */
+        .state-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .state-indicator.searching {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .state-indicator.results {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .state-indicator.empty {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Annotations */
+        .annotation {
+            position: absolute;
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #92400e;
+            max-width: 200px;
+            z-index: 10;
+        }
+
+        .annotation::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 8px solid transparent;
+        }
+
+        .annotation.right::before {
+            right: 100%;
+            top: 20px;
+            border-right-color: #f59e0b;
+        }
+
+        /* Grid Layout for Multiple Views */
+        .views-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .views-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wireframe-container">
+        <!-- Header -->
+        <div class="wireframe-section">
+            <h1 style="font-size: 24px; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
+                חיפוש אירועים - Dashboard Events List
+            </h1>
+            <p style="font-size: 14px; color: var(--text-secondary);">
+                Wireframe responsive מקצועי להוספת חיפוש לרשימת האירועים בממשק הארגוני
+            </p>
+        </div>
+
+        <!-- View 1: Desktop - Initial State (No Search) -->
+        <div class="wireframe-section">
+            <span class="device-label">Desktop - מצב התחלתי (ללא חיפוש)</span>
+            <div class="device-frame">
+                <div class="dashboard-layout">
+                    <!-- Sidebar -->
+                    <div class="sidebar">
+                        <div class="sidebar-logo"></div>
+                        <div class="sidebar-nav-item"></div>
+                        <div class="sidebar-nav-item"></div>
+                        <div class="sidebar-nav-item active"></div>
+                        <div class="sidebar-nav-item"></div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <div class="topbar">
+                            <div class="breadcrumb">
+                                <span>Dashboard</span>
+                                <span style="color: var(--text-muted);">›</span>
+                                <span>Events</span>
+                            </div>
+                        </div>
+
+                        <div class="page-content">
+                            <div class="page-header">
+                                <div class="page-title">ארגון לדוגמה בע״מ</div>
+                                <div class="page-subtitle">Dashboard</div>
+                            </div>
+
+                            <!-- Search Container (NEW) -->
+                            <div class="search-container">
+                                <div class="search-row">
+                                    <div class="search-field">
+                                        <div class="search-label">חיפוש אירועים</div>
+                                        <div class="search-input-wrapper">
+                                            <div class="search-icon">
+                                                <!-- x-heroicon-o-magnifying-glass -->
+                                                <svg class="heroicon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                                                </svg>
+                                            </div>
+                                            <input type="text" class="search-input" placeholder="חפש לפי שם אירוע או מיקום..." />
+                                        </div>
+                                    </div>
+                                    <div class="filter-dropdown">
+                                        <div class="search-label">סטטוס</div>
+                                        <select class="filter-select">
+                                            <option>כל הסטטוסים</option>
+                                        </select>
+                                    </div>
+                                    <button class="create-btn">
+                                        <!-- x-heroicon-o-plus -->
+                                        <svg class="heroicon" style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15"/>
+                                        </svg>
+                                        <span>צור אירוע</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Results Indicator -->
+                            <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                <span class="state-indicator results">●</span>
+                                <span style="font-size: 13px; color: var(--text-secondary);">מציג 5 אירועים</span>
+                            </div>
+
+                            <!-- Events Table -->
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>שם האירוע</th>
+                                            <th>תאריך</th>
+                                            <th>סטטוס</th>
+                                            <th>אורחים</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight: 600;">חתונה של דנה ויוסי</td>
+                                            <td style="color: var(--text-secondary);">2026-04-15</td>
+                                            <td><span class="badge badge-success">פעיל</span></td>
+                                            <td style="color: var(--text-secondary);">150</td>
+                                            <td style="text-align: left;"><a class="action-link" href="#">צפה ›</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 600;">אירוע חברה שנתי</td>
+                                            <td style="color: var(--text-secondary);">2026-05-20</td>
+                                            <td><span class="badge badge-neutral">טיוטה</span></td>
+                                            <td style="color: var(--text-secondary);">0</td>
+                                            <td style="text-align: left;"><a class="action-link" href="#">צפה ›</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 600;">כנס מכירות רבעוני</td>
+                                            <td style="color: var(--text-secondary);">2026-03-10</td>
+                                            <td><span class="badge badge-success">פעיל</span></td>
+                                            <td style="color: var(--text-secondary);">45</td>
+                                            <td style="text-align: left;"><a class="action-link" href="#">צפה ›</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 600;">ארוחת ערב משפחתית</td>
+                                            <td style="color: var(--text-secondary);">2026-06-01</td>
+                                            <td><span class="badge badge-warning">ממתין לתשלום</span></td>
+                                            <td style="color: var(--text-secondary);">25</td>
+                                            <td style="text-align: left;"><a class="action-link" href="#">צפה ›</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 600;">מסיבת יום הולדת 50</td>
+                                            <td style="color: var(--text-secondary);">2026-07-15</td>
+                                            <td><span class="badge badge-neutral">טיוטה</span></td>
+                                            <td style="color: var(--text-secondary);">0</td>
+                                            <td style="text-align: left;"><a class="action-link" href="#">צפה ›</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 2: Desktop - Active Search State -->
+        <div class="wireframe-section">
+            <span class="device-label">Desktop - מצב חיפוש פעיל</span>
+            <div class="device-frame">
+                <div class="dashboard-layout">
+                    <div class="sidebar">
+                        <div class="sidebar-logo"></div>
+                        <div class="sidebar-nav-item"></div>
+                        <div class="sidebar-nav-item"></div>
+                        <div class="sidebar-nav-item active"></div>
+                    </div>
+
+                    <div class="main-content">
+                        <div class="topbar">
+                            <div class="breadcrumb">
+                                <span>Dashboard</span>
+                                <span style="color: var(--text-muted);">›</span>
+                                <span>Events</span>
+                            </div>
+                        </div>
+
+                        <div class="page-content">
+                            <div class="page-header">
+                                <div class="page-title">ארגון לדוגמה בע״מ</div>
+                                <div class="page-subtitle">Dashboard</div>
+                            </div>
+
+                            <!-- Search Container with Active Search -->
+                            <div class="search-container" style="border-color: var(--brand-primary); background: #eff6ff;">
+                                <div class="search-row">
+                                    <div class="search-field">
+                                        <div class="search-label" style="color: var(--brand-primary);">חיפוש אירועים</div>
+                                        <div class="search-input-wrapper">
+                                            <div class="search-icon">
+                                                <!-- x-heroicon-o-magnifying-glass -->
+                                                <svg class="heroicon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                                                </svg>
+                                            </div>
+                                            <input type="text" class="search-input" value="חתונה" style="border-color: var(--brand-primary); background: white;" />
+                                            <div style="position: absolute; left: 12px; cursor: pointer;" title="נקה חיפוש">
+                                                <!-- x-heroicon-o-x-mark -->
+                                                <svg class="heroicon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="filter-dropdown">
+                                        <div class="search-label">סטטוס</div>
+                                        <select class="filter-select">
+                                            <option>כל הסטטוסים</option>
+                                        </select>
+                                    </div>
+                                    <button class="create-btn">
+                                        <!-- x-heroicon-o-plus -->
+                                        <svg class="heroicon" style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15"/>
+                                        </svg>
+                                        <span>צור אירוע</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Results Indicator -->
+                            <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                                <span class="state-indicator searching">●</span>
+                                <span style="font-size: 13px; color: var(--text-secondary);">נמצאו <strong>2</strong> תוצאות עבור "חתונה"</span>
+                            </div>
+
+                            <!-- Filtered Results Table -->
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>שם האירוע</th>
+                                            <th>תאריך</th>
+                                            <th>סטטוס</th>
+                                            <th>אורחים</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="background: #eff6ff;">
+                                            <td style="font-weight: 600;">
+                                                <span style="background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 6px;">חתונה</span>
+                                                חתונה של דנה ויוסי
+                                            </td>
+                                            <td style="color: var(--text-secondary);">2026-04-15</td>
+                                            <td><span class="badge badge-success">פעיל</span></td>
+                                            <td style="color: var(--text-secondary);">150</td>
+                                            <td style="text-align: left;"><a class="action-link" href="#">צפה ›</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 600;">
+                                                <span style="background: #fef3c7; color: #92400e; padding: 2px 6px; border-radius: 4px; font-size: 11px; margin-left: 6px;">חתונה</span>
+                                                חתונה בגן האירועים
+                                            </td>
+                                            <td style="color: var(--text-secondary);">2026-08-20</td>
+                                            <td><span class="badge badge-neutral">טיוטה</span></td>
+                                            <td style="color: var(--text-secondary);">0</td>
+                                            <td style="text-align: left;"><a class="action-link" href="#">צפה ›</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 3: Desktop - Empty Search Results -->
+        <div class="wireframe-section">
+            <span class="device-label">Desktop - תוצאות חיפוש ריקות</span>
+            <div class="device-frame">
+                <div class="dashboard-layout">
+                    <div class="sidebar">
+                        <div class="sidebar-logo"></div>
+                        <div class="sidebar-nav-item"></div>
+                        <div class="sidebar-nav-item"></div>
+                        <div class="sidebar-nav-item active"></div>
+                    </div>
+
+                    <div class="main-content">
+                        <div class="topbar">
+                            <div class="breadcrumb">
+                                <span>Dashboard</span>
+                                <span style="color: var(--text-muted);">›</span>
+                                <span>Events</span>
+                            </div>
+                        </div>
+
+                        <div class="page-content">
+                            <div class="page-header">
+                                <div class="page-title">ארגון לדוגמה בע״מ</div>
+                                <div class="page-subtitle">Dashboard</div>
+                            </div>
+
+                            <!-- Search Container -->
+                            <div class="search-container">
+                                <div class="search-row">
+                                    <div class="search-field">
+                                        <div class="search-label">חיפוש אירועים</div>
+                                        <div class="search-input-wrapper">
+                                            <div class="search-icon">
+                                                <!-- x-heroicon-o-magnifying-glass -->
+                                                <svg class="heroicon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                                                </svg>
+                                            </div>
+                                            <input type="text" class="search-input" value="אירוע שלא קיים" />
+                                            <div style="position: absolute; left: 12px; cursor: pointer;" title="נקה חיפוש">
+                                                <!-- x-heroicon-o-x-mark -->
+                                                <svg class="heroicon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="filter-dropdown">
+                                        <div class="search-label">סטטוס</div>
+                                        <select class="filter-select">
+                                            <option>כל הסטטוסים</option>
+                                        </select>
+                                    </div>
+                                    <button class="create-btn">
+                                        <!-- x-heroicon-o-plus -->
+                                        <svg class="heroicon" style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15"/>
+                                        </svg>
+                                        <span>צור אירוע</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Empty State -->
+                            <div class="table-container">
+                                <div class="empty-state">
+                                    <div class="empty-icon">🔍</div>
+                                    <div class="empty-title">לא נמצאו אירועים</div>
+                                    <div class="empty-text">לא נמצאו אירועים המכילים "אירוע שלא קיים"</div>
+                                    <div style="margin-top: 16px;">
+                                        <button style="padding: 10px 20px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 8px; font-size: 14px; cursor: pointer;">
+                                            נקה חיפוש
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View 4: Mobile - Search Interface -->
+        <div class="wireframe-section">
+            <span class="device-label">Mobile - ממשק חיפוש במובייל</span>
+            <div class="mobile-frame">
+                <div class="device-frame">
+                    <!-- Mobile Top Bar -->
+                    <div class="mobile-topbar">
+                        <div class="mobile-menu-btn"></div>
+                        <div style="flex: 1; text-align: center;">
+                            <span style="font-size: 16px; font-weight: 600;">אירועים</span>
+                        </div>
+                        <div style="width: 36px; height: 36px; background: var(--brand-primary); border-radius: 50%;"></div>
+                    </div>
+
+                    <!-- Mobile Search -->
+                    <div class="mobile-search">
+                        <div style="position: relative; margin-bottom: 12px;">
+                            <div style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; color: var(--text-muted);">
+                                <!-- x-heroicon-o-magnifying-glass -->
+                                <svg class="heroicon-sm" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                                </svg>
+                            </div>
+                            <input type="text" class="mobile-search-input" placeholder="חפש אירועים..." />
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <select style="flex: 1; height: 36px; padding: 0 12px; border: 1px solid var(--border-color); border-radius: 8px; font-size: 13px; background: white;">
+                                <option>כל הסטטוסים</option>
+                            </select>
+                            <button style="height: 36px; padding: 0 16px; background: var(--brand-primary); color: white; border: none; border-radius: 8px; font-size: 13px;">
+                                חדש
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results Info -->
+                    <div style="padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 13px; color: var(--text-secondary);">5 אירועים</span>
+                    </div>
+
+                    <!-- Mobile Event Cards -->
+                    <div style="padding: 0 16px;">
+                        <div class="mobile-event-card">
+                            <div class="mobile-event-title">חתונה של דנה ויוסי</div>
+                            <div class="mobile-event-meta">
+                                <span>15 באפריל 2026</span>
+                                <span>·</span>
+                                <span style="color: var(--success);">פעיל</span>
+                            </div>
+                            <div class="mobile-event-footer">
+                                <span class="mobile-guests-count">150 אורחים</span>
+                                <span style="color: var(--brand-primary); font-weight: 500;">צפה</span>
+                            </div>
+                        </div>
+
+                        <div class="mobile-event-card">
+                            <div class="mobile-event-title">אירוע חברה שנתית</div>
+                            <div class="mobile-event-meta">
+                                <span>20 במאי 2026</span>
+                                <span>·</span>
+                                <span style="color: var(--neutral);">טיוטה</span>
+                            </div>
+                            <div class="mobile-event-footer">
+                                <span class="mobile-guests-count">0 אורחים</span>
+                                <span style="color: var(--brand-primary); font-weight: 500;">צפה</span>
+                            </div>
+                        </div>
+
+                        <div class="mobile-event-card">
+                            <div class="mobile-event-title">כנס מכירות רבעוני</div>
+                            <div class="mobile-event-meta">
+                                <span>10 במרץ 2026</span>
+                                <span>·</span>
+                                <span style="color: var(--success);">פעיל</span>
+                            </div>
+                            <div class="mobile-event-footer">
+                                <span class="mobile-guests-count">45 אורחים</span>
+                                <span style="color: var(--brand-primary); font-weight: 500;">צפה</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Component Specifications -->
+        <div class="wireframe-section">
+            <h2 class="section-title">מפרט רכיבים - Component Specifications</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+                <!-- Search Input Component -->
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">🔍 שדה חיפוש</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+                        <strong>Component:</strong> Flux Input<br>
+                        <strong>Property:</strong> <code>wire:model.live.debounce.300ms</code><br>
+                        <strong>Placeholder:</strong> "חפש לפי שם אירוע או מיקום..."<br>
+                        <strong>Icon:</strong> magnifying-glass (Heroicon)<br>
+                        <strong>Clearable:</strong> ✓ (כפתור X לניקוי)
+                    </div>
+                </div>
+
+                <!-- Status Filter Component -->
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">🎯 סינון סטטוס</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+                        <strong>Component:</strong> Native Select (או Flux Select)<br>
+                        <strong>Property:</strong> <code>wire:model.live</code><br>
+                        <strong>Options:</strong> כל הסטטוסים / פעיל / טיוטה / ממתין לתשלום / מבוטל<br>
+                        <strong>Width:</strong> 160px (desktop)
+                    </div>
+                </div>
+
+                <!-- Results Indicator Component -->
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">📊 מחוון תוצאות</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+                        <strong>States:</strong><br>
+                        • <span style="color: var(--success);">●</span> מציג X אירועים (ללא חיפוש)<br>
+                        • <span style="color: var(--brand-primary);">●</span> נמצאו X תוצאות (חיפוש פעיל)<br>
+                        • <span style="color: var(--warning);">●</span> ללא תוצאות (חיפוש ריק)
+                    </div>
+                </div>
+
+                <!-- Highlight Matches Component -->
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; color: var(--text-primary); margin-bottom: 12px;">✨ הדגשת התאמות</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+                        <strong>Style:</strong> Yellow badge בתוך שם האירוע<br>
+                        <strong>Background:</strong> <code>#fef3c7</code><br>
+                        <strong>Text:</strong> <code>#92400e</code><br>
+                        <strong>Radius:</strong> 4px<br>
+                        <strong>Padding:</strong> 2px 6px
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Breakpoints -->
+        <div class="wireframe-section">
+            <h2 class="section-title">Responsive Breakpoints</h2>
+
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr>
+                        <th style="text-align: right; padding: 12px; background: var(--bg-surface);">Breakpoint</th>
+                        <th style="text-align: right; padding: 12px; background: var(--bg-surface);">Width</th>
+                        <th style="text-align: right; padding: 12px; background: var(--bg-surface);">Layout</th>
+                        <th style="text-align: right; padding: 12px; background: var(--bg-surface);">שינויים</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 12px; font-weight: 600;">Mobile</td>
+                        <td style="padding: 12px;">< 768px</td>
+                        <td style="padding: 12px;">Cards (לא טבלה)</td>
+                        <td style="padding: 12px;">Search עליון, מסתיר עמודת אורחים</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; font-weight: 600;">Tablet</td>
+                        <td style="padding: 12px;">768px - 1024px</td>
+                        <td style="padding: 12px;">Table</td>
+                        <td style="padding: 12px;">מסתיר עמודת אורחים ב-mobile</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px; font-weight: 600;">Desktop</td>
+                        <td style="padding: 12px;">> 1024px</td>
+                        <td style="padding: 12px;">Table מלא</td>
+                        <td style="padding: 12px;">כל העמודות מוצגות</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- States Flow -->
+        <div class="wireframe-section">
+            <h2 class="section-title">מצבי מערכת - System States Flow</h2>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+                <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; text-align: center; min-width: 200px;">
+                    <div style="width: 60px; height: 60px; background: var(--success); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">1</div>
+                    <div style="font-weight: 600; margin-bottom: 4px;">מצב התחלתי</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">כל האירועים מוצגים</div>
+                </div>
+
+                <div style="font-size: 24px; color: var(--text-muted); display: flex; align-items: center;">→</div>
+
+                <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; text-align: center; min-width: 200px;">
+                    <div style="width: 60px; height: 60px; background: var(--brand-primary); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">2</div>
+                    <div style="font-weight: 600; margin-bottom: 4px;">הקלדה</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">debounce 300ms</div>
+                </div>
+
+                <div style="font-size: 24px; color: var(--text-muted); display: flex; align-items: center;">→</div>
+
+                <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; text-align: center; min-width: 200px;">
+                    <div style="width: 60px; height: 60px; background: var(--brand-primary); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">3</div>
+                    <div style="font-weight: 600; margin-bottom: 4px;">טעינה</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">Livewire request</div>
+                </div>
+
+                <div style="font-size: 24px; color: var(--text-muted); display: flex; align-items: center;">→</div>
+
+                <div style="background: var(--bg-surface); padding: 20px; border-radius: 12px; text-align: center; min-width: 200px;">
+                    <div style="width: 60px; height: 60px; background: var(--success); border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 24px;">4</div>
+                    <div style="font-weight: 600; margin-bottom: 4px;">תוצאות</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">טבלה מתעדכנת</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Specifications -->
+        <div class="wireframe-section">
+            <h2 class="section-title">מפרטים טכניים - Technical Specs</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">📁 Files Structure</div>
+                    <code style="font-size: 11px; display: block; background: white; padding: 8px; border-radius: 6px;">
+                        app/Livewire/Dashboard/<br>
+                        └── EventList.php<br><br>
+                        resources/views/livewire/dashboard/<br>
+                        └── event-list.blade.php
+                    </code>
+                </div>
+
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">🔌 Livewire Properties</div>
+                    <code style="font-size: 11px; display: block; background: white; padding: 8px; border-radius: 6px;">
+                        public string $search = '';<br>
+                        public string $filterStatus = '';<br>
+                        public int $perPage = 15;
+                    </code>
+                </div>
+
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">🗄️ Database Query</div>
+                    <code style="font-size: 11px; display: block; background: white; padding: 8px; border-radius: 6px;">
+                        Event::query()<br>
+                        ->where('organization_id', $orgId)<br>
+                        ->when($search, fn($q) =><br>
+                        &nbsp;&nbsp;$q->where('name', 'LIKE', "%$search%")<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;->orWhere('venue_name', 'LIKE', ...)<br>
+                        ->paginate($perPage)
+                    </code>
+                </div>
+
+                <div style="background: var(--bg-surface); padding: 16px; border-radius: 10px;">
+                    <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">♿ Accessibility</div>
+                    <div style="font-size: 12px; color: var(--text-secondary);">
+                        • ARIA labels על שדה חיפוש<br>
+                        • Keyboard navigation<br>
+                        • Screen reader announcements<br>
+                        • Focus indicators<br>
+                        • תמיכה ב-RTL
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Tokens -->
+        <div class="wireframe-section">
+            <h2 class="section-title">ערכות צבע - Design Tokens</h2>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 40px; height: 40px; background: #3b82f6; border-radius: 8px; border: 2px solid var(--border-color);"></div>
+                    <div style="font-size: 12px;">
+                        <div>brand-primary</div>
+                        <div style="color: var(--text-muted);">#3b82f6</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 40px; height: 40px; background: #f1f5f9; border-radius: 8px; border: 2px solid var(--border-color);"></div>
+                    <div style="font-size: 12px;">
+                        <div>bg-surface</div>
+                        <div style="color: var(--text-muted);">#f1f5f9</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 40px; height: 40px; background: #fef3c7; border-radius: 8px; border: 2px solid var(--border-color);"></div>
+                    <div style="font-size: 12px;">
+                        <div>highlight-bg</div>
+                        <div style="color: var(--text-muted);">#fef3c7</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 40px; height: 40px; background: #eff6ff; border-radius: 8px; border: 2px solid var(--border-color);"></div>
+                    <div style="font-size: 12px;">
+                        <div>search-active-bg</div>
+                        <div style="color: var(--text-muted);">#eff6ff</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 40px; height: 40px; background: #e2e8f0; border-radius: 8px; border: 2px solid var(--border-color);"></div>
+                    <div style="font-size: 12px;">
+                        <div>border-color</div>
+                        <div style="color: var(--text-muted);">#e2e8f0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

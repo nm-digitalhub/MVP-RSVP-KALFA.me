@@ -12,6 +12,36 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @property int $id
+ * @property int $account_id
+ * @property int $product_plan_id
+ * @property AccountSubscriptionStatus $status
+ * @property \Illuminate\Support\Carbon|null $started_at
+ * @property \Illuminate\Support\Carbon|null $trial_ends_at
+ * @property \Illuminate\Support\Carbon|null $ends_at
+ * @property array<array-key, mixed>|null $metadata
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Account $account
+ * @property-read \App\Models\ProductPlan $productPlan
+ * @method static Builder<static>|AccountSubscription active()
+ * @method static Builder<static>|AccountSubscription newModelQuery()
+ * @method static Builder<static>|AccountSubscription newQuery()
+ * @method static Builder<static>|AccountSubscription query()
+ * @method static Builder<static>|AccountSubscription whereAccountId($value)
+ * @method static Builder<static>|AccountSubscription whereCreatedAt($value)
+ * @method static Builder<static>|AccountSubscription whereEndsAt($value)
+ * @method static Builder<static>|AccountSubscription whereId($value)
+ * @method static Builder<static>|AccountSubscription whereMetadata($value)
+ * @method static Builder<static>|AccountSubscription whereProductPlanId($value)
+ * @method static Builder<static>|AccountSubscription whereStartedAt($value)
+ * @method static Builder<static>|AccountSubscription whereStatus($value)
+ * @method static Builder<static>|AccountSubscription whereTrialEndsAt($value)
+ * @method static Builder<static>|AccountSubscription whereUpdatedAt($value)
+ * @mixin \Eloquent
+ * @mixin IdeHelperAccountSubscription
+ */
 class AccountSubscription extends Model
 {
     protected $fillable = [

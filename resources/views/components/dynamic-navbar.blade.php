@@ -20,8 +20,11 @@
 @endphp
 
 <div x-data="{ mobileMenuOpen: false }" x-id="['navbar']" x-cloak>
+    {{-- Lock body scroll when drawer is open --}}
+    <div x-effect="mobileMenuOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''"></div>
+
     {{-- Overlay --}}
-    <div x-show="mobileMenuOpen" 
+    <div x-show="mobileMenuOpen"
          x-transition:enter="transition-opacity ease-out duration-300"
          x-transition:enter-start="opacity-0"
          x-transition:enter-end="opacity-100"
@@ -29,7 +32,9 @@
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
          @click="mobileMenuOpen = false"
-         class="fixed inset-0 z-50 bg-gray-900/60 backdrop-blur-sm lg:hidden"></div>
+         class="fixed inset-0 z-50 bg-content/80 backdrop-blur-sm lg:hidden"
+         role="presentation"
+         aria-hidden="true"></div>
 
     {{-- Main Navbar --}}
     <nav class="glass-navbar sticky top-0 z-40" aria-label="{{ __('Main navigation') }}">
@@ -215,11 +220,12 @@
                 {{-- Mobile Toggle --}}
                 <div class="flex items-center gap-3 lg:hidden shrink-0">
                     @auth
-                        <div class="size-10 rounded-xl bg-brand/5 text-brand flex items-center justify-center font-black">
+                        <div class="size-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center font-black shadow-sm shadow-brand/10">
                             {{ substr(auth()->user()->name, 0, 1) }}
                         </div>
                     @endauth
-                    <button @click="mobileMenuOpen = true" class="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-brand active:scale-90 transition-all">
+                    <button @click="mobileMenuOpen = true" class="p-2.5 rounded-xl bg-surface border border-stroke text-content-muted hover:text-brand hover:border-brand/30 active:scale-95 transition-all"
+                            aria-label="{{ __('Open menu') }}">
                         <x-heroicon-o-bars-3-bottom-right class="size-7" />
                     </button>
                 </div>
@@ -228,129 +234,114 @@
     </nav>
 
     {{-- Mobile Sidebar Drawer --}}
-    <div x-show="mobileMenuOpen" 
+    <div x-show="mobileMenuOpen"
+         @keydown.escape.window="mobileMenuOpen = false"
          x-transition:enter="transition ease-out duration-300 transform"
          x-transition:enter-start="{{ isRTL() ? 'translate-x-full' : '-translate-x-full' }}"
          x-transition:enter-end="translate-x-0"
          x-transition:leave="transition ease-in duration-200 transform"
          x-transition:leave-start="translate-x-0"
          x-transition:leave-end="{{ isRTL() ? 'translate-x-full' : '-translate-x-full' }}"
-         class="fixed inset-y-0 {{ isRTL() ? 'right-0 is-rtl' : 'left-0' }} z-50 w-80 max-w-[85vw] bg-white dark:bg-gray-950 flex flex-col shadow-2xl overflow-hidden mobile-drawer lg:hidden"
+         class="fixed inset-y-0 {{ isRTL() ? 'right-0 is-rtl' : 'left-0' }} z-[60] w-72 max-w-[85vw] bg-card border-l border-stroke flex flex-col shadow-xl overflow-hidden mobile-drawer lg:hidden"
          :class="{ 'is-open': mobileMenuOpen }"
-         x-cloak>
-        
-        <div class="p-6 border-b border-gray-100 dark:border-gray-900 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+         x-cloak
+         role="dialog"
+         aria-modal="true"
+         aria-label="{{ __('Mobile navigation') }}">
+
+        <div class="px-4 py-3 border-b border-stroke flex items-center justify-between shrink-0 bg-surface">
+            <div class="flex items-center gap-2">
                 <x-kalfa-wordmark class="justify-start" />
             </div>
-            <button @click="mobileMenuOpen = false" class="size-10 rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-400 flex items-center justify-center active:scale-90 transition-all">
-                <x-heroicon-o-x-mark class="size-6" />
+            <button @click="mobileMenuOpen = false"
+                    class="size-9 rounded-xl bg-card border border-stroke text-content-muted hover:text-content hover:border-brand/30 hover:bg-surface flex items-center justify-center active:scale-95 transition-all"
+                    aria-label="{{ __('Close menu') }}">
+                <x-heroicon-o-x-mark class="size-5" />
             </button>
         </div>
 
-        <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-8 overscroll-contain">
+        <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-4 overscroll-contain">
             @guest
-                <div class="space-y-2 px-2">
-                    <a href="{{ route('login') }}" wire:navigate class="flex items-center justify-center w-full py-4 text-gray-700 dark:text-gray-300 font-bold hover:bg-gray-50 dark:hover:bg-gray-900 rounded-2xl">{{ __('login') }}</a>
-                    <a href="{{ route('register') }}" wire:navigate class="flex items-center justify-center w-full py-4 bg-brand text-white font-bold rounded-2xl shadow-lg shadow-brand/20 hover:bg-brand-hover">{{ __('register') }}</a>
+                <div class="space-y-2 px-1">
+                    <a href="{{ route('login') }}" wire:navigate class="flex items-center justify-center w-full py-2.5 text-sm text-content font-semibold hover:bg-surface hover:text-brand rounded-xl transition-colors">{{ __('login') }}</a>
+                    <a href="{{ route('register') }}" wire:navigate class="flex items-center justify-center w-full py-2.5 bg-brand text-white text-sm font-semibold rounded-xl shadow-lg shadow-brand/20 hover:bg-brand-hover hover:scale-[1.02] active:scale-95 transition-all">{{ __('register') }}</a>
                 </div>
             @else
-                {{-- User Summary --}}
-                <div class="p-5 rounded-3xl bg-gray-50 dark:bg-gray-900/50 border border-gray-100 dark:border-gray-900">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="size-12 rounded-2xl bg-brand flex items-center justify-center text-white font-black shadow-lg shadow-brand/20">
-                            {{ substr(auth()->user()->name, 0, 1) }}
-                        </div>
-                        <div class="min-w-0">
-                            <p class="font-black text-gray-900 dark:text-white truncate">{{ auth()->user()->name }}</p>
-                            <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest truncate">{{ auth()->user()->email }}</p>
-                        </div>
+                {{-- User Summary - Compact --}}
+                <div class="flex items-center gap-3 px-3 py-2.5 bg-surface border border-stroke rounded-xl">
+                    <div class="size-9 rounded-xl bg-gradient-to-br from-brand to-brand-hover flex items-center justify-center text-white font-bold shadow-md shadow-brand/20 shrink-0">
+                        {{ substr(auth()->user()->name, 0, 1) }}
                     </div>
-                    <div class="pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                        <x-dark-mode-toggle class="text-xs font-bold text-gray-500 flex items-center gap-2" />
-                        <a href="{{ route('profile') }}" wire:navigate class="text-xs font-bold text-brand">{{ __('My Profile') }}</a>
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm font-semibold text-content truncate">{{ auth()->user()->name }}</p>
                     </div>
+                    <x-dark-mode-toggle class="text-content-muted hover:text-content transition-colors" />
                 </div>
 
                 {{-- Main Nav --}}
                 <div>
-                    <p class="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">{{ __('App Directory') }}</p>
-                    <div class="space-y-1">
+                    <div class="space-y-0.5">
                         @can('view-event-details')
-                            <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all {{ $isDashboard ? 'bg-brand/5 text-brand' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900' }}">
-                                <x-heroicon-o-home class="size-5" />
+                            <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-2 px-3 py-2 rounded-lg font-semibold transition-all text-sm {{ $isDashboard ? 'bg-brand/10 text-brand' : 'text-content-muted hover:bg-surface hover:text-content' }}">
+                                <x-heroicon-o-home class="size-4.5 shrink-0" />
                                 {{ __('Dashboard') }}
                             </a>
-                            <a href="{{ route('dashboard.events.index') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all {{ $isEventsIndex ? 'bg-brand/5 text-brand' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900' }}">
-                                <x-heroicon-o-calendar class="size-5" />
+                            <a href="{{ route('dashboard.events.index') }}" wire:navigate class="flex items-center gap-2 px-3 py-2 rounded-lg font-semibold transition-all text-sm {{ $isEventsIndex ? 'bg-brand/10 text-brand' : 'text-content-muted hover:bg-surface hover:text-content' }}">
+                                <x-heroicon-o-calendar class="size-4.5 shrink-0" />
                                 {{ __('Events') }}
                             </a>
                         @endcan
                         @can('manage-system')
-                            <a href="{{ route('twilio.calling.index') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold transition-all {{ $isCalling ? 'bg-brand/5 text-brand' : 'text-gray-600 dark:text-gray-400' }}">
-                                <x-heroicon-o-phone class="size-5" />
+                            <a href="{{ route('twilio.calling.index') }}" wire:navigate class="flex items-center gap-2 px-3 py-2 rounded-lg font-semibold transition-all text-sm {{ $isCalling ? 'bg-brand/10 text-brand' : 'text-content-muted hover:bg-surface hover:text-content' }}">
+                                <x-heroicon-o-phone class="size-4.5 shrink-0" />
                                 {{ __('Calling') }}
                             </a>
                         @endcan
                     </div>
                 </div>
 
-                {{-- Organizations --}}
+                {{-- Organizations - Compact --}}
                 <div>
-                    <p class="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">{{ __('Organization Workspace') }}</p>
-                    <div class="space-y-4">
-                        @if($currentOrg)
-                            <div class="mx-2 p-4 bg-brand/5 dark:bg-brand/10 rounded-2xl border border-brand/10">
-                                <p class="text-[9px] font-black text-brand/50 uppercase tracking-widest mb-1">{{ __('Active Space') }}</p>
-                                <p class="font-black text-content mb-3 truncate">{{ $currentOrg->name }}</p>
-                                <a href="{{ route('dashboard.organization-settings.edit') }}" wire:navigate class="flex items-center gap-2 text-xs font-black text-brand">
-                                    <x-heroicon-o-cog class="size-4" />
-                                    {{ __('Config Environment') }}
-                                </a>
-                            </div>
-                        @endif
-                        <a href="{{ route('organizations.index') }}" wire:navigate class="flex items-center gap-3 px-4 py-3 rounded-xl font-bold text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900">
-                            <x-heroicon-o-squares-2x2 class="size-5" />
-                            {{ __('All Entities') }}
-                        </a>
-                    </div>
+                    <p class="px-3 text-[9px] font-semibold text-content-muted uppercase tracking-wider mb-2">{{ __('Organization') }}</p>
+                    @if($currentOrg)
+                        <div class="mx-1 px-3 py-2 bg-brand/5 border border-brand/10 rounded-xl mb-2">
+                            <p class="text-xs font-semibold text-content truncate">{{ $currentOrg->name }}</p>
+                        </div>
+                    @endif
+                    <a href="{{ route('organizations.index') }}" wire:navigate class="flex items-center gap-2 px-3 py-2 rounded-lg font-semibold text-sm text-content-muted hover:bg-surface hover:text-content transition-colors">
+                        <x-heroicon-o-squares-2x2 class="size-4.5 shrink-0" />
+                        {{ __('All Organizations') }}
+                    </a>
                 </div>
 
-                {{-- System Administration --}}
+                {{-- System Administration - Compact Grid --}}
                 @can('manage-system')
-                    <div class="pt-4 border-t border-gray-100 dark:border-gray-900">
-                        <p class="px-4 text-[10px] font-black text-amber-600 uppercase tracking-[0.2em] mb-3 flex items-center justify-between">
-                            {{ __('Internal Tools') }}
-                            <span class="bg-amber-100 dark:bg-amber-900/30 text-amber-700 px-1.5 py-0.5 rounded text-[8px] tracking-normal">{{ __('Admin Mode') }}</span>
-                        </p>
-                        <div class="grid grid-cols-3 gap-2 px-2">
-                            <a href="{{ route('system.dashboard') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <x-heroicon-o-presentation-chart-line class="size-5 text-amber-500" />
-                                <span class="text-[9px] font-black uppercase text-center">{{ __('Stats') }}</span>
+                    <div class="pt-3 border-t border-stroke">
+                        <p class="px-3 text-[9px] font-semibold text-warning uppercase tracking-wider mb-2">{{ __('Admin') }}</p>
+                        <div class="grid grid-cols-4 gap-2 px-1">
+                            <a href="{{ route('system.dashboard') }}" wire:navigate class="flex flex-col items-center gap-1.5 p-2.5 bg-surface border border-stroke rounded-xl text-content hover:text-brand hover:border-brand/20 hover:bg-brand/5 transition-colors">
+                                <x-heroicon-o-presentation-chart-line class="size-4 text-warning" />
+                                <span class="text-[8px] font-semibold uppercase text-center leading-tight">{{ __('Stats') }}</span>
                             </a>
-                            <a href="{{ route('system.organizations.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <x-heroicon-o-building-office class="size-5 text-amber-500" />
-                                <span class="text-[9px] font-black uppercase text-center">{{ __('Organizations') }}</span>
+                            <a href="{{ route('system.organizations.index') }}" wire:navigate class="flex flex-col items-center gap-1.5 p-2.5 bg-surface border border-stroke rounded-xl text-content hover:text-brand hover:border-brand/20 hover:bg-brand/5 transition-colors">
+                                <x-heroicon-o-building-office class="size-4 text-warning" />
+                                <span class="text-[8px] font-semibold uppercase text-center leading-tight">{{ __('Orgs') }}</span>
                             </a>
-                            <a href="{{ route('system.accounts.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <x-heroicon-o-credit-card class="size-5 text-amber-500" />
-                                <span class="text-[9px] font-black uppercase text-center">{{ __('Billing') }}</span>
+                            <a href="{{ route('system.accounts.index') }}" wire:navigate class="flex flex-col items-center gap-1.5 p-2.5 bg-surface border border-stroke rounded-xl text-content hover:text-brand hover:border-brand/20 hover:bg-brand/5 transition-colors">
+                                <x-heroicon-o-credit-card class="size-4 text-warning" />
+                                <span class="text-[8px] font-semibold uppercase text-center leading-tight">{{ __('Bill') }}</span>
                             </a>
-                            <a href="{{ route('system.products.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <x-heroicon-o-cube class="size-5 text-amber-500" />
-                                <span class="text-[9px] font-black uppercase text-center">{{ __('Products') }}</span>
+                            <a href="{{ route('system.users.index') }}" wire:navigate class="flex flex-col items-center gap-1.5 p-2.5 bg-surface border border-stroke rounded-xl text-content hover:text-brand hover:border-brand/20 hover:bg-brand/5 transition-colors">
+                                <x-heroicon-o-user-group class="size-4 text-warning" />
+                                <span class="text-[8px] font-semibold uppercase text-center leading-tight">{{ __('Users') }}</span>
                             </a>
-                            <a href="{{ route('system.users.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <x-heroicon-o-user-group class="size-5 text-amber-500" />
-                                <span class="text-[9px] font-black uppercase text-center">{{ __('Users') }}</span>
+                            <a href="{{ route('system.products.index') }}" wire:navigate class="flex flex-col items-center gap-1.5 p-2.5 bg-surface border border-stroke rounded-xl text-content hover:text-brand hover:border-brand/20 hover:bg-brand/5 transition-colors">
+                                <x-heroicon-o-cube class="size-4 text-warning" />
+                                <span class="text-[8px] font-semibold uppercase text-center leading-tight">{{ __('Prod') }}</span>
                             </a>
-                            <a href="{{ route('system.settings.index') }}" wire:navigate class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <x-heroicon-o-cog-8-tooth class="size-5 text-amber-500" />
-                                <span class="text-[9px] font-black uppercase text-center">{{ __('Settings') }}</span>
-                            </a>
-                            <a href="/pulse" target="_blank" class="flex flex-col items-center gap-2 p-3 bg-gray-50 dark:bg-gray-900 rounded-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                                <x-heroicon-o-bolt class="size-5 text-amber-500" />
-                                <span class="text-[9px] font-black uppercase text-center">{{ __('Pulse') }}</span>
+                            <a href="{{ route('system.settings.index') }}" wire:navigate class="flex flex-col items-center gap-1.5 p-2.5 bg-surface border border-stroke rounded-xl text-content hover:text-brand hover:border-brand/20 hover:bg-brand/5 transition-colors">
+                                <x-heroicon-o-cog-8-tooth class="size-4 text-warning" />
+                                <span class="text-[8px] font-semibold uppercase text-center leading-tight">{{ __('Set') }}</span>
                             </a>
                         </div>
                     </div>
@@ -359,14 +350,20 @@
         </nav>
 
         @auth
-            <div class="p-6 border-t border-gray-100 dark:border-gray-900 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="flex items-center justify-center w-full py-4 text-red-600 font-black hover:bg-red-50 dark:hover:bg-red-950/20 rounded-2xl transition-colors">
-                        <x-heroicon-o-arrow-left-on-rectangle class="size-5 me-2" />
-                        {{ __('Sign Out of Kernel') }}
-                    </button>
-                </form>
+            <div class="px-3 py-3 border-t border-stroke bg-card/95 backdrop-blur-md shrink-0">
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('profile') }}" wire:navigate class="flex-1 flex items-center justify-center gap-1.5 py-2 text-sm font-semibold text-content hover:bg-surface hover:text-brand rounded-xl transition-colors">
+                        <x-heroicon-o-user-circle class="size-4" />
+                        {{ __('Profile') }}
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" class="flex-1">
+                        @csrf
+                        <button type="submit" class="w-full flex items-center justify-center gap-1.5 py-2 text-sm font-semibold text-danger hover:bg-danger/10 rounded-xl transition-colors">
+                            <x-heroicon-o-arrow-left-on-rectangle class="size-4" />
+                            {{ __('Logout') }}
+                        </button>
+                    </form>
+                </div>
             </div>
         @endauth
     </div>

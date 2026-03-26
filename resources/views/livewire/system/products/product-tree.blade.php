@@ -156,10 +156,16 @@
                 >
                     @foreach ($this->plans as $plan)
                         @php
-                            $primaryPrice = $plan->prices->firstWhere('is_active', true) ?? $plan->prices->first();
+                            $primaryPrice = $plan->prices->firstWhere('billing_cycle', \App\Enums\ProductPriceBillingCycle::Monthly)
+                                ?? $plan->prices->firstWhere('is_active', true)
+                                ?? $plan->prices->first();
                             $commercialMetadata = (array) data_get($plan->metadata, 'commercial', []);
                             $includedQuantity = data_get($commercialMetadata, 'included_quantity');
-                            $includedUnit = (string) data_get($commercialMetadata, 'included_unit', '');
+                            $rawIncludedUnit = (string) data_get($commercialMetadata, 'included_unit', '');
+                            $unitLabels = [
+                                'voice_rsvp_calls' => __('RSVP calls'),
+                            ];
+                            $includedUnitLabel = $unitLabels[$rawIncludedUnit] ?? str_replace('_', ' ', $rawIncludedUnit);
                             $billingCycleLabel = match ($primaryPrice?->billing_cycle?->value) {
                                 'yearly' => __('Yearly'),
                                 'usage' => __('Usage'),
@@ -174,10 +180,10 @@
                                         'style' => 'metric',
                                     ]
                                     : null,
-                                $includedQuantity && $includedUnit !== ''
+                                $includedQuantity && $rawIncludedUnit !== ''
                                     ? [
                                         'label' => __('Included'),
-                                        'value' => number_format((int) $includedQuantity).' '.$includedUnit,
+                                        'value' => number_format((int) $includedQuantity).' '.$includedUnitLabel,
                                         'tone' => 'brand',
                                     ]
                                     : null,
@@ -194,7 +200,7 @@
                                 :label="$plan->name"
                                 :identifier="$plan->slug"
                                 :status="$plan->is_active ? 'active' : 'inactive'"
-                                :type="'plan'"
+                               type="plan"
                                 :description="$plan->description"
                                 :meta="$planMeta"
                                 :draggable="true"

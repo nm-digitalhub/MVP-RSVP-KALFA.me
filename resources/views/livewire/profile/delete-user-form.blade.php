@@ -45,18 +45,19 @@
                 {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
             </p>
 
-            <div>
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
-                <x-text-input
+            <flux:field>
+                <flux:label for="password" class="sr-only">{{ __('Password') }}</flux:label>
+                <flux:input
                     wire:model="password"
                     id="password"
                     name="password"
                     type="password"
-                    class="block w-full"
                     placeholder="{{ __('Password') }}"
+                    icon="lock-closed"
+                    class="mt-1"
                 />
-                <x-input-error :messages="$errors->get('password')" class="mt-2" />
-            </div>
+                <flux:error name="password" class="mt-2" />
+            </flux:field>
 
             <div class="mt-6 flex justify-end gap-3">
                 <x-secondary-button x-on:click="$dispatch('close')" type="button">

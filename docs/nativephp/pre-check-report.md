@@ -56,6 +56,9 @@ composer show nativephp/mobile
 | `NATIVEPHP_APP_ID` | ✅ | `me.kalfa.eventrsvp` | Reverse domain format ✅ |
 | `NATIVEPHP_DEEPLINK_SCHEME` | ✅ | `kalfa` | For kalfa:// URLs ✅ |
 | `NATIVEPHP_DEEPLINK_HOST` | ✅ | `kalfa.me` | HTTPS deep linking ✅ |
+| `NATIVEPHP_AASA_WEBCREDENTIALS` | ✅ | `true` | AASA includes `webcredentials` (passkeys on `kalfa.me`) |
+| `NATIVEPHP_ANDROID_PACKAGE_NAME` | ✅ | `me.kalfa.eventrsvp` | `assetlinks.json` target package |
+| `NATIVEPHP_ANDROID_ASSETLINKS_SHA256` | ⚠️ | Set in `.env` from Play App Signing | Until set, `/.well-known/assetlinks.json` returns `[]` (no App Links verification) |
 | `NATIVEPHP_START_URL` | ✅ | `/mobile` | Entry point ✅ |
 | `NATIVEPHP_APP_VERSION` | ❌ | Not set | Default: "DEBUG" |
 | `NATIVEPHP_APP_VERSION_CODE` | ❌ | Not set | Default: 1 |
@@ -63,7 +66,7 @@ composer show nativephp/mobile
 **Missing Required Variables:**
 - `NATIVEPHP_APP_VERSION` - Should be "1.0.0" for production
 - `NATIVEPHP_APP_VERSION_CODE` - Integer for Play Store (1, 2, 3...)
-- `NATIVEPHP_DEVELOPMENT_TEAM` - Apple Team ID (10 chars, e.g., "ABC1234567")
+- `NATIVEPHP_DEVELOPMENT_TEAM` - Apple Team ID (10 chars), לדוגמה `3P6C82QTRL` מ-Membership details
 
 ### iOS Credentials (`/credentials/`)
 
@@ -340,7 +343,7 @@ Requirements:
 
 2. **Configure Team ID:**
    ```env
-   NATIVEPHP_DEVELOPMENT_TEAM="ABC1234567"  # From Apple Developer account
+   NATIVEPHP_DEVELOPMENT_TEAM=3P6C82QTRL
    ```
 
 3. **Run Install Command:**

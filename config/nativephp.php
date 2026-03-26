@@ -72,6 +72,35 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Universal Links / App Links (.well-known)
+    |--------------------------------------------------------------------------
+    |
+    | When NATIVEPHP_DEEPLINK_HOST is set, Apple and Google fetch these URLs over
+    | HTTPS on that host (see NativePHP deep-links documentation).
+    | Routes: /.well-known/apple-app-site-association and /.well-known/assetlinks.json
+    |
+    | Android: set NATIVEPHP_ANDROID_ASSETLINKS_SHA256 to comma-separated SHA-256
+    | cert fingerprints (upload key and/or Play App Signing certificate).
+    |
+    */
+
+    'android_package_name' => env('NATIVEPHP_ANDROID_PACKAGE_NAME') ?: env('NATIVEPHP_APP_ID'),
+
+    'android_assetlinks_sha256_cert_fingerprints' => array_values(array_filter(array_map(
+        static fn (string $fp): string => trim($fp),
+        preg_split('/\s*,\s*/', (string) env('NATIVEPHP_ANDROID_ASSETLINKS_SHA256', ''), -1, PREG_SPLIT_NO_EMPTY) ?: []
+    ))),
+
+    'universal_links' => [
+        'aasa_webcredentials' => filter_var(
+            env('NATIVEPHP_AASA_WEBCREDENTIALS', true),
+            FILTER_VALIDATE_BOOL,
+            FILTER_NULL_ON_FAILURE
+        ) ?? true,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Native Assets
     |--------------------------------------------------------------------------
     |
@@ -114,6 +143,12 @@ return [
     | account under Membership details.
     |
     */
+    /*
+     * Apple Developer Team ID for the generated iOS project / Xcode.
+     * For `php artisan native:package ios`, NativePHP also expects IOS_TEAM_ID
+     * in .env (see deployment docs); use the same 10-character value or
+     * IOS_TEAM_ID=${NATIVEPHP_DEVELOPMENT_TEAM} in .env.
+     */
     'development_team' => env('NATIVEPHP_DEVELOPMENT_TEAM'),
 
     /*
@@ -141,6 +176,11 @@ return [
         'APP_STORE_API_KEY',
         'APP_STORE_API_KEY_ID',
         'APP_STORE_API_ISSUER_ID',
+        'APP_STORE_API_KEY_PATH',
+        'IOS_DISTRIBUTION_CERTIFICATE_PATH',
+        'IOS_DISTRIBUTION_CERTIFICATE_PASSWORD',
+        'IOS_DISTRIBUTION_PROVISIONING_PROFILE_PATH',
+        'IOS_TEAM_ID',
     ],
 
     /*
@@ -325,6 +365,16 @@ return [
     |   'camera' => true,  // Uses default message
     |   'camera' => 'We need camera access to scan QR codes for login.',
     |   'camera' => false, // Permission disabled
+    |
+    | Android also merges INTERNET and ACCESS_NETWORK_STATE from the
+    | kalfa/secure-storage plugin manifest (required for the mobile shell
+    | HTTPS session and ConnectivityManager when network_state is enabled).
+    |
+    | iOS: NativePHP applies permission-related Info.plist usage strings from
+    | this config when enabled. Keychain storage (kalfa/secure-storage) does
+    | not require NS*UsageDescription keys per Apple. General HTTPS in the
+    | WebView uses App Transport Security defaults. Set development_team for
+    | code signing (see NativePHP configuration docs).
     |
     | Make sure you run `php artisan native:install --force` after changing.
     |

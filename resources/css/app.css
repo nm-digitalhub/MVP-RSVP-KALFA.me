@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@import "../../vendor/livewire/flux/dist/flux.css";
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Brand Palette */
   --color-brand: #6C4CF1;
@@ -160,10 +163,12 @@
   /* Reusable base for inputs/textareas */
   .input-base {
     @apply w-full min-h-[48px] rounded-xl border border-stroke bg-card px-4 py-3 text-sm leading-6 text-content shadow-sm transition-[border-color,box-shadow,background-color] placeholder:text-content-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30 focus:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 rtl:text-end;
+    box-sizing: border-box;
   }
 
   .textarea-base {
     @apply w-full min-h-[48px] rounded-xl border border-stroke bg-card px-4 py-3 text-sm leading-6 text-content shadow-sm transition-[border-color,box-shadow,background-color] placeholder:text-content-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/30 focus:ring-offset-0 disabled:cursor-not-allowed disabled:opacity-60 rtl:text-end field-sizing-fixed resize-y;
+    box-sizing: border-box;
   }
 
   /* ─── Livewire form design system ────────────────────────── */
@@ -191,10 +196,32 @@
     @apply flex items-center gap-3 pt-1;
   }
 
+  ui-field,
+  [data-flux-field] {
+    @apply block w-full;
+    outline-offset: -2px;
+  }
+
+  [data-flux-field]:focus-within,
+  ui-field:focus-within {
+    outline-offset: -2px;
+  }
+
   /* ─── Premium Glass Navbar ────────────────────────────────── */
   .glass-navbar {
     @apply sticky top-0 z-40 w-full backdrop-blur-md border-b border-[var(--color-nav-border)] shadow-nav transition-all duration-300;
     background: var(--color-nav-bg);
+  }
+
+  /* ─── Main Content Spacing (mobile navbar offset) ────────────────────────────────── */
+  main#main-content {
+    @apply pt-3 sm:pt-4 lg:pt-0;
+  }
+
+  /* Pages with their own padding can add .no-main-spacing to their root element */
+  main#main-content:has(> .no-main-spacing),
+  main#main-content > .no-main-spacing {
+    @apply pt-0;
   }
 
   /* Mobile drawer styles */
@@ -527,9 +554,11 @@
   @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
 }
 
-:not(.sr-only) {
-  @apply focus:not-sr-only;
-}
+  /*
+  :not(.sr-only) {
+    @apply focus:not-sr-only;
+  }
+  */
 
 /* ─── Touch Target Enhancement ────────────────────────────────── */
 

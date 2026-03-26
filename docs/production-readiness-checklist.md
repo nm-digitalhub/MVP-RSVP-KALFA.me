@@ -95,9 +95,11 @@
 ### 1. iOS Deployment
 - [ ] **Set Apple Developer Team ID** in `.env`
   ```env
-  NATIVEPHP_DEVELOPMENT_TEAM=ABC1234567  # Get from Apple Developer account
+  NATIVEPHP_DEVELOPMENT_TEAM=3P6C82QTRL  # Apple Developer → Membership details
   ```
   - **Location:** [Apple Developer Membership](https://developer.apple.com/account)
+
+- [ ] **Universal Links (AASA)** — with `NATIVEPHP_DEEPLINK_HOST=kalfa.me`, confirm `https://kalfa.me/.well-known/apple-app-site-association` returns 200 JSON where `applinks.details[0].appIDs` contains `3P6C82QTRL.me.kalfa.eventrsvp`. Xcode / NativePHP: Associated Domains must include `applinks:kalfa.me` (handled when env is set per NativePHP docs).
 
 - [ ] **Test iOS build** on macOS or via GitHub Actions
   ```bash
@@ -124,6 +126,8 @@
 - [ ] **Google Play Console app created**
   - Package: `me.kalfa.eventrsvp`
   - Privacy policy URL ready
+
+- [ ] **App Links (Digital Asset Links)** — set `NATIVEPHP_ANDROID_ASSETLINKS_SHA256` in `.env` to the SHA-256 fingerprint(s) from Play Console (App signing). Confirm `https://kalfa.me/.well-known/assetlinks.json` returns JSON with your `package_name` and fingerprints (not `[]`).
 
 - [ ] **Screenshots prepared**:
   - Phone (6.7" / 5.5"): 1080 x 2400 px minimum
@@ -157,12 +161,15 @@
 grep -E "^NATIVEPHP_|^GEMINI_|^TWILIO_|^PULSE_" .env | sort
 ```
 
-**Expected output:**
+**Expected output (illustrative — include all NativePHP keys you use):**
 ```
 GEMINI_API_KEY=AIzaSyDogGQZXK0v_zBtmMJZ3s4qoPBs9HfZdH4
+NATIVEPHP_ANDROID_ASSETLINKS_SHA256=…
+NATIVEPHP_ANDROID_PACKAGE_NAME=me.kalfa.eventrsvp
 NATIVEPHP_APP_ID=me.kalfa.eventrsvp
 NATIVEPHP_APP_VERSION=1.0.0
 NATIVEPHP_APP_VERSION_CODE=1
+NATIVEPHP_AASA_WEBCREDENTIALS=true
 NATIVEPHP_DEEPLINK_HOST=kalfa.me
 NATIVEPHP_DEEPLINK_SCHEME=kalfa
 NATIVEPHP_START_URL=/mobile
